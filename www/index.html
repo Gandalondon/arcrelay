@@ -115,6 +115,7 @@ body.intro .app{opacity:0}
 .vlist li .play[hidden]{display:none}
 .seg button{all:unset;cursor:pointer;flex:1 1 0;text-align:center;height:48px;border-radius:999px;background:#26282D;font:600 16px/48px var(--body)}
 .seg button.on{background:var(--amber);color:var(--ink)}
+.about.wakenote{margin-top:12px;opacity:.75;font-size:14px;line-height:20px}
 .about{margin:0 0 12px;font-size:16px;line-height:24px;text-wrap:pretty}
 .about.ver{opacity:.75;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
 .dbg{white-space:pre-wrap;font:400 14px/20px ui-monospace,monospace;margin:0;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));-webkit-user-select:text;user-select:text}
@@ -143,6 +144,9 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
   <ul><li class="vrow"><button type="button" id="setvoice"><span class="n" id="setvname"></span><span class="m" id="setvmeta"></span></button><button type="button" class="play" id="setplay" aria-label="Hear this voice"></button></li></ul>
   <h3>Speaking speed</h3>
   <div class="seg" id="speeds" role="radiogroup" aria-label="Speaking speed"></div>
+  <h3>Say “Hey Relay”</h3>
+  <div class="seg" id="wakeopt" role="radiogroup" aria-label="Wake phrase"></div>
+  <p class="about wakenote">Relay listens for just those two words while it's open on your screen. Nothing else is transcribed or sent anywhere.</p>
   <h3>About</h3>
   <p class="about">Ask Relay where to go, how to get out, or what's next on your quest. Tap the microphone and talk; it keeps listening for follow-ups. Everything runs on your phone, so it works without internet once the voice is downloaded.</p>
   <p class="about">Unofficial companion, not made or endorsed by Embark Studios. Map data from <span class="u">MetaForge</span> (metaforge.app). Place names and distances from allthings.how. Voice: Supertonic 3 by Supertone (OpenRAIL-M licence), running on sherpa-onnx (Apache 2.0).</p>
@@ -696,7 +700,7 @@ const OV = CAP && CAP.RelayOfflineVoice ? CAP.RelayOfflineVoice : null;
 const OV_VOICES = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4].map(sid => ({ sid, label: (sid >= 5 ? "Male " + (sid - 4) : "Female " + (sid + 1)) }));
 /* settings kept apart from raid state, so they survive "close" and restarts */
 const CFG_KEY = "relay-settings";
-let CFG = { sid: 0, speed: 1.0, off: false, crash: "" };  /* Female 1: Tony's pick */
+let CFG = { sid: 0, speed: 1.0, off: false, crash: "", wake: true };  /* Female 1: Tony's pick */
 try { const c = JSON.parse(localStorage.getItem(CFG_KEY) || "null"); if (c) CFG = Object.assign(CFG, c); else if (S.ovSid != null) CFG.sid = S.ovSid; } catch (e) {}
 const saveCfg = () => { try { localStorage.setItem(CFG_KEY, JSON.stringify(CFG)); } catch (e) {} };
 const SPEEDS = [{ v: 1.0, l: "Normal" }, { v: 1.15, l: "Faster" }, { v: 1.3, l: "Fast" }];
@@ -721,6 +725,7 @@ function ovSpeak(s, fin, onTimes) {
 let speakId = 0;
 function speak(s, done) {
   if (!s) { if (done) done(); return; }
+  wakeStop();
   const id = ++speakId;
   const fin = ok => { if (id !== speakId) return; setVoiceState("idle"); if (ok && done) done(); };
   setVoiceState("speaking");
@@ -753,6 +758,17 @@ const CONVO_MS = 45000;
 const RS = CAP && CAP.RelaySpeech ? CAP.RelaySpeech : null;
 let speechOnDevice = false, speechMode = "";
 if (RS) RS.available().then(r => { speechOnDevice = !!(r && r.onDevice); }).catch(() => {});
+/* "Hey Relay": standby only while Relay is idle on screen; off while listening to you, speaking, in Settings or in the background */
+const WK = CAP && CAP.RelayWake ? CAP.RelayWake : null;
+let wakeOn = false, wakeErr = "";
+function relayIdle() { return !listening && !document.body.classList.contains("speaking") && !document.hidden && Date.now() > convoUntil && $("settings").hidden && $("vlist").hidden && $("debug").hidden && !document.body.classList.contains("intro"); }
+function wakeStandby() { if (!WK || !CFG.wake || wakeOn || !relayIdle()) return; wakeOn = true; WK.start().catch(e => { wakeOn = false; wakeErr = String(e && e.message || e); }); if (!S.last) setCtx("Say \u201cHey Relay\u201d, or tap."); }
+function wakeStop() { if (!WK || !wakeOn) return Promise.resolve(); wakeOn = false; return WK.stop().catch(() => {}); }
+if (WK) {
+  WK.addListener("wake", () => { wakeOn = false; setTimeout(() => { if (!listening && !document.body.classList.contains("speaking")) listen(); }, 250); });  /* a beat for the microphone to be released */
+  WK.addListener("error", e => { wakeOn = false; wakeErr = e && e.error || "error"; });
+  setInterval(() => { if (relayIdle()) wakeStandby(); else if (wakeOn && (document.hidden || !$("settings").hidden || !$("vlist").hidden)) wakeStop(); }, 1500);
+}
 let convoUntil = 0, listening = false, followMode = false, webRec = null, fastFails = 0;
 /* the halo and waveform follow this, and only this: is the microphone actually capturing right now */
 function micOn(v) { listening = v; document.body.classList.toggle("mic-on", !!v); }
@@ -785,6 +801,7 @@ async function listen(opts) {
   const auto = !!(opts && opts.auto);
   if (listening) { if (followMode && !auto) { followMode = false; renderListening(); } else if (!auto) stopListening(); return; }
   if (document.body.classList.contains("speaking")) { if (auto) return; stopSpeaking(); }
+  if (wakeOn) await wakeStop();  /* the wake listener lets go of the microphone first */
   if (!navigator.onLine && !speechOnDevice) { convoUntil = 0; showError("No connection. Speech recognition needs one on this phone. Check your signal and tap again."); return; }
   const startedAt = Date.now();
   /* Relay's own recogniser: on the phone when it can be (no internet needed), online otherwise */
@@ -1178,7 +1195,7 @@ const show = (id, on) => { $(id).hidden = !on; };
 /* Settings: voice, speaking speed, about. Opened from the cog on the home screen only. */
 function openSettings() {
   if (document.body.matches(".session,.listening,.speaking,.follow")) return;
-  stopListening(); show("settings", true); renderSettings();
+  stopListening(); wakeStop(); show("settings", true); renderSettings();
 }
 function renderSettings() {
   $("setvname").textContent = ovInstalled ? voiceName(CFG.sid) : "Not downloaded yet";
@@ -1190,6 +1207,14 @@ function renderSettings() {
     b.addEventListener("click", () => { CFG.speed = sp.v; saveCfg(); renderSettings(); preview(null, t => { $("setvmeta").textContent = t; }); });
     box.appendChild(b);
   });
+  const wb = $("wakeopt"); wb.innerHTML = "";
+  [{ v: true, l: "On" }, { v: false, l: "Off" }].forEach(o => {
+    const b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "radio"); b.setAttribute("aria-checked", String(CFG.wake === o.v));
+    b.textContent = o.l; if (CFG.wake === o.v) b.classList.add("on");
+    b.addEventListener("click", () => { CFG.wake = o.v; saveCfg(); renderSettings(); if (!o.v) wakeStop(); });
+    wb.appendChild(b);
+  });
+  $("wakeopt").parentElement && ($("wakeopt").hidden = !WK);
   const ver = $("ver"); ver.textContent = "Relay " + APP_VERSION;
   $("setplay").innerHTML = PLAY_ICON; $("setplay").hidden = !ovInstalled;
 }
@@ -1228,6 +1253,7 @@ async function openDebug() {
     "Voice load error: " + (ovWarmErr || "none"),
     "Last voice sample: " + (lastPreview || "none yet"),
     "Gemini Nano: " + aiStatus,
+    "Hey Relay: " + (!WK ? "not available" : !CFG.wake ? "off" : wakeOn ? "listening for it" : "paused") + (wakeErr ? ", error: " + wakeErr : ""),
     "Speech recognition: " + (RS ? (speechOnDevice ? "on the phone (offline)" : "online") + (speechMode ? ", last used " + speechMode : "") : "old plugin"),
     "Last close: " + (st.lastExit || ovExit || "unknown"),
     "Phone voice fallback: " + (VINFO && VINFO.current ? VINFO.current : "Google default")
