@@ -959,7 +959,8 @@ function renderReady() {
   const hr = new Date().getHours();
   const part = hr >= 5 && hr < 12 ? "Morning" : hr >= 12 && hr < 18 ? "Afternoon" : "Evening";
   const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.innerHTML = esc(part + ", Raider.") + '<span class="gl">' + esc(LINE) + "</span>";
-  setCtx(""); $("stage").innerHTML = "";
+  setCtx(WK && CFG.wake ? "Say \u201cHey Relay\u201d, or tap." : "");  /* with the greeting, in the same fade, not a moment later when the listener starts (4 Nov) */
+  $("stage").innerHTML = "";
   fitGreet(w); requestAnimationFrame(() => fitGreet(w));
   $("stage").innerHTML = "";
 }
