@@ -947,6 +947,8 @@ function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably 
 /* markers: a yellow dot for the place, a white dot for you, a dashed ring when your position is a guess */
 const DOT = s => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:50%;background:#F2B33D;box-shadow:0 0 0 3px #1C1E22,0 0 0 5px rgba(242,179,61,.35)"></div>';
 const YOU = '<div style="width:20px;height:20px;border-radius:50%;background:#EEE8DC;box-shadow:0 0 0 3px #1C1E22"></div>';
+/* the spot you've tapped but not confirmed: a hollow cream ring; it becomes the solid dot after "I'm here" */
+const PIN_NEW = '<div style="width:24px;height:24px;box-sizing:border-box;border-radius:50%;border:4px solid #EEE8DC;box-shadow:0 0 0 2px #1C1E22,inset 0 0 0 2px #1C1E22"></div>';
 const YOU_GUESS = '<div style="width:44px;height:44px;border-radius:50%;border:2px dashed #EEE8DC;display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;border-radius:50%;background:#EEE8DC"></div></div>';
 function drawMap(m) {
   if (!$("map")) return;
@@ -985,7 +987,7 @@ function drawMap(m) {
     pinPt = { y: Math.round(e.latlng.lat), x: Math.round(e.latlng.lng) };
     const nb = nearestArea(pinPt);
     if (pin) pin.remove(); if (pinLab) pinLab.remove();
-    pin = L.marker(e.latlng, { icon: L.divIcon({ className: "", html: YOU, iconSize: [20, 20], iconAnchor: [10, 10] }), keyboard: false, interactive: false }).addTo(lmap);
+    pin = L.marker(e.latlng, { icon: L.divIcon({ className: "", html: PIN_NEW, iconSize: [24, 24], iconAnchor: [12, 12] }), keyboard: false, interactive: false }).addTo(lmap);
     if (nb) pinLab = L.marker([pinPt.y, pinPt.x], { icon: L.divIcon({ className: "", html: '<div class="plabel pin">' + esc(nb.n.replace(/^the /, "")) + '</div>', iconSize: [0, 0] }), keyboard: false, interactive: false }).addTo(lmap);
     $("maphint").hidden = true; $("pinok").hidden = false;
     $("pinok").onclick = ev => { ev.stopPropagation(); pinHere(pinPt); };
@@ -1079,7 +1081,10 @@ function pinHere(pt) {
   S.place = { n: nb ? nb.n : "your pin", y: pt.y, x: pt.x, pinned: true }; S.placeAt = Date.now(); S.raidAt = S.raidAt || Date.now();
   if (listening) { cancelledAt = Date.now(); stopListening(); }
   if (document.body.classList.contains("speaking")) stopSpeaking();
-  const q = S.pending ? S.pending.q : S.last && S.last.q; S.pending = null; save();
+  let q = S.pending ? S.pending.q : S.last && S.last.q; S.pending = null; save();
+  /* if the last thing said was itself a location ("I'm at the Village"), re-asking it would put you back there:
+     the pin wins, and the answer is the one that statement gives, the nearest way out, from the pin */
+  if (q && findWhere(norm(q))) q = "nearest way out";
   const a = q ? answer(q) : null;
   if (!a || a.map && a.map.pick) { deliver(q || "pin", { show: "Got it" + (nb ? ", " + nb.n.replace(/^the /, "") : "") + ".", say: "Got it.", map: { you: S.place, stars: [] } }); return; }
   a.say = "Got it. " + a.say; deliver(q, a);
