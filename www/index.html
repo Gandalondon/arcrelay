@@ -750,6 +750,9 @@ function stopSpeaking() { speakId++; setVoiceState("idle"); try { if (gemSpeak.s
    times out, until CONVO_MS of silence. Then it stands by with the last answer on screen; tap the soundwave or the screen to talk.
    It only starts listening once its own speech has finished, so it never hears itself. */
 const CONVO_MS = 45000;
+const RS = CAP && CAP.RelaySpeech ? CAP.RelaySpeech : null;
+let speechOnDevice = false, speechMode = "";
+if (RS) RS.available().then(r => { speechOnDevice = !!(r && r.onDevice); }).catch(() => {});
 let convoUntil = 0, listening = false, followMode = false, webRec = null, fastFails = 0;
 /* the halo and waveform follow this, and only this: is the microphone actually capturing right now */
 function micOn(v) { listening = v; document.body.classList.toggle("mic-on", !!v); }
@@ -782,8 +785,17 @@ async function listen(opts) {
   const auto = !!(opts && opts.auto);
   if (listening) { if (followMode && !auto) { followMode = false; renderListening(); } else if (!auto) stopListening(); return; }
   if (document.body.classList.contains("speaking")) { if (auto) return; stopSpeaking(); }
-  if (!navigator.onLine) { convoUntil = 0; showError("No connection. Speech recognition needs one. Check your signal and tap again."); return; }
+  if (!navigator.onLine && !speechOnDevice) { convoUntil = 0; showError("No connection. Speech recognition needs one on this phone. Check your signal and tap again."); return; }
   const startedAt = Date.now();
+  /* Relay's own recogniser: on the phone when it can be (no internet needed), online otherwise */
+  if (RS) {
+    micOn(true); startListeningUI(auto);
+    let r = {};
+    try { r = await RS.listen({ lang: "en-GB" }); } catch (e) { r = { text: "", error: String(e && e.message || e) }; }
+    speechMode = r.mode || speechMode;
+    if (r.text) heard(r.text); else nothingHeard(startedAt, r.error === "network" ? "network" : r.error === "permission" ? "permission" : "");
+    return;
+  }
   if (CAP && CAP.SpeechRecognition) {
     try {
       const p = await CAP.SpeechRecognition.requestPermissions();
@@ -805,7 +817,7 @@ async function listen(opts) {
   try { webRec.start(); } catch (e) { nothingHeard(startedAt, "fatal"); }
 }
 function startListeningUI(auto) { followMode = auto; if (auto) { setVoiceState("listening"); document.body.classList.add("follow"); } else renderListening(); }
-function stopListening() { convoUntil = 0; document.body.classList.remove("mic-on"); try { if (CAP && CAP.SpeechRecognition) CAP.SpeechRecognition.stop(); else if (webRec) webRec.stop(); } catch (e) {} }
+function stopListening() { convoUntil = 0; document.body.classList.remove("mic-on"); try { if (RS) { RS.stop(); return; } } catch (e) {} try { if (CAP && CAP.SpeechRecognition) CAP.SpeechRecognition.stop(); else if (webRec) webRec.stop(); } catch (e) {} }
 
 /* =================== system bars match the screen (native only) =================== */
 function bars(listeningNow) { try { if (CAP && CAP.SystemBars) CAP.SystemBars.set({ color: "#1C1E22", light: false }); } catch (e) {} }
@@ -1216,6 +1228,7 @@ async function openDebug() {
     "Voice load error: " + (ovWarmErr || "none"),
     "Last voice sample: " + (lastPreview || "none yet"),
     "Gemini Nano: " + aiStatus,
+    "Speech recognition: " + (RS ? (speechOnDevice ? "on the phone (offline)" : "online") + (speechMode ? ", last used " + speechMode : "") : "old plugin"),
     "Last close: " + (st.lastExit || ovExit || "unknown"),
     "Phone voice fallback: " + (VINFO && VINFO.current ? VINFO.current : "Google default")
   ];
