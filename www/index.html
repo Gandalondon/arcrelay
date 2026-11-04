@@ -89,8 +89,6 @@ body.speaking:not(.mic-on) .mic svg{width:32px;height:32px}
 /* start: the icon's three lines carry on from Android's splash, travel down and out of the screen, then the greeting fades in. Once per launch. */
 #intro{position:fixed;inset:0;z-index:50;pointer-events:none;background:#1C1E22;transition:background-color .2s linear}
 #intro.clear{background-color:transparent}
-#intro path{fill:none;stroke:#F2B33D;animation:introgo .48s cubic-bezier(.45,0,.9,.6) forwards}
-@keyframes introgo{to{stroke-dashoffset:var(--to)}}
 body.intro .app{opacity:0}
 .app{transition:opacity .2s ease-out}
 /* voice list: every English voice the phone reports, tap one to hear it and use it */
@@ -1234,28 +1232,48 @@ aiInit();
 if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
 /* =================== start animation =================== */
 (function intro() {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} return; }
-  /* Measured from a Pixel 9 recording (4 Nov): Android draws the icon centred on the WHOLE screen and 18% bigger than the
-     old 160 px guess. The page starts below the status bar, so lift the drawing by half the difference. */
-  const Wd = innerWidth, Ht = innerHeight, S = 189;
-  const lift = Math.max(0, ((screen.height || Ht) - Ht) / 2);
-  const L0 = (Wd - S) / 2 - 1.5, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
-  const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
+  const SB = () => (CAP && CAP.SystemBars) || null;
+  const call = (m) => { try { const b = SB(); if (b && b[m]) b[m](); } catch (e) {} };
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { window.relaySplash = () => call("splashDone"); call("ready"); return; }
+  /* The start screen: Android draws the icon (the three lines inside a circle). Android tells us exactly where (relaySplash),
+     we draw the same lines in the same place, Android's copy goes, then the lines drop out of the circle: the circle
+     still clips them at the top, but it's open below, so they fall away down the screen. Then Relay appears. */
+  const Wd = innerWidth, Ht = innerHeight, ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
   svg.setAttribute("width", Wd); svg.setAttribute("height", Ht); svg.setAttribute("aria-hidden", "true");
   const box = document.createElement("div"); box.id = "intro"; box.appendChild(svg); document.body.appendChild(box); document.body.classList.add("intro");
-  requestAnimationFrame(() => requestAnimationFrame(() => { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} }));  /* drawn: Android's icon can go */
-  [46, 30, 14].forEach((r0, j) => {                              /* outer line leaves first */
-    const r = r0 * s, Y = T0 + 58 * s, X = L0 + 14 * s, y0 = Y - r;
-    const h = X - L0, arc = Math.PI * r / 2, vis = h + arc + (T0 + S - Y), tot = h + arc + (Ht + 40 - Y);
-    const p = document.createElementNS(ns, "path");
-    p.setAttribute("d", "M " + L0 + " " + y0 + " H " + X + " A " + r + " " + r + " 0 0 1 " + (X + r) + " " + Y + " V " + (Ht + 40));
-    p.setAttribute("stroke-width", 10 * s);
-    p.style.strokeDasharray = vis.toFixed(1) + " 4000"; p.style.setProperty("--to", (-tot).toFixed(1));
-    p.style.animationDelay = (HOLD + j * STEP) + "ms"; svg.appendChild(p);
-  });
-  const end = HOLD + DUR + STEP * 2;
-  setTimeout(() => { document.body.classList.remove("intro"); box.classList.add("clear"); }, end - 160);
-  setTimeout(() => box.remove(), end + 300);
+  let started = false;
+  function go(L0, T0, S) {  /* L0, T0, S: the circle's bounding square = the icon's 72-unit window */
+    if (started) return; started = true;
+    const s = S / 72, cx = L0 + S / 2, cy = T0 + S / 2, r = S / 2;
+    const clip = document.createElementNS(ns, "clipPath"); clip.id = "introclip";
+    const c = document.createElementNS(ns, "circle"); c.setAttribute("cx", cx); c.setAttribute("cy", cy); c.setAttribute("r", r);
+    const below = document.createElementNS(ns, "rect"); below.setAttribute("x", cx - r); below.setAttribute("y", cy); below.setAttribute("width", 2 * r); below.setAttribute("height", Ht * 3);
+    clip.appendChild(c); clip.appendChild(below); svg.appendChild(clip);
+    const g = document.createElementNS(ns, "g"); g.setAttribute("clip-path", "url(#introclip)"); svg.appendChild(g);
+    const X = u => L0 + u * s, Y = u => T0 + u * s;
+    [46, 30, 14].forEach((rr, k) => {  /* the same geometry as the icon: along the top, a quarter turn, then down */
+      const p = document.createElementNS(ns, "path");
+      /* each line stops at the circle's edge, as in Android's icon, so the first frame matches; nothing grows as it falls */
+      const xa = 14 + rr - 5, xb = 14 + rr + 5, edge = x => 36 + Math.sqrt(Math.max(0, 36 * 36 - (x - 36) * (x - 36)));
+      const yEnd = Math.min(edge(xa), edge(xb));
+      p.setAttribute("d", "M " + X(-40) + " " + Y(58 - rr) + " H " + X(14) + " A " + rr * s + " " + rr * s + " 0 0 1 " + X(14 + rr) + " " + Y(58) + " V " + Y(yEnd));
+      p.setAttribute("stroke-width", 10 * s); p.setAttribute("fill", "none"); p.setAttribute("stroke", "#F2B33D");
+      g.appendChild(p);
+      /* outer line first; each falls with gravity, all the way off the bottom */
+      if (p.animate) p.animate([{ transform: "translateY(0)" }, { transform: "translateY(" + (Ht - T0 + 40) + "px)" }],
+        { duration: 520, delay: 200 + k * 70, easing: "cubic-bezier(.55,0,.85,.35)", fill: "forwards" });
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => call("splashDone")));  /* our copy is on screen: Android's can go */
+    const end = 200 + 2 * 70 + 520;
+    setTimeout(() => { document.body.classList.remove("intro"); box.classList.add("clear"); }, end);  /* lines gone, then Relay */
+    setTimeout(() => box.remove(), end + 300);
+  }
+  /* Android's icon view: 72 of its 108 units are visible, in the centre circle (2/3 of the view) */
+  window.relaySplash = (x, y, w, h) => { const v = Math.min(w, h); go(x + (w - v) / 2 + v / 6, y + (h - v) / 2 + v / 6, v * 2 / 3); };
+  call("ready");  /* page loaded: Android may now hand over (and tells us where its icon is) */
+  /* no word from Android (a browser, or an old phone): use the measured Pixel 9 position */
+  setTimeout(() => { const S = 189, lift = Math.max(0, ((screen.height || Ht) - Ht) / 2); go((Wd - S) / 2, (Ht - S) / 2 - lift, S); }, CAP ? 900 : 0);
 })();
 async function keepAwake() { try { if (CAP && CAP.KeepAwake) await CAP.KeepAwake.keepAwake(); else if (navigator.wakeLock) await navigator.wakeLock.request("screen"); } catch (e) {} }
 keepAwake(); document.addEventListener("visibilitychange", () => { if (!document.hidden) keepAwake(); });
