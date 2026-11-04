@@ -10,4 +10,4 @@ Still to do:
 5. Standalone HTML style guide in the repo (src/docs/style-guide.html).
 6. Remove the dormant Gemini cloud code.
 7. Loot value tiers: no trustworthy full source found on 4 Nov; revisit.
-8. Estimates delivered 4 Nov, awaiting decisions: wake word, screen-off listening, offline speech recognition, other maps, live exit status.
+8. Built 4 Nov: offline speech recognition (1.0.53) and "Hey Relay" (1.0.54); need a real-room test. Still estimate-only: screen-off listening, other maps, live exit status.
