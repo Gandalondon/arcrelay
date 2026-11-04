@@ -404,7 +404,9 @@ const LISTING = [" all ", "list", "how many", "what are the"];
 
 function askWhere(raw) {
   S.pending = { q: raw, asks: S.pending ? S.pending.asks : 0 }; save();
-  return { show: "Where are you?", say: "Where are you, roughly? A place name, or just a side of the map, like south-east.", ctx: "A place, or a side of the map" };
+  /* short: the hint is on screen; spoken in full only the first time in a while */
+  const full = !S.whereAt || Date.now() - S.whereAt > 300000; S.whereAt = Date.now();
+  return { show: "Where are you?", say: full ? "Where are you? A place, or a side, like south-east." : "Where are you?", ctx: "A place, or a side of the map" };
 }
 function askStill(raw) {
   S.pending = { q: raw, asks: S.pending ? S.pending.asks : 0 }; save();
@@ -586,7 +588,7 @@ function answer(raw, opts) {
       S.exitSaid = { n: best.n, at: Date.now() }; S.guessTold = true; save();
       return { show: (rush ? "Move. " : "") + best.n + ", " + dir + ".", say: rush + (wantsOther ? vary(["Next best is ", "Try ", "Then go for "]) : "") + best.n + ". Head " + dir + "." + caveat, map: { you: Object.assign({ guess: true }, lp.p), stars: [best] }, ctx: "A guess from " + lp.short + ". Say where you are if you've moved." };
     }
-    if (wantsNearest && !lp && !opts.general) { const a = askWhere(raw); a.say = "Where are you, roughly? A place, or just a side of the map. All four airshafts are on the map meanwhile."; a.map = { you: null, stars: EXITS }; return a; }
+    if (wantsNearest && !lp && !opts.general) { const a = askWhere(raw); a.say = vary(["All four airshafts marked. Where are you?", "Four airshafts on the map. Where are you?", "Exits marked. Where are you?"]); a.map = { you: null, stars: EXITS }; return a; }
     if (!lp || !wantsNearest) {
       const tail = "";
       return { show: (rush ? "Move. " : "") + "Four airshafts, marked.", say: rush + "There are four airshafts: Warehouse, Overlook, Forest and Cliffside. They're all marked on the map." + tail, map: { you: psNow === "fresh" ? S.place : null, stars: EXITS } };
