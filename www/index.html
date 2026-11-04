@@ -697,7 +697,8 @@ function voiceInfo() {
    Voices 0 to 4 are female (F1 to F5), 5 to 9 male (M1 to M5). firstMs = how long before the first words play. */
 const APP_VERSION = "1.0.__BUILD__".replace("__BUILD" + "__", "dev");  /* the build fills in the number */
 const OV = CAP && CAP.RelayOfflineVoice ? CAP.RelayOfflineVoice : null;
-const OV_VOICES = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4].map(sid => ({ sid, label: (sid >= 5 ? "Male " + (sid - 4) : "Female " + (sid + 1)) }));
+const VOICE_NAMES = { 0: "Sophie", 1: "Amy", 2: "Ava", 3: "Ivy", 4: "Maya", 5: "Adam", 6: "Ben", 7: "Owen", 8: "Leo", 9: "Mark" };  /* Supertonic's own ids: F1-F5 = 0-4, M1-M5 = 5-9 */
+const OV_VOICES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(sid => ({ sid, label: VOICE_NAMES[sid], kind: sid >= 5 ? "Male" : "Female" }));
 /* settings kept apart from raid state, so they survive "close" and restarts */
 const CFG_KEY = "relay-settings";
 let CFG = { sid: 0, speed: 1.0, off: false, crash: "", wake: true };  /* Female 1: Tony's pick */
@@ -1281,16 +1282,16 @@ async function ovRender() {
   if (!ovInstalled) return;
   OV_VOICES.forEach(v => {
     const li = document.createElement("li"), b = document.createElement("button"); b.type = "button"; li.className = "vrow";
-    b.innerHTML = '<span class="n"></span><span class="m"></span>'; b.querySelector(".n").textContent = v.label;
+    b.innerHTML = '<span class="n"></span><span class="m"></span>'; b.querySelector(".n").textContent = v.label; b.dataset.kind = v.kind;
     const pb = document.createElement("button"); pb.type = "button"; pb.className = "play"; pb.setAttribute("aria-label", "Hear " + v.label); pb.innerHTML = PLAY_ICON;
     pb.addEventListener("click", e => { e.stopPropagation(); b.click(); });  /* hear it: same as tapping the row, which also picks it */
     const on = !CFG.off && CFG.sid === v.sid;
-    b.querySelector(".m").textContent = on ? "Selected" : "Tap to hear"; if (on) { b.classList.add("on"); b.setAttribute("aria-current", "true"); }
+    b.querySelector(".m").textContent = v.kind + (on ? " \u00b7 Selected" : ""); if (on) { b.classList.add("on"); b.setAttribute("aria-current", "true"); }
     b.addEventListener("click", () => {
-      ul.querySelectorAll("button.on").forEach(x => { x.classList.remove("on"); x.removeAttribute("aria-current"); x.querySelector(".m").textContent = "Tap to hear"; });
-      b.classList.add("on"); b.setAttribute("aria-current", "true"); b.querySelector(".m").textContent = "Selected";
+      ul.querySelectorAll("button.on").forEach(x => { x.classList.remove("on"); x.removeAttribute("aria-current"); x.querySelector(".m").textContent = x.dataset.kind; });
+      b.classList.add("on"); b.setAttribute("aria-current", "true"); b.querySelector(".m").textContent = v.kind + " \u00b7 Selected";
       CFG.sid = v.sid; CFG.off = false; CFG.crash = ""; saveCfg(); box.hidden = true;
-      preview(v.sid, t => { b.querySelector(".m").textContent = t; });
+      preview(v.sid, t => { b.querySelector(".m").textContent = v.kind + " \u00b7 " + t; });
     });
     li.appendChild(b); li.appendChild(pb); ul.appendChild(li);
   });
@@ -1311,12 +1312,16 @@ aiInit();
 if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
 /* =================== start animation =================== */
 (function intro() {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const Wd = innerWidth, Ht = innerHeight, S = 160;             /* Android 12+ splash shows the icon's 72-unit window at 160dp, centred */
-  const L0 = (Wd - S) / 2, T0 = (Ht - S) / 2, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} return; }
+  /* Measured from a Pixel 9 recording (4 Nov): Android draws the icon centred on the WHOLE screen and 18% bigger than the
+     old 160 px guess. The page starts below the status bar, so lift the drawing by half the difference. */
+  const Wd = innerWidth, Ht = innerHeight, S = 189;
+  const lift = Math.max(0, ((screen.height || Ht) - Ht) / 2);
+  const L0 = (Wd - S) / 2 - 1.5, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
   const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
   svg.setAttribute("width", Wd); svg.setAttribute("height", Ht); svg.setAttribute("aria-hidden", "true");
   const box = document.createElement("div"); box.id = "intro"; box.appendChild(svg); document.body.appendChild(box); document.body.classList.add("intro");
+  requestAnimationFrame(() => requestAnimationFrame(() => { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} }));  /* drawn: Android's icon can go */
   [46, 30, 14].forEach((r0, j) => {                              /* outer line leaves first */
     const r = r0 * s, Y = T0 + 58 * s, X = L0 + 14 * s, y0 = Y - r;
     const h = X - L0, arc = Math.PI * r / 2, vis = h + arc + (T0 + S - Y), tot = h + arc + (Ht + 40 - Y);

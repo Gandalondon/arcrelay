@@ -3,11 +3,18 @@ package app.spottr.companion;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.WindowManager;
+import androidx.core.splashscreen.SplashScreen;
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
+    /* Android's start icon stays up until Relay has drawn its own copy of the lines (or 2.5 s), so there's no blank flash between them */
+    static volatile boolean introReady = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        final long t0 = System.currentTimeMillis();
+        introReady = false;
+        SplashScreen.installSplashScreen(this).setKeepOnScreenCondition(() -> !introReady && System.currentTimeMillis() - t0 < 2500);
         registerPlugin(SystemBarsPlugin.class);
         registerPlugin(RelayVoicePlugin.class);
         registerPlugin(RelayAIPlugin.class);
