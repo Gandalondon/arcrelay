@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Relay icon: three signal lines, as a vector so the splash and launcher stay sharp at any size. Same geometry as tools/make-icon.py. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <path android:strokeColor="#F2B33D" android:strokeWidth="10" android:fillColor="#00000000"
+        android:pathData="M -4,30 H 32 A 46,46 0 0 1 78,76 V 112"/>
+    <path android:strokeColor="#F2B33D" android:strokeWidth="10" android:fillColor="#00000000"
+        android:pathData="M -4,46 H 32 A 30,30 0 0 1 62,76 V 112"/>
+    <path android:strokeColor="#F2B33D" android:strokeWidth="10" android:fillColor="#00000000"
+        android:pathData="M -4,62 H 32 A 14,14 0 0 1 46,76 V 112"/>
+</vector>
