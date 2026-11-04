@@ -49,7 +49,7 @@ body.listening .close{color:var(--amber)}
 .mapwrap{position:relative;flex:1 1 auto;min-height:240px;margin:0 0 24px;border-radius:16px;overflow:hidden;background:var(--panel);isolation:isolate}
 .map{position:absolute;inset:0;background:var(--panel);touch-action:none}
 .mapctl{position:absolute;right:12px;top:12px;z-index:500;display:flex;flex-direction:column;gap:8px}
-.mapctl button{all:unset;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--amber);color:var(--ink);cursor:pointer;box-shadow:0 2px 8px rgba(21,23,28,.45)}  /* amber: the action colour, and it reads over any terrain */
+.mapctl button{all:unset;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--amber);color:var(--ink);cursor:pointer;box-shadow:0 2px 8px rgba(21,23,28,.45)}  /* amber: the action colour, and it reads over any terrain */
 .mapctl svg{width:24px;height:24px}
 .mapctl button.on{background:var(--ink);color:var(--amber);box-shadow:inset 0 0 0 2px var(--amber),0 2px 8px rgba(21,23,28,.45)}  /* Set location while choosing: reversed */
 /* the first-use hint: a quiet pill, top left, clear of the buttons */
@@ -105,8 +105,6 @@ body.intro .app{opacity:0}
 .vlist li .n{display:block;font-size:18px;line-height:24px;font-weight:600}
 .vlist li .m{display:block;font-size:14px;line-height:20px;opacity:.75}
 .gkey{margin:0 0 20px;display:flex;flex-direction:column;gap:8px}
-.gkey label{font-size:16px;line-height:24px}
-.gkey input{all:unset;box-sizing:border-box;width:100%;height:48px;padding:0 16px;border-radius:12px;background:var(--bone);color:var(--ink);font:400 16px/48px var(--body)}
 .gkey .gkrow{display:flex;gap:8px}
 .gkey button{all:unset;cursor:pointer;height:44px;padding:0 20px;border-radius:999px;background:var(--amber);color:var(--ink);font:600 16px/44px var(--body)}
 .gkey button[hidden]{display:none}
@@ -987,6 +985,10 @@ function drawMap(m) {
   const farZ = lmap.getBoundsZoom(MAP.bounds, false, L.point(32, 32)) + 0.8;
   const zoomCls = () => $("map") && $("map").classList.toggle("zfar", lmap.getZoom() < farZ);
   lmap.on("zoom zoomend", zoomCls);
+  /* a place name under the map buttons is hidden rather than half covered */
+  const clearCtl = () => { const c = $("map") && $("map").parentNode.querySelector(".mapctl"); if (!c) return; const b = c.getBoundingClientRect();
+    $("map").querySelectorAll(".plabel:not(.target):not(.pin)").forEach(e => { const g = document.createRange(); g.selectNodeContents(e); const r = g.getBoundingClientRect(); e.style.visibility = (r.right > b.left - 4 && r.left < b.right && r.bottom > b.top - 4 && r.top < b.bottom + 4) ? "hidden" : ""; }); };
+  lmap.on("move zoom moveend zoomend", clearCtl);
   if (m.you) { const g = !!m.you.guess, s = g ? 44 : 20; L.marker(ll(m.you), { icon: L.divIcon({ className: "", html: g ? YOU_GUESS : YOU, iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); }
   const pts = [...m.stars, ...(m.you ? [m.you] : [])].map(ll);
   /* setting your location takes two steps, so a stray tap while panning never moves you:
@@ -1010,7 +1012,7 @@ function drawMap(m) {
   const fitAll = () => lmap.fitBounds(MAP.bounds, { padding: [16, 16] });
   /* the route view frames you and the destination with room around them, so nearby landmarks stay in view */
   const frame = () => { if (!pts.length) fitAll(); else if (pts.length === 1) lmap.setView(pts[0], 4); else lmap.fitBounds(L.latLngBounds(pts), { padding: [72, 72], maxZoom: 4 }); };
-  frame(); zoomCls();
+  frame(); zoomCls(); requestAnimationFrame(clearCtl);
   $("full").onclick = fitAll;
   $("setloc").onclick = () => setPicking(!picking);
   if ($("route")) $("route").onclick = frame;

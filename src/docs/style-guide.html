@@ -102,7 +102,7 @@ ul.plain li{margin:6px 0}
 .mic.speak svg{width:32px;height:32px}
 @keyframes halo{0%,100%{box-shadow:0 0 0 8px rgba(242,179,61,.30),0 0 0 18px rgba(242,179,61,.12)}50%{box-shadow:0 0 0 12px rgba(242,179,61,.26),0 0 0 26px rgba(242,179,61,.08)}}
 @media (prefers-reduced-motion:reduce){.mic.on{animation:none}}
-.mbtn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--amber);color:var(--ink);box-shadow:0 2px 8px rgba(21,23,28,.45)}
+.mbtn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--amber);color:var(--ink);box-shadow:0 2px 8px rgba(21,23,28,.45)}
 .mbtn svg{width:24px;height:24px}
 .mbtn.on{background:var(--ink);color:var(--amber);box-shadow:inset 0 0 0 2px var(--amber),0 2px 8px rgba(21,23,28,.45)}
 .stack{display:flex;flex-direction:column;gap:8px}
@@ -224,7 +224,7 @@ ul.plain li{margin:6px 0}
     <tr><th>Grid</th><td>8 px steps: gaps of 8, 12, 16 and 24.</td></tr>
     <tr><th>Dock</th><td>104 px tall on every screen, so the mic never moves.</td></tr>
     <tr><th>Corners</th><td>16 px for the map tile and list rows. 12 px for inputs. 8 px for small notes. Pills and buttons fully round (999 px). Round controls are circles.</td></tr>
-    <tr><th>Tap targets</th><td>Mic 72 px. Close, back and play 48 px. Map buttons 44 px (see Gaps). Pills 44 to 48 px tall.</td></tr>
+    <tr><th>Tap targets</th><td>Mic 72 px. Close, back and play 48 px. Map buttons 48 px. Pills 44 to 48 px tall.</td></tr>
     <tr><th>Shadows</th><td>Only on things floating over the map: <code>0 2px 8px rgba(21,23,28,.45)</code> for buttons, <code>0 2px 12px rgba(21,23,28,.5)</code> for "I'm here".</td></tr>
   </table>
 </section>
@@ -415,11 +415,8 @@ ahead.</div><span class="x"><svg viewBox="0 -960 960 960" fill="currentColor" ar
 <section id="gaps">
   <h2 class="g-h2">Gaps to raise, not fix silently</h2>
   <ul class="plain">
-    <li><b>Secondary text.</b> Cream at 75% opacity is used for notes and meta. It's effectively a grey. Keep as the one exception, or drop it.</li>
+    <li><b>Secondary text.</b> Cream at 75% opacity is used for notes and meta. It's effectively a grey. Kept as the one exception for now (4 Nov); revisit if it ever needs a second shade.</li>
     <li><b>Token names.</b> CSS calls charcoal <code>--navy</code> and cream <code>--bone</code>, and <code>--grey</code> is cream. Legacy names; rename together when convenient.</li>
-    <li><b>Map buttons are 44 px,</b> under Android's 48 dp guideline. Fine in testing; raise if misses happen.</li>
-    <li><b>Map credit wording</b> differs: app "Maps by MetaForge", site mockups "Map: MetaForge".</li>
-    <li><b>Leftover styles</b> for a cream text input (<code>.gkey input</code>) from the removed Gemini key screen.</li>
     <li><b>No light theme.</b> Intentional for now (dark room, beside a TV).</li>
     <li><b>Playable area.</b> Taps outside Blue Gate's playable area are accepted until MetaForge publishes a boundary.</li>
   </ul>

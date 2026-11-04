@@ -40,8 +40,8 @@ Then: work out which map you're on from a spoken landmark (unique name: switch; 
 
 ## Other to-dos (smaller)
 - Play packaging: a signed AAB with an upload key (like Sniff). App label on the phone is now "ArcRelay" (1.0.68), matching Play and the site. Wake phrase stays "Hey Relay".
-- Site feedback form doesn't send (only worked in the Claude preview). ImprovMX refuses Brevo mail; find another free route.
-- Style guide Gaps section: 75% cream secondary text, 44 px map buttons, "Maps by MetaForge" vs "Map: MetaForge" wording, leftover `.gkey input` styles.
+- Site feedback form doesn't send (ImprovMX refuses Brevo mail). Parked by Tony (4 Nov): using the app first.
+- Style guide Gaps: done 4 Nov (48 px map buttons, "Maps by MetaForge" everywhere, dead `.gkey input` styles gone, names under the map buttons hidden). 75% cream secondary text kept as the one exception.
 - Block taps outside the playable area if MetaForge publishes a boundary.
 - Estimates only: screen-off listening, live exit status. Loot tiers: parked (Tony, 4 Nov). MetaForge only has 8 loot zone points on Blue Gate anyway.
 - Idea agreed in principle: keep the map tile on screen on standby once the map is known, with a map picker inside it before that (also answers "Which map?"). No new icon next to the mic.

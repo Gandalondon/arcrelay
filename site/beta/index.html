@@ -134,7 +134,7 @@ ahead.</div></div>
   document.querySelectorAll(".lmap").forEach(el => {
     const m = L.map(el, { crs, zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false, boxZoom: false, keyboard: false, zoomSnap: 0 });
     m.attributionControl.setPrefix(false);
-    L.tileLayer("tiles/{z}/{x}/{y}.webp", { tileSize: 512, maxNativeZoom: 3, minNativeZoom: 3, noWrap: true, bounds: [[37.2, 78.5], [16218, 16271]], attribution: 'Map: <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(m);
+    L.tileLayer("tiles/{z}/{x}/{y}.webp", { tileSize: 512, maxNativeZoom: 3, minNativeZoom: 3, noWrap: true, bounds: [[37.2, 78.5], [16218, 16271]], attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(m);
     if (el.dataset.pin) {  /* "Show it where you are": just your pin and the nearest place name */
       const pin = P(el.dataset.pin);
       L.marker(pin, { icon: L.divIcon({ className: "", html: YOU, iconSize: [18, 18], iconAnchor: [9, 9] }), interactive: false }).addTo(m);
