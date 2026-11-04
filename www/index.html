@@ -1274,12 +1274,12 @@ if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
   /* Measured from a Pixel 9 recording (4 Nov): Android draws the icon centred on the WHOLE screen and 18% bigger than the
      old 160 px guess. The page starts below the status bar, so lift the drawing by half the difference. */
   const Wd = innerWidth, Ht = innerHeight, S = 190.5;  /* re-measured 4 Nov evening: the lines span 450 of 1080 px on a Pixel 9 */
-  const lift = Math.max(0, ((screen.height || Ht) - Ht) / 2);
+  const lift = 0;  /* 4 Nov evening recording: the old half-the-bars lift put the lines 23 px above Android's icon */
   const L0 = (Wd - S) / 2 - 0.5, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
   const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
   svg.setAttribute("width", Wd); svg.setAttribute("height", Ht); svg.setAttribute("aria-hidden", "true");
   const box = document.createElement("div"); box.id = "intro"; box.appendChild(svg); document.body.appendChild(box); document.body.classList.add("intro");
-  requestAnimationFrame(() => requestAnimationFrame(() => { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} }));  /* drawn: Android's icon can go */
+  requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} }, 120)));  /* drawn and on screen: Android's icon can go */
   [46, 30, 14].forEach((r0, j) => {                              /* outer line leaves first */
     const r = r0 * s, Y = T0 + 58 * s, X = L0 + 14 * s, y0 = Y - r;
     const h = X - L0, arc = Math.PI * r / 2, vis = h + arc + (T0 + S - Y), tot = h + arc + (Ht + 40 - Y);

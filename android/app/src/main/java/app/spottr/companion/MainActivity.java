@@ -14,7 +14,10 @@ public class MainActivity extends BridgeActivity {
     public void onCreate(Bundle savedInstanceState) {
         final long t0 = System.currentTimeMillis();
         introReady = false;
-        SplashScreen.installSplashScreen(this).setKeepOnScreenCondition(() -> !introReady && System.currentTimeMillis() - t0 < 2500);
+        SplashScreen sp = SplashScreen.installSplashScreen(this);
+        sp.setKeepOnScreenCondition(() -> !introReady && System.currentTimeMillis() - t0 < 2500);
+        // hand over instantly: Android's default exit fades its icon out first, which showed as a dip to black before Relay's lines (4 Nov)
+        sp.setOnExitAnimationListener(view -> view.remove());
         registerPlugin(SystemBarsPlugin.class);
         registerPlugin(RelayVoicePlugin.class);
         registerPlugin(RelayAIPlugin.class);
