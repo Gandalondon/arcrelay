@@ -100,15 +100,27 @@ module.exports = [
   { set: NONE, say: ["I'm at the farm", "what's around me"], want: { near: "Ruined Homestead" } },
 
   /* "not that one": ruling an exit out (29 Oct test: kept saying north-east) */
-  { set: NONE, say: ["I'm at the farm", "where's the nearest evac", "I can't go that way, there's too many enemies, I need a different evac point"], want: { near: "Next best is (Forest|Cliffside|Warehouse) Airshaft" } },
-  { set: NONE, say: ["I'm at the farm", "evac", "another one", "not that one either"], want: { near: "Next best is" } },
-  { set: NONE, say: ["I'm in the village", "get me out", "too many enemies, somewhere else"], want: { near: "Next best is" } },
+  { set: NONE, say: ["I'm at the farm", "where's the nearest evac", "I can't go that way, there's too many enemies, I need a different evac point"], want: { near: "(Next best is|Try|Then go for) (Forest|Cliffside|Warehouse) Airshaft" } },
+  { set: NONE, say: ["I'm at the farm", "evac", "another one", "not that one either"], want: { near: "(Next best is|Try|Then go for)" } },
+  { set: NONE, say: ["I'm in the village", "get me out", "too many enemies, somewhere else"], want: { near: "(Next best is|Try|Then go for)" } },
 
   /* items (Soul's Offering) */
   { set: NONE, say: "where do I find fertilizer", want: { near: "Village" } },
-  { set: NONE, say: ["I'm at the farm", "I need dead flowers"], want: { near: "Nearest dead flowers: (Ruined Homestead|Ancient Fort)" } },
+  { set: NONE, say: ["I'm at the farm", "I need dead flowers"], want: { near: "Try (Ruined Homestead|Ancient Fort)" } },
   { set: AT_VILLAGE, say: "any fertiliser near me", want: { near: "Nearest fertilizer: near Village" } },
   { set: NONE, say: "where can I get rock salt", want: { near: "No spots recorded" } },
+
+  /* directions and map edges (4 Nov) */
+  { set: NONE, say: ["I'm south west", "anything south of me"], want: { near: "edge of the map" } },
+  { set: NONE, say: ["I'm at the farm", "is there an exit to the west"], want: { near: "Forest Airshaft" } },
+  { set: NONE, say: ["I'm at the farm", "anything north of me"], want: { near: "metres north" } },
+  { set: NONE, say: ["I'm at the farm", "get me out", "I can't go north east"], want: { near: "(Forest|Cliffside) Airshaft" } },
+  { set: NONE, say: ["I'm near the fort", "evac", "that one's closed"], want: { near: "(Next best is|Try|Then go for)" } },
+  { set: NONE, say: ["I'm near the fort", "evac", "it's shut, another one", "there's an ARC blocking it, another"], want: { near: "(Next best is|Try|Then go for)" } },
+  { set: NONE, say: "I'm south west", want: { near: "Got it" } },
+  /* items without fixed spots: a named place, no tag lists */
+  { set: NONE, say: ["I'm at the farm", "where can I find dead flowers"], want: { near: "^Try (Ruined Homestead|Ancient Fort|Village)" } },
+  { set: NONE, say: "where can I find dead flowers", want: { near: "Try Village, Ruined Homestead or Ancient Fort" } },
 
   /* raid events */
   { set: HTR, say: "I died", want: { died: true } },

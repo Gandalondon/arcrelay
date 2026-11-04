@@ -56,11 +56,11 @@ body.listening .close{color:var(--amber)}
 .mic{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:var(--amber);color:var(--ink);border:2px solid var(--amber);transition:background .15s,color .15s,box-shadow .2s}
 .mic svg{width:36px;height:36px}
 .mic .wv{display:none}
-body.listening .mic,body.follow:not(.speaking) .mic{box-shadow:0 0 0 10px rgba(242,179,61,.28),0 0 0 22px rgba(242,179,61,.12);animation:halo 1.6s ease-in-out infinite}
-body.listening .mic .mc,body.follow:not(.speaking) .mic .mc,body.speaking .mic .mc{display:none}
-body.listening .mic .wv,body.follow:not(.speaking) .mic .wv,body.speaking .mic .wv{display:block}
-body.speaking:not(.listening) .mic{background:transparent;color:var(--amber);box-shadow:none;animation:none}
-body.speaking:not(.listening) .mic svg{width:32px;height:32px}
+body.mic-on:not(.speaking) .mic{box-shadow:0 0 0 10px rgba(242,179,61,.28),0 0 0 22px rgba(242,179,61,.12);animation:halo 1.6s ease-in-out infinite}
+body.mic-on .mic .mc,body.speaking .mic .mc{display:none}  /* the waveform only while the microphone is really on, or Relay is speaking */
+body.mic-on .mic .wv,body.speaking .mic .wv{display:block}
+body.speaking:not(.mic-on) .mic{background:transparent;color:var(--amber);box-shadow:none;animation:none}
+body.speaking:not(.mic-on) .mic svg{width:32px;height:32px}
 @keyframes halo{0%,100%{box-shadow:0 0 0 8px rgba(242,179,61,.30),0 0 0 18px rgba(242,179,61,.12)}50%{box-shadow:0 0 0 12px rgba(242,179,61,.26),0 0 0 26px rgba(242,179,61,.08)}}
 .mic:focus-visible{outline:3px solid var(--bone);outline-offset:4px}
 .wave{display:none;align-items:center;justify-content:center;gap:9px;height:88px;color:var(--amber)}
@@ -260,9 +260,9 @@ const FERT = [[4939,9405],[3213,5807],[3183,5816],[3208,5814],[3014,6255],[4944,
 const AREA = n => AREAS.find(a => a.n === n);
 const ITEMS = [
   { n: "Fertilizer", al: ["fertilizer", "fertiliser", "fertilisers", "fertilizers"], spots: FERT, note: "Patches just west and north of the Village, and by the Abandoned Housing Project." },
-  { n: "Dead Flowers", al: ["dead flowers", "dead flower", "flowers"], areas: ["Village", "Ruined Homestead", "Ancient Fort", "Raider's Refuge"], note: "Homes, shops and old ruins." },
-  { n: "Fancy Plate", al: ["fancy plate", "fancy plates", "plates"], areas: ["Ancient Fort", "Ruined Homestead"], note: "Old world ruins." },
-  { n: "Mask Fragment", al: ["mask fragment", "mask fragments", "mask"], areas: ["Ancient Fort", "Ruined Homestead"], note: "Old world ruins." },
+  { n: "Dead Flowers", al: ["dead flowers", "dead flower", "flowers"], areas: ["Village", "Ruined Homestead", "Ancient Fort", "Raider's Refuge"], note: "", loose: true },
+  { n: "Fancy Plate", al: ["fancy plate", "fancy plates", "plates"], areas: ["Ancient Fort", "Ruined Homestead"], note: "", loose: true },
+  { n: "Mask Fragment", al: ["mask fragment", "mask fragments", "mask"], areas: ["Ancient Fort", "Ruined Homestead"], note: "", loose: true },
   { n: "Expired Respirator", al: ["expired respirator", "respirator", "respirators"], note: "Medical bags and crates, anywhere on the map." },
   { n: "ARC Alloy", al: ["arc alloy", "arc alloys", "alloy"], areas: ["Barren Clearing"], note: "Salvage it from ARC you destroy." },
   { n: "Advanced ARC Powercell", al: ["advanced arc powercell", "powercell", "power cell", "powercells", "power cells"], areas: ["Barren Clearing"], note: "Salvage it from ARC you destroy." },
@@ -280,10 +280,13 @@ function itemAnswer(it) {
     const b = near(here, pts), area = it.spots ? nearestAreas(b, 1)[0] : b;
     const where = it.spots ? "near " + area.n : area.n;
     const far = here.rough ? "" : "about " + metres(here, b) + " metres ";
-    return { show: it.n + ": " + where + ".", say: "Nearest " + it.n.toLowerCase() + ": " + where + ", " + far + compass(here, b) + " of you. " + (it.spots ? "" : it.note), map: { you: here.rough ? Object.assign({ guess: true }, here) : here, stars: [b] }, ctx: "Soul's Offering item" };
+    /* "loose" items have no fixed spot: name the best area, and say once that it's a search, not a guaranteed spawn */
+    const looseTip = it.loose && !S.looseTold ? " No fixed spot, so search the houses there." : "";
+    if (looseTip) { S.looseTold = true; save(); }
+    return { show: it.n + ": " + where + ".", say: (it.loose ? "Try " + where + ", " : "Nearest " + it.n.toLowerCase() + ": " + where + ", ") + far + compass(here, b) + " of you." + looseTip + (it.spots || it.loose ? "" : " " + it.note), map: { you: here.rough ? Object.assign({ guess: true }, here) : here, stars: [b] }, ctx: "Soul's Offering item" };
   }
-  const names = it.spots ? "the Village and the Abandoned Housing Project" : (it.areas || []).join(", ").replace(/, ([^,]*)$/, " and $1");
-  return { show: it.n + ": " + (it.spots ? "Village, Housing Project." : (it.areas || []).slice(0, 2).join(", ") + "."), say: it.n + ". Try " + names + ". " + (it.spots ? "" : it.note + " ") + "Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts }, ctx: "Soul's Offering item" };
+  const names = it.spots ? "the Village and the Abandoned Housing Project" : (it.areas || []).slice(0, 3).join(", ").replace(/, ([^,]*)$/, " or $1");
+  return { show: it.n + ": " + (it.spots ? "Village, Housing Project." : (it.areas || []).slice(0, 2).join(", ") + "."), say: it.n + ". Try " + names + "." + (it.loose ? " No fixed spot, it's a search." : it.spots || !it.note ? "" : " " + it.note) + " Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts }, ctx: "Soul's Offering item" };
 }
 
 /* =================== state =================== */
@@ -332,6 +335,19 @@ function findDir(t) {
 }
 /* where the player says they are: a named place beats a direction */
 function findWhere(t) { const p = findPlace(t); if (p) return { n: p.n, y: p.y, x: p.x }; return findDir(t); }
+/* a compass direction the player names ("south", "north-east", "southwest") */
+function findCompass(t) {
+  const u = t.replace(/\b(north|south)(east|west)\b/g, "$1 $2");
+  const m = u.match(/\b(north|south)\s*(east|west)?\b/) || u.match(/\b(east|west)\b/);
+  return m ? (m[2] ? m[1] + "-" + m[2] : m[1]) : null;
+}
+const BEARING = { north: 0, "north-east": 45, east: 90, "south-east": 135, south: 180, "south-west": 225, west: 270, "north-west": 315 };
+const bearing = (from, to) => (Math.atan2(to.x - from.x, -(to.y - from.y)) * 180 / Math.PI + 360) % 360;
+/* is "to" within the 90 degree wedge facing dir, seen from "from"? */
+const inWedge = (from, to, dir) => { const d = Math.abs(((bearing(from, to) - BEARING[dir]) + 540) % 360 - 180); return d <= 45; };
+const EDGE = { north: "northern", south: "southern", east: "eastern", west: "western", "north-east": "north-eastern", "north-west": "north-western", "south-east": "south-eastern", "south-west": "south-western" };
+/* a little variety in how answers open, without changing what they say */
+function vary(list) { S.varyN = ((S.varyN || 0) + 1) % 997; return list[S.varyN % list.length]; }
 const METRES = 5.5;  /* map units per metre on Blue Gate, from the fitted place distances */
 const metres = (a, b) => { const m = dist(a, b) / METRES; return m < 100 ? Math.max(10, Math.round(m / 10) * 10) : Math.round(m / 50) * 50; };
 const nearestAreas = (p, n) => AREAS.slice().sort((a, b) => dist(p, a) - dist(p, b)).slice(0, n);
@@ -466,7 +482,7 @@ function answer(raw, opts) {
   if (S.last && S.last.a && has(t, ["more detail", "more details", "tell me more", "say again", "say that again", "repeat", "not sure", "didn't catch", "didnt catch", " what ", "pardon", "explain"]) && t.trim().split(" ").length <= 6) {
     const a = Object.assign({}, S.last.a); a.say = a.full || a.say; return a;
   }
-  if (has(t, [" new raid", "just spawned", " spawned", "dropped in", "dropping in", " new run", "starting a run", "starting a raid", "loading in"])) { S.place = null; S.pending = null; S.minutesLeft = null; S.raidAt = Date.now(); S.avoid = []; S.exitSaid = null; save(); return { show: "New raid. Good luck.", say: "New raid. Good luck. I'll ask where you are when an answer needs it." }; }
+  if (has(t, [" new raid", "just spawned", " spawned", "dropped in", "dropping in", " new run", "starting a run", "starting a raid", "loading in"])) { S.place = null; S.pending = null; S.minutesLeft = null; S.raidAt = Date.now(); S.avoid = []; S.exitSaid = null; S.helpAt = 0; S.guessTold = false; S.looseTold = false; save(); return { show: "New raid. Good luck.", say: "New raid. Good luck. I'll ask where you are when an answer needs it." }; }
   if (has(t, [" i died", " died ", " dead ", " killed ", "got me ", " got downed", " i'm down ", " im down "]) && !findItem(t)) {  /* "dead flowers" is an item, not a death */ S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Unlucky. Your quest's still here.", say: "Unlucky. Your quest and step are still here when you drop back in.", ctx: S.quest ? S.quest + ", step " + ((S.step || 0) + 1) : "" }; }
   if (has(t, ["extracted", " made it out", " got out "])) { S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Nice. Raid cleared.", say: "Nice one. Raid cleared." }; }
   if (has(t, ["where were we", "recap"])) {
@@ -485,12 +501,13 @@ function answer(raw, opts) {
   const placeMention = findPlace(t);
   const iAm = /\b(i'm|i am|im|we're|we are)\b/.test(t);
   const setsLocation = placeMention && (/\b(i'm|i am|im|we're|we are)\s+(at|near|in|by|next to|outside|on|inside|beside|around|close to)\b/.test(t) || (/\b(at|near|by|next to|beside|outside|inside|around|close to)\b/.test(t) && !has(t, ["where", "how"])));
-  const dirOnly = !placeMention && !has(t, ["step"]) && (iAm || /\b(from|in|on|around|near) the\b/.test(t)) ? findDir(t) : null;  /* "I'm in the south-east", "evac from the south east" */  /* "I'm in the south-east" */
+  const dirQ = !!findCompass(t) && (/\b(of me|of here|of my|to my|from me)\b/.test(t) || has(t, ["anything", "what's to", "whats to", "what is to", "is there", "any exit", "exit to", "exits to", "towards", "way out to", "out to the"]));
+  const dirOnly = !placeMention && !dirQ && !has(t, ["step"]) && (iAm || /\b(from|in|on|around|near) the\b/.test(t)) ? findDir(t) : null;  /* "I'm in the south-east", "evac from the south east" */  /* "I'm in the south-east" */
   if (setsLocation || dirOnly) {
     const w = setsLocation ? { n: placeMention.n, y: placeMention.y, x: placeMention.x } : dirOnly;
     if (!S.place || S.place.n !== w.n) { S.avoid = []; S.exitSaid = null; S.hatchTold = false; }  /* somewhere new: every exit is back on the table */
     S.place = w; S.placeAt = Date.now(); S.raidAt = S.raidAt || Date.now(); save();
-    if (!has(t, ["extract", "exit", "out", "leave", "evac", "escape", "step", "where", "hatch", ...ENEMY_WORDS])) {
+    if (!has(t, ["extract", "exit", " out ", "leave", "evac", "escape", "step", "where", "hatch", ...ENEMY_WORDS])) {  /* " out " as a word: "south" contains "out" */
       const e = near(w, EXITS);
       return { show: "Got it. " + w.n.charAt(0).toUpperCase() + w.n.slice(1) + ".", say: "Got it, " + w.n + ". Nearest way out is " + e.n + ", " + compass(w, e) + ".", map: { you: w.rough ? Object.assign({ guess: true }, w) : w, stars: [e] } };
     }
@@ -505,16 +522,41 @@ function answer(raw, opts) {
     return { show: ar.map(a => a.n).join(", ") + ".", say: from + ar.map(a => a.n + " is " + compass(lp.p, a)).join(", ") + ". Nearest way out is " + e.n + ", " + compass(lp.p, e) + ".", map: { you: lp.p, stars: ar.concat([e]) } };
   }
   /* "can't go that way", "too many enemies", "another one": the last exit (and that direction) is out, give the next best */
-  const OTHER = ["another", "different", "other one", "other way", "something else", "somewhere else", "alternative", "can't go", "cant go", "can not go", "cannot go", "too many", "blocked", "not that one", "not that way", "too dangerous", "too hot", "swarming", "camped", "no good", "next closest", "next nearest", "second closest", "plan b", "backup"];
+  const OTHER = ["another", "different", "other one", "other way", "something else", "somewhere else", "alternative", "can't go", "cant go", "can not go", "cannot go", "too many", "blocked", "not that one", "not that way", "too dangerous", "too hot", "swarming", "camped", "no good", "next closest", "next nearest", "second closest", "plan b", "backup", "closed", "shut", "locked", "not open", "isn't open", "isnt open", "not working"];
   const wantsOther = has(t, OTHER) && (has(t, ["exit", "extract", "evac", "airshaft", "way out", "way", "one", "point"]) || (S.exitSaid && Date.now() - S.exitSaid.at < 10 * 60000));
+  const saidDir = findCompass(t);
   if (wantsOther && S.exitSaid) {
     S.avoid = Array.from(new Set((S.avoid || []).concat([S.exitSaid.n]))); save();
+  }
+  /* "can't go north-east": every exit that way is out, not just the last one */
+  if (wantsOther && saidDir && S.place) {
+    S.avoid = Array.from(new Set((S.avoid || []).concat(EXITS.filter(e => inWedge(S.place, e, saidDir)).map(e => e.n)))); save();
   }
   const EXIT_WORDS = ["extract", "exit", "way out", "get out", "get me out", "out of here", "leave", "airshaft", "evac", "escape"];
   const help = /^\s*(help|help me|help help|mayday|sos)\s*$/.test(t);  /* a lone "help" mid-raid means get me out */
   const wantsExit = (help || has(t, EXIT_WORDS) || (wantsOther && S.exitSaid)) && !has(t, [" step "]);
-  const stepRes = wantsExit ? null : stepIntent(t);
+  const stepRes = wantsExit || dirQ ? null : stepIntent(t);
   if (stepRes) return stepRes;
+
+  /* "anything south of me?", "is there an exit to the west?": look only that way, and say so when it's the edge of the map */
+  if (dirQ && !wantsOther) {
+    const dq = findCompass(t), lp = likelyPos();
+    if (!lp) return askWhere(raw);
+    const exits = EXITS.filter(e => inWedge(lp.p, e, dq)).sort((a, b) => dist(lp.p, a) - dist(lp.p, b));
+    const areas = AREAS.filter(a => a.n !== lp.p.n && inWedge(lp.p, a, dq) && dist(lp.p, a) > 60).sort((a, b) => dist(lp.p, a) - dist(lp.p, b));
+    if (wantsExit || has(t, ["exit", "airshaft", "way out", "extract", "evac"])) {
+      if (!exits.length) { const e = near(lp.p, EXITS); return { show: "No exit " + dq + ".", say: "No airshaft to the " + dq + " of you. Nearest is " + e.n + ", " + compass(lp.p, e) + ".", map: { you: lp.p, stars: [e] } }; }
+      const e = exits[0]; S.exitSaid = { n: e.n, at: Date.now() }; save();
+      return { show: e.n + ", " + compass(lp.p, e) + ".", say: e.n + (lp.p.rough ? ", " : ", about " + metres(lp.p, e) + " metres ") + compass(lp.p, e) + ".", map: { you: lp.p, stars: [e] } };
+    }
+    if (!areas.length && !exits.length) {
+      const e = near(lp.p, EXITS);
+      return { show: "Edge of the map.", say: "Nothing further " + dq + ". You're near the " + EDGE[dq] + " edge of the map. Nearest way out is " + e.n + ", " + compass(lp.p, e) + ".", map: { you: lp.p, stars: [e] } };
+    }
+    const picks = areas.slice(0, 2);
+    const ex = exits[0] ? " " + exits[0].n + " is that way too." : "";
+    return { show: (picks[0] || exits[0]).n + ", " + compass(lp.p, picks[0] || exits[0]) + ".", say: picks.map(a => a.n + (lp.p.rough ? ", " : ", about " + metres(lp.p, a) + " metres ") + compass(lp.p, a)).join(". ") + "." + ex, map: { you: lp.p, stars: picks.concat(exits.slice(0, 1)) } };
+  }
 
   const otherMap = OTHER_MAPS.find(m => t.includes(m));
   if (otherMap && !has(t, ["blue gate"])) return { show: "Blue Gate only, for now.", say: "I only have Blue Gate's map so far." };
@@ -526,8 +568,9 @@ function answer(raw, opts) {
     const lp = opts.general ? null : likelyPos();
     if (wantsNearest && lp && !lp.sure) {
       const pool0 = EXITS.filter(e => !(S.avoid || []).includes(e.n)), best = near(lp.p, pool0.length ? pool0 : EXITS), dir = compass(lp.p, best);
-      S.exitSaid = { n: best.n, at: Date.now() }; save();
-      return { show: (rush ? "Move. " : "") + best.n + ", " + dir + ".", say: rush + (wantsOther ? "Next best is " : "") + best.n + ". Head " + dir + ". That's a guess from " + lp.short + ". Tell me if you've moved.", map: { you: Object.assign({ guess: true }, lp.p), stars: [best] }, ctx: "A guess from " + lp.short + ". Say where you are if you've moved." };
+      const caveat = S.guessTold ? "" : " That's a guess from " + lp.short + ". Tell me if you've moved.";
+      S.exitSaid = { n: best.n, at: Date.now() }; S.guessTold = true; save();
+      return { show: (rush ? "Move. " : "") + best.n + ", " + dir + ".", say: rush + (wantsOther ? vary(["Next best is ", "Try ", "Then go for "]) : "") + best.n + ". Head " + dir + "." + caveat, map: { you: Object.assign({ guess: true }, lp.p), stars: [best] }, ctx: "A guess from " + lp.short + ". Say where you are if you've moved." };
     }
     if (wantsNearest && !lp && !opts.general) { const a = askWhere(raw); a.say = "Where are you, roughly? A place, or just a side of the map. All four airshafts are on the map meanwhile."; a.map = { you: null, stars: EXITS }; return a; }
     if (!lp || !wantsNearest) {
@@ -539,11 +582,11 @@ function answer(raw, opts) {
     const best = near(lp.p, pool);
     const dir = compass(lp.p, best);
     S.exitSaid = { n: best.n, at: Date.now() }; save();
-    const alt = wantsOther ? "Next best is " : "";
+    const alt = wantsOther ? vary(["Next best is ", "Try ", "Then go for "]) : "";
     if (dist(lp.p, best) < 80 && !lp.p.rough) return { show: "You're at " + best.n + ".", say: rush + "You're right at " + best.n + ". Extract there.", map: { you: null, stars: [best] } };
     const hb = near(lp.p, HATCHES), hatchTip = !(wantsOther && S.hatchTold) && dist(lp.p, hb) < dist(lp.p, best) * 0.7 ? " " + hb.n + " is closer, " + compass(lp.p, hb) + ", if you've got a hatch key." : "";
     if (hatchTip) { S.hatchTold = true; save(); }
-    const lead = lp.p.rough ? "From " + lp.p.n + ", your best bet is " : "";
+    const lead = lp.p.rough ? vary(["Your best bet is ", "Head for ", "From " + lp.p.n + ", try "]) : "";
     const how = lp.p.rough ? ". Head " + dir + "." : ", about " + metres(lp.p, best) + " metres " + dir + ".";
     return { show: (rush ? "Move. " : "") + best.n + ", " + dir + ".", say: rush + (alt ? alt + best.n : lead ? lead + best.n : best.n) + how + hatchTip, map: { you: lp.p.rough ? Object.assign({ guess: true }, lp.p) : lp.p, stars: hatchTip ? [best, hb] : [best] } };
   }
@@ -574,15 +617,19 @@ function answer(raw, opts) {
   if (has(t, ["grandioso", "launch tower"])) return { show: "Blue Gate only, for now.", say: "That's on another map. I only have Blue Gate so far." };
 
   /* didn't understand: never drop the quest. Remind them where they are, and show what Relay heard so mishearings are obvious. */
+  /* the full reminder once; after that, short and varied. It comes back after five quiet minutes. */
   const heard = "Heard: \u201C" + String(raw).trim() + "\u201D";
+  const full = !S.helpAt || Date.now() - S.helpAt > 5 * 60000;
+  if (full) { S.helpAt = Date.now(); save(); }
+  const short = vary(["Say again?", "Didn't catch that.", "One more time?", "Sorry, again?"]);
   const cq = QUESTS.find(q => q.n === S.quest);
   if (cq) {
-    const st = cq.steps[S.step || 0], a = stepAnswer(cq, S.step || 0);
-    a.say = "Didn't catch that. Still step " + ((S.step || 0) + 1) + ". " + a.show;
-    a.full = a.say; a.ctx = heard; a.fallback = true;
+    const a = stepAnswer(cq, S.step || 0);
+    a.say = full ? "Didn't catch that. Still step " + ((S.step || 0) + 1) + ". " + a.show : short;
+    a.full = "Still step " + ((S.step || 0) + 1) + ". " + a.show; a.ctx = heard; a.fallback = true;
     return a;
   }
-  return { show: "Say again?", say: "Sorry, say that again? You can tell me a quest and step, or ask for the way out.", ctx: heard, fallback: true };
+  return { show: "Say again?", say: full ? "Sorry, say that again? You can ask for the way out, where to find something, or tell me your quest and step." : short, ctx: heard, fallback: true };
 }
 
 /* =================== voice: native app or browser =================== */
@@ -644,7 +691,7 @@ const OV = CAP && CAP.RelayOfflineVoice ? CAP.RelayOfflineVoice : null;
 const OV_VOICES = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4].map(sid => ({ sid, label: (sid >= 5 ? "Male " + (sid - 4) : "Female " + (sid + 1)) }));
 /* settings kept apart from raid state, so they survive "close" and restarts */
 const CFG_KEY = "relay-settings";
-let CFG = { sid: 5, speed: 1.0, off: false, crash: "" };
+let CFG = { sid: 0, speed: 1.0, off: false, crash: "" };  /* Female 1: Tony's pick */
 try { const c = JSON.parse(localStorage.getItem(CFG_KEY) || "null"); if (c) CFG = Object.assign(CFG, c); else if (S.ovSid != null) CFG.sid = S.ovSid; } catch (e) {}
 const saveCfg = () => { try { localStorage.setItem(CFG_KEY, JSON.stringify(CFG)); } catch (e) {} };
 const SPEEDS = [{ v: 1.0, l: "Normal" }, { v: 1.15, l: "Faster" }, { v: 1.3, l: "Fast" }];
@@ -699,6 +746,8 @@ function stopSpeaking() { speakId++; setVoiceState("idle"); try { if (gemSpeak.s
    It only starts listening once its own speech has finished, so it never hears itself. */
 const CONVO_MS = 45000;
 let convoUntil = 0, listening = false, followMode = false, webRec = null, fastFails = 0;
+/* the halo and waveform follow this, and only this: is the microphone actually capturing right now */
+function micOn(v) { listening = v; document.body.classList.toggle("mic-on", !!v); }
 function setVoiceState(s) {
   document.body.classList.toggle("speaking", s === "speaking");
   const el = $("vstate"); if (el) el.textContent = { listening: "Listening", speaking: "Speaking" }[s] || "";
@@ -709,9 +758,9 @@ function keepConversation() {
   else { convoUntil = 0; endFollow(); }
 }
 let cancelledAt = 0;  /* after X while listening, ignore whatever the recogniser still sends back */
-function heard(text) { if (Date.now() - cancelledAt < 3000) { listening = false; return; } listening = false; fastFails = 0; handle(text); }
+function heard(text) { if (Date.now() - cancelledAt < 3000) { micOn(false); return; } micOn(false); fastFails = 0; handle(text); }
 function nothingHeard(startedAt, err) {
-  listening = false;
+  micOn(false);
   if (Date.now() - cancelledAt < 3000) return;
   if (followMode) {
     if (Date.now() - startedAt < 800) fastFails++; else fastFails = 0;
@@ -734,7 +783,7 @@ async function listen(opts) {
     try {
       const p = await CAP.SpeechRecognition.requestPermissions();
       if (p && p.speechRecognition && p.speechRecognition !== "granted") { nothingHeard(startedAt, "permission"); return; }
-      listening = true; startListeningUI(auto);
+      micOn(true); startListeningUI(auto);
       const r = await CAP.SpeechRecognition.start({ language: "en-GB", maxResults: 1, partialResults: false, popup: false });
       const text = r && r.matches && r.matches[0];
       if (text) heard(text); else nothingHeard(startedAt);
@@ -744,14 +793,14 @@ async function listen(opts) {
   if (!WebRec) { showError("Voice isn't available here. Open Relay on your phone."); return; }
   webRec = new WebRec(); webRec.lang = "en-GB"; webRec.interimResults = false; webRec.maxAlternatives = 1;
   let finalText = "", err = "";
-  listening = true; startListeningUI(auto);
+  micOn(true); startListeningUI(auto);
   webRec.onresult = e => { for (const r of e.results) if (r.isFinal) finalText = r[0].transcript; };
   webRec.onerror = e => { err = e.error === "not-allowed" || e.error === "service-not-allowed" ? "permission" : e.error === "network" ? "network" : ""; };
   webRec.onend = () => { if (!listening) return; if (finalText) heard(finalText); else nothingHeard(startedAt, err); };
   try { webRec.start(); } catch (e) { nothingHeard(startedAt, "fatal"); }
 }
 function startListeningUI(auto) { followMode = auto; if (auto) { setVoiceState("listening"); document.body.classList.add("follow"); } else renderListening(); }
-function stopListening() { convoUntil = 0; try { if (CAP && CAP.SpeechRecognition) CAP.SpeechRecognition.stop(); else if (webRec) webRec.stop(); } catch (e) {} }
+function stopListening() { convoUntil = 0; document.body.classList.remove("mic-on"); try { if (CAP && CAP.SpeechRecognition) CAP.SpeechRecognition.stop(); else if (webRec) webRec.stop(); } catch (e) {} }
 
 /* =================== system bars match the screen (native only) =================== */
 function bars(listeningNow) { try { if (CAP && CAP.SystemBars) CAP.SystemBars.set({ color: "#1C1E22", light: false }); } catch (e) {} }
@@ -1200,7 +1249,7 @@ document.querySelector(".app").addEventListener("click", e => { if (e.target.clo
 $("close").addEventListener("click", e => {
   e.stopPropagation();
   /* listening for a first question: X just cancels it and goes back. Quest and step are kept. */
-  if (document.body.classList.contains("listening")) { cancelledAt = Date.now(); listening = false; stopListening(); stopSpeaking(); endFollow(); renderBack(); return; }
+  if (document.body.classList.contains("listening")) { cancelledAt = Date.now(); micOn(false); stopListening(); stopSpeaking(); endFollow(); renderBack(); return; }
   stopSpeaking(); stopListening(); endFollow(); const v = S.voice; S = Object.assign({}, EMPTY); S.voice = v; S.voiceV = 2; S.voicePicked = !!v; save(); renderReady(); });
 document.addEventListener("visibilitychange", () => { if (document.hidden) { convoUntil = 0; stopListening(); stopSpeaking(); endFollow(); } });
 
