@@ -91,7 +91,7 @@ body.speaking:not(.mic-on) .mic svg{width:32px;height:32px}
 @keyframes wv{0%,100%{transform:scaleY(.6)}50%{transform:scaleY(1)}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 /* start: the icon's three lines carry on from Android's splash, travel down and out of the screen, then the greeting fades in. Once per launch. */
-#intro{position:fixed;inset:0;z-index:50;pointer-events:none;background:#1C1E22;transition:background-color .2s linear}
+#intro{position:fixed;inset:0;z-index:50;pointer-events:auto;background:#1C1E22;transition:background-color .2s linear}
 #intro.clear{background-color:transparent}
 #intro path{fill:none;stroke:#F2B33D;animation:introgo .48s cubic-bezier(.45,0,.9,.6) forwards}
 @keyframes introgo{to{stroke-dashoffset:var(--to)}}
@@ -1273,9 +1273,9 @@ if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} return; }
   /* Measured from a Pixel 9 recording (4 Nov): Android draws the icon centred on the WHOLE screen and 18% bigger than the
      old 160 px guess. The page starts below the status bar, so lift the drawing by half the difference. */
-  const Wd = innerWidth, Ht = innerHeight, S = 189;
+  const Wd = innerWidth, Ht = innerHeight, S = 190.5;  /* re-measured 4 Nov evening: the lines span 450 of 1080 px on a Pixel 9 */
   const lift = Math.max(0, ((screen.height || Ht) - Ht) / 2);
-  const L0 = (Wd - S) / 2 - 1.5, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
+  const L0 = (Wd - S) / 2 - 0.5, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
   const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
   svg.setAttribute("width", Wd); svg.setAttribute("height", Ht); svg.setAttribute("aria-hidden", "true");
   const box = document.createElement("div"); box.id = "intro"; box.appendChild(svg); document.body.appendChild(box); document.body.classList.add("intro");
@@ -1290,8 +1290,9 @@ if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
     p.style.animationDelay = (HOLD + j * STEP) + "ms"; svg.appendChild(p);
   });
   const end = HOLD + DUR + STEP * 2;
-  setTimeout(() => { document.body.classList.remove("intro"); box.classList.add("clear"); }, end - 160);
-  setTimeout(() => box.remove(), end + 300);
+  /* the app appears only once the last line is off the screen, and taps are blocked until then (4 Nov) */
+  setTimeout(() => { document.body.classList.remove("intro"); box.classList.add("clear"); box.style.pointerEvents = "none"; }, end + 60);
+  setTimeout(() => box.remove(), end + 360);
 })();
 async function keepAwake() { try { if (CAP && CAP.KeepAwake) await CAP.KeepAwake.keepAwake(); else if (navigator.wakeLock) await navigator.wakeLock.request("screen"); } catch (e) {} }
 keepAwake(); document.addEventListener("visibilitychange", () => { if (!document.hidden) keepAwake(); });
