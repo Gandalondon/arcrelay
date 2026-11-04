@@ -27,10 +27,6 @@ public class SystemBarsPlugin extends Plugin {
     @PluginMethod
     public void ready(PluginCall call) { MainActivity.introReady = true; call.resolve(); }
 
-    /** the page has drawn its copy of the start icon: Android's own can go */
-    @PluginMethod
-    public void splashDone(PluginCall call) { getActivity().runOnUiThread(() -> { MainActivity.splashDone(); call.resolve(); }); }
-
     static void apply(Window w, int color, boolean lightBackground) {
         w.setStatusBarColor(color);
         w.setNavigationBarColor(color);
