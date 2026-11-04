@@ -1,0 +1,3 @@
+arcrelay-play-screenshot-1-ask.png: ArcRelay home screen on a phone: "Evening, Raider. Need a hand topside?" with the yellow microphone button.
+arcrelay-play-screenshot-2-hey-relay.png: ArcRelay listening after "Hey Relay": the screen says "Go ahead." and the microphone glows.
+arcrelay-play-feature-graphic.png: The ArcRelay logo and "Ask. Find. Get out." beside a phone on a desk showing "Cliffside Airshaft, south-east."

@@ -1,0 +1,14 @@
+const { chromium } = require('playwright');
+(async () => { const b = await chromium.launch();
+ const ctx = await b.newContext({ viewport: { width: 400, height: 889 }, deviceScaleFactor: 2.7, timezoneId: 'Europe/London' });
+ await ctx.addInitScript(() => { const T = new Date('2026-11-04T21:30:00Z').getTime(); const D = Date; const off = T - D.now();
+   class FD extends D { constructor(...a) { if (a.length) super(...a); else super(D.now() + off); } static now() { return D.now() + off; } } window.Date = FD; });
+ const p = await ctx.newPage(); const url = 'file://' + process.argv[2];
+ await p.goto(url); await p.waitForTimeout(4000);
+ await p.evaluate(() => { document.getElementById('sppack').hidden = true; });
+ await p.screenshot({ path: 'listing/screen-home.png' });
+ await p.evaluate(() => { micOn(true); renderListening(); }); await p.waitForTimeout(900);
+ await p.evaluate(() => { document.getElementById('sppack').hidden = true; document.body.classList.remove('speaking'); });
+ await p.screenshot({ path: 'listing/screen-listening.png' });
+ console.log(await p.evaluate(() => [document.getElementById('word').textContent, document.getElementById('ctx').textContent, S.last && S.last.a.say]));
+ await b.close(); })();

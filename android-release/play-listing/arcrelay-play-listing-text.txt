@@ -1,0 +1,31 @@
+Ask where to go, find what you need and get out. A voice guide for ARC Raiders.
+---
+Ask. Find. Get out.
+
+ArcRelay is a voice guide for ARC Raiders. Ask out loud and it answers out loud, so your eyes stay on the screen and your hands stay on the pad. No alt-tabbing, no scrolling a guide mid-raid.
+
+Say "Hey Relay", or tap, and ask like you would ask a teammate:
+
+• "Get me out of here." The nearest extraction from where you are, with the direction and distance.
+• "Not that one, it's closed." It rules that exit out for the rest of the raid and gives you the next best.
+• "What's next on Home to Roost?" Quest steps one at a time, and it remembers where you got to.
+• "Where can I find Dead Flowers?" The best place to look, and an honest answer when an item has no fixed spot.
+• "Anything south of me?" Exits and places in that direction.
+
+Tell it where you are by name ("I'm at the Village"), by side of the map ("south-east"), or tap the map and confirm. Every answer comes with a map showing you and where to go.
+
+Built to run on your phone
+• Answers are worked out on the phone from game data built into the app.
+• A natural offline voice, downloaded once (about 130 MB). After that, no internet needed for speaking.
+• Speech recognition runs on the phone where Android supports it.
+• "Hey Relay" only listens for those two words, only while the app is open on screen. You can turn it off.
+• Short answers, said once. After an answer it listens once more for a follow-up, then goes quiet.
+
+Free. No account, no ads, no tracking.
+
+Early access
+ArcRelay currently covers Blue Gate. More maps will follow. If it gets something wrong, let us know and we will fix it.
+
+Maps by MetaForge (metaforge.app), used with permission.
+
+ArcRelay is an independent, unofficial companion app. It is not made, affiliated with or endorsed by Embark Studios. ARC Raiders is a trademark of Embark Studios.
