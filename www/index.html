@@ -976,8 +976,10 @@ function drawMap(m) {
   /* names stay clear of your dot and the target dot (the headline already names the target) */
   const busy = [...m.stars, ...(m.you ? [m.you] : [])];
   AREAS.forEach(a => { if (!starNames.has(a.n) && !busy.some(q => dist(a, q) < 110)) lab(a); });
-  const zoomCls = () => $("map") && $("map").classList.toggle("zfar", lmap.getZoom() < 2.6);
-  lmap.on("zoomend", zoomCls);
+  /* names hide only when you're nearly all the way out (full map + 0.8 zoom), so a small pinch never loses them; works for any map's scale */
+  const farZ = lmap.getBoundsZoom(MAP.bounds, false, L.point(32, 32)) + 0.8;
+  const zoomCls = () => $("map") && $("map").classList.toggle("zfar", lmap.getZoom() < farZ);
+  lmap.on("zoom zoomend", zoomCls);
   if (m.you) { const g = !!m.you.guess, s = g ? 44 : 20; L.marker(ll(m.you), { icon: L.divIcon({ className: "", html: g ? YOU_GUESS : YOU, iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); }
   const pts = [...m.stars, ...(m.you ? [m.you] : [])].map(ll);
   /* setting your location takes two steps, so a stray tap while panning never moves you:
