@@ -1,0 +1,116 @@
+<title>ArcRelay</title>
+<meta name="description" content="A voice companion for ARC Raiders. Ask where to go, hear the answer, keep playing.">
+<link rel="stylesheet" href="leaflet.css"><link rel="stylesheet" href="site.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 72 72%27%3E%3Crect width=%2772%27 height=%2772%27 rx=%2716%27 fill=%27%231C1E22%27/%3E%3Cg fill=%27none%27 stroke=%27%23F2B33D%27 stroke-width=%2710%27%3E%3Cpath d=%27M -10 12 H 14 A 46 46 0 0 1 60 58 V 82%27/%3E%3Cpath d=%27M -10 28 H 14 A 30 30 0 0 1 44 58 V 82%27/%3E%3Cpath d=%27M -10 44 H 14 A 14 14 0 0 1 28 58 V 82%27/%3E%3C/g%3E%3C/svg%3E">
+<header class="hdr"><div class="wrap">
+  <a class="logo" href="./" id="logo" aria-label="ArcRelay home">
+    <svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg>
+    <span class="name" data-name>Relay</span>
+  </a>
+  <span class="btn sm">Get the app</span>
+</div></header>
+<div class="site">
+<main>
+  <section class="hero photo">
+    <picture class="hero-img" aria-hidden="true"><source media="(max-width:900px)" srcset="hero-desk-sm.webp"><img src="hero-desk.webp" alt="" decoding="async" fetchpriority="high"></picture>
+    <div class="wrap">
+      <div class="reveal">
+        <h1>Ask. Find.<br><span class="a">Get out.</span></h1>
+        <p class="lede">A voice companion for ARC Raiders. Ask where to go, hear the answer, keep playing.</p>
+      </div>
+    </div>
+  </section>
+  <div class="rows">
+  <section class="feature">
+    <div class="wrap">
+      <div class="phone-col reveal">
+        <div class="phone">
+          <div class="screen" role="img" aria-label="ArcRelay listening: Go ahead, with the yellow microphone at the bottom.">
+            <div class="top"><div class="w">Go
+ahead.</div></div>
+            <div class="fill"></div>
+            <div class="dock"><svg class="mic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM480-651Zm-30 501v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm59.5-346.5Q521-510 521-529v-251q0-17-11.79-28.5T480-820q-17.42 0-29.21 11.5T439-780v251q0 19 11.5 32.5T480-483q18 0 29.5-13.5Z"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Just ask.</h2>
+        <p>Say “Hey Relay” or tap, and talk like you would to a teammate. ArcRelay answers out loud, then listens for a follow-up, so your eyes stay on the TV and your hands stay on the pad.</p>
+        <span class="btn">Get the app</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature flip">
+    <div class="wrap">
+      <div class="phone-col reveal">
+        <div class="phone">
+          <div class="screen session" role="img" aria-label="ArcRelay's answer for Home to Roost step 3: Right, up two flights. Door on your right. Below, a map with a yellow dot on the locker room and a dashed route from you. A small yellow microphone sits at the bottom.">
+            <div class="top"><div class="ins">Right, up two flights. Door on your right.</div><svg class="x" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M480-438 270-228q-9 9-21 9t-21-9q-9-9-9-21t9-21l210-210-210-210q-9-9-9-21t9-21q9-9 21-9t21 9l210 210 210-210q9-9 21-9t21 9q9 9 9 21t-9 21L522-480l210 210q9 9 9 21t-9 21q-9 9-21 9t-21-9L480-438Z"/></svg></div>
+            <p class="ctx">Home to Roost, step 3 of 8</p>
+            <div class="map"><div class="lmap" data-you="3347,7952" data-dot="4043,7224"></div></div>
+            <div class="dock"><svg class="mic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM480-651Zm-30 501v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm59.5-346.5Q521-510 521-529v-251q0-17-11.79-28.5T480-820q-17.42 0-29.21 11.5T439-780v251q0 19 11.5 32.5T480-483q18 0 29.5-13.5Z"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Know where to go.</h2>
+        <p>Hear the route, glance at the instruction. One dot on the map shows exactly where, so you can drop your waypoint in-game without scrolling a guide full of adverts.</p>
+        <span class="btn">Get the app</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature">
+    <div class="wrap">
+      <div class="phone-col reveal">
+        <div class="phone">
+          <div class="screen session" role="img" aria-label="ArcRelay's answer when you're at Blue Gate Village: Cliffside Airshaft, south-east. Below, a map with you at the village, a yellow dot on the airshaft and a dashed line between.">
+            <div class="top"><div class="ins">Cliffside Airshaft, south-east.</div><svg class="x" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M480-438 270-228q-9 9-21 9t-21-9q-9-9-9-21t9-21l210-210-210-210q-9-9-9-21t9-21q9-9 21-9t21 9l210 210 210-210q9-9 21-9t21 9q9 9 9 21t-9 21L522-480l210 210q9 9 9 21t-9 21q-9 9-21 9t-21-9L480-438Z"/></svg></div>
+            <p class="ctx">Nearest way out from Blue Gate Village</p>
+            <div class="map"><div class="lmap" data-you="3180,5753" data-dot="4037,6576"></div></div>
+            <div class="dock"><svg class="mic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM480-651Zm-30 501v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm59.5-346.5Q521-510 521-529v-251q0-17-11.79-28.5T480-820q-17.42 0-29.21 11.5T439-780v251q0 19 11.5 32.5T480-483q18 0 29.5-13.5Z"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Need a quick evac?</h2>
+        <p>Say where you are, and ArcRelay names the nearest way out and shows the route on the map. Short on time? Tell it how many minutes are left and it gets straight to the point.</p>
+        <span class="btn">Get the app</span>
+      </div>
+    </div>
+  </section>
+  </div>
+</main>
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftop">
+      <p class="credit">&copy; 2026 <span data-name>Relay</span>. Made in London by <a href="https://gandalondon.com" target="_blank" rel="noopener">Tony Goff-Yu</a>. Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>.</p>
+      <nav aria-label="Footer"><a href="feedback">Feedback</a><a href="privacy">Privacy policy</a><a href="legal">Credits and legal</a></nav>
+    </div>
+  </div>
+</footer>
+</div>
+<script src="site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* PRIVATE CONCEPT: the real MetaForge Blue Gate map (a few tiles copied in, as the viewer blocks outside images). Not for going public until MetaForge says yes. */
+(function () {
+  if (!window.L) return;
+  const T = [0.031557386447043756, -2.4780212715357095, 0.03158019364427784, -1.175068101010055];
+  const crs = L.extend({}, L.CRS.Simple, { transformation: new L.Transformation(T[0], T[1], T[2], T[3]) });
+  const DOT = '<div style="width:22px;height:22px;border-radius:50%;background:#F2B33D;box-shadow:0 0 0 3px #1C1E22,0 0 0 6px rgba(242,179,61,.35)"></div>';
+  const YOU = '<div style="width:18px;height:18px;border-radius:50%;background:#EEE8DC;box-shadow:0 0 0 3px #1C1E22"></div>';
+  const P = a => a.split(",").map(Number);
+  document.querySelectorAll(".lmap").forEach(el => {
+    const m = L.map(el, { crs, zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false, boxZoom: false, keyboard: false, zoomSnap: 0 });
+    m.attributionControl.setPrefix(false);
+    L.tileLayer("tiles/{z}/{x}/{y}.webp", { tileSize: 512, maxNativeZoom: 5, noWrap: true, bounds: [[37.2, 78.5], [16218, 16271]], attribution: 'Map: <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(m);
+    const dot = P(el.dataset.dot), you = el.dataset.you ? P(el.dataset.you) : null;
+    if (you) L.polyline([you, dot], { color: "#EEE8DC", weight: 2, opacity: .75, dashArray: "4 8", lineCap: "round" }).addTo(m);
+    L.marker(dot, { icon: L.divIcon({ className: "", html: DOT, iconSize: [22, 22], iconAnchor: [11, 11] }), interactive: false }).addTo(m);
+    if (you) L.marker(you, { icon: L.divIcon({ className: "", html: YOU, iconSize: [18, 18], iconAnchor: [9, 9] }), interactive: false }).addTo(m);
+    const fit = () => { m.invalidateSize(); if (you) m.fitBounds(L.latLngBounds([you, dot]), { padding: [36, 36], maxZoom: 4.5 }); else m.setView(dot, 4); };
+    fit(); new ResizeObserver(fit).observe(el);
+  });
+})();
+</script>

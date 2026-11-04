@@ -2,6 +2,7 @@ name: Build Relay APK
 on:
   push:
     branches: [main]
+    paths-ignore: ["site/**", "NEXT.md", "*.md"]
   workflow_dispatch:
 permissions:
   contents: write

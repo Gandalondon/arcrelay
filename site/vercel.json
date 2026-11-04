@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/beta/index", "destination": "/beta/", "permanent": true }
+  ],
+  "headers": [
+    { "source": "/beta", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] },
+    { "source": "/beta/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] },
+    { "source": "/fonts/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+  ]
+}

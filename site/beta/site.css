@@ -1,0 +1,178 @@
+@font-face{font-family:"Barlow";font-weight:400;font-display:swap;src:url(/fonts/barlow-400.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:500;font-display:swap;src:url(/fonts/barlow-500.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:600;font-display:swap;src:url(/fonts/barlow-600.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:700;font-display:swap;src:url(/fonts/barlow-700.woff2) format("woff2")}
+/* ArcRelay site. Barlow throughout. One charcoal ground with faint contour lines behind the whole page, fixed while you scroll.
+   Hierarchy comes from size, weight and space. No divider lines or borders. 8px grid. */
+:root{
+  --bg:#1C1E22;        /* charcoal base: hero, footer, pages */
+  --panel:#26282D;     /* raised surface: form fields */
+  --map:#26282D;       /* map surface in the mockups: neutral, no blue */
+  --ink:#15171C;
+  --amber:#F2B33D; --amber-hi:#F6C25E;
+  --text-hi:#EEE8DC;   /* headings: warm off-white */
+  --text:#EEE8DC;      /* body: the same off-white as headings. Three colours only: off-white, blue-black, yellow */
+  --text-meta:#EEE8DC; /* no grey: small print uses the off-white too */
+  --contour:#26282D;
+  /* symbol on the site: yellow bars, cream wordmark */
+  --sym-1:#F2B33D; --sym-2:#F2B33D; --sym-3:#F2B33D;
+  --font:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
+  --edge:max(24px,env(safe-area-inset-left,0px)); --edge-r:max(24px,env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+@media (min-width:1024px){ :root{ --edge:48px; --edge-r:48px } }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 18px/28px var(--font);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font);margin:0;color:var(--text-hi);text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.wrap{max-width:1240px;margin:0 auto;padding-left:var(--edge);padding-right:var(--edge-r)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+/* buttons: pills, sentence case */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 32px;border:0;border-radius:999px;background:var(--amber);color:var(--ink);font:600 18px/1 var(--font);letter-spacing:.005em;white-space:nowrap;cursor:pointer;transition:background .2s ease}
+.btn:hover{background:var(--amber-hi)}
+.btn.sm{height:44px;padding:0 20px;font-size:16px}
+
+/* header: an ordinary bar at the top of the page that scrolls away with it. No sticky nav, no floating button. */
+.hdr{position:absolute;inset:0 0 auto;z-index:2;padding-top:calc(24px + env(safe-area-inset-top,0px))}
+/* the header runs to the page's outer margins, wider than the content column: logo far left, Get the app far right */
+.hdr .wrap{max-width:none;height:48px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+/* logo: the three signal lines + wordmark (the wordmark stays in capitals). Draws in once on load, then stays still. */
+.logo{display:inline-flex;align-items:center;color:var(--text-hi)}
+.logo svg{flex:none;width:32px;height:32px;display:block;overflow:hidden}
+.logo path{fill:none;stroke:var(--amber);stroke-width:10}
+.logo .name .arc{font-weight:400;color:var(--text-hi)}
+.logo .name .rl{color:var(--amber)}
+.logo .name{display:block;white-space:nowrap;padding-left:12px;font:700 24px/1 var(--font);letter-spacing:.04em;text-transform:uppercase}
+@media (max-width:420px){ .logo svg{width:28px;height:28px} .logo .name{font-size:20px;padding-left:10px} }
+
+/* contours: decorative terrain in the hero and footer, one colour, one line weight */
+canvas.topo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.site{position:relative;z-index:1}
+
+/* hero */
+/* hero: headline, line and button on the left; the phone, angled, on the right as the main visual */
+/* hero: fills the window below the header, text and phone centred in it together */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding-block:calc(104px + env(safe-area-inset-top,0px)) 56px}
+.hero .wrap{width:100%;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center}
+.hero h1{margin-left:-.03em;font-size:clamp(64px,8.6vw,136px);line-height:.92;font-weight:700;letter-spacing:-.03em;text-wrap:initial}
+.a{color:var(--amber)}
+.hero .lede{margin-top:40px;font-size:24px;line-height:34px;max-width:26em;color:var(--text)}
+.hero .btn{margin-top:40px}
+.hero .phone-col{justify-self:center}
+@media (max-width:900px){ .hero{min-height:0;display:block;padding-block:calc(128px + env(safe-area-inset-top,0px)) 72px} .phone.hero-phone{--pw:min(340px,78vw)} .hero .wrap{grid-template-columns:minmax(0,1fr);gap:72px} .hero .lede{margin-top:32px;font-size:21px;line-height:31px} .hero .btn{margin-top:32px} }
+@media (max-width:600px){ .hero h1{font-size:17vw} }
+
+/* phone mockups: the real app's screens at 390 wide, scaled with em */
+/* every phone: upright, with a frame that has a faint metal edge. No drop shadow, no 3D. */
+.phone{--pw:300px;width:var(--pw);max-width:100%;aspect-ratio:390/844;padding:10px;border-radius:44px;background:linear-gradient(140deg,#3F4249,#2A2C32 45%,#222429);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+/* the phone is sized to fit the window's height, so it never pushes the hero below the fold */
+.phone.hero-phone{--pw:min(340px,78vw,calc((100svh - 200px) * 0.462))}
+.screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;font-size:calc((var(--pw) - 20px) / 24.375);padding:24px 24px 0;display:flex;flex-direction:column;background:var(--bg);color:var(--text-hi);font-family:var(--font)}
+.screen.amber{background:var(--amber);color:var(--ink)}
+.screen .top{display:flex;justify-content:space-between;align-items:flex-start;gap:1em}
+.screen .w{font:600 5em/.95 var(--font);letter-spacing:-.015em;white-space:pre-line}
+.screen .ins{font:600 3em/1.02 var(--font);letter-spacing:-.01em;text-wrap:balance;flex:1 1 auto}
+.screen .greet{font:600 4em/1 var(--font);letter-spacing:-.015em;white-space:pre-line;text-wrap:balance}
+.screen .ctx{font-size:1em;line-height:1.5;color:var(--text-meta);margin-top:1em}
+.screen .x{flex:none;width:20px;height:20px;margin:2px 0 0;color:var(--amber)}
+.screen.amber .x{color:var(--ink)}
+.screen .fill{flex:1 1 auto}
+.screen .map{flex:1 1 auto;min-height:0;position:relative;overflow:hidden;margin:24px -24px 0;background:var(--map)}
+.screen .map > svg{position:absolute;inset:0;width:100%;height:100%;display:block}  /* only the drawn stand-in map, never the map's own route layer */
+/* real map in the mockups (private concept) */
+.lmap{position:absolute;inset:0;background:#23262C}
+.lmap .leaflet-control-attribution{background:rgba(28,30,34,.72)!important;color:#8A93A3!important;font:400 9px/14px var(--font);padding:0 6px}
+.lmap .leaflet-control-attribution a{color:#EEE8DC!important}
+.screen .dock{flex:none;height:7em;display:flex;align-items:center;justify-content:center}
+.screen.session .dock{height:5.5em}
+.screen .mic{color:var(--amber);width:3.5em;height:3.5em}
+.screen.session .mic{width:2.25em;height:2.25em}
+.wave{display:flex;align-items:center;justify-content:center;gap:.5625em;height:5.5em;color:var(--amber)}
+.wave i{display:block;width:1.125em;height:100%;border-radius:999px;background:currentColor;animation:wv 1s ease-in-out infinite}
+.wave i:nth-child(1),.wave i:nth-child(5){height:42%}
+.wave i:nth-child(2),.wave i:nth-child(4){height:70%}
+.wave i:nth-child(1){animation-delay:-.45s}.wave i:nth-child(2){animation-delay:-.15s}.wave i:nth-child(3){animation-delay:-.3s}.wave i:nth-child(4){animation-delay:-.6s}.wave i:nth-child(5){animation-delay:-.75s}
+@keyframes wv{0%,100%{transform:scaleY(.6)}50%{transform:scaleY(1)}}
+@media (max-width:420px){ .phone{--pw:280px} }
+
+/* product rows: one deeper band, so the hero and footer read as the frame */
+.rows{padding-block:64px}
+.feature{padding-block:96px}
+.feature .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:96px;align-items:center}
+.feature.flip .phone-col{order:2}
+.feature .phone-col{justify-self:center}
+.feature h2{font-size:clamp(40px,4.6vw,64px);line-height:1;font-weight:600;letter-spacing:-.02em}
+.feature p{margin-top:24px;max-width:26em;font-size:20px;line-height:31px;color:var(--text)}
+.feature .btn{margin-top:40px}
+@media (max-width:900px){ .rows{padding-block:32px} .feature{padding-block:64px} .feature .wrap{grid-template-columns:minmax(0,1fr);gap:56px} .feature .phone-col,.feature.flip .phone-col{order:2} .feature .btn{margin-top:32px} }
+
+/* footer: the logo again, giant, drawing in from the left edge and running off the bottom of the page. Links stacked on the right. */
+/* footer: one line. The credit on the left, the links on the right, all off-white. Same outer margins as the header. */
+.ftr{position:relative;padding-top:160px}
+.page + .ftr{padding-top:80px}
+.ftr .wrap{max-width:none}
+.ftop{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px;padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));font-size:16px;line-height:24px;color:var(--text-hi)}
+.ftop nav{display:flex;flex-wrap:wrap;gap:8px 32px}
+.ftop a{color:var(--text-hi);white-space:nowrap;transition:color .25s ease}
+.ftop a:hover,.ftop nav a[aria-current="page"]{color:var(--amber)}
+@media (max-width:600px){ .ftr{padding-top:112px} .ftop{flex-direction:column;align-items:flex-start;gap:24px} .ftop nav{flex-direction:column;gap:12px} .ftop .credit{order:2} }
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* inner pages: one reading column, intro the same width */
+.page{padding-block:calc(160px + env(safe-area-inset-top,0px)) 144px}
+.page .col{max-width:720px}
+.page h1{font-size:clamp(56px,8vw,112px);line-height:.92;font-weight:700;letter-spacing:-.03em}
+.page .intro{font-size:24px;line-height:34px;margin-top:40px;color:var(--text)}
+.prose{margin-top:80px;display:flex;flex-direction:column;gap:64px}
+.prose section{display:flex;flex-direction:column;gap:16px}
+.prose a{color:var(--text-hi);text-decoration:none;font-weight:600}
+.prose h2{font-size:28px;line-height:34px;font-weight:600;letter-spacing:-.01em}
+.muted{color:var(--text-meta)}
+.kv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:16px 24px}
+.kv div:nth-child(odd){font-weight:600;color:var(--text-hi)}
+@media (max-width:600px){ .page .intro{font-size:21px;line-height:31px} .kv{grid-template-columns:minmax(0,1fr);gap:4px} .kv div:nth-child(odd):not(:first-child){margin-top:16px} }
+
+/* feedback form (follows Sniff: message, optional email) */
+form.fb{margin-top:64px;display:flex;flex-direction:column;gap:24px}
+.field{position:relative;display:block;background:var(--text);border-radius:16px;overflow:hidden}  /* cream fields: the one off-white, never pure white */
+.field span{position:absolute;left:16px;top:10px;font-size:14px;line-height:16px;color:var(--ink)}
+.field input,.field textarea{display:block;width:100%;border:0;background:transparent;color:var(--ink);font:400 18px/28px var(--font);padding:32px 16px 12px;caret-color:var(--ink)}
+.field textarea{min-height:192px;resize:vertical}
+.field:focus-within{outline:3px solid var(--amber);outline-offset:3px}
+.field input:focus-visible,.field textarea:focus-visible{outline:none}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink);opacity:.45}  /* the same ink, faded, so it reads as a hint */
+.status{min-height:28px}
+.status.ok{color:var(--amber)}
+.status.err{color:#E5483B}
+
+/* fade-ins, from Sniff: each block rises 8px and fades in once, as a unit */
+.rv .reveal{opacity:0;transform:translateY(8px);transition:opacity .6s ease-out,transform .6s ease-out}
+.rv .reveal.in{opacity:1;transform:none}
+.rv .reveal.now{transition:none}
+@media (prefers-reduced-motion:reduce){ .rv .reveal{opacity:1;transform:none;transition:none} .wave i{animation:none} canvas.topo{transform:none!important} }
+
+/* PHOTO HERO (exploration): the living-room photo runs edge to edge behind the hero, the phone is in the photo.
+   The copy sits on the left, centred in the window. The photo fades into plain charcoal; no contour lines on this version. */
+canvas.topo{display:none}
+.hero.photo{position:relative;overflow:hidden;background:var(--bg);padding-block:calc(88px + env(safe-area-inset-top,0px)) 88px}
+.hero.photo .hero-img{position:absolute;inset:0;z-index:0;overflow:hidden}
+/* the photo is drawn a little larger than the hero and pushed right and up, so the phone balances the copy */
+.hero.photo .hero-img img{position:absolute;width:106%;height:116%;right:-2%;top:-14%;object-fit:cover;object-position:78% 62%;display:block}
+.hero.photo::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(28,30,34,.78) 0%,rgba(28,30,34,.4) 36%,rgba(28,30,34,0) 58%),linear-gradient(180deg,rgba(28,30,34,0) 55%,rgba(28,30,34,.7) 82%,var(--bg) 100%)}
+.hero.photo .wrap{position:relative;z-index:1;display:block;max-width:none;margin-top:-6svh}  /* lined up with the logo, a touch above centre */
+.hero.photo .wrap > div{max-width:min(720px,46vw)}
+.hero.photo h1{font-size:clamp(64px,8.6vw,136px)}
+.hero.photo .lede{max-width:22em}
+@media (max-width:900px){
+  .hero.photo{padding-top:calc(152px + env(safe-area-inset-top,0px));padding-bottom:0;display:flex;flex-direction:column}  /* clear of the logo, like the original */
+  .hero.photo .wrap > div,.hero.photo .lede{max-width:none}  /* full width on phones */
+  .hero.photo h1{font-size:17vw}
+  .hero.photo .wrap{order:1;margin-top:0}
+  .hero.photo .hero-img{order:2;position:relative;inset:auto;display:block;margin-top:48px;aspect-ratio:4/5}
+  .hero.photo .hero-img img{position:static;width:100%;height:100%;object-position:72% 72%}
+  .hero.photo::after{display:none}
+  .hero.photo .hero-img::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--bg) 0%,rgba(28,30,34,0) 20%,rgba(28,30,34,0) 70%,var(--bg) 100%)}
+}
