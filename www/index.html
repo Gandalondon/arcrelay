@@ -1243,5 +1243,9 @@ async function keepAwake() { try { if (CAP && CAP.KeepAwake) await CAP.KeepAwake
 keepAwake(); document.addEventListener("visibilitychange", () => { if (!document.hidden) keepAwake(); });
 if ("serviceWorker" in navigator && !CAP && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
 </script>
+<script type="module">
+import { injectSpeedInsights } from '@vercel/speed-insights';
+injectSpeedInsights();
+</script>
 </body>
 </html>
