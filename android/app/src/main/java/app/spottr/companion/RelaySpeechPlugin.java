@@ -78,7 +78,7 @@ public class RelaySpeechPlugin extends Plugin {
         final String lang = call.getString("lang", "en-GB");
         if (Build.VERSION.SDK_INT < 33 || !onDeviceAvailable()) { call.reject("not supported"); return; }
         getActivity().runOnUiThread(() -> {
-            try { SpeechRecognizer r = SpeechRecognizer.createOnDeviceSpeechRecognizer(getContext()); r.triggerModelDownload(intent(lang, true)); r.destroy(); call.resolve(); }
+            try { SpeechRecognizer r = SpeechRecognizer.createOnDeviceSpeechRecognizer(getContext()); r.triggerModelDownload(intent(lang, true)); new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> { try { r.destroy(); } catch (Throwable ignored) {} }, 60000); call.resolve(); }
             catch (Throwable e) { call.reject(String.valueOf(e.getMessage())); }
         });
     }

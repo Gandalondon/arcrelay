@@ -34,7 +34,7 @@ body.listening{background:var(--navy);color:var(--bone)}
 .close{all:unset;flex:none;width:48px;height:48px;margin:-8px -12px 0 0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--amber)}  /* the close X is yellow, like the mic */
 .close svg{width:32px;height:32px}
 body.listening .close{color:var(--amber)}
-.close[hidden],.word[hidden]{display:none}
+[hidden]{display:none!important}
 .ctxline{margin:16px 0 0;font-size:16px;line-height:24px;color:var(--grey);text-wrap:pretty}
 .ctxline:empty{display:none}
 .stage{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;margin-top:24px}
@@ -702,7 +702,7 @@ function voiceInfo() {
    Voices 0 to 4 are female (F1 to F5), 5 to 9 male (M1 to M5). firstMs = how long before the first words play. */
 const APP_VERSION = "1.0.__BUILD__".replace("__BUILD" + "__", "dev");  /* the build fills in the number */
 const OV = CAP && CAP.RelayOfflineVoice ? CAP.RelayOfflineVoice : null;
-const VOICE_NAMES = { 0: "Sophie", 1: "Amy", 2: "Ava", 3: "Ivy", 4: "Maya", 5: "Adam", 6: "Ben", 7: "Owen", 8: "Leo", 9: "Mark" };  /* Supertonic's own ids: F1-F5 = 0-4, M1-M5 = 5-9 */
+const VOICE_NAMES = { 0: "Sophie", 1: "Amy", 2: "Ava", 3: "Maya", 4: "Ivy", 5: "Adam", 6: "Ben", 7: "Owen", 8: "Leo", 9: "Mark" };  /* Supertonic's own ids: F1-F5 = 0-4, M1-M5 = 5-9 */
 const OV_VOICES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(sid => ({ sid, label: VOICE_NAMES[sid], kind: sid >= 5 ? "Male" : "Female" }));
 /* settings kept apart from raid state, so they survive "close" and restarts */
 const CFG_KEY = "relay-settings";
@@ -774,6 +774,7 @@ function checkPack() {
 function showPack() {
   const need = packState === "available" && !packAsked;
   $("sppack").hidden = !need;
+  if (packAsked && packState === "installed") packAsked = false;
   $("spset").hidden = !packState;
   $("spsettxt").textContent = packAsked && packState === "available" ? PACK_TXT.downloading : PACK_TXT[packState] || "";
   $("spsetget").hidden = packState !== "available" || packAsked;
