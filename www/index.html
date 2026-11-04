@@ -952,7 +952,7 @@ function renderAnswer(q, a) {
   document.body.classList.remove("listening"); document.body.classList.add("session"); $("close").hidden = false;
   const hasMap = a.map && (a.map.stars.length || a.map.you || a.map.pick);
   setWord(a.show || a.text || "", true, hasMap); setSub(""); setCtx(a.ctx || ""); $("ctx").classList.toggle("keep", !!hasMap);
-  $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="full" aria-label="Full map">' + IC.map + '</button><button type="button" id="setloc" aria-label="Set location" aria-pressed="false">' + IC.pin + '</button>' + (a.map.you && a.map.stars.length === 1 ? '<button type="button" id="route" aria-label="Show route">' + IC.route + '</button>' : '') + '</div><div class="maphint" id="maphint" hidden>Tap the map to set your location</div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
+  $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="full" aria-label="Full map">' + IC.map + '</button><button type="button" id="setloc" aria-label="Set location" aria-pressed="false">' + IC.pin + '</button>' + (a.map.you && a.map.stars.length >= 1 ? '<button type="button" id="route" aria-label="Show route">' + IC.route + '</button>' : '') + '</div><div class="maphint" id="maphint" hidden>Tap the map to set your location</div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
   if (hasMap) requestAnimationFrame(() => drawMap(a.map));
 }
 function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably near " : "you at ") + m.you.n); if (m.stars.length) p.push("marked: " + m.stars.map(s => s.n).join(", ")); return "Blue Gate map, " + p.join("; "); }
@@ -974,9 +974,11 @@ function drawMap(m) {
   const tl = L.tileLayer(MAP.tiles, { tileSize: MAP.tileSize, maxNativeZoom: MAP.maxNativeZoom, noWrap: true, keepBuffer: 4, bounds: MAP.tileBounds, attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
   tl.on("tileerror", () => { fails++; if (fails === 3 && $("pinok").hidden) { $("mapnote").hidden = false; $("mapnote").textContent = "Map needs a connection. The answer above still stands."; } });
   const ll = p => [p.y, p.x];
-  const single = m.stars.length === 1;
-  if (m.you && single) L.polyline([ll(m.you), ll(m.stars[0])], { color: "#EEE8DC", weight: 2, opacity: .7, dashArray: "4 8", lineCap: "round" }).addTo(lmap);
-  m.stars.forEach(p => { const s = single ? 22 : 14; L.marker(ll(p), { icon: L.divIcon({ className: "", html: DOT(s), iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); });
+  /* with you on the map, the first dot is the answer (e.g. the nearest airshaft): it gets the dashed line and the big dot.
+     Any extra dot (a closer hatch) is smaller. Without you, all dots are equal (e.g. "Four airshafts, marked") (4 Nov) */
+  const single = m.stars.length === 1, lead = !!m.you && m.stars.length > 0;
+  if (lead) L.polyline([ll(m.you), ll(m.stars[0])], { color: "#EEE8DC", weight: 2, opacity: .7, dashArray: "4 8", lineCap: "round" }).addTo(lmap);
+  m.stars.forEach((p, i) => { const s = single || (lead && i === 0) ? 22 : 14; L.marker(ll(p), { icon: L.divIcon({ className: "", html: DOT(s), iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); });
   /* place names: every named area, plus the target's own name in amber under its dot */
   const lab = (p, cls) => L.marker(ll(p), { icon: L.divIcon({ className: "", html: '<div class="plabel' + (cls ? " " + cls : "") + '">' + esc(p.n.replace(/^the /, "")) + '</div>', iconSize: [0, 0] }), keyboard: false, interactive: false }).addTo(lmap);
   const starNames = new Set(m.stars.map(p => p.n));
