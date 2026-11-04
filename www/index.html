@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="leaflet.css">
 <style>
 :root{
-  --navy:#1C1E22; --panel:#171A24; --bone:#EEE8DC; --grey:#EEE8DC; /* no grey: three colours only, off-white, blue-black, yellow */ --amber:#F2B33D; --ink:#15171C; --red:#E5483B;
+  --navy:#1C1E22; --panel:#26282D; --bone:#EEE8DC; --grey:#EEE8DC; /* no grey: three colours only, off-white, blue-black, yellow */ --amber:#F2B33D; --ink:#15171C; --red:#E5483B;
   --display:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
   --body:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
   --pad:24px;
@@ -39,15 +39,20 @@ body.listening .close{color:var(--amber)}
 .ctxline:empty{display:none}
 .stage{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;margin-top:24px}
 /* map: edge to edge, runs down to the soundwave */
-.mapwrap{position:relative;flex:1 1 auto;min-height:240px;margin:0 calc(var(--pad) * -1);background:var(--panel)}
+/* map: an inset, rounded tile inside the same 24px margins as the text (4 Nov), not edge to edge */
+.mapwrap{position:relative;flex:1 1 auto;min-height:240px;margin:0 0 8px;border-radius:16px;overflow:hidden;background:var(--panel);isolation:isolate}
 .map{position:absolute;inset:0;background:var(--panel);touch-action:none}
 .mapctl{position:absolute;right:12px;top:12px;z-index:500;display:flex;flex-direction:column;gap:8px}
 .mapctl button{all:unset;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(28,30,34,.72);color:var(--bone);cursor:pointer}
 .mapctl svg{width:22px;height:22px}
 .mapctl button:focus-visible{outline:2px solid var(--amber)}
+/* place names drawn by Relay: cream on a soft dark halo, so they read over any terrain */
+.plabel{font:600 12px/14px var(--body);color:var(--bone);white-space:nowrap;text-shadow:0 0 3px #1C1E22,0 0 6px #1C1E22,0 1px 2px #1C1E22;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.01em}
+.plabel.target{color:var(--amber);font-size:14px;line-height:16px;transform:translate(-50%,14px)}
+.map.zfar .plabel:not(.target){display:none}  /* zoomed right out: only the target's name */
 .mapnote{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(28,30,34,.88);padding:4px 8px;border-radius:8px;font-size:14px;line-height:20px;color:var(--bone)}
 .leaflet-container{background:var(--panel);font-family:var(--body)}
-.leaflet-control-attribution{background:rgba(23,26,36,.72)!important;color:var(--grey)!important;font-size:11px;border-radius:8px 0 0 0}
+.leaflet-control-attribution{background:rgba(28,30,34,.8)!important;color:var(--bone)!important;font-size:12px;line-height:18px;padding:0 8px!important;border-radius:8px 0 0 0}
 .leaflet-control-attribution a{color:var(--bone)!important}
 /* bottom of the screen: a yellow mic to talk (big on home, small on answers). The yellow soundwave appears only on the listening screen. */
 .dock{flex:none;height:calc(104px + env(safe-area-inset-bottom,0px));  /* the same height on every screen, so the mic never moves */padding-bottom:env(safe-area-inset-bottom,0px);display:flex;align-items:center;justify-content:center}
@@ -896,16 +901,24 @@ function drawMap(m) {
   lmap = L.map("map", { crs, zoomControl: false, attributionControl: true, minZoom: 0, maxZoom: 7, zoomSnap: 0, zoomDelta: 0.5, wheelPxPerZoomLevel: 90, bounceAtZoomLimits: false, inertia: true, maxBounds: [[1500, 3000], [9000, 11500]], maxBoundsViscosity: 0.8 });
   lmap.attributionControl.setPrefix(false);
   let fails = 0;
-  const tl = L.tileLayer(MAP.tiles, { tileSize: 512, maxNativeZoom: 5, noWrap: true, keepBuffer: 4, bounds: [[37.2, 78.5], [16218, 16271]], attribution: 'Map: <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
+  const tl = L.tileLayer(MAP.tiles, { tileSize: 512, maxNativeZoom: 5, noWrap: true, keepBuffer: 4, bounds: [[37.2, 78.5], [16218, 16271]], attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
   tl.on("tileerror", () => { fails++; if (fails === 3) { $("mapnote").hidden = false; $("mapnote").textContent = "Map needs a connection. The answer above still stands."; } });
   const ll = p => [p.y, p.x];
   const single = m.stars.length === 1;
   if (m.you && single) L.polyline([ll(m.you), ll(m.stars[0])], { color: "#EEE8DC", weight: 2, opacity: .7, dashArray: "4 8", lineCap: "round" }).addTo(lmap);
   m.stars.forEach(p => { const s = single ? 22 : 14; L.marker(ll(p), { icon: L.divIcon({ className: "", html: DOT(s), iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); });
+  /* place names: every named area, plus the target's own name in amber under its dot */
+  const lab = (p, cls) => L.marker(ll(p), { icon: L.divIcon({ className: "", html: '<div class="plabel' + (cls ? " " + cls : "") + '">' + esc(p.n.replace(/^the /, "")) + '</div>', iconSize: [0, 0] }), keyboard: false, interactive: false }).addTo(lmap);
+  const starNames = new Set(m.stars.map(p => p.n));
+  /* names stay clear of your dot and the target dot (the headline already names the target) */
+  const busy = [...m.stars, ...(m.you ? [m.you] : [])];
+  AREAS.forEach(a => { if (!starNames.has(a.n) && !busy.some(q => dist(a, q) < 110)) lab(a); });
+  const zoomCls = () => $("map") && $("map").classList.toggle("zfar", lmap.getZoom() < 2.6);
+  lmap.on("zoomend", zoomCls);
   if (m.you) { const g = !!m.you.guess, s = g ? 44 : 20; L.marker(ll(m.you), { icon: L.divIcon({ className: "", html: g ? YOU_GUESS : YOU, iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); }
   const pts = [...m.stars, ...(m.you ? [m.you] : [])].map(ll);
-  const frame = () => { if (pts.length === 1) lmap.setView(pts[0], 4); else lmap.fitBounds(L.latLngBounds(pts), { padding: [56, 56], maxZoom: 4.5 }); };
-  frame();
+  const frame = () => { if (pts.length === 1) lmap.setView(pts[0], 4); else lmap.fitBounds(L.latLngBounds(pts), { padding: [64, 64], maxZoom: 4.5 }); };
+  frame(); zoomCls();
   $("recentre").onclick = frame;
   $("full").onclick = () => lmap.fitBounds(MAP.bounds, { padding: [16, 16] });
 }
