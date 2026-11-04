@@ -88,9 +88,7 @@ canvas.topo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-even
 .screen .mctl i.on{background:var(--ink);color:var(--amber);box-shadow:inset 0 0 0 .125em var(--amber),0 .125em .5em rgba(21,23,28,.45)}
 .screen .mok{position:absolute;left:50%;bottom:1em;transform:translateX(-50%);z-index:1000;height:3em;padding:0 1.5em;border-radius:999px;background:var(--amber);color:var(--ink);font:600 1em/3em var(--font);white-space:nowrap;box-shadow:0 .125em .75em rgba(21,23,28,.5)}
 .pinlab{font:600 12px/14px var(--font);color:#EEE8DC;white-space:nowrap;transform:translate(16px,-50%);text-shadow:0 0 3px #1C1E22,0 0 6px #1C1E22;pointer-events:none}
-/* the closing promise: one line, big, centred */
-.promise{padding-block:64px 120px;text-align:center}
-.promise p{margin:0;font:600 clamp(28px,3.4vw,44px)/1.15 var(--font);letter-spacing:-.01em;color:var(--text-hi);text-wrap:balance}
+
 .screen .map > svg{position:absolute;inset:0;width:100%;height:100%;display:block}  /* only the drawn stand-in map, never the map's own route layer */
 /* real map in the mockups (private concept) */
 .lmap{position:absolute;inset:0;background:#23262C}
