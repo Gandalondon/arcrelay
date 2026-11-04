@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ArcRelay style guide</title>
+<!--
+  ArcRelay style guide (canonical). Documents the app as built (www/index.html) and the site (site/).
+  Every value here is taken from the source; where the app has no rule yet, it says so under "Gaps".
+  Works offline: Barlow and the Material Symbols icons the app uses are embedded.
+  Built by tools/style-guide/make.py from tools/style-guide/template.html. Edit the template, then run the script.
+  Last checked against: app 1.0.66, 4 November 2026.
+-->
+<style>
+{{FONTS}}
+:root{
+  --charcoal:#1C1E22; --panel:#26282D; --ink:#15171C; --cream:#EEE8DC; --amber:#F2B33D; --amber-hi:#F6C25E;
+  --font:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--charcoal);color:var(--cream);font:400 16px/24px var(--font)}
+a{color:var(--amber);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+code{font:500 14px/20px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}
+h1,h2,h3{margin:0;font-weight:600;text-wrap:balance}
+p,li{text-wrap:pretty}
+/* layout: a fixed contents column on wide screens, a top bar on phones */
+.g-side{position:fixed;inset:0 auto 0 0;width:248px;padding:32px 24px;overflow-y:auto;background:var(--charcoal);border-right:1px solid var(--panel)}
+.g-side .mark{display:flex;align-items:center;gap:10px;margin:0 0 32px;text-decoration:none;color:var(--cream)}
+.g-side .mark svg{width:28px;height:28px;overflow:hidden}
+.g-side .mark path{fill:none;stroke:var(--amber);stroke-width:10}
+.word{font:700 18px/1 var(--font);letter-spacing:.04em;text-transform:uppercase}.word .arc{font-weight:400}.word .rl{color:var(--amber)}
+.g-side nav a{display:block;padding:6px 0;color:var(--cream);text-decoration:none;font-size:15px}
+.g-side nav a:hover{color:var(--amber)}
+main{margin-left:248px;padding:48px 64px 96px;max-width:1120px}
+@media (max-width:900px){
+  .g-side{position:static;width:auto;border:0;border-bottom:1px solid var(--panel);padding:20px 16px}
+  .g-side .mark{margin-bottom:12px}
+  .g-side nav{display:flex;flex-wrap:wrap;gap:4px 16px}
+  main{margin-left:0;padding:32px 16px 72px}
+  .board{padding:16px;gap:24px}
+  .rules th{white-space:normal;width:30%}
+  .spec div{grid-template-columns:1fr}
+  .spec div span{overflow-wrap:anywhere}
+  .phone{width:min(300px,100%)}
+}
+section{padding-top:24px;margin-top:48px;border-top:1px solid var(--panel)}
+section:first-of-type{border-top:0;margin-top:0}
+.g-h1{font-size:clamp(40px,6vw,64px);line-height:1;letter-spacing:-.015em}
+.g-h2{font-size:32px;line-height:36px;letter-spacing:-.01em;margin-bottom:8px}
+.g-h3{font-size:20px;line-height:28px;margin:32px 0 8px}
+.lead{font-size:20px;line-height:30px;max-width:44em;margin:16px 0 0}
+.intro{max-width:44em;margin:8px 0 0}
+.note{max-width:44em;margin:8px 0 0;opacity:.75;font-size:14px;line-height:20px}
+/* tables of rules */
+.rules{width:100%;border-collapse:collapse;margin:16px 0 0;font-size:15px;line-height:22px}
+.rules th{text-align:left;font-weight:600;padding:10px 16px 10px 0;vertical-align:top;white-space:nowrap;width:1%}
+.rules td{padding:10px 0;vertical-align:top;border-top:1px solid var(--panel)}
+.rules th{border-top:1px solid var(--panel)}
+/* swatches */
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:16px}
+.sw div{border-radius:16px;overflow:hidden;background:var(--panel)}
+.sw i{display:block;height:88px}
+.sw b{display:block;padding:12px 14px 0;font-weight:600}
+.sw span{display:block;padding:0 14px 14px;font-size:14px;line-height:20px}
+/* specimens */
+.spec{margin-top:16px;display:grid;gap:12px}
+.spec div{display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:baseline;padding:12px 0;border-top:1px solid var(--panel)}
+.spec small{font-size:13px;line-height:18px;opacity:.75}
+/* rendered examples sit on "boards" */
+.board{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;margin-top:16px;padding:32px;border-radius:16px;background:var(--panel)}
+.board.dark{background:var(--charcoal);box-shadow:inset 0 0 0 1px var(--panel)}
+.ex{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:96px;text-align:center}
+.ex small{font-size:13px;line-height:18px;max-width:180px}
+/* icons */
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:16px}
+.icons div{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 8px;border-radius:16px;background:var(--panel);text-align:center;font-size:13px;line-height:18px}
+.icons svg{width:32px;height:32px;color:var(--amber)}
+.icons b{font-weight:600;font-size:14px}
+/* do / don't */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:700px){.dd{grid-template-columns:1fr}}
+.dd div{padding:16px 18px;border-radius:16px;background:var(--panel)}
+.dd h4{margin:0 0 8px;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.dd .do h4{color:var(--amber)}
+.dd ul{margin:0;padding-left:18px}
+.dd li{margin:4px 0}
+ul.plain{max-width:44em;padding-left:20px}
+ul.plain li{margin:6px 0}
+
+/* ===== replicas of app parts (same values as www/index.html) ===== */
+.mic{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--amber);color:var(--ink);border:2px solid var(--amber)}
+.mic svg{width:36px;height:36px}
+.mic.on{box-shadow:0 0 0 10px rgba(242,179,61,.28),0 0 0 22px rgba(242,179,61,.12);animation:halo 1.6s ease-in-out infinite}
+.mic.speak{background:transparent;color:var(--amber)}
+.mic.speak svg{width:32px;height:32px}
+@keyframes halo{0%,100%{box-shadow:0 0 0 8px rgba(242,179,61,.30),0 0 0 18px rgba(242,179,61,.12)}50%{box-shadow:0 0 0 12px rgba(242,179,61,.26),0 0 0 26px rgba(242,179,61,.08)}}
+@media (prefers-reduced-motion:reduce){.mic.on{animation:none}}
+.mbtn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--amber);color:var(--ink);box-shadow:0 2px 8px rgba(21,23,28,.45)}
+.mbtn svg{width:24px;height:24px}
+.mbtn.on{background:var(--ink);color:var(--amber);box-shadow:inset 0 0 0 2px var(--amber),0 2px 8px rgba(21,23,28,.45)}
+.stack{display:flex;flex-direction:column;gap:8px}
+.terrain{position:relative;width:360px;max-width:100%;height:300px;border-radius:16px;overflow:hidden;
+  background:radial-gradient(120px 90px at 30% 30%,#3a3d44,transparent),radial-gradient(160px 120px at 75% 70%,#34373d,transparent),#2b2e34}
+.terrain .ctl{position:absolute;right:12px;top:12px}
+.hint{position:absolute;left:12px;top:12px;max-width:calc(100% - 80px);background:rgba(28,30,34,.88);padding:8px 14px;border-radius:999px;font:500 14px/20px var(--font)}
+.pinok{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);height:48px;padding:0 24px;border-radius:999px;background:var(--amber);color:var(--ink);font:600 16px/48px var(--font);white-space:nowrap;box-shadow:0 2px 12px rgba(21,23,28,.5)}
+.credit{position:absolute;right:0;bottom:0;background:rgba(28,30,34,.8);padding:0 8px;border-radius:8px 0 0 0;font-size:12px;line-height:18px}
+.dot-you{width:20px;height:20px;border-radius:50%;background:var(--cream);box-shadow:0 0 0 3px #1C1E22}
+.dot-guess{width:44px;height:44px;border-radius:50%;border:2px dashed var(--cream);display:flex;align-items:center;justify-content:center}
+.dot-guess::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--cream)}
+.dot-new{width:24px;height:24px;border-radius:50%;border:4px solid var(--cream);box-shadow:0 0 0 2px #1C1E22,inset 0 0 0 2px #1C1E22}
+.dot-t{width:22px;height:22px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 3px #1C1E22,0 0 0 5px rgba(242,179,61,.35)}
+.dot-t.s{width:14px;height:14px}
+.plabel{font:600 12px/14px var(--font);text-shadow:0 0 3px #1C1E22,0 0 6px #1C1E22,0 1px 2px #1C1E22;letter-spacing:.01em}
+.phone{width:300px;border-radius:40px;padding:10px;background:var(--ink);box-shadow:0 0 0 2px var(--panel)}
+.scr{position:relative;height:600px;border-radius:30px;background:var(--charcoal);padding:20px 18px 0;display:flex;flex-direction:column;overflow:hidden;text-align:left}
+.scr .hd{display:flex;justify-content:space-between;gap:8px}
+.scr .w{font:600 40px/39px var(--font);letter-spacing:-.015em;white-space:pre-line}
+.scr .ins{font:600 34px/35px var(--font);letter-spacing:-.01em;text-wrap:balance}
+.scr .x{width:22px;height:22px;color:var(--amber);flex:none}
+.scr .x svg,.scr .cog svg{width:22px;height:22px}
+.scr .cog{color:var(--amber)}
+.scr .ctx{margin:10px 0 0;font-size:12px;line-height:18px}
+.scr .fill{flex:1}
+.scr .tile{flex:1;margin:14px 0 14px;border-radius:12px;position:relative;overflow:hidden;background:radial-gradient(90px 70px at 30% 30%,#3a3d44,transparent),radial-gradient(120px 90px at 75% 70%,#34373d,transparent),#2b2e34}
+.scr .dock{height:84px;display:flex;align-items:center;justify-content:center}
+.scr .mic{width:54px;height:54px}.scr .mic svg{width:26px;height:26px}
+.vrow{position:relative;width:100%;max-width:340px;padding:14px 16px;border-radius:16px;background:var(--panel);text-align:left}
+.board .vrow{background:var(--charcoal)}
+.vrow.on{background:var(--amber)!important;color:var(--ink)}
+.vrow .n{display:block;font:600 18px/24px var(--font)}
+.vrow .m{display:block;font-size:14px;line-height:20px;opacity:.75}
+.vrow .play{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:var(--amber)}
+.vrow.on .play{color:var(--ink)}
+.vrow .play svg{width:28px;height:28px}
+.seg{display:flex;gap:8px;width:100%;max-width:340px}
+.seg span{flex:1;text-align:center;height:48px;border-radius:999px;background:var(--charcoal);font:600 16px/48px var(--font)}
+.seg span.on{background:var(--amber);color:var(--ink)}
+.pill{display:inline-block;height:44px;padding:0 20px;border-radius:999px;background:var(--amber);color:var(--ink);font:600 16px/44px var(--font)}
+.sitebtn{display:inline-block;height:56px;padding:0 32px;border-radius:999px;background:var(--amber);color:var(--ink);font:600 18px/56px var(--font)}
+.back{display:flex;align-items:center;gap:4px;font:600 20px/28px var(--font)}
+.back svg{width:28px;height:28px;color:var(--amber)}
+.lockup{display:flex;align-items:center;gap:12px}
+.lockup svg{width:40px;height:40px;overflow:hidden}
+.lockup path{fill:none;stroke:var(--amber);stroke-width:10}
+.lockup .word{font-size:28px}
+.appicon{width:120px;height:120px;border-radius:50%;overflow:hidden;background:var(--charcoal);box-shadow:0 0 0 1px var(--panel)}
+.appicon svg{width:100%;height:100%;display:block}
+.appicon path{fill:none;stroke:var(--amber);stroke-width:10}
+.appicon.sq{border-radius:24px}
+</style>
+</head>
+<body>
+<aside class="g-side">
+  <a class="mark" href="#start"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word"><span class="arc">Arc</span><span class="rl">Relay</span></span></a>
+  <nav aria-label="Contents">
+    <a href="#start">Start here</a>
+    <a href="#foundations">Foundations</a>
+    <a href="#icons">Icons</a>
+    <a href="#brand">Logo and app icon</a>
+    <a href="#components">Components and states</a>
+    <a href="#voice">Voice states</a>
+    <a href="#map">Map</a>
+    <a href="#motion">Motion</a>
+    <a href="#copy">Spoken copy</a>
+    <a href="#site">Site patterns</a>
+    <a href="#a11y">Accessibility</a>
+    <a href="#gaps">Gaps</a>
+    <a href="#checklist">Checklist</a>
+  </nav>
+</aside>
+<main>
+
+<section id="start">
+  <h1 class="g-h1">ArcRelay style guide</h1>
+  <p class="lead">How ArcRelay looks, sounds and behaves, taken from the app as built. Read it before adding a screen, a map or a spoken line. Reuse what is here; if something is missing, flag it under Gaps rather than inventing a new pattern.</p>
+  <table class="rules">
+    <tr><th>The app</th><td><code>www/index.html</code> is the whole app (one page, Capacitor wraps it for Android). Native parts: <code>android/app/src/main/java/app/spottr/companion/</code>. GitHub builds an APK on every push (<code>v1.0.N</code>), which Obtainium installs.</td></tr>
+    <tr><th>The site</th><td><code>site/index.html</code> (holding page, getarcrelay.app) and <code>site/beta/</code> (the full site, unlisted).</td></tr>
+    <tr><th>Source of truth</th><td>The live build wins over this guide and older briefs. When they disagree, fix the guide.</td></tr>
+    <tr><th>House rules</th><td>UK English. No em dashes. No widows: headings use <code>text-wrap: balance</code>, body text <code>text-wrap: pretty</code>. Three colours. One typeface. Material Symbols Rounded icons only. £0 to run: no paid services, keys or fonts.</td></tr>
+    <tr><th>This file</th><td><code>src/docs/style-guide.html</code>, built by <code>tools/style-guide/make.py</code>. Opens straight in a browser, offline.</td></tr>
+  </table>
+</section>
+
+<section id="foundations">
+  <h2 class="g-h2">Foundations</h2>
+  <p class="intro">Dark, calm and high contrast, for a phone propped beside a TV in a dim room. Amber means "you can act on this". No greys, no borders on app surfaces: depth comes from the charcoal and panel pair.</p>
+
+  <h3 class="g-h3">Colour</h3>
+  <div class="sw">
+    <div><i style="background:#1C1E22;box-shadow:inset 0 0 0 1px #26282D"></i><b>Charcoal</b><span>#1C1E22 · <code>--navy</code><br>Every background; outlines and halos round dots on the map</span></div>
+    <div><i style="background:#26282D"></i><b>Panel</b><span>#26282D · <code>--panel</code><br>Raised surfaces: map tile before tiles load, list rows, segmented control</span></div>
+    <div><i style="background:#EEE8DC"></i><b>Cream</b><span>#EEE8DC · <code>--bone</code><br>All text, your position on the map, the route line</span></div>
+    <div><i style="background:#F2B33D"></i><b>Amber</b><span>#F2B33D · <code>--amber</code><br>Actions and focus: mic, map buttons, close, back, selected rows, destinations</span></div>
+    <div><i style="background:#15171C"></i><b>Ink</b><span>#15171C · <code>--ink</code><br>Text and icons on amber</span></div>
+    <div><i style="background:#F6C25E"></i><b>Amber hover</b><span>#F6C25E · site only<br>Buttons under a mouse. The app has no hover state.</span></div>
+  </div>
+  <p class="note">Secondary text is cream at 75% opacity (it renders as #BAB6AE on charcoal, 8.3:1). That is the only "grey", and it's flagged under Gaps.</p>
+
+  <h3 class="g-h3">Type</h3>
+  <p class="intro">Barlow, bundled with the app (SIL Open Font Licence), never loaded from Google Fonts. Weights 400, 500, 600 and 700.</p>
+  <div class="spec">
+    <div><small>Greeting<br>600 · 80/76 · −0.015em</small><span style="font:600 80px/76px var(--font);letter-spacing:-.015em">Evening, Raider.</span></div>
+    <div><small>Answer headline<br>600 · 72 to 32 · line 1.02</small><span style="font:600 48px/49px var(--font);letter-spacing:-.01em">Cliffside Airshaft, south-east.</span></div>
+    <div><small>Settings title<br>600 · 20/28</small><span style="font:600 20px/28px var(--font)">Settings</span></div>
+    <div><small>Voice name<br>600 · 18/24</small><span style="font:600 18px/24px var(--font)">Sophie</span></div>
+    <div><small>Body and context line<br>400 · 16/24</small><span>Home to Roost, step 3 of 8</span></div>
+    <div><small>Small, notes<br>400 or 500 · 14/20</small><span style="font-size:14px;line-height:20px">Tap the map to set your location</span></div>
+    <div><small>Map place names<br>600 · 12/14 · +0.01em</small><span class="plabel">Maintenance Bunker</span></div>
+  </div>
+  <p class="note">Answer headlines step down the scale 72 → 64 → 56 → 48 → 40 → 36 → 32 px until they fit in four lines and 216 px tall (<code>fitInstr()</code>). Never shrink below 32: shorten the line instead.</p>
+
+  <h3 class="g-h3">Space, size and shape</h3>
+  <table class="rules">
+    <tr><th>Page margin</th><td>24 px on every side of the app (<code>--pad</code>), plus the phone's safe areas.</td></tr>
+    <tr><th>Grid</th><td>8 px steps: gaps of 8, 12, 16 and 24.</td></tr>
+    <tr><th>Dock</th><td>104 px tall on every screen, so the mic never moves.</td></tr>
+    <tr><th>Corners</th><td>16 px for the map tile and list rows. 12 px for inputs. 8 px for small notes. Pills and buttons fully round (999 px). Round controls are circles.</td></tr>
+    <tr><th>Tap targets</th><td>Mic 72 px. Close, back and play 48 px. Map buttons 44 px (see Gaps). Pills 44 to 48 px tall.</td></tr>
+    <tr><th>Shadows</th><td>Only on things floating over the map: <code>0 2px 8px rgba(21,23,28,.45)</code> for buttons, <code>0 2px 12px rgba(21,23,28,.5)</code> for "I'm here".</td></tr>
+  </table>
+</section>
+
+<section id="icons">
+  <h2 class="g-h2">Icons</h2>
+  <p class="intro">Google Material Symbols Rounded, weight 400, outline style. The settings cog is the one filled icon. Amber on charcoal, or ink on amber. Never mix in another icon set.</p>
+  <div class="icons">
+    <div>{{I:mic}}<b>mic</b>Talk button, idle</div>
+    <div>{{I:wave}}<b>graphic_eq</b>Talk button while listening or speaking</div>
+    <div>{{I:close}}<b>close</b>Close an answer, start again</div>
+    <div>{{I:cog}}<b>settings (filled)</b>Settings, home only</div>
+    <div>{{I:back}}<b>arrow_back</b>Back from Settings and Voice</div>
+    <div>{{I:play}}<b>volume_up</b>Hear a voice</div>
+    <div>{{I:map}}<b>map</b>Full map</div>
+    <div>{{I:pin}}<b>location_on</b>Set location</div>
+    <div>{{I:route}}<b>route</b>Show route</div>
+  </div>
+  <p class="note">Sizes: 36 px in the mic, 32 px close, 28 px back and play, 24 px on map buttons. Icons are inline SVG paths (viewBox 0 −960 960 960), so they need no font and work offline.</p>
+</section>
+
+<section id="brand">
+  <h2 class="g-h2">Logo and app icon</h2>
+  <p class="intro">Three amber signal lines. Each runs along the top, turns a quarter circle and runs down, like a radio signal and a stylised R. ArcRelay is the working name; Relay is the voice ("Hey Relay").</p>
+  <div class="board dark">
+    <div class="ex"><div class="lockup"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word"><span class="arc">Arc</span><span class="rl">Relay</span></span></div><small>Site lockup</small></div>
+    <div class="ex"><div class="appicon"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg></div><small>Launcher (circle)</small></div>
+    <div class="ex"><div class="appicon sq"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg></div><small>Play Store (Play rounds the corners)</small></div>
+  </div>
+  <table class="rules">
+    <tr><th>Geometry</th><td>A 72-unit square (the part of Android's adaptive icon that shows). Stroke 10. Arc centre (14, 58), radii 46, 30 and 14. Lines run off the left and bottom edges. Source: <code>tools/make-icon.py</code>.</td></tr>
+    <tr><th>Wordmark</th><td>Barlow, capitals, +0.04em. ARC in cream at 400, RELAY in amber at 700. No space. Set as text by <code>site.js</code>; never redraw it in another font.</td></tr>
+    <tr><th>Files</th><td>Launcher icons in <code>android/app/src/main/res/mipmap-*</code>. Play icon: <code>android-release/icon/arcrelay-play-icon.png</code> (512 × 512, no alpha, full square).</td></tr>
+    <tr><th>Never</th><td>Use Embark's art or the ARC Raiders logo. Add a gradient, outline or second colour to the lines.</td></tr>
+  </table>
+</section>
+
+<section id="components">
+  <h2 class="g-h2">Components and states</h2>
+  <p class="intro">The app is one screen whose parts change state. Replicas below use the app's own values.</p>
+
+  <h3 class="g-h3">Talk button</h3>
+  <div class="board dark">
+    <div class="ex"><div class="mic">{{I:mic}}</div><small>Idle. Tap to talk.</small></div>
+    <div class="ex"><div class="mic on">{{I:wave}}</div><small>Listening. The halo breathes only while the microphone is really on.</small></div>
+    <div class="ex"><div class="mic speak">{{I:wave}}</div><small>Speaking. Outline only, so it never reads as "listening".</small></div>
+  </div>
+  <p class="note">72 px, centred in the 104 px dock, the same place on every screen. Tap while listening to stop.</p>
+
+  <h3 class="g-h3">Screens</h3>
+  <div class="board dark">
+    <div class="ex"><div class="phone"><div class="scr"><div class="hd"><div class="w">Evening,
+Raider.
+Need a hand
+topside?</div><span class="cog">{{I:cog}}</span></div><div class="fill"></div><div class="dock"><div class="mic">{{I:mic}}</div></div></div></div><small>Home: greeting, cog top right, mic</small></div>
+    <div class="ex"><div class="phone"><div class="scr"><div class="hd"><div class="w">Go
+ahead.</div><span class="x">{{I:close}}</span></div><div class="fill"></div><div class="dock"><div class="mic on">{{I:wave}}</div></div></div></div><small>Listening</small></div>
+    <div class="ex"><div class="phone"><div class="scr"><div class="hd"><div class="ins">Cliffside Airshaft, south-east.</div><span class="x">{{I:close}}</span></div><p class="ctx">Nearest way out from Blue Gate Village</p><div class="tile"><div class="ctl stack" style="position:absolute;right:8px;top:8px;transform:scale(.8);transform-origin:top right"><div class="mbtn">{{I:map}}</div><div class="mbtn">{{I:pin}}</div><div class="mbtn">{{I:route}}</div></div><div class="dot-you" style="position:absolute;left:24%;top:30%"></div><div class="dot-t" style="position:absolute;left:66%;top:72%"></div></div><div class="dock" style="height:72px"><div class="mic">{{I:mic}}</div></div></div></div><small>Answer: headline, context line, map tile</small></div>
+  </div>
+  <table class="rules">
+    <tr><th>Headline</th><td>Greetings keep their line breaks (two lines: time of day, then a varied line). Answers fit the type scale. The headline is the answer itself, never "Here's your answer".</td></tr>
+    <tr><th>Context line</th><td>One line under the headline: what this is about (quest and step, where from) or what Relay heard. Never a second answer.</td></tr>
+    <tr><th>Close</th><td>Amber X, top right on every screen except home. Clears the answer; quest and step are kept.</td></tr>
+    <tr><th>Cog</th><td>Home only.</td></tr>
+  </table>
+
+  <h3 class="g-h3">Map controls</h3>
+  <div class="board">
+    <div class="ex"><div class="stack"><div class="mbtn">{{I:map}}</div><div class="mbtn">{{I:pin}}</div><div class="mbtn">{{I:route}}</div></div><small>Default. Full map, Set location, Show route.</small></div>
+    <div class="ex"><div class="stack"><div class="mbtn">{{I:map}}</div><div class="mbtn on">{{I:pin}}</div></div><small>Choosing a location: Set location reverses. No route yet, so no route button.</small></div>
+  </div>
+  <table class="rules">
+    <tr><th>Order</th><td>Full map, Set location, then Show route underneath only when there's a you-to-destination line. The first two never move; no empty slot is kept for the third.</td></tr>
+    <tr><th>Place</th><td>Top right of the map, 12 px in, 8 px apart.</td></tr>
+    <tr><th>Colour</th><td>Amber with an ink icon by default: it's the action colour and reads over any terrain.</td></tr>
+  </table>
+
+  <h3 class="g-h3">Setting your location</h3>
+  <div class="board">
+    <div class="ex" style="max-width:100%"><div class="terrain"><div class="hint">Tap the map to set your location</div><div class="ctl stack"><div class="mbtn">{{I:map}}</div><div class="mbtn on">{{I:pin}}</div></div><div class="dot-new" style="position:absolute;left:44%;top:52%"></div><span class="plabel" style="position:absolute;left:calc(44% + 32px);top:calc(52% + 4px)">Village</span><div class="pinok">I'm here</div><div class="credit">Maps by MetaForge</div></div><small>Two steps: Set location (or Relay asking "Where are you?"), tap the map, confirm. A stray tap mid-fight never moves you.</small></div>
+  </div>
+  <table class="rules">
+    <tr><th>Hint</th><td>Shown only while choosing. Top left, clear of the buttons. Charcoal at 88%, 14/20 medium.</td></tr>
+    <tr><th>Unconfirmed pin</th><td>Hollow cream ring with the nearest place name to its right.</td></tr>
+    <tr><th>I'm here</th><td>Amber pill, bottom centre of the map. On confirm, the pin replaces anything you said earlier, and Relay re-answers from it.</td></tr>
+  </table>
+
+  <h3 class="g-h3">Settings parts</h3>
+  <div class="board">
+    <div class="ex" style="align-items:flex-start;min-width:300px"><div class="back">{{I:back}}Settings</div><small>Back arrow and title: no other header.</small></div>
+    <div class="ex" style="min-width:300px"><div class="vrow"><span class="n">Sophie</span><span class="m">Female</span><span class="play">{{I:play}}</span></div><div class="vrow on"><span class="n">Amy</span><span class="m">Female · Selected</span><span class="play">{{I:play}}</span></div><small>Voice rows: tap to choose, play to hear. Selected is amber.</small></div>
+    <div class="ex" style="min-width:300px"><div class="seg"><span class="on">Normal</span><span>Faster</span><span>Fast</span></div><div class="seg"><span class="on">On</span><span>Off</span></div><small>Segmented control: speaking speed, "Hey Relay".</small></div>
+    <div class="ex"><span class="pill">Download offline speech</span><small>Action pill inside a card (offline voice and speech packs).</small></div>
+  </div>
+  <p class="note">Voice names: female Sophie, Amy, Ava, Maya, Ivy; male Adam, Ben, Owen, Leo, Mark (Supertonic ids 0 to 9).</p>
+</section>
+
+<section id="voice">
+  <h2 class="g-h2">Voice states</h2>
+  <p class="intro">The screen must always tell the truth about the microphone. If the halo is breathing, Relay is hearing you; if not, it isn't.</p>
+  <table class="rules">
+    <tr><th>Standby</th><td>Home or the last answer, mic idle. "Hey Relay" listens for just those two words while Relay is open on screen (offline keyword spotter, nothing transcribed). Home's context line: "Say “Hey Relay”, or tap."</td></tr>
+    <tr><th>Listening</th><td>After the wake phrase or a tap. Halo and waveform. Speech recognition on the phone where Android supports it.</td></tr>
+    <tr><th>Speaking</th><td>Outlined mic with waveform. The microphone is off, so Relay never hears itself.</td></tr>
+    <tr><th>Follow-up</th><td>After an answer, one more listen of about 8 seconds. Nothing heard: straight back to standby. Never loops.</td></tr>
+    <tr><th>Off screen</th><td>In the background or in Settings, nothing listens.</td></tr>
+  </table>
+</section>
+
+<section id="map">
+  <h2 class="g-h2">Map</h2>
+  <div class="board">
+    <div class="ex"><div class="dot-you"></div><small>You (confirmed)</small></div>
+    <div class="ex"><div class="dot-guess"></div><small>You, a guess (from a side of the map or an old position)</small></div>
+    <div class="ex"><div class="dot-new"></div><small>Pin not yet confirmed</small></div>
+    <div class="ex"><div class="dot-t"></div><small>Destination (one)</small></div>
+    <div class="ex"><div class="dot-t s"></div><small>Destinations (several)</small></div>
+    <div class="ex"><span class="plabel">Broken Earth</span><small>Place name</small></div>
+  </div>
+  <table class="rules">
+    <tr><th>Tile</th><td>Inset inside the 24 px margins, 16 px corners, 24 px gap above the dock. Pan and pinch always work.</td></tr>
+    <tr><th>Line</th><td>Cream, 2 px, dashed, from you to a single destination. It shows direction only: it is not a path and never claims to avoid walls, water or ARC.</td></tr>
+    <tr><th>Names</th><td>Every named area, cream on a dark halo, kept 110 map units clear of the dots. Hidden when zoomed right out.</td></tr>
+    <tr><th>Framing</th><td>Fit you and the destination with 72 px padding, zoom no further in than 4. One point: zoom 4. Nothing: the whole map.</td></tr>
+    <tr><th>Credit</th><td>"Maps by MetaForge", bottom right, always visible (their condition, 1 Nov 2026).</td></tr>
+    <tr><th>Offline</th><td>If tiles fail: "Map needs a connection. The answer above still stands." It hides while "I'm here" is showing.</td></tr>
+  </table>
+</section>
+
+<section id="motion">
+  <h2 class="g-h2">Motion</h2>
+  <p class="intro">Few, quick, purposeful. Everything respects reduced motion.</p>
+  <table class="rules">
+    <tr><th>Start</th><td>Android reports exactly where it drew the icon; Relay draws the same lines there, then they drop out of the circle (masked at the top, open below), outer line first, 520 ms each, 70 ms apart, easing in like gravity. Relay fades in once they're gone. Never animate over text.</td></tr>
+    <tr><th>Halo</th><td>1.6 s breathe while listening.</td></tr>
+    <tr><th>State changes</th><td>Mic colour 0.15 s. Screen fade 0.2 s.</td></tr>
+    <tr><th>Site logo</th><td>Lines draw in (440 ms, 70 ms apart), then the wordmark wipes in left to right. Home page only, once per visit; a refresh replays it.</td></tr>
+  </table>
+</section>
+
+<section id="copy">
+  <h2 class="g-h2">Spoken copy</h2>
+  <p class="intro">Relay is a calm teammate on comms. It's heard, not read, often mid-fight.</p>
+  <div class="dd">
+    <div class="do"><h4>Do</h4><ul>
+      <li>Lead with the destination, then direction, then distance: "Cliffside Airshaft, about 150 metres south-east."</li>
+      <li>Keep it short when time is short: "All four airshafts marked. Where are you?"</li>
+      <li>Vary openers ("Try", "Head for", "Next best is").</li>
+      <li>Say what you don't know: "No fixed spot. Try the Village."</li>
+      <li>Remember the raid: exits ruled out stay ruled out.</li>
+      <li>Give full help once, then a short reply.</li>
+    </ul></div>
+    <div><h4>Don't</h4><ul>
+      <li>Ask what the player can see ("Can you see a hatch?").</li>
+      <li>Read out tags or categories ("shops").</li>
+      <li>Repeat "Based on your current position".</li>
+      <li>Claim live exit status, or a route around obstacles.</li>
+      <li>Use em dashes, American spelling or "'d" contractions in written copy.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="site">
+  <h2 class="g-h2">Site patterns</h2>
+  <div class="board dark"><span class="sitebtn">Get the app</span><div class="lockup"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word"><span class="arc">Arc</span><span class="rl">Relay</span></span></div></div>
+  <table class="rules">
+    <tr><th>Gutters</th><td>24 px on phones, 64 px from 1024 px wide, 80 px from 1440 px.</td></tr>
+    <tr><th>Hero</th><td>"Ask. Find. Get out." with "Get out." in amber, beside the desk photo. On phones the photo is a square crop with the phone centred.</td></tr>
+    <tr><th>Sections</th><td>Just ask · Know where to go · Need a quick evac? · Show it where you are. Each pairs a phone mockup with a short heading and one paragraph.</td></tr>
+    <tr><th>Phone mockups</th><td>HTML replicas of the app, sized in em so they scale with the phone. They must match the app: inset map, the three amber buttons, filled mic.</td></tr>
+    <tr><th>Buttons</th><td>56 px amber pill, ink text, 600 18 px. Hover amber #F6C25E.</td></tr>
+    <tr><th>Footer</th><td>Credit line with "Maps by MetaForge" on every page; links to Feedback, Privacy and Credits.</td></tr>
+  </table>
+</section>
+
+<section id="a11y">
+  <h2 class="g-h2">Accessibility</h2>
+  <table class="rules">
+    <tr><th>Contrast</th><td>Cream on charcoal 13.7:1. Cream on panel 12.1:1. Ink on amber 9.6:1. Amber on charcoal 9.0:1. Amber on panel 7.9:1. Cream at 75% on charcoal 8.3:1. All pass WCAG AA and AAA for body text.</td></tr>
+    <tr><th>Not colour alone</th><td>Map markers differ in shape as well as colour (solid, dashed ring, hollow ring, amber). Selected rows also change their meta text ("Selected").</td></tr>
+    <tr><th>Focus</th><td>Every control shows a visible ring: amber on charcoal, cream on amber.</td></tr>
+    <tr><th>Screen readers</th><td>The map has a text label of what it shows. Icon buttons have labels. Voice state is announced in a live region ("Listening", "Speaking").</td></tr>
+    <tr><th>Motion</th><td>Reduced motion skips the start animation and the halo.</td></tr>
+    <tr><th>Targets</th><td>48 px wherever possible (see Gaps for the map buttons).</td></tr>
+  </table>
+</section>
+
+<section id="gaps">
+  <h2 class="g-h2">Gaps to raise, not fix silently</h2>
+  <ul class="plain">
+    <li><b>Name.</b> The app on the phone is called "Relay" (<code>capacitor.config.json</code>, page title); the store listing and site say ArcRelay. Decide before Play.</li>
+    <li><b>Secondary text.</b> Cream at 75% opacity is used for notes and meta. It's effectively a grey. Keep as the one exception, or drop it.</li>
+    <li><b>Token names.</b> CSS calls charcoal <code>--navy</code> and cream <code>--bone</code>, and <code>--grey</code> is cream. Legacy names; rename together when convenient.</li>
+    <li><b>Map buttons are 44 px,</b> under Android's 48 dp guideline. Fine in testing; raise if misses happen.</li>
+    <li><b>Map credit wording</b> differs: app "Maps by MetaForge", site mockups "Map: MetaForge".</li>
+    <li><b>Leftover styles</b> for a cream text input (<code>.gkey input</code>) from the removed Gemini key screen.</li>
+    <li><b>No light theme.</b> Intentional for now (dark room, beside a TV).</li>
+    <li><b>Playable area.</b> Taps outside Blue Gate's playable area are accepted until MetaForge publishes a boundary.</li>
+  </ul>
+</section>
+
+<section id="checklist">
+  <h2 class="g-h2">Checklist before shipping a change</h2>
+  <ul class="plain">
+    <li>Only charcoal, panel, cream, amber and ink. Amber only for things you can act on, or the destination.</li>
+    <li>Barlow, sizes from the scale. Headline fits four lines.</li>
+    <li>Material Symbols Rounded, from the icon list.</li>
+    <li>Mic in the same place, halo only when the mic is on.</li>
+    <li>No widows; no em dashes; UK spelling.</li>
+    <li>Map credit visible; no invented routes.</li>
+    <li>Checked at 360, 412 and 1280 px wide; site mockups still match the app.</li>
+    <li>Spoken line read aloud: under about eight words when urgent.</li>
+    <li>Tests pass (<code>node tests/run.js</code>).</li>
+    <li>This guide updated if a pattern changed.</li>
+  </ul>
+</section>
+
+</main>
+</body>
+</html>
