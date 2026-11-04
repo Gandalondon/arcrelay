@@ -34,6 +34,7 @@ body.listening{background:var(--navy);color:var(--bone)}
 .word.instr{letter-spacing:-.01em;white-space:normal;overflow-wrap:normal}
 .word:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .word.greet{white-space:pre-line;letter-spacing:-.015em}
+.word.greet .gl{display:block}
 .close{all:unset;flex:none;width:48px;height:48px;margin:-8px -12px 0 0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--amber)}  /* the close X is yellow, like the mic */
 .close svg{width:32px;height:32px}
 body.listening .close{color:var(--amber)}
@@ -914,7 +915,29 @@ function baseSize(w) {
   for (const s of [64, 56, 52, 48, 44, 40]) { m.style.fontSize = s + "px"; if (m.getBoundingClientRect().width <= w.clientWidth) { size = s; break; } }
   m.remove(); if (w.clientWidth > 0) BASE = { width: w.clientWidth, size }; return size;
 }
+/* the greeting's second part (the varied line) is one size on a given screen: the largest at which EVERY line fits in two lines,
+   so it reads as two wide lines rather than a stack of single words, and doesn't change size from launch to launch (4 Nov) */
+let GL = null;
 function fitGreet(w) {
+  fitGreetBase(w);
+  const gl = w.querySelector(".gl"); if (!gl) return;
+  const top = parseInt(w.style.fontSize) || 64;
+  if (!GL || GL.width !== w.clientWidth || GL.top !== top) {
+    const keep = gl.textContent; let size = 32;
+    for (const s of [64, 56, 52, 48, 44, 40, 36, 32].filter(x => x <= top)) {
+      gl.style.fontSize = s + "px"; gl.style.lineHeight = s + "px";
+      if (LINES.every(t => { gl.textContent = t; return Math.round(gl.getBoundingClientRect().height / s) <= 2 && gl.scrollWidth <= gl.clientWidth + 1; })) { size = s; break; }
+    }
+    gl.textContent = keep;
+    let ready = true; try { ready = !document.fonts || document.fonts.check('600 16px "Barlow"'); } catch (e) {}
+    GL = ready ? { width: w.clientWidth, top, size } : null;  /* not cached until Barlow is in, or the fallback font's sizes would stick */
+    if (!ready) { gl.style.fontSize = size + "px"; gl.style.lineHeight = size + "px"; return; }
+  }
+  gl.style.fontSize = GL.size + "px"; gl.style.lineHeight = GL.size + "px";
+}
+/* sizes measured before Barlow loads are wrong (the fallback font is wider): measure again once it's in */
+if (document.fonts) document.fonts.addEventListener("loadingdone", () => { GL = null; BASE = null; const w = $("word"); if (w && w.classList.contains("greet")) fitGreet(w); });
+function fitGreetBase(w) {
   const room = Math.max(240, $("stage").getBoundingClientRect().bottom - w.getBoundingClientRect().top - 24);
   const top = baseSize(w);
   for (const s of [64, 56, 52, 48, 44, 40].filter(x => x <= top)) {  /* the same size on every screen without a map; smaller only if a word won't fit */ const lh = Math.round(s * 1.0); w.style.fontSize = s + "px"; w.style.lineHeight = lh + "px"; if (w.scrollWidth <= w.clientWidth + 1 && w.scrollHeight <= room) return; }
@@ -927,7 +950,7 @@ function renderReady() {
   document.body.classList.remove("listening", "session", "follow"); $("close").hidden = true;
   const hr = new Date().getHours();
   const part = hr >= 5 && hr < 12 ? "Morning" : hr >= 12 && hr < 18 ? "Afternoon" : "Evening";
-  const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.textContent = part + ", Raider.\n" + LINE;
+  const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.innerHTML = esc(part + ", Raider.") + '<span class="gl">' + esc(LINE) + "</span>";
   setCtx(""); $("stage").innerHTML = "";
   fitGreet(w); requestAnimationFrame(() => fitGreet(w));
   $("stage").innerHTML = "";
