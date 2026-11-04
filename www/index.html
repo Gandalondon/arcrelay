@@ -1274,20 +1274,29 @@ if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
   /* Measured from a Pixel 9 recording (4 Nov): Android draws the icon centred on the WHOLE screen and 18% bigger than the
      old 160 px guess. The page starts below the status bar, so lift the drawing by half the difference. */
   const Wd = innerWidth, Ht = innerHeight, S = 190.5;  /* re-measured 4 Nov evening: the lines span 450 of 1080 px on a Pixel 9 */
-  const lift = 0;  /* 4 Nov evening recording: the old half-the-bars lift put the lines 23 px above Android's icon */
-  const L0 = (Wd - S) / 2 - 0.5, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
+  const lift = Math.max(0, ((screen.height || Ht) - Ht) / 4);  /* 4 Nov recordings: half the bars put the lines 59 device px high, none put them 57 low; a quarter sits on Android's icon */
+  const L0 = (Wd - S) / 2 + 0.6, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
   const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
   svg.setAttribute("width", Wd); svg.setAttribute("height", Ht); svg.setAttribute("aria-hidden", "true");
   const box = document.createElement("div"); box.id = "intro"; box.appendChild(svg); document.body.appendChild(box); document.body.classList.add("intro");
   requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => { try { if (CAP && CAP.SystemBars && CAP.SystemBars.ready) CAP.SystemBars.ready(); } catch (e) {} }, 120)));  /* drawn and on screen: Android's icon can go */
+  /* the same circle as Android's icon masks the lines at the top and sides; below the centre it's open, so they fall out of it (4 Nov) */
+  const cx = L0 + S / 2, cy = T0 + S / 2, clip = document.createElementNS(ns, "clipPath"); clip.id = "introclip";
+  const cc = document.createElementNS(ns, "circle"); cc.setAttribute("cx", cx); cc.setAttribute("cy", cy); cc.setAttribute("r", S / 2);
+  const below = document.createElementNS(ns, "rect"); below.setAttribute("x", L0); below.setAttribute("y", cy); below.setAttribute("width", S); below.setAttribute("height", Ht);
+  clip.appendChild(cc); clip.appendChild(below); svg.appendChild(clip);
+  const grp = document.createElementNS(ns, "g"); grp.setAttribute("clip-path", "url(#introclip)"); svg.appendChild(grp);
   [46, 30, 14].forEach((r0, j) => {                              /* outer line leaves first */
     const r = r0 * s, Y = T0 + 58 * s, X = L0 + 14 * s, y0 = Y - r;
-    const h = X - L0, arc = Math.PI * r / 2, vis = h + arc + (T0 + S - Y), tot = h + arc + (Ht + 40 - Y);
+    /* each line starts out stopping where the icon's circle cuts it (as Android draws it), then falls */
+    const xa = 14 + r0 - 5, xb = 14 + r0 + 5, edge = x => 36 + Math.sqrt(Math.max(0, 36 * 36 - (x - 36) * (x - 36)));
+    const yEnd = T0 + Math.min(edge(xa), edge(xb)) * s;
+    const h = X - L0, arc = Math.PI * r / 2, vis = h + arc + (yEnd - Y), tot = h + arc + (Ht + 40 - Y);
     const p = document.createElementNS(ns, "path");
     p.setAttribute("d", "M " + L0 + " " + y0 + " H " + X + " A " + r + " " + r + " 0 0 1 " + (X + r) + " " + Y + " V " + (Ht + 40));
     p.setAttribute("stroke-width", 10 * s);
     p.style.strokeDasharray = vis.toFixed(1) + " 4000"; p.style.setProperty("--to", (-tot).toFixed(1));
-    p.style.animationDelay = (HOLD + j * STEP) + "ms"; svg.appendChild(p);
+    p.style.animationDelay = (HOLD + j * STEP) + "ms"; grp.appendChild(p);
   });
   const end = HOLD + DUR + STEP * 2;
   /* the app appears only once the last line is off the screen, and taps are blocked until then (4 Nov) */
