@@ -187,6 +187,7 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
 <script src="data-stella-montis.js"></script>
 <script src="data-riven-tides.js"></script>
 <script src="data-pendola-pass.js"></script>
+<script src="data-zones.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 /* =================== data =================== */
@@ -984,6 +985,10 @@ function drawMap(m) {
   lmap.attributionControl.setPrefix(false);
   let fails = 0;
   const tl = L.tileLayer(MAP.tiles, { tileSize: MAP.tileSize, maxNativeZoom: MAP.maxNativeZoom, noWrap: true, keepBuffer: 4, bounds: MAP.tileBounds, attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
+  /* loot zones as in the game: abundant outlined red, decent yellow (dashed, so it never reads as the amber destination) (4 Nov) */
+  const ZN = window.ZONES && window.ZONES[MAP.id];
+  if (ZN) ZN.zones.forEach(c => { const red = c.key === "abundant";
+    c.zones.forEach(z => L.polygon(z.poly, { color: red ? "#EB574B" : "#FFC100", weight: 2, opacity: .9, dashArray: red ? null : "6 6", fillColor: red ? "#EB574B" : "#FFC100", fillOpacity: .07, interactive: false }).addTo(lmap)); });
   tl.on("tileerror", () => { fails++; if (fails === 3 && $("pinok").hidden) { $("mapnote").hidden = false; $("mapnote").textContent = "Map needs a connection. The answer above still stands."; } });
   const ll = p => [p.y, p.x];
   /* with you on the map, the first dot is the answer (e.g. the nearest airshaft): it gets the dashed line and the big dot.
