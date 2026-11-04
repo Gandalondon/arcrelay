@@ -39,7 +39,7 @@ Per map (Blue Gate is the template; roughly a day each):
 Then: work out which map you're on from a spoken landmark (unique name: switch; ambiguous: "Which map?"; keep it for the raid). Order: the map Tony plays most after Blue Gate first, Pendola Pass last.
 
 ## Other to-dos (smaller)
-- Play packaging: a signed AAB with an upload key (like Sniff), and decide whether the phone's app label becomes "ArcRelay" (still "Relay" in `capacitor.config.json`).
+- Play packaging: a signed AAB with an upload key (like Sniff). App label on the phone is now "ArcRelay" (1.0.68), matching Play and the site. Wake phrase stays "Hey Relay".
 - Site feedback form doesn't send (only worked in the Claude preview). ImprovMX refuses Brevo mail; find another free route.
 - Style guide Gaps section: 75% cream secondary text, 44 px map buttons, "Maps by MetaForge" vs "Map: MetaForge" wording, leftover `.gkey input` styles.
 - Block taps outside the playable area if MetaForge publishes a boundary.

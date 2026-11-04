@@ -1,6 +1,6 @@
 {
-  "name": "Relay",
-  "short_name": "Relay",
+  "name": "ArcRelay",
+  "short_name": "ArcRelay",
   "description": "A voice companion for ARC Raiders.",
   "start_url": "./",
   "scope": "./",
