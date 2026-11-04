@@ -118,6 +118,9 @@ module.exports = [
   { set: NONE, say: ["I'm near the fort", "evac", "that one's closed"], want: { near: "(Next best is|Try|Then go for)" } },
   { set: NONE, say: ["I'm near the fort", "evac", "it's shut, another one", "there's an ARC blocking it, another"], want: { near: "(Next best is|Try|Then go for)" } },
   { set: NONE, say: "I'm south west", want: { near: "Got it" } },
+  /* scenario A: non-fixed loot stays honest */
+  { set: NONE, say: "where can I find an expired respirator", want: { near: "Medical bags and crates" } },
+  { set: NONE, say: "rock salt", want: { near: "No spots recorded" } },
   /* items without fixed spots: a named place, no tag lists */
   { set: NONE, say: ["I'm at the farm", "where can I find dead flowers"], want: { near: "^Try (Ruined Homestead|Ancient Fort|Village)" } },
   { set: NONE, say: "where can I find dead flowers", want: { near: "Try Village, Ruined Homestead or Ancient Fort" } },
