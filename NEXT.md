@@ -27,6 +27,7 @@ Voice: Supertonic offline voices (F Sophie, Amy, Ava, Maya, Ivy; M Adam, Ben, Ow
 ## Next: all the other maps (one map per day, fresh chat each)
 Maps (7): Dam Battlegrounds, Buried City, Spaceport, Blue Gate (done), Stella Montis, Riven Tides (Apr 2026), Pendola Pass (8 Oct 2026, largest). MetaForge has all seven (metaforge.app/arc-raiders/map/<id>: dam, buried-city, spaceport, blue-gate, stella-montis, riven-tides, pendola-pass).
 Blocked on: MetaForge permission for their MARKER data (exits, hatches, quests, named areas), not just the map images. Tony is asking on the Discord ticket whether there's an export or API to use. Do not bulk-pull their data before they say yes.
+Step 1 (tiles and transform) is DONE for all six (4 Nov): `www/data-<map>.js`, read from MetaForge's live map config. Tile size, max zoom, tile bounds and pan limits are now per map (Dam and Stella Montis use 256 px tiles; Pendola Pass tops out at zoom 4; Stella Montis tiles are {z}/{x}_{y} and only its "default" floor layer is in). bounds/maxBounds are the whole image until markers arrive.
 Per map (Blue Gate is the template; roughly a day each):
 1. Tiles and coordinate transform (quick).
 2. Markers: exits, hatches, quest spots, ARC.

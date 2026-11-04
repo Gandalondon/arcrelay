@@ -6,6 +6,7 @@ window.BLUE_GATE = {
   tiles: "https://static.metaforge.app/arc-raiders/maps/blue-gate/20260112-q85/{z}/{x}/{y}.webp",
   transform: [0.031557386447043756, -2.4780212715357095, 0.03158019364427784, -1.175068101010055],
   tileSize: 512,
+  maxNativeZoom: 5,
   tileBounds: [[37.2, 78.5], [16218, 16271]],
   bounds: [[2688, 4557], [7674, 9872]],
   maxBounds: [[1500, 3000], [9000, 11500]],

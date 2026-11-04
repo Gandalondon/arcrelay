@@ -8,6 +8,7 @@ window.DAM = {
   tiles: "https://static.metaforge.app/arc-raiders/maps/dam/20260112-q85/{z}/{x}/{y}.webp",
   transform: [0.02899823907870071, -0.5500098883744897, 0.029003656496347927, -0.2453962393344682],
   tileSize: 256,
+  maxNativeZoom: 5,
   tileBounds: [[8.46, 18.97], [8800.46, 8812.6]],
   bounds: [[8.46, 18.97], [8800.46, 8812.6]],
   maxBounds: [[-900, -860], [9700, 9690]],
