@@ -1309,7 +1309,7 @@ if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
      old 160 px guess. The page starts below the status bar, so lift the drawing by half the difference. */
   const Wd = innerWidth, Ht = innerHeight, S = 190.5;  /* re-measured 4 Nov evening: the lines span 450 of 1080 px on a Pixel 9 */
   const lift = Math.max(0, ((screen.height || Ht) - Ht) / 4);  /* 4 Nov recordings: half the bars put the lines 59 device px high, none put them 57 low; a quarter sits on Android's icon */
-  const L0 = (Wd - S) / 2 + 0.6, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 250, DUR = 480, STEP = 80;
+  const L0 = (Wd - S) / 2 + 0.6, T0 = (Ht - S) / 2 - lift, s = S / 72, HOLD = 420, DUR = 480, STEP = 80;  /* 4 Nov: a little longer still, so Android has handed over before the lines start to fall */
   const ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
   svg.setAttribute("width", Wd); svg.setAttribute("height", Ht); svg.setAttribute("aria-hidden", "true");
   const box = document.createElement("div"); box.id = "intro"; box.appendChild(svg); document.body.appendChild(box); document.body.classList.add("intro");
@@ -1334,8 +1334,8 @@ if (S.last) renderAnswer(S.last.q, S.last.a); else renderReady();
   });
   const end = HOLD + DUR + STEP * 2;
   /* the app appears only once the last line is off the screen, and taps are blocked until then (4 Nov) */
-  setTimeout(() => { document.body.classList.remove("intro"); box.classList.add("clear"); box.style.pointerEvents = "none"; }, end + 60);
-  setTimeout(() => box.remove(), end + 360);
+  setTimeout(() => { document.body.classList.remove("intro"); box.classList.add("clear"); box.style.pointerEvents = "none"; }, end + 160);  /* a beat after the last line, so the fade never overlaps the fall */
+  setTimeout(() => box.remove(), end + 460);
 })();
 async function keepAwake() { try { if (CAP && CAP.KeepAwake) await CAP.KeepAwake.keepAwake(); else if (navigator.wakeLock) await navigator.wakeLock.request("screen"); } catch (e) {} }
 keepAwake(); document.addEventListener("visibilitychange", () => { if (!document.hidden) keepAwake(); });
