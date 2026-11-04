@@ -16,6 +16,7 @@
     "@capacitor/cli": "^6.2.3",
     "@capacitor/core": "^6.2.3",
     "@fontsource/archivo": "^5.0.20",
+    "@vercel/speed-insights": "^2.0.0",
     "leaflet": "^1.9.4"
   }
 }
