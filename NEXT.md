@@ -20,7 +20,7 @@ Voice: Supertonic offline voices (F Sophie, Amy, Ava, Maya, Ivy; M Adam, Ben, Ow
 Since 1.0.66 (4 Nov, 1.0.67): answer headline with a map is fixed 48 px, three lines max, in a fixed box, and the context line always holds its line, so the map never moves. Place names no longer vanish after a small pinch.
 
 ## Needs Tony (on the Pixel)
-- Cold-launch the app and check the start animation lines up and drops cleanly (1.0.65+).
+- Start animation: 1.0.65 launcher-icon match undone 4 Nov (logo shrank and jumped after Android's splash); back to the splash-matched 1.0.64 version. Check it on the Pixel.
 - Test the pin flow in a raid (1.0.66).
 - "Hey Relay" with game audio playing: false triggers or misses?
 - Take a real screenshot with the map (for a third Play screenshot later; no Play changes until all maps are in).
