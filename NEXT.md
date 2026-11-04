@@ -38,6 +38,14 @@ Per map (Blue Gate is the template; roughly a day each):
 5. Tests, like Blue Gate's.
 Then: work out which map you're on from a spoken landmark (unique name: switch; ambiguous: "Which map?"; keep it for the raid). Order: the map Tony plays most after Blue Gate first, Pendola Pass last.
 
+## Onboarding (agreed 4 Nov, not built yet)
+Mockup: https://claude.ai/artifact/LaZfxhucnGwofdQdHAVK9d . Four screens, no Skip, each heading / body / visual, headlines two lines, dots centred with a full-width button under them:
+1. "Say “Hey Relay”." Listening mic (static, with halo).
+2. "Find what you need." Nearest Rocketeer map (items, enemies, spawns; not quests for now).
+3. "Find the nearest exit." Evac on open ground, no zones, line in a different direction to screen 2.
+4. "Pick Relay’s voice." Voice rows (name + Female/Male, no "Supertonic"), Skip (outline, 1/3) + Download (amber, 2/3) like Sniff's Back/Next.
+Also: Settings voice row says "Offline. Tap to change." (drop "Supertonic"; credit stays in About).
+
 ## Other to-dos (smaller)
 - Play packaging: a signed AAB with an upload key (like Sniff). App label on the phone is now "ArcRelay" (1.0.68), matching Play and the site. Wake phrase stays "Hey Relay".
 - Site feedback form doesn't send (ImprovMX refuses Brevo mail). Parked by Tony (4 Nov): using the app first.
