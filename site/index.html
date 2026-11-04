@@ -53,7 +53,7 @@ footer a:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
 <p>An independent, unofficial companion, not affiliated with or endorsed by Embark Studios. ARC Raiders is a trademark of Embark Studios.</p>
 </footer>
 <script>
-/* the three signal lines draw in once on load, as on the beta site. Skipped with reduced motion. */
+/* the three signal lines draw in once on load, then the wordmark wipes in, as on the beta site. Skipped with reduced motion. */
 (function () {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   document.querySelectorAll(".mark path").forEach(function (p, i) {
@@ -61,6 +61,9 @@ footer a:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
     var L = Math.ceil(p.getTotalLength()); p.style.strokeDasharray = L;
     p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 440, delay: i * 70, easing: "cubic-bezier(.3,0,.2,1)", fill: "backwards" });
   });
+  /* then the wordmark wipes in left to right, letter by letter */
+  var w = document.querySelector(".mark .word");
+  if (w && w.animate) w.animate([{ clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0 0 0)" }], { duration: 360, delay: 520, easing: "cubic-bezier(.4,0,.2,1)", fill: "backwards" });
 })();
 </script>
 </body>

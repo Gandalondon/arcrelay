@@ -10,11 +10,16 @@ const APP_NAME = "ArcRelay";
 document.querySelectorAll("[data-name]").forEach(el => { if (el.closest(".logo")) el.innerHTML = '<span class="arc">Arc</span><span class="rl">Relay</span>'; else el.textContent = APP_NAME; });
 
 /* ============ logo: the three lines draw in once on load (about 600ms), then stay still ============
-   Each line draws from its left end, a beat after the one above, and the wordmark fades in. Skipped with reduced motion. */
+   Each line draws from its left end, a beat after the one above, then the wordmark wipes in left to right. Skipped with reduced motion. */
 const logo = document.getElementById("logo");
 if (logo) logo.setAttribute("aria-label", APP_NAME + " home");
+/* only on the home page, and only once per visit: going between pages never replays it, a refresh does */
 function logoIn() {
-  if (!logo || still.matches || !logo.animate) return;
+  if (!logo || still.matches || !logo.animate || !document.querySelector(".hero")) return;
+  let seen = false, reload = false;
+  try { const nav = performance.getEntriesByType("navigation")[0]; reload = !!nav && nav.type === "reload"; } catch (e) {}
+  try { seen = sessionStorage.getItem("logo-in") === "1"; sessionStorage.setItem("logo-in", "1"); } catch (e) {}
+  if (seen && !reload) return;
   const ease = "cubic-bezier(.3,0,.2,1)";
   logo.querySelectorAll("path").forEach((p, i) => {
     const L = Math.ceil(p.getTotalLength());
@@ -22,7 +27,8 @@ function logoIn() {
     p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 440, delay: i * 70, easing: ease, fill: "backwards" });
   });
   const n = logo.querySelector(".name");
-  if (n) n.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 300, easing: "ease-out", fill: "backwards" });
+  /* the wordmark wipes in left to right, letter by letter, once the lines have drawn */
+  if (n) n.animate([{ clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0 0 0)" }], { duration: 360, delay: 520, easing: "cubic-bezier(.4,0,.2,1)", fill: "backwards" });
 }
 window.addEventListener("scroll", () => drift(), { passive: true });
 
