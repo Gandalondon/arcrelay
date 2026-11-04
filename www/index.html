@@ -177,6 +177,7 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
 <script src="leaflet.js"></script>
 <script src="data-bluegate.js"></script>
 <script src="data-bluegate-places.js"></script>
+<script src="data-dam.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 /* =================== data =================== */
@@ -955,10 +956,10 @@ function drawMap(m) {
   if (!window.L) { $("mapnote").hidden = false; $("mapnote").textContent = "Map couldn't load."; return; }
   const [a, b, c, d] = MAP.transform;
   const crs = L.extend({}, L.CRS.Simple, { transformation: new L.Transformation(a, b, c, d) });
-  lmap = L.map("map", { crs, zoomControl: false, attributionControl: true, minZoom: 0, maxZoom: 7, zoomSnap: 0, zoomDelta: 0.5, wheelPxPerZoomLevel: 90, bounceAtZoomLimits: false, inertia: true, maxBounds: [[1500, 3000], [9000, 11500]], maxBoundsViscosity: 0.8 });
+  lmap = L.map("map", { crs, zoomControl: false, attributionControl: true, minZoom: 0, maxZoom: 7, zoomSnap: 0, zoomDelta: 0.5, wheelPxPerZoomLevel: 90, bounceAtZoomLimits: false, inertia: true, maxBounds: MAP.maxBounds, maxBoundsViscosity: 0.8 });
   lmap.attributionControl.setPrefix(false);
   let fails = 0;
-  const tl = L.tileLayer(MAP.tiles, { tileSize: 512, maxNativeZoom: 5, noWrap: true, keepBuffer: 4, bounds: [[37.2, 78.5], [16218, 16271]], attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
+  const tl = L.tileLayer(MAP.tiles, { tileSize: MAP.tileSize, maxNativeZoom: 5, noWrap: true, keepBuffer: 4, bounds: MAP.tileBounds, attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
   tl.on("tileerror", () => { fails++; if (fails === 3 && $("pinok").hidden) { $("mapnote").hidden = false; $("mapnote").textContent = "Map needs a connection. The answer above still stands."; } });
   const ll = p => [p.y, p.x];
   const single = m.stars.length === 1;
