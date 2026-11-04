@@ -30,7 +30,7 @@ body.listening{background:var(--navy);color:var(--bone)}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex:none}
 .top .word{flex:1 1 auto}
 .word{all:unset;display:block;min-width:0;max-width:100%;cursor:pointer;font-family:var(--display);font-weight:600;font-size:80px;line-height:76px;letter-spacing:-.015em;white-space:pre-line;text-wrap:balance}
-/* instruction type: the biggest step on the scale that fits in 4 lines and 216px tall (72 > 64 > 56 > 48 > 40 > 36 > 32). Set in fitInstr(). */
+/* answer type (with a map): fixed 48px, three lines max, box always three lines tall. Set in fitInstr(). */
 .word.instr{letter-spacing:-.01em;white-space:normal;overflow-wrap:normal}
 .word:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .word.greet{white-space:pre-line;letter-spacing:-.015em}
@@ -40,6 +40,9 @@ body.listening .close{color:var(--amber)}
 [hidden]{display:none!important}
 .ctxline{margin:16px 0 0;font-size:16px;line-height:24px;color:var(--grey);text-wrap:pretty}
 .ctxline:empty{display:none}
+/* with a map the context line always holds its one line (even empty), so the map never moves */
+.ctxline.keep{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctxline.keep:empty{display:block;height:24px}
 .stage{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;margin-top:24px}
 /* map: edge to edge, runs down to the soundwave */
 /* map: an inset, rounded tile inside the same 24px margins as the text (4 Nov), not edge to edge */
@@ -225,9 +228,9 @@ const QUESTS = [
       { t: "Scan an Android at the back of the Traffic Tunnels", where: "the Android at the back of the tunnels", go: "Keep left all the way to the very end of the tunnels. The Android is against the back wall. Stand close to scan it.", show: "Android on the back wall. Scan it.", pin: HTR(2), al: ["android", "scan"] },
       { t: "Head to the MANTIKOR locker room", where: "the locker room", go: "From the Android, take the route on your right to a short staircase and a door into the Security Wing. Go up the second short flight. The locker room door is immediately on your right. You may need to breach it.", show: "Right, up two flights. Door on your right.", pin: HTR(3), al: ["mantikor", "locker room"] },
       { t: "Search the locker room for clues", where: "the locker room", go: "Interact with the mural on the back wall of the locker room.", show: "Mural on the back wall.", pin: HTR(4), al: ["clue", "mural"] },
-      { t: "Read the final vehicle weighing logs", where: "the weighing station", go: "Go back down the stairs to the platform over the underground garage. The weighing station is among the parked vehicles, panel on its right side.", show: "Down to the garage. Weighing station panel.", pin: HTR(5), al: ["weighing", "logs", "weigh"] },
+      { t: "Read the final vehicle weighing logs", where: "the weighing station", go: "Go back down the stairs to the platform over the underground garage. The weighing station is among the parked vehicles, panel on its right side.", show: "Garage. Weighing station panel.", pin: HTR(5), al: ["weighing", "logs", "weigh"] },
       { t: "Optional: find the hidden key", where: "the weighing station", go: "In a small box right next to the weighing log console. It opens the Confiscation Room, so grab it if you haven't got one.", show: "Small box by the console.", pin: HTR(6), al: ["hidden key", "the key", "spare key"] },
-      { t: "Enter the Confiscation Room", where: "the Confiscation Room", go: "Go back to where the stairs were on your right. The locked MANTIKOR door there is the Confiscation Room. Use the key.", show: "MANTIKOR door by the stairs. Use the key.", pin: HTR(7), al: ["confiscation"] },
+      { t: "Enter the Confiscation Room", where: "the Confiscation Room", go: "Go back to where the stairs were on your right. The locked MANTIKOR door there is the Confiscation Room. Use the key.", show: "MANTIKOR door. Use the key.", pin: HTR(7), al: ["confiscation"] },
       { t: "Send MANTIKOR's last security recordings to Shani", where: "the Confiscation Room", go: "Inside the Confiscation Room, the white box is on top of the central server rack. Climb the rack or the crates beside it.", show: "White box on the server rack. Climb up.", pin: HTR(8), al: ["recording", "white box", "server rack"] }
     ] },
   { n: "Nothing Ventured", al: ["nothing ventured"], who: "Apollo", note: "Spawn points: MetaForge.",
@@ -238,7 +241,7 @@ const QUESTS = [
     ] },
   { n: "Wires Crossed", al: ["wires crossed", "snitch scanner"], who: "Celeste", note: "Position: MetaForge.",
     steps: [
-      { t: "On Blue Gate, attach a Snitch Scanner to the antenna at Pilgrim's Peak", go: "The antenna is on Pilgrim's Peak, in the north-east.", pin: fromRow(byName("attach a Snitch Scanner"), "Antenna") },
+      { t: "On Blue Gate, attach a Snitch Scanner to the antenna at Pilgrim's Peak", go: "The antenna is on Pilgrim's Peak, in the north-east.", show: "Antenna on Pilgrim's Peak, north-east.", pin: fromRow(byName("attach a Snitch Scanner"), "Antenna") },
       { t: "On Spaceport, attach a Surveyor Vault to the antenna on the Launch Towers", go: "Relay only has Blue Gate's map so far." },
       { t: "On Buried City, attach a Sentinel Firing Core to the antenna on the Grandioso Apartments roof", go: "Relay only has Blue Gate's map so far." }
     ] },
@@ -252,7 +255,7 @@ const QUESTS = [
     ] },
   { n: "A Path Not Yours", al: ["path not yours", "bilguun"], who: "", note: "Positions: MetaForge.",
     steps: [
-      { t: "Find the start of the Nomad trail under the Highway Collapse", pin: fromRow(byName("1. Find the start of the Nomad trail"), "Trail start") },
+      { t: "Find the start of the Nomad trail under the Highway Collapse", show: "Nomad trail: Highway Collapse.", pin: fromRow(byName("1. Find the start of the Nomad trail"), "Trail start") },
       { t: "Follow the trail markers to the Nomad hideout", pin: fromRow(byName("2. Follow the trail markers"), "Hideout") },
       { t: "Find Bilguun's gift at the buried cache under the hideout", pin: fromRow(byName("3. Find Bilguun's gift"), "Buried cache") },
       { t: "Loot the secret stash in Bilguun's hideout", pin: fromRow(byName("4. Loot the secret stash"), "Secret stash") }
@@ -266,7 +269,7 @@ const QUESTS = [
     ] },
   { n: "Reduced to Rubble", al: ["reduced to rubble", "rubble"], who: "", note: "Positions: MetaForge.",
     steps: [
-      { t: "Take a photo of the Collapsed Highway", pin: fromRow(byName("Take a photo of the Collapsed"), "Photo spot"), al: ["photo"] },
+      { t: "Take a photo of the Collapsed Highway", show: "Photo: Collapsed Highway.", pin: fromRow(byName("Take a photo of the Collapsed"), "Photo spot"), al: ["photo"] },
       { t: "Go to the Broken Earth", pin: fromRow(byName("Go to the Broken Earth"), "Broken Earth"), al: ["broken earth"] },
       { t: "Follow the trail of destruction", pin: fromRow(byName("Follow the trail of destruction"), "Trail"), al: ["trail"] },
       { t: "Investigate the unknown ARC machines", pin: fromRow(byName("Investigate the Unknown Arc"), "ARC machines"), al: ["unknown arc", "machines"] }
@@ -874,19 +877,23 @@ function bars(listeningNow) { try { if (CAP && CAP.SystemBars) CAP.SystemBars.se
    Only a screen with a map steps down the instruction scale, to leave the map room. */
 function setWord(txt, instr, withMap) {
   const w = $("word");
-  w.hidden = false; w.classList.remove("greet"); w.textContent = txt; w.style.fontSize = ""; w.style.lineHeight = "";
+  w.hidden = false; w.classList.remove("greet"); w.textContent = txt; w.style.fontSize = ""; w.style.lineHeight = ""; w.style.height = "";
   w.classList.toggle("instr", !!instr); w.dataset.map = withMap ? "1" : "";
   if (withMap) { fitInstr(w); requestAnimationFrame(() => fitInstr(w)); return; }
   fitGreet(w); requestAnimationFrame(() => fitGreet(w));
 }
 /* type rule: short instructions are huge, longer ones step down. Aim for 40 characters, never over 60. */
 const TYPE_SCALE = [80, 72, 64, 56, 48, 44, 40, 36];
+/* answers with a map (4 Nov): one fixed size, 48px, at most three lines, in a box always three lines tall,
+   so the map sits in exactly the same place every time. Copy should fit (aim for 40 characters).
+   Safety net only: a line that still won't fit (narrow phone, a long place name) steps down inside the same box. */
+const HEAD = 48, HEAD_LH = 49, HEAD_BOX = HEAD_LH * 3;
 function fitInstr(w) {
-  w.style.overflowWrap = "normal";
-  for (const s of TYPE_SCALE) {
-    const lh = Math.round(s * 1.02);
+  w.style.overflowWrap = "normal"; w.style.height = HEAD_BOX + "px";
+  for (const s of [HEAD, 44, 40, 36, 32]) {
+    const lh = s === HEAD ? HEAD_LH : Math.round(s * 1.02);
     w.style.fontSize = s + "px"; w.style.lineHeight = lh + "px";
-    if (Math.floor(w.scrollHeight / lh) <= 4 && w.scrollHeight <= 216 && w.scrollWidth <= w.clientWidth + 1) return s;
+    if (Math.floor(w.scrollHeight / lh) <= 3 && w.scrollWidth <= w.clientWidth + 1) return s;  /* floor: glyphs poke a few px past the line box */
   }
   w.style.overflowWrap = "break-word"; /* last resort: a word too long for the screen */
   return 32;
@@ -944,7 +951,7 @@ function renderAnswer(q, a) {
   clearMap(); bars(false);
   document.body.classList.remove("listening"); document.body.classList.add("session"); $("close").hidden = false;
   const hasMap = a.map && (a.map.stars.length || a.map.you || a.map.pick);
-  setWord(a.show || a.text || "", true, hasMap); setSub(""); setCtx(a.ctx || "");
+  setWord(a.show || a.text || "", true, hasMap); setSub(""); setCtx(a.ctx || ""); $("ctx").classList.toggle("keep", !!hasMap);
   $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="full" aria-label="Full map">' + IC.map + '</button><button type="button" id="setloc" aria-label="Set location" aria-pressed="false">' + IC.pin + '</button>' + (a.map.you && a.map.stars.length === 1 ? '<button type="button" id="route" aria-label="Show route">' + IC.route + '</button>' : '') + '</div><div class="maphint" id="maphint" hidden>Tap the map to set your location</div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
   if (hasMap) requestAnimationFrame(() => drawMap(a.map));
 }

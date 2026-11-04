@@ -17,6 +17,8 @@ ArcRelay is Tony Goff-Yu's free, unofficial, voice-first Android companion for A
 ## Latest app state (1.0.66)
 Voice: Supertonic offline voices (F Sophie, Amy, Ava, Maya, Ivy; M Adam, Ben, Owen, Leo, Mark), on-device speech recognition with a one-tap offline pack download, "Hey Relay" wake phrase (sherpa-onnx keyword spotter), one 8-second follow-up listen then standby. Map: inset tile, amber buttons top right (Full map, Set location, Show route when there's a route), two-step pin (Set location, tap, "I'm here"; hollow ring until confirmed; a confirmed pin replaces a spoken location). Start animation: Android reports where it drew the icon, the lines drop out of the circle, then the screen appears.
 
+Since 1.0.66 (4 Nov, 1.0.67): answer headline with a map is fixed 48 px, three lines max, in a fixed box, and the context line always holds its line, so the map never moves. Place names no longer vanish after a small pinch.
+
 ## Needs Tony (on the Pixel)
 - Cold-launch the app and check the start animation lines up and drops cleanly (1.0.65+).
 - Test the pin flow in a raid (1.0.66).
@@ -41,4 +43,5 @@ Then: work out which map you're on from a spoken landmark (unique name: switch; 
 - Site feedback form doesn't send (only worked in the Claude preview). ImprovMX refuses Brevo mail; find another free route.
 - Style guide Gaps section: 75% cream secondary text, 44 px map buttons, "Maps by MetaForge" vs "Map: MetaForge" wording, leftover `.gkey input` styles.
 - Block taps outside the playable area if MetaForge publishes a boundary.
-- Estimates only: screen-off listening, live exit status, loot tiers.
+- Estimates only: screen-off listening, live exit status. Loot tiers: parked (Tony, 4 Nov). MetaForge only has 8 loot zone points on Blue Gate anyway.
+- Idea agreed in principle: keep the map tile on screen on standby once the map is known, with a map picker inside it before that (also answers "Which map?"). No new icon next to the mic.

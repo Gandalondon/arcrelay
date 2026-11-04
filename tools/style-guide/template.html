@@ -9,7 +9,7 @@
   Every value here is taken from the source; where the app has no rule yet, it says so under "Gaps".
   Works offline: Barlow and the Material Symbols icons the app uses are embedded.
   Built by tools/style-guide/make.py from tools/style-guide/template.html. Edit the template, then run the script.
-  Last checked against: app 1.0.66, 4 November 2026.
+  Last checked against: app 1.0.67, 4 November 2026.
 -->
 <style>
 {{FONTS}}
@@ -205,14 +205,14 @@ ul.plain li{margin:6px 0}
   <p class="intro">Barlow, bundled with the app (SIL Open Font Licence), never loaded from Google Fonts. Weights 400, 500, 600 and 700.</p>
   <div class="spec">
     <div><small>Greeting<br>600 · 80/76 · −0.015em</small><span style="font:600 80px/76px var(--font);letter-spacing:-.015em">Evening, Raider.</span></div>
-    <div><small>Answer headline<br>600 · 72 to 32 · line 1.02</small><span style="font:600 48px/49px var(--font);letter-spacing:-.01em">Cliffside Airshaft, south-east.</span></div>
+    <div><small>Answer headline<br>600 · 48 fixed · line 49 px</small><span style="font:600 48px/49px var(--font);letter-spacing:-.01em">Cliffside Airshaft, south-east.</span></div>
     <div><small>Settings title<br>600 · 20/28</small><span style="font:600 20px/28px var(--font)">Settings</span></div>
     <div><small>Voice name<br>600 · 18/24</small><span style="font:600 18px/24px var(--font)">Sophie</span></div>
     <div><small>Body and context line<br>400 · 16/24</small><span>Home to Roost, step 3 of 8</span></div>
     <div><small>Small, notes<br>400 or 500 · 14/20</small><span style="font-size:14px;line-height:20px">Tap the map to set your location</span></div>
     <div><small>Map place names<br>600 · 12/14 · +0.01em</small><span class="plabel">Maintenance Bunker</span></div>
   </div>
-  <p class="note">Answer headlines step down the scale 72 → 64 → 56 → 48 → 40 → 36 → 32 px until they fit in four lines and 216 px tall (<code>fitInstr()</code>). Never shrink below 32: shorten the line instead.</p>
+  <p class="note">Answer headlines with a map are one fixed size, 48 px, three lines at most, in a box that is always three lines tall (147 px), so the map sits in the same place on every answer. The context line keeps its one line too, even when empty. Write to fit: aim for 40 characters. Safety net only: a line that still won't fit steps down 44 → 40 → 36 → 32 inside the same box (<code>fitInstr()</code>); if that happens on a 412 px screen, shorten the line.</p>
 
   <h3 class="g-h3">Space, size and shape</h3>
   <table class="rules">
@@ -426,7 +426,7 @@ ahead.</div><span class="x">{{I:close}}</span></div><div class="fill"></div><div
   <h2 class="g-h2">Checklist before shipping a change</h2>
   <ul class="plain">
     <li>Only charcoal, panel, cream, amber and ink. Amber only for things you can act on, or the destination.</li>
-    <li>Barlow, sizes from the scale. Headline fits four lines.</li>
+    <li>Barlow, sizes from the scale. Headline with a map: 48 px, three lines max.</li>
     <li>Material Symbols Rounded, from the icon list.</li>
     <li>Mic in the same place, halo only when the mic is on.</li>
     <li>No widows; no em dashes; UK spelling.</li>
