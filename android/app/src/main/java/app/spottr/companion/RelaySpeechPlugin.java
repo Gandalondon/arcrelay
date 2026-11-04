@@ -16,6 +16,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
 import com.getcapacitor.annotation.PermissionCallback;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Relay's speech recognition. Uses the phone's ON-DEVICE recogniser when it has one (Pixel and other Android 12+ phones
@@ -41,6 +42,45 @@ public class RelaySpeechPlugin extends Plugin {
         r.put("online", SpeechRecognizer.isRecognitionAvailable(getContext()));
         r.put("lastMode", lastMode);
         call.resolve(r);
+    }
+
+    /** is the offline English pack on the phone? (Android 13+ can tell us; older phones report "unknown") */
+    @PluginMethod
+    public void offlineStatus(PluginCall call) {
+        final String lang = call.getString("lang", "en-GB");
+        if (Build.VERSION.SDK_INT < 33 || !onDeviceAvailable()) { JSObject r = new JSObject(); r.put("state", Build.VERSION.SDK_INT < 33 ? "unknown" : "none"); call.resolve(r); return; }
+        getActivity().runOnUiThread(() -> {
+            try {
+                final SpeechRecognizer probe = SpeechRecognizer.createOnDeviceSpeechRecognizer(getContext());
+                probe.checkRecognitionSupport(intent(lang, true), getContext().getMainExecutor(), new android.speech.RecognitionSupportCallback() {
+                    @Override public void onSupportResult(android.speech.RecognitionSupport sup) {
+                        JSObject r = new JSObject();
+                        r.put("state", has(sup.getInstalledOnDeviceLanguages(), lang) ? "installed" : has(sup.getPendingOnDeviceLanguages(), lang) ? "downloading" : has(sup.getSupportedOnDeviceLanguages(), lang) ? "available" : "none");
+                        probe.destroy(); call.resolve(r);
+                    }
+                    @Override public void onError(int error) { JSObject r = new JSObject(); r.put("state", "unknown"); r.put("error", error); probe.destroy(); call.resolve(r); }
+                });
+            } catch (Throwable e) { JSObject r = new JSObject(); r.put("state", "unknown"); r.put("error", String.valueOf(e.getMessage())); call.resolve(r); }
+        });
+    }
+
+    private static boolean has(List<String> l, String lang) {
+        if (l == null) return false;
+        String base = lang.split("-")[0];
+        String want = lang.toLowerCase(), b = base.toLowerCase();
+        for (String x : l) { if (x == null) continue; String y = x.toLowerCase().replace('_', '-'); if (y.equals(want) || y.equals(b) || y.startsWith(b + "-")) return true; }
+        return false;
+    }
+
+    /** asks Android to download the offline English pack (it shows its own progress) */
+    @PluginMethod
+    public void downloadOffline(PluginCall call) {
+        final String lang = call.getString("lang", "en-GB");
+        if (Build.VERSION.SDK_INT < 33 || !onDeviceAvailable()) { call.reject("not supported"); return; }
+        getActivity().runOnUiThread(() -> {
+            try { SpeechRecognizer r = SpeechRecognizer.createOnDeviceSpeechRecognizer(getContext()); r.triggerModelDownload(intent(lang, true)); r.destroy(); call.resolve(); }
+            catch (Throwable e) { call.reject(String.valueOf(e.getMessage())); }
+        });
     }
 
     @PluginMethod

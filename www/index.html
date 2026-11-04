@@ -100,6 +100,8 @@ body.intro .app{opacity:0}
 .gkey button{all:unset;cursor:pointer;height:44px;padding:0 20px;border-radius:999px;background:var(--amber);color:var(--ink);font:600 16px/44px var(--body)}
 .gkey button[hidden]{display:none}
 .gkey p{margin:0;font-size:14px;line-height:20px}
+.sppack{margin:16px 0 0}
+body.session .sppack,body.listening .sppack{display:none}
 .vhead{display:flex;align-items:center;gap:4px;margin:-12px 0 8px -12px}
 .back{all:unset;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--amber)}
 .back svg{width:28px;height:28px}
@@ -133,6 +135,7 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
     <button class="close" id="close" type="button" aria-label="Close and start again" hidden><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M480-438 270-228q-9 9-21 9t-21-9q-9-9-9-21t9-21l210-210-210-210q-9-9-9-21t9-21q9-9 21-9t21 9l210 210 210-210q9-9 21-9t21 9q9 9 9 21t-9 21L522-480l210 210q9 9 9 21t-9 21q-9 9-21 9t-21-9L480-438Z"/></svg></button>
   </div>
   <p class="ctxline" id="ctx"></p>
+  <div class="gkey sppack" id="sppack" hidden><p id="sppacktxt">Download Google's offline English so Relay hears you without signal. One tap, once.</p><div class="gkrow"><button type="button" class="spget">Download offline speech</button></div></div>
   <div class="stage" id="stage"></div>
   <div class="dock"><button class="mic" id="mic" type="button" aria-label="Talk to Relay"><svg class="mc" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM480-651Zm-30 501v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm59.5-346.5Q521-510 521-529v-251q0-17-11.79-28.5T480-820q-17.42 0-29.21 11.5T439-780v251q0 19 11.5 32.5T480-483q18 0 29.5-13.5Z"/></svg><svg class="wv" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M285-270v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165 160v-740q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v740q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63Q450-97.25 450-110ZM120-430v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm495 160v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165-160v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></button></div>
   <div class="sr" id="vstate" aria-live="polite"></div>
@@ -147,8 +150,10 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
   <h3>Say “Hey Relay”</h3>
   <div class="seg" id="wakeopt" role="radiogroup" aria-label="Wake phrase"></div>
   <p class="about wakenote">Relay listens for just those two words while it's open on your screen. Nothing else is transcribed or sent anywhere.</p>
+  <div id="spset" hidden><h3>Offline speech</h3>
+  <div class="gkey"><p id="spsettxt"></p><div class="gkrow"><button type="button" class="spget" id="spsetget">Download offline speech</button></div></div></div>
   <h3>About</h3>
-  <p class="about">Ask Relay where to go, how to get out, or what's next on your quest. Tap the microphone and talk; it keeps listening for follow-ups. Everything runs on your phone, so it works without internet once the voice is downloaded.</p>
+  <p class="about">Ask Relay where to go, how to get out, or what's next on your quest. Tap the microphone and talk; it listens once more for a follow-up. Everything runs on your phone, so it works without internet once the voice is downloaded.</p>
   <p class="about">Unofficial companion, not made or endorsed by Embark Studios. Map data from <span class="u">MetaForge</span> (metaforge.app). Place names and distances from allthings.how. Voice: Supertonic 3 by Supertone (OpenRAIL-M licence), running on sherpa-onnx (Apache 2.0).</p>
   <p class="about ver" id="ver"></p>
 </div>
@@ -752,13 +757,32 @@ function speakPhone(s, fin) {
 function stopSpeaking() { speakId++; setVoiceState("idle"); try { if (gemSpeak.stop) gemSpeak.stop(); } catch (e) {} try { if (OV) OV.stop(); } catch (e) {} try { if (RV) RV.stop(); else speechSynthesis.cancel(); } catch (e) {} }
 
 /* =================== listening =================== */
-/* Conversation: after every answer Relay keeps listening, re-arming the microphone each time the phone's recogniser
-   times out, until CONVO_MS of silence. Then it stands by with the last answer on screen; tap the soundwave or the screen to talk.
+/* Conversation: after every answer Relay listens ONCE more for a follow-up (about CONVO_MS). If nothing is said it goes
+   straight back to quiet "Hey Relay" standby with the last answer on screen. No re-arming, so the ring never loops.
    It only starts listening once its own speech has finished, so it never hears itself. */
-const CONVO_MS = 45000;
+const CONVO_MS = 8000;
 const RS = CAP && CAP.RelaySpeech ? CAP.RelaySpeech : null;
 let speechOnDevice = false, speechMode = "";
-if (RS) RS.available().then(r => { speechOnDevice = !!(r && r.onDevice); }).catch(() => {});
+if (RS) RS.available().then(r => { speechOnDevice = !!(r && r.onDevice); checkPack(); }).catch(() => {});
+/* the phone's offline English pack: Google's, so it can't be bundled. Check it, and offer a one-tap download if it's missing */
+let packState = "", packAsked = false, packTimer = 0;
+const PACK_TXT = { installed: "Installed. Relay hears you without signal.", downloading: "Downloading. Android shows its progress in your notifications.", available: "Not on this phone yet. One tap to download it.", none: "This phone has no offline English, so Relay uses online speech recognition.", unknown: "Android didn't say whether it's installed." };
+function checkPack() {
+  if (!RS || !RS.offlineStatus || !speechOnDevice) return;
+  RS.offlineStatus({ lang: "en-GB" }).then(r => { packState = r && r.state || "unknown"; showPack(); if (packState === "downloading" && !packTimer) packTimer = setInterval(() => { if (packState !== "downloading") { clearInterval(packTimer); packTimer = 0; } else checkPack(); }, 5000); }).catch(() => {});
+}
+function showPack() {
+  const need = packState === "available" && !packAsked;
+  $("sppack").hidden = !need;
+  $("spset").hidden = !packState;
+  $("spsettxt").textContent = packAsked && packState === "available" ? PACK_TXT.downloading : PACK_TXT[packState] || "";
+  $("spsetget").hidden = packState !== "available" || packAsked;
+}
+document.querySelectorAll(".spget").forEach(b => b.addEventListener("click", e => {
+  e.stopPropagation(); packAsked = true; showPack();
+  RS.downloadOffline({ lang: "en-GB" }).then(() => { packState = "downloading"; showPack(); checkPack(); }).catch(() => { packAsked = false; packState = "unknown"; showPack(); });
+}));
+document.addEventListener("visibilitychange", () => { if (!document.hidden) checkPack(); });
 /* "Hey Relay": standby only while Relay is idle on screen; off while listening to you, speaking, in Settings or in the background */
 const WK = CAP && CAP.RelayWake ? CAP.RelayWake : null;
 let wakeOn = false, wakeErr = "";
@@ -778,10 +802,7 @@ function setVoiceState(s) {
   const el = $("vstate"); if (el) el.textContent = { listening: "Listening", speaking: "Speaking" }[s] || "";
 }
 function endFollow() { followMode = false; document.body.classList.remove("follow"); setVoiceState("idle"); }
-function keepConversation() {
-  if (Date.now() < convoUntil && !document.hidden && S.last) setTimeout(() => { if (!listening && !document.body.classList.contains("speaking")) listen({ auto: true }); }, 250);
-  else { convoUntil = 0; endFollow(); }
-}
+function keepConversation() { convoUntil = 0; endFollow(); }  /* the one follow-up listen has ended: back to standby */
 let cancelledAt = 0;  /* after X while listening, ignore whatever the recogniser still sends back */
 function heard(text) { if (Date.now() - cancelledAt < 3000) { micOn(false); return; } micOn(false); fastFails = 0; handle(text); }
 function nothingHeard(startedAt, err) {
@@ -789,7 +810,6 @@ function nothingHeard(startedAt, err) {
   if (Date.now() - cancelledAt < 3000) return;
   if (followMode) {
     if (Date.now() - startedAt < 800) fastFails++; else fastFails = 0;
-    if (fastFails >= 3 || err === "fatal") { convoUntil = 0; endFollow(); return; }
     keepConversation(); return;
   }
   renderBack();
@@ -1178,7 +1198,7 @@ async function handle(q) {
   }
   if (!a) a = answer(q);
   if (gKey()) { setCtx("Thinking..."); const t0 = Date.now(); const g = await gemAnswer(q);
-    if (g && g.ignore) { setCtx(g.ctx); setVoiceState("idle"); if (Date.now() < convoUntil) setTimeout(() => listen({ auto: true }), 350); return; }  /* side talk: stay quiet, keep listening */
+    if (g && g.ignore) { setCtx(g.ctx); setVoiceState("idle"); convoUntil = 0; endFollow(); return; }  /* side talk: stay quiet, back to standby */
     if (g) a = g; else { a.ctx = "Gemini didn't answer, so this is Relay's offline answer."; if (a.fallback) { const b = await aiAnswer(q); if (b) a = b; } } }
   else if (a.fallback) { const b = await aiAnswer(q); if (b) a = b; }
   const go = () => { if (a.after) a.after(); if (a.follow === false) { convoUntil = 0; endFollow(); return; } convoUntil = Date.now() + CONVO_MS; setTimeout(() => listen({ auto: true }), 350); };
@@ -1256,6 +1276,7 @@ async function openDebug() {
     "Gemini Nano: " + aiStatus,
     "Hey Relay: " + (!WK ? "not available" : !CFG.wake ? "off" : wakeOn ? "listening for it" : "paused") + (wakeErr ? ", error: " + wakeErr : ""),
     "Speech recognition: " + (RS ? (speechOnDevice ? "on the phone (offline)" : "online") + (speechMode ? ", last used " + speechMode : "") : "old plugin"),
+    "Offline English pack: " + (packState || "not checked"),
     "Last close: " + (st.lastExit || ovExit || "unknown"),
     "Phone voice fallback: " + (VINFO && VINFO.current ? VINFO.current : "Google default")
   ];
