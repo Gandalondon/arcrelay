@@ -37,6 +37,7 @@ const page_ = process.argv[2] || path.join(__dirname, "../www/index.html");
     else if (w.enemy) ok = /spawn|nearest/i.test(txt) && !isFallback;
     else if (w.stop) ok = /standing by/i.test(A.show);
     else if (w.exitName) ok = A.say.includes(w.exitName);
+    else if (w.othermap) ok = A.show.includes(w.othermap === "any" ? "Blue Gate only" : w.othermap);
     else if (w.near) ok = new RegExp(w.near, "i").test(A.say) && !/shops|homes, shops/i.test(A.say);
     if (ok && w.place && w.exitName) ok = r.after.place === w.place;
     if (ok && /can you see/i.test(A.say)) ok = false;  /* never ask about something you'd need to see */

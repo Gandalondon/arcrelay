@@ -148,5 +148,11 @@ module.exports = [
 
   /* noise: speech recognition picked up the TV */
   { set: HTR, say: "the uh behind the", want: { same: true } },
-  { set: NONE, say: "pass me the remote", want: { fallback: true } }
+  { set: NONE, say: "pass me the remote", want: { fallback: true } },
+
+  /* a place on another map: say which map, not "Say again?" (4 Nov) */
+  { set: NONE, say: "I'm at the Hydroponic Dome Complex", want: { othermap: "Dam Battlegrounds" } },
+  { set: NONE, say: "nearest exit from Victory Ridge", want: { othermap: "Dam Battlegrounds" } },
+  { set: NONE, say: "I'm in Old Town", want: { othermap: "any" } },
+  { set: NONE, say: "near the gate control room", want: { place: "Gate Control Room" } }
 ];

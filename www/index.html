@@ -367,6 +367,20 @@ function findDir(t) {
   return { n: n === "middle" ? "the middle of the map" : "the " + n, y: Math.round(EXT.y0 + (EXT.y1 - EXT.y0) * fy), x: Math.round(EXT.x0 + (EXT.x1 - EXT.x0) * fx), rough: true };
 }
 /* where the player says they are: a named place beats a direction */
+/* place names from every other map (MetaForge labels), to tell which map someone means. Names Blue Gate also has are skipped. */
+const MAP_NAMES = { "dam": "Dam Battlegrounds", "buried-city": "Buried City", "spaceport": "Spaceport", "stella-montis": "Stella Montis", "riven-tides": "Riven Tides", "pendola-pass": "Pendola Pass" };
+const OTHER_PLACES = (() => {
+  const Z = window.ZONES || {}, nm = s => " " + s.toLowerCase().replace(/^the /, "").replace(/[’]/g, "'").replace(/&/g, "and").replace(/[^a-z0-9' ]/g, " ").replace(/\s+/g, " ").trim() + " ";
+  const blue = new Set([].concat(...((Z["blue-gate"] || {}).labels || []).map(c => c.labels.map(l => nm(l.n))), (window.BLUE_GATE_AREAS || []).map(a => nm(a.n))));
+  const blueAll = [...blue, ...[].concat(...(window.BLUE_GATE_AREAS || []).map(a => (a.al || []).map(x => " " + x + " ")))];  /* also Blue Gate's spoken aliases */
+  const by = {};
+  Object.keys(MAP_NAMES).forEach(id => ((Z[id] || {}).labels || []).forEach(c => c.labels.forEach(l => { const k = nm(l.n); if (k.trim().length < 5 || blue.has(k) || blueAll.some(b => b.includes(k))) return; (by[k] = by[k] || new Set()).add(id); })));
+  return Object.entries(by).sort((a, b) => b[0].length - a[0].length);  /* longest first */
+})();
+function placeMap(t) {
+  const hit = OTHER_PLACES.find(([k]) => t.includes(k)); if (!hit) return null;
+  const ids = [...hit[1]]; return { ids, one: ids.length === 1, name: MAP_NAMES[ids[0]], len: hit[0].trim().length, words: hit[0].trim().split(" ").length };
+}
 function findWhere(t) { const p = findPlace(t); if (p) return { n: p.n, y: p.y, x: p.x }; return findDir(t); }
 /* a compass direction the player names ("south", "north-east", "southwest") */
 function findCompass(t) {
@@ -511,6 +525,10 @@ function answer(raw, opts) {
   const terse = inRaid();
   const ps = opts.general ? "general" : posState();
 
+  /* a place on another map (MetaForge's names for all seven): say which map, honestly, rather than "Say again?" (4 Nov).
+     Once a map has its markers, this is where Relay will switch to it. */
+  const om = placeMap(t);
+  if (om && (!findPlace(t) || (om.len >= 8 && om.words > 1))) return { show: om.one ? om.name + ", for now." : "Blue Gate only, for now.", say: om.one ? "That's on " + om.name + ". I only have Blue Gate so far, the other maps are coming." : "That's on another map. I only have Blue Gate so far.", ctx: "Heard: \u201C" + String(raw).trim() + "\u201D" };
   if (has(t, ["change voice", "different voice", "another voice", "next voice", "new voice"])) return nextVoice();
   if (has(t, ["voice test", "test voice", "test the voice", "testing"])) return { show: "Voice test.", say: TEST_LINE, ctx: "Speaking after the microphone...", after: () => setCtx(voiceInfo() + " Straight after the mic."), follow: false };
   if (has(t, ["that's all", "thats all", "stop listening", "thanks", "thank you", "cheers", "that's it", "thats it"]) && t.trim().split(" ").length <= 4) return { show: "Standing by.", say: "Standing by.", follow: false, keepLast: true };
@@ -991,6 +1009,8 @@ function drawMap(m) {
   const crs = L.extend({}, L.CRS.Simple, { transformation: new L.Transformation(a, b, c, d) });
   lmap = L.map("map", { crs, zoomControl: false, attributionControl: true, minZoom: 0, maxZoom: 7, zoomSnap: 0, zoomDelta: 0.5, wheelPxPerZoomLevel: 90, bounceAtZoomLimits: false, inertia: true, maxBounds: MAP.maxBounds, maxBoundsViscosity: 0.8 });
   lmap.attributionControl.setPrefix(false);
+  /* no zooming out past the map: at the furthest-out zoom the map area still fills the whole tile (no empty bands) (4 Nov) */
+  lmap.setMinZoom(lmap.getBoundsZoom(L.latLngBounds(MAP.maxBounds), true));
   let fails = 0;
   const tl = L.tileLayer(MAP.tiles, { tileSize: MAP.tileSize, maxNativeZoom: MAP.maxNativeZoom, noWrap: true, keepBuffer: 4, bounds: MAP.tileBounds, attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
   /* loot zones as in the game: abundant outlined red, decent yellow (dashed, so it never reads as the amber destination) (4 Nov) */

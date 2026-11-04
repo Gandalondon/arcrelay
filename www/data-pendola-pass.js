@@ -1,6 +1,6 @@
 /* Pendola Pass map from MetaForge (metaforge.app/arc-raiders/map/pendola-pass), read 4 Nov 2026.
    Tiles and transform only. Markers wait for MetaForge's go-ahead on their marker data.
-   bounds and maxBounds are the whole image for now; tighten to the playable area once markers are in.
+   bounds and maxBounds are the whole image (maxBounds exactly, so zooming out never shows past its edge); tighten to the playable area once markers are in.
    Note: tiles only go to zoom 4 here (5 on the other maps). */
 window.PENDOLA_PASS = {
   id: "pendola-pass",
@@ -11,6 +11,6 @@ window.PENDOLA_PASS = {
   maxNativeZoom: 4,
   tileBounds: [[3162,  626],  [13220,  15758]],
   bounds: [[3162,  626],  [13220,  15758]],
-  maxBounds: [[2156,  -887],  [14226,  17271]],
+  maxBounds: [[3162,  626],  [13220,  15758]],
   rows: []
 };
