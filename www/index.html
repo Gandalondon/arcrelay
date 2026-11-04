@@ -34,7 +34,7 @@ body.listening{background:var(--navy);color:var(--bone)}
 .word.instr{letter-spacing:-.01em;white-space:normal;overflow-wrap:normal}
 .word:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .word.greet{white-space:pre-line;letter-spacing:-.015em}
-.word.greet .gl{display:block}
+.word.greet .gl{display:block;text-wrap:balance}  /* the varied line balances on its own (no lone last word); same size as the rest */
 .close{all:unset;flex:none;width:48px;height:48px;margin:-8px -12px 0 0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--amber)}  /* the close X is yellow, like the mic */
 .close svg{width:32px;height:32px}
 body.listening .close{color:var(--amber)}
@@ -908,36 +908,25 @@ const LINES = ["Let's get you home in one piece.", "Need a hand topside?", "Try 
 const LINE = (() => { let last = -1; try { last = parseInt(localStorage.getItem("spottr-line") || "-1", 10); } catch (e) {} let i = Math.floor(Math.random() * (LINES.length - 1)); if (i >= last && last >= 0) i++; try { localStorage.setItem("spottr-line", String(i)); } catch (e) {} return LINES[i]; })();
 /* the one size for screens without a map, on this phone: the biggest at which "Afternoon," (the greeting's longest word) fits beside the cog */
 let BASE = 0;
+/* one type size for every screen without a map: the largest step where "Afternoon," fits on a line AND every greeting line
+   wraps in three lines or fewer, so it never becomes a stack of single words (4 Nov). Measured once Barlow has loaded. */
 function baseSize(w) {
   if (BASE && BASE.width === w.clientWidth) return BASE.size;
   const m = document.createElement("span"); m.className = "word"; m.style.cssText = "position:absolute;visibility:hidden;white-space:pre;width:auto"; m.textContent = "Afternoon,";
-  document.body.appendChild(m); let size = 40;
-  for (const s of [64, 56, 52, 48, 44, 40]) { m.style.fontSize = s + "px"; if (m.getBoundingClientRect().width <= w.clientWidth) { size = s; break; } }
-  m.remove(); if (w.clientWidth > 0) BASE = { width: w.clientWidth, size }; return size;
-}
-/* the greeting's second part (the varied line) is one size on a given screen: the largest at which EVERY line fits in two lines,
-   so it reads as two wide lines rather than a stack of single words, and doesn't change size from launch to launch (4 Nov) */
-let GL = null;
-function fitGreet(w) {
-  fitGreetBase(w);
-  const gl = w.querySelector(".gl"); if (!gl) return;
-  const top = parseInt(w.style.fontSize) || 64;
-  if (!GL || GL.width !== w.clientWidth || GL.top !== top) {
-    const keep = gl.textContent; let size = 32;
-    for (const s of [64, 56, 52, 48, 44, 40, 36, 32].filter(x => x <= top)) {
-      gl.style.fontSize = s + "px"; gl.style.lineHeight = s + "px";
-      if (LINES.every(t => { gl.textContent = t; return Math.round(gl.getBoundingClientRect().height / s) <= 2 && gl.scrollWidth <= gl.clientWidth + 1; })) { size = s; break; }
-    }
-    gl.textContent = keep;
-    let ready = true; try { ready = !document.fonts || document.fonts.check('600 16px "Barlow"'); } catch (e) {}
-    GL = ready ? { width: w.clientWidth, top, size } : null;  /* not cached until Barlow is in, or the fallback font's sizes would stick */
-    if (!ready) { gl.style.fontSize = size + "px"; gl.style.lineHeight = size + "px"; return; }
+  const d = document.createElement("div"); d.className = "word"; d.style.cssText = "position:absolute;visibility:hidden;white-space:normal;letter-spacing:-.015em;width:" + w.clientWidth + "px";
+  document.body.appendChild(m); document.body.appendChild(d); let size = 40;
+  for (const s of [64, 56, 52, 48, 44, 40]) {
+    m.style.fontSize = s + "px"; d.style.fontSize = s + "px"; d.style.lineHeight = s + "px";
+    if (m.getBoundingClientRect().width > w.clientWidth) continue;
+    if (LINES.every(t => { d.textContent = t; return Math.round(d.getBoundingClientRect().height / s) <= 3; })) { size = s; break; }
   }
-  gl.style.fontSize = GL.size + "px"; gl.style.lineHeight = GL.size + "px";
+  m.remove(); d.remove();
+  let ready = true; try { ready = !document.fonts || document.fonts.check('600 16px "Barlow"'); } catch (e) {}
+  if (w.clientWidth > 0 && ready) BASE = { width: w.clientWidth, size };  /* not cached until Barlow is in: the fallback font is wider */
+  return size;
 }
-/* sizes measured before Barlow loads are wrong (the fallback font is wider): measure again once it's in */
-if (document.fonts) document.fonts.addEventListener("loadingdone", () => { GL = null; BASE = null; const w = $("word"); if (w && w.classList.contains("greet")) fitGreet(w); });
-function fitGreetBase(w) {
+if (document.fonts) document.fonts.addEventListener("loadingdone", () => { BASE = null; const w = $("word"); if (w && w.classList.contains("greet")) fitGreet(w); });
+function fitGreet(w) {
   const room = Math.max(240, $("stage").getBoundingClientRect().bottom - w.getBoundingClientRect().top - 24);
   const top = baseSize(w);
   for (const s of [64, 56, 52, 48, 44, 40].filter(x => x <= top)) {  /* the same size on every screen without a map; smaller only if a word won't fit */ const lh = Math.round(s * 1.0); w.style.fontSize = s + "px"; w.style.lineHeight = lh + "px"; if (w.scrollWidth <= w.clientWidth + 1 && w.scrollHeight <= room) return; }
