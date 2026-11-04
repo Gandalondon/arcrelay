@@ -28,12 +28,12 @@ Since 1.0.66 (4 Nov, 1.0.67): answer headline with a map is fixed 48 px, three l
 
 ## Next: all the other maps (one map per day, fresh chat each)
 Maps (7): Dam Battlegrounds, Buried City, Spaceport, Blue Gate (done), Stella Montis, Riven Tides (Apr 2026), Pendola Pass (8 Oct 2026, largest). MetaForge has all seven (metaforge.app/arc-raiders/map/<id>: dam, buried-city, spaceport, blue-gate, stella-montis, riven-tides, pendola-pass).
-Blocked on: MetaForge permission for their MARKER data (exits, hatches, quests, named areas), not just the map images. Tony is asking on the Discord ticket whether there's an export or API to use. Do not bulk-pull their data before they say yes.
+MetaForge OK'd using their data (Tony, 4 Nov evening), with credit. DONE 4 Nov: loot zone outlines and region / loot-zone / landmark names for all seven maps in `www/data-zones.js` (from their map config chunk, read through Chrome; the workspace can't reach metaforge.app, so files come via Tony's Downloads). Zones are drawn on the map. Still to pull: the markers (exits, hatches, quest spots, ARC) for the six new maps.
 Step 1 (tiles and transform) is DONE for all six (4 Nov): `www/data-<map>.js`, read from MetaForge's live map config. Tile size, max zoom, tile bounds and pan limits are now per map (Dam and Stella Montis use 256 px tiles; Pendola Pass tops out at zoom 4; Stella Montis tiles are {z}/{x}_{y} and only its "default" floor layer is in). bounds/maxBounds are the whole image until markers arrive.
 Per map (Blue Gate is the template; roughly a day each):
 1. Tiles and coordinate transform (quick).
 2. Markers: exits, hatches, quest spots, ARC.
-3. Named places for "where are you?" (slowest; check if MetaForge has area labels first).
+3. Named places for "where are you?": MetaForge's labels are now in `www/data-zones.js` (regions, loot zones, landmarks), so this step is mostly data wiring, not fitting.
 4. Quest steps and items for that map, checked against two guides.
 5. Tests, like Blue Gate's.
 Then: work out which map you're on from a spoken landmark (unique name: switch; ambiguous: "Which map?"; keep it for the raid). Order: the map Tony plays most after Blue Gate first, Pendola Pass last.
