@@ -6,3 +6,4 @@ android/.gradle/
 archivo900.ttf
 android/app/relay-test.keystore
 android/app/libs/*.aar
+.DS_Store
