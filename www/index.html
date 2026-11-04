@@ -43,11 +43,14 @@ body.listening .close{color:var(--amber)}
 .stage{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;margin-top:24px}
 /* map: edge to edge, runs down to the soundwave */
 /* map: an inset, rounded tile inside the same 24px margins as the text (4 Nov), not edge to edge */
-.mapwrap{position:relative;flex:1 1 auto;min-height:240px;margin:0 0 8px;border-radius:16px;overflow:hidden;background:var(--panel);isolation:isolate}
+.mapwrap{position:relative;flex:1 1 auto;min-height:240px;margin:0 0 24px;border-radius:16px;overflow:hidden;background:var(--panel);isolation:isolate}
 .map{position:absolute;inset:0;background:var(--panel);touch-action:none}
 .mapctl{position:absolute;right:12px;top:12px;z-index:500;display:flex;flex-direction:column;gap:8px}
-.mapctl button{all:unset;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(28,30,34,.72);color:var(--bone);cursor:pointer}
-.mapctl svg{width:22px;height:22px}
+.mapctl button{all:unset;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(28,30,34,.72);color:var(--bone);cursor:pointer}
+.mapctl svg{width:24px;height:24px}
+.mapctl button.on{background:var(--amber);color:var(--ink)}
+/* the first-use hint: a quiet pill, top left, clear of the buttons */
+.maphint{position:absolute;left:12px;top:12px;right:68px;width:max-content;max-width:calc(100% - 80px);z-index:500;background:rgba(28,30,34,.88);padding:8px 14px;border-radius:999px;font:500 14px/20px var(--body);color:var(--bone);pointer-events:none;text-wrap:balance}
 /* tap the map to drop a pin, then confirm: two steps, so a stray tap mid-fight never moves you */
 .pinok{all:unset;position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:500;height:48px;padding:0 24px;border-radius:999px;background:var(--amber);color:var(--ink);font:600 16px/48px var(--body);cursor:pointer;white-space:nowrap;box-shadow:0 2px 12px rgba(21,23,28,.5)}
 .pinok:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
@@ -55,7 +58,8 @@ body.listening .close{color:var(--amber)}
 /* place names drawn by Relay: cream on a soft dark halo, so they read over any terrain */
 .plabel{font:600 12px/14px var(--body);color:var(--bone);white-space:nowrap;text-shadow:0 0 3px #1C1E22,0 0 6px #1C1E22,0 1px 2px #1C1E22;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.01em}
 .plabel.target{color:var(--amber);font-size:14px;line-height:16px;transform:translate(-50%,14px)}
-.map.zfar .plabel:not(.target):not(.pin){display:none}  /* zoomed right out: only the target's name */
+.map.zfar .plabel:not(.target):not(.pin){display:none}
+.plabel.pin{transform:translate(18px,-50%)}  /* the pin's place name sits to the right of the dot */  /* zoomed right out: only the target's name */
 .mapnote{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(28,30,34,.88);padding:4px 8px;border-radius:8px;font-size:14px;line-height:20px;color:var(--bone)}
 .leaflet-container{background:var(--panel);font-family:var(--body)}
 .leaflet-control-attribution{background:rgba(28,30,34,.8)!important;color:var(--bone)!important;font-size:12px;line-height:18px;padding:0 8px!important;border-radius:8px 0 0 0}
@@ -927,15 +931,17 @@ function renderBack() { setVoiceState("idle"); document.body.classList.remove("l
 function showError(msg) { setVoiceState("idle"); bars(false); document.body.classList.remove("listening", "follow"); document.body.classList.add("session"); $("close").hidden = false; clearMap(); setWord(msg, true); setSub(""); setCtx(""); $("stage").innerHTML = ""; }
 
 const IC = {
-  centre: '<svg viewBox="0 -960 960 960" fill="currentColor"><path d="M450-72v-45q-137-14-228-105T117-450H72q-13 0-21.5-8.5T42-480q0-13 8.5-21.5T72-510h45q14-137 105-228t228-105v-45q0-13 8.5-21.5T480-918q13 0 21.5 8.5T510-888v45q137 14 228 105t105 228h45q13 0 21.5 8.5T918-480q0 13-8.5 21.5T888-450h-45q-14 137-105 228T510-117v45q0 13-8.5 21.5T480-42q-13 0-21.5-8.5T450-72Zm244.5-193.5Q784-355 784-480t-89.5-214.5Q605-784 480-784t-214.5 89.5Q176-605 176-480t89.5 214.5Q355-176 480-176t214.5-89.5Zm-321-108Q330-417 330-480t43.5-106.5Q417-630 480-630t106.5 43.5Q630-543 630-480t-43.5 106.5Q543-330 480-330t-106.5-43.5ZM544-416q26-26 26-64t-26-64q-26-26-64-26t-64 26q-26 26-26 64t26 64q26 26 64 26t64-26Zm-64-64Z"/></svg>',
-  whole: '<svg viewBox="0 -960 960 960" fill="currentColor"><path d="M180-180h103q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H150q-12.75 0-21.37-8.63Q120-137.25 120-150v-133q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v103Zm600 0v-103q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v133q0 12.75-8.62 21.37Q822.75-120 810-120H677q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h103ZM180-780v103q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37v-133q0-12.75 8.63-21.38Q137.25-840 150-840h133q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H180Zm600 0H677q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h133q12.75 0 21.38 8.62Q840-822.75 840-810v133q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37v-103Z"/></svg>'
+  /* Material Symbols Rounded (Apache 2.0): map, location_on, route */
+  map: '<svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="m592-127-243-86-188 75q-8 3-15 1.5t-13-5.5q-6-4-9.5-10t-3.5-14v-565q0-13 7.5-23t19.5-15l182-64q5-2 10-2.5t10-.5q5 0 10 .5t10 2.5l243 85 187-75q8-3 15-2t13 5q6 4 9.5 10.5T840-795v572q0 11-7.5 19T814-192l-182 65q-5 2-10 2.5t-10 .5q-5 0-10-.5t-10-2.5Zm-14-68v-505l-196-66v505l196 66Zm60 0 142-47v-512l-142 54v505Zm-458-12 142-54v-505l-142 47v512Zm458-493v505-505Zm-316-66v505-505Z"/></svg>',
+  pin: '<svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M480-159q133-121 196.5-219.5T740-552q0-118-75.5-193T480-820q-109 0-184.5 75T220-552q0 75 65 173.5T480-159Zm-21.5 55.5Q448-107 440-115q-42-38-91-87.5T258-309q-42-57-70-119t-28-124q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 62-28 124t-70 119q-42 57-91 106.5T520-115q-8 8-18.5 11.5T480-100q-11 0-21.5-3.5ZM480-560Zm49.5 49.5Q550-531 550-560t-20.5-49.5Q509-630 480-630t-49.5 20.5Q410-589 410-560t20.5 49.5Q451-490 480-490t49.5-20.5Z"/></svg>',
+  route: '<svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M245-165.53Q200-211.06 200-275v-349q-35-13-57.5-41.26-22.5-28.27-22.5-64.41Q120-776 152.5-808t78-32q45.5 0 77.5 32.14t32 78.05q0 35.81-22.5 64.31T260-624v349q0 39.19 27.5 67.09Q315-180 355.5-180t67.5-27.91q27-27.9 27-67.09v-410q0-65 45-110t110-45q65 0 110 45t45 110v349q35 13 57.5 41.36Q840-266.27 840-230q0 45-32.08 77.5Q775.83-120 730-120q-45 0-77.5-32.5T620-230q0-36.3 22.5-65.15Q665-324 700-336v-349q0-40-27.5-67.5T605-780q-40 0-67.5 27.5T510-685v410q0 63.94-45 109.47T355-120q-65 0-110-45.53ZM230.5-680q20.5 0 35-15t14.5-35.5q0-20.5-14.37-35Q251.25-780 230-780q-20 0-35 14.37-15 14.38-15 35.63 0 20 15 35t35.5 15Zm500 500q20.5 0 35-15t14.5-35.5q0-20.5-14.37-35Q751.25-280 730-280q-20 0-35 14.37-15 14.38-15 35.63 0 20 15 35t35.5 15ZM230-730Zm500 500Z"/></svg>'
 };
 function renderAnswer(q, a) {
   clearMap(); bars(false);
   document.body.classList.remove("listening"); document.body.classList.add("session"); $("close").hidden = false;
   const hasMap = a.map && (a.map.stars.length || a.map.you || a.map.pick);
   setWord(a.show || a.text || "", true, hasMap); setSub(""); setCtx(a.ctx || "");
-  $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="recentre" aria-label="Recentre">' + IC.centre + '</button><button type="button" id="full" aria-label="Whole map">' + IC.whole + '</button></div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
+  $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="full" aria-label="Full map">' + IC.map + '</button><button type="button" id="setloc" aria-label="Set location" aria-pressed="false">' + IC.pin + '</button>' + (a.map.you && a.map.stars.length === 1 ? '<button type="button" id="route" aria-label="Show route">' + IC.route + '</button>' : '') + '</div><div class="maphint" id="maphint" hidden>Tap the map to set your location</div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
   if (hasMap) requestAnimationFrame(() => drawMap(a.map));
 }
 function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably near " : "you at ") + m.you.n); if (m.stars.length) p.push("marked: " + m.stars.map(s => s.n).join(", ")); return "Blue Gate map, " + p.join("; "); }
@@ -953,7 +959,7 @@ function drawMap(m) {
   lmap.attributionControl.setPrefix(false);
   let fails = 0;
   const tl = L.tileLayer(MAP.tiles, { tileSize: 512, maxNativeZoom: 5, noWrap: true, keepBuffer: 4, bounds: [[37.2, 78.5], [16218, 16271]], attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
-  tl.on("tileerror", () => { fails++; if (fails === 3) { $("mapnote").hidden = false; $("mapnote").textContent = "Map needs a connection. The answer above still stands."; } });
+  tl.on("tileerror", () => { fails++; if (fails === 3 && $("pinok").hidden) { $("mapnote").hidden = false; $("mapnote").textContent = "Map needs a connection. The answer above still stands."; } });
   const ll = p => [p.y, p.x];
   const single = m.stars.length === 1;
   if (m.you && single) L.polyline([ll(m.you), ll(m.stars[0])], { color: "#EEE8DC", weight: 2, opacity: .7, dashArray: "4 8", lineCap: "round" }).addTo(lmap);
@@ -968,20 +974,32 @@ function drawMap(m) {
   lmap.on("zoomend", zoomCls);
   if (m.you) { const g = !!m.you.guess, s = g ? 44 : 20; L.marker(ll(m.you), { icon: L.divIcon({ className: "", html: g ? YOU_GUESS : YOU, iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); }
   const pts = [...m.stars, ...(m.you ? [m.you] : [])].map(ll);
-  let pin = null, pinLab = null, pinPt = null;
+  /* setting your location takes two steps, so a stray tap while panning never moves you:
+     Set location (or Relay asking "Where are you?" with no location yet), then tap the map, then "I'm here" */
+  let pin = null, pinLab = null, pinPt = null, picking = false;
+  const clearPin = () => { if (pin) pin.remove(); if (pinLab) pinLab.remove(); pin = pinLab = pinPt = null; $("pinok").hidden = true; };
+  const setPicking = on => {
+    picking = on; $("setloc").classList.toggle("on", on); $("setloc").setAttribute("aria-pressed", String(on));
+    $("maphint").hidden = !on; if (on) $("mapnote").hidden = true; else clearPin();
+  };
   lmap.on("click", e => {
+    if (!picking) return;
     pinPt = { y: Math.round(e.latlng.lat), x: Math.round(e.latlng.lng) };
     const nb = nearestArea(pinPt);
     if (pin) pin.remove(); if (pinLab) pinLab.remove();
     pin = L.marker(e.latlng, { icon: L.divIcon({ className: "", html: YOU, iconSize: [20, 20], iconAnchor: [10, 10] }), keyboard: false, interactive: false }).addTo(lmap);
-    if (nb) pinLab = L.marker([pinPt.y - 60, pinPt.x], { icon: L.divIcon({ className: "", html: '<div class="plabel pin">' + esc(nb.n.replace(/^the /, "")) + '</div>', iconSize: [0, 0] }), keyboard: false, interactive: false }).addTo(lmap);
-    $("pinok").hidden = false; $("mapnote").hidden = true;
+    if (nb) pinLab = L.marker([pinPt.y, pinPt.x], { icon: L.divIcon({ className: "", html: '<div class="plabel pin">' + esc(nb.n.replace(/^the /, "")) + '</div>', iconSize: [0, 0] }), keyboard: false, interactive: false }).addTo(lmap);
+    $("maphint").hidden = true; $("pinok").hidden = false;
     $("pinok").onclick = ev => { ev.stopPropagation(); pinHere(pinPt); };
   });
-  const frame = () => { if (!pts.length) lmap.fitBounds(MAP.bounds, { padding: [16, 16] }); else if (pts.length === 1) lmap.setView(pts[0], 4); else lmap.fitBounds(L.latLngBounds(pts), { padding: [64, 64], maxZoom: 4.5 }); };
+  const fitAll = () => lmap.fitBounds(MAP.bounds, { padding: [16, 16] });
+  /* the route view frames you and the destination with room around them, so nearby landmarks stay in view */
+  const frame = () => { if (!pts.length) fitAll(); else if (pts.length === 1) lmap.setView(pts[0], 4); else lmap.fitBounds(L.latLngBounds(pts), { padding: [72, 72], maxZoom: 4 }); };
   frame(); zoomCls();
-  $("recentre").onclick = frame;
-  $("full").onclick = () => lmap.fitBounds(MAP.bounds, { padding: [16, 16] });
+  $("full").onclick = fitAll;
+  $("setloc").onclick = () => setPicking(!picking);
+  if ($("route")) $("route").onclick = frame;
+  if (!m.you && !S.place) setPicking(true);  /* no location yet: ready to tap straight away, with the hint */
 }
 
 /* =================== flow =================== */
