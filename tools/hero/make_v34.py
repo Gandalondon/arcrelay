@@ -28,17 +28,25 @@ CSS = """<style>
 .heyhero{position:relative;padding-top:calc(128px + env(safe-area-inset-top,0px));padding-bottom:24px}
 .heyhero .wrap{display:block;max-width:none}
 .heyhero .word{margin:0;font-weight:700;line-height:.82;letter-spacing:-.01em;white-space:nowrap;width:max-content;color:var(--text-hi);position:relative;z-index:1}
-.heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,5vw,72px);max-width:26em;font-size:24px;line-height:34px}
-body.b2 .heyhero .word{white-space:pre-line;line-height:.9;font-size:min(20vw,calc((100svh - 240px) / 1.8))}
+.heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,5vw,72px);max-width:min(600px,calc(100% - 384px));font-size:24px;line-height:34px}
+body.b2 .heyhero .word{white-space:pre-line;line-height:1.02;font-size:min(19vw,calc((100svh - 260px) / 2.1))}
 body.c2 .heyhero .word{font-size:16vw}
 /* the flying phone: placed by script over the first row's phone column; hidden on phones and with reduced motion */
-.flyer{position:absolute;z-index:3;left:0;top:0;perspective:1400px;display:none;pointer-events:none}
+.flyer{position:absolute;z-index:3;left:0;top:0;perspective:1400px;display:none;pointer-events:none;will-change:transform}
 .p3{position:relative;transform-style:preserve-3d;will-change:transform}
 .p3 .slab{position:absolute;inset:0;border-radius:inherit;background:#222429;transform:translateZ(calc(var(--k) * var(--d) / -12))}
 .p3 .slab.rim{background:#34363C}
 .p3 .screen{transform:translateZ(.5px)}
 .flyer .p3,.feature .p3{--d:35px}
 .feature .phone-col{perspective:1400px}
+/* desktop rows: same gutters as the hero; text column on its own, the phone centred in the space beside it */
+.feature .phone,.flyer .phone{--pw:clamp(220px,min(21vw,calc((100svh - 150px) * 0.462)),340px)}
+@media (min-width:901px){
+  .feature .wrap{max-width:none;gap:64px}
+  .feature.flip .wrap{grid-template-columns:minmax(0,600px) minmax(320px,1fr)}
+  .feature:not(.flip) .wrap{grid-template-columns:minmax(320px,1fr) minmax(0,600px)}
+  .feature .phone-col{justify-self:center}
+}
 html.fly .flyer{display:block}
 html.fly .dock-target{visibility:hidden}
 /* comparison switch for these test pages only */
@@ -73,18 +81,23 @@ def page(variant):
   function measure(){
     fit();
     var on=!mq.matches && !rm.matches; document.documentElement.classList.toggle("fly",on); if(!on){ G=null; return; }
-    var sr=site.getBoundingClientRect(), t=tg.getBoundingClientRect(), wr=w.getBoundingClientRect();
+    fl.style.transform="none";
+    var sr=site.getBoundingClientRect(), t=tg.getBoundingClientRect(), wr=w.getBoundingClientRect(), base=sr.top+scrollY;
     var tx=t.left-sr.left, ty=t.top-sr.top;
     /* start: same column as the landing spot. B2: level with the top of the word. C2: in the gap under the word */
     var sy = S.top==="hero" ? (wr.top-sr.top) : (wr.bottom-sr.top+24);
     fl.style.width=t.width+"px"; fl.style.left=tx+"px"; fl.style.top=sy+"px"; ph.style.width=t.width+"px";
-    /* landed when the row's phone is centred in the window */
-    G={dy:ty-sy, end:Math.max(1, ty+sr.top+scrollY-(innerHeight-t.height)/2)};
+    /* landed when the row's phone is centred in the window (and clear of the 88 px header) */
+    var yEnd=Math.max(104,(innerHeight-t.height)/2), E=Math.max(1, base+ty-yEnd);
+    G={base:base, sy:sy, ty:ty, yEnd:yEnd, E:E};
     f();
   }
   function f(){ q=false; if(!G) return;
-    var u=Math.max(0,Math.min(1,scrollY/G.end)), e=u*u*(3-2*u), k=1-e, sc=S.s+(1-S.s)*e;
-    ph.style.transform="translateY("+(G.dy*e).toFixed(1)+"px) rotateX("+(S.rx*k).toFixed(2)+"deg) rotateY("+(S.ry*k).toFixed(2)+"deg) rotateZ("+(S.rz*k).toFixed(2)+"deg) scale("+sc.toFixed(3)+")";
+    var s=scrollY, u=Math.max(0,Math.min(1,s/G.E)), e=u*u*(3-2*u), k=1-e, sc=S.s+(1-S.s)*e;
+    /* where the phone should be in the window: from its start spot to the landing spot, never above the header */
+    var T = u>=1 ? G.ty-G.sy : ((G.base+G.sy)*k + G.yEnd*e) - G.base - G.sy + s;
+    fl.style.transform="translateY("+T.toFixed(1)+"px)";
+    ph.style.transform=k<0.001 ? "none" : "rotateX("+(S.rx*k).toFixed(2)+"deg) rotateY("+(S.ry*k).toFixed(2)+"deg) rotateZ("+(S.rz*k).toFixed(2)+"deg) scale("+sc.toFixed(3)+")";
   }
   addEventListener("scroll",function(){ if(!q){ q=true; requestAnimationFrame(f); } },{passive:true});
   addEventListener("resize",measure); mq.addEventListener("change",measure); rm.addEventListener("change",measure);
@@ -93,7 +106,7 @@ def page(variant):
   document.querySelectorAll("#logo path").forEach(function(p,i){ if(!p.animate) return; var L=Math.ceil(p.getTotalLength()); p.style.strokeDasharray=L; p.animate([{strokeDashoffset:L},{strokeDashoffset:0}],{duration:440,delay:i*70,easing:"cubic-bezier(.3,0,.2,1)",fill:"backwards"}); });
   /* the other rows' phones turn to face you, as on v2 */
   var fs=[].slice.call(document.querySelectorAll(".feature .p3:not(.dock-target)")), qq=false;
-  function g(){ qq=false; var vh=innerHeight; fs.forEach(function(el,i){ var r=el.parentNode.getBoundingClientRect(), u=Math.max(0,Math.min(1,(vh-r.top)/(vh*.85))), s=u*u*(3-2*u); el.style.transform="rotateY("+((i%2?34:-34)*(1-s)).toFixed(2)+"deg)"; }); }
+  function g(){ qq=false; var vh=innerHeight; fs.forEach(function(el,i){ var r=el.parentNode.getBoundingClientRect(), u=Math.max(0,Math.min(1,(vh-r.top)/(vh*.85))), s=u*u*(3-2*u); var fl2=el.closest(".feature").classList.contains("flip"); el.style.transform="rotateY("+((fl2?-34:34)*(1-s)).toFixed(2)+"deg)"; }); }
   addEventListener("scroll",function(){ if(!qq){ qq=true; requestAnimationFrame(g); } },{passive:true}); g();
 })();
 </script>
