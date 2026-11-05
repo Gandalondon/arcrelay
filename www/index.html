@@ -1088,8 +1088,9 @@ function setWord(txt, instr, withMap) {
   const w = $("word");
   w.hidden = false; w.classList.remove("greet"); w.textContent = txt; w.style.fontSize = ""; w.style.lineHeight = ""; w.style.height = "";
   w.classList.toggle("instr", !!instr); w.dataset.map = withMap ? "1" : "";
-  if (withMap) { fitInstr(w); requestAnimationFrame(() => fitInstr(w)); return; }
-  fitGreet(w); requestAnimationFrame(() => fitGreet(w));
+  /* the second fit runs a frame later: only if the screen is still this answer (5 Nov: closing straight after an answer put its fixed box back on the greeting) */
+  if (withMap) { fitInstr(w); requestAnimationFrame(() => { if (w.dataset.map === "1" && !w.classList.contains("greet")) fitInstr(w); }); return; }
+  fitGreet(w); requestAnimationFrame(() => { if (w.dataset.map !== "1") fitGreet(w); });
 }
 /* type rule: short instructions are huge, longer ones step down. Aim for 40 characters, never over 60. */
 const TYPE_SCALE = [80, 72, 64, 56, 48, 44, 40, 36];
@@ -1098,6 +1099,7 @@ const TYPE_SCALE = [80, 72, 64, 56, 48, 44, 40, 36];
    Safety net only: a line that still won't fit (narrow phone, a long place name) steps down inside the same box. */
 const HEAD = 48, HEAD_LH = 49, HEAD_BOX = HEAD_LH * 3;
 function fitInstr(w) {
+  if (w.classList.contains("greet")) return;  /* never on the greeting */
   w.style.overflowWrap = "normal"; w.style.height = HEAD_BOX + "px";
   for (const s of [HEAD, 44, 40, 36, 32]) {
     const lh = s === HEAD ? HEAD_LH : Math.round(s * 1.02);
@@ -1136,7 +1138,10 @@ function baseSize(w) {
 if (document.fonts) document.fonts.addEventListener("loadingdone", () => { BASE = null; const w = $("word"); if (w && w.classList.contains("greet")) fitGreet(w); });
 function fitGreet(w) {
   const pk = document.querySelector("#stage .mpick");  /* with the map list on the home screen: the greeting is sized to the room above it, so they never overlap (5 Nov) */
-  const room = pk ? pk.getBoundingClientRect().top - w.getBoundingClientRect().top - 24 : Math.max(240, $("stage").getBoundingClientRect().bottom - w.getBoundingClientRect().top - 24);
+  /* the room is fixed geometry: from the greeting down to where the list starts when it sits at the bottom of the stage,
+     less the "Say Hey Relay" line under the greeting (missed on 5 Nov, so a long greeting fell back to the one-row list) */
+  const st = $("stage"), cx = $("ctx"), cxH = cx && cx.textContent.trim() ? cx.getBoundingClientRect().height + 16 : 0;
+  const room = pk ? st.getBoundingClientRect().bottom - pk.getBoundingClientRect().height - 24 - 24 - cxH - w.getBoundingClientRect().top - 8 : Math.max(240, st.getBoundingClientRect().bottom - w.getBoundingClientRect().top - 24);
   const top = baseSize(w);
   for (const s of [64, 56, 52, 48, 44, 40].filter(x => x <= top)) {  /* the same size on every screen without a map; smaller only if a word won't fit */ const lh = Math.round(s * 1.0); w.style.fontSize = s + "px"; w.style.lineHeight = lh + "px"; if (w.scrollWidth <= w.clientWidth + 1 && w.scrollHeight <= room) return; }
 }
@@ -1161,7 +1166,7 @@ function renderReady() {
   document.body.classList.remove("listening", "session", "follow"); $("close").hidden = true;
   const hr = new Date().getHours();
   const part = hr >= 5 && hr < 12 ? "Morning" : hr >= 12 && hr < 18 ? "Afternoon" : "Evening";
-  const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.innerHTML = esc(part + ", Raider.") + '<span class="gl">' + esc(LINE) + "</span>";
+  const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.style.height = ""; w.style.overflowWrap = ""; w.dataset.map = "";  /* drop the answer headline's fixed box (5 Nov) */ w.innerHTML = esc(part + ", Raider.") + '<span class="gl">' + esc(LINE) + "</span>";
   setCtx(WK && CFG.wake ? "Say \u201cHey Relay\u201d, or tap." : "");  /* with the greeting, in the same fade, not a moment later when the listener starts (4 Nov) */
   $("stage").innerHTML = mapPicker();
   fitGreet(w);
