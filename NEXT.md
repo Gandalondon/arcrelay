@@ -6,6 +6,7 @@ Start a new conversation by reading this file. It replaces the long 4 Nov chat.
 ArcRelay is Tony Goff-Yu's free, unofficial, voice-first Android companion for ARC Raiders (Pixel 9). Ask out loud ("Hey Relay" or tap), it answers out loud and shows a map: nearest exit, quest steps, items, "not that one" rerouting. Everything runs on the phone. Blue Gate only so far. Rules: £0 to run (no paid services or keys), UK English, no em dashes, no widows, palette charcoal #1C1E22 / panel #26282D / ink #15171C / cream #EEE8DC / amber #F2B33D, Barlow, Material Symbols Rounded only. Push to main when Tony says push or has approved the work. The style guide is the rulebook: `src/docs/style-guide.html`.
 
 ## Where things are
+- Site copy (5 Nov): Google Doc "ArcRelay site copy" in Drive Claude/ArcRelay, every page of getarcrelay.app: https://docs.google.com/document/d/19BOlsHoYCjPqrISH58HC7CALxmGhzDompAL2HYUgYyw/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
 - Repo: github.com/Gandalondon/arcrelay (renamed from spottr), branch main. Mac copy: `~/ArcRelay` (git clone; pull after each push).
 - App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/spottr/companion/`. Tests: `node tests/run.js`.
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
