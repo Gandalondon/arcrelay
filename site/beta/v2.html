@@ -13,11 +13,13 @@
 /* v2 (5 Nov): giant "Hey Relay" hero with the real app on a 3D phone; feature phones turn to face you on scroll. Same content as the homepage. */
 .hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* sticky bar: always solid charcoal, so it never changes colour as you scroll */
-.hdr{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:16px}
-.heyhero{position:relative;padding-top:calc(152px + env(safe-area-inset-top,0px));padding-bottom:24px}
+.hdr{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);padding-top:env(safe-area-inset-top,0px)}
+.hdr .wrap{height:88px}  /* as Sniff: 88 px bar, 72 px on phones */
+.hdr .btn.sm{height:48px;padding:0 24px;font-size:17px}
+.heyhero{position:relative;padding-top:calc(128px + env(safe-area-inset-top,0px));padding-bottom:24px}  /* bar + 40 px, as Sniff */
 .heyhero .wrap{display:block;max-width:none}
 .heyhero .word{margin:0;font-weight:700;font-size:16vw;line-height:.82;letter-spacing:-.045em;white-space:nowrap;width:max-content;color:var(--text-hi);position:relative;z-index:1}
-.heyhero .stage{position:absolute;z-index:2;right:9%;top:calc(110px + env(safe-area-inset-top,0px));width:clamp(180px,17vw,300px);perspective:1400px;transform-style:preserve-3d}
+.heyhero .stage{position:absolute;z-index:2;right:9%;top:calc(96px + env(safe-area-inset-top,0px));width:clamp(180px,17vw,300px);perspective:1400px;transform-style:preserve-3d}
 .heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,6vw,88px);max-width:26em;font-size:24px;line-height:34px}
 .p3{position:relative;transform-style:preserve-3d;will-change:transform}
 .p3 .slab{position:absolute;inset:0;border-radius:inherit;background:#222429;transform:translateZ(calc(var(--k) * var(--d) / -12))}
@@ -27,7 +29,8 @@
 .feature .phone-col{perspective:1400px}
 .feature .p3{--d:35px}
 @media (max-width:900px){
-  .heyhero{padding-top:calc(128px + env(safe-area-inset-top,0px))}
+  .hdr .wrap{height:72px}
+  .heyhero{padding-top:calc(106px + env(safe-area-inset-top,0px))}  /* word starts where Sniff's does on a phone (about 120 px down) */
   .heyhero .stage{position:relative;right:auto;top:auto;width:min(220px,52vw);margin:6vw auto 0}
   .heyhero .p3{--d:calc(min(220px, 52vw) * .118)}
   .heyhero .lede{margin-top:40px;font-size:21px;line-height:31px}
