@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<base href="/beta/">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1C1E22">
+<title>ArcRelay · Hey Relay (v2)</title>
+<meta name="description" content="A voice companion for ARC Raiders. Ask where to go, hear the answer, keep playing.">
+<link rel="stylesheet" href="site.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 72 72%27%3E%3Crect width=%2772%27 height=%2772%27 rx=%2716%27 fill=%27%231C1E22%27/%3E%3Cg fill=%27none%27 stroke=%27%23F2B33D%27 stroke-width=%2710%27%3E%3Cpath d=%27M -10 12 H 14 A 46 46 0 0 1 60 58 V 82%27/%3E%3Cpath d=%27M -10 28 H 14 A 30 30 0 0 1 44 58 V 82%27/%3E%3Cpath d=%27M -10 44 H 14 A 14 14 0 0 1 28 58 V 82%27/%3E%3C/g%3E%3C/svg%3E">
+<style>
+/* v2 (5 Nov): giant "Hey Relay" hero with the real app on a 3D phone; feature phones turn to face you on scroll. Same content as the homepage. */
+.hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.heyhero{position:relative;padding-top:calc(152px + env(safe-area-inset-top,0px));padding-bottom:24px}
+.heyhero .wrap{display:block;max-width:none}
+.heyhero .word{margin:0;font-weight:700;font-size:16vw;line-height:.82;letter-spacing:-.045em;white-space:nowrap;width:max-content;color:var(--text-hi);position:relative;z-index:1}
+.heyhero .stage{position:absolute;z-index:2;right:9%;top:calc(110px + env(safe-area-inset-top,0px));width:clamp(180px,17vw,300px);perspective:1400px;transform-style:preserve-3d}
+.heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,6vw,88px);max-width:26em;font-size:24px;line-height:34px}
+.p3{position:relative;transform-style:preserve-3d;will-change:transform}
+.p3 .slab{position:absolute;inset:0;border-radius:inherit;background:#222429;transform:translateZ(calc(var(--k) * var(--d) / -12))}
+.p3 .slab.rim{background:#34363C}
+.p3 .screen{transform:translateZ(.5px)}
+.heyhero .p3{--d:calc(min(300px, max(180px, 17vw)) * .118);width:100%;transform:rotateX(26deg) rotateY(-30deg) rotateZ(12deg)}
+.feature .phone-col{perspective:1400px}
+.feature .p3{--d:35px}
+@media (max-width:900px){
+  .heyhero{padding-top:calc(128px + env(safe-area-inset-top,0px))}
+  .heyhero .stage{position:relative;right:auto;top:auto;width:min(220px,52vw);margin:6vw auto 0}
+  .heyhero .p3{--d:calc(min(220px, 52vw) * .118)}
+  .heyhero .lede{margin-top:40px;font-size:21px;line-height:31px}
+  .feature .p3{--d:33px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .heyhero .p3{animation:settle .9s .25s cubic-bezier(.2,.7,.2,1) backwards}
+  @keyframes settle{from{opacity:0;filter:blur(10px);transform:rotateX(30deg) rotateY(-30deg) rotateZ(14deg) translateY(30px)}}
+}
+</style>
+</head>
+<body>
+<header class="hdr"><div class="wrap">
+  <a class="logo" href="./" id="logo" aria-label="ArcRelay home">
+    <svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg>
+    <span class="name" data-name>Relay</span>
+  </a>
+  <div class="hright"><a class="topnav" href="how-it-works">How it works</a><span class="btn sm">Get the app</span></div>
+</div></header>
+<div class="site">
+<main>
+  <section class="heyhero">
+    <div class="wrap">
+      <h1 class="word">Hey Relay</h1>
+      <div class="stage" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot"><img src="screens/screen-hero.webp" width="390" height="844" alt="" decoding="async" fetchpriority="high"></div></div></div>
+      <p class="lede">A voice companion for ARC Raiders. Ask where to go, hear the answer, keep playing.</p>
+    </div>
+  </section>
+  <div class="rows">
+  <section class="feature">
+    <div class="wrap">
+      <div class="phone-col reveal">
+        <div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i>
+          <div class="screen shot"><img src="screens/screen-2-listening.webp" width="390" height="844" alt="ArcRelay listening: Go ahead, with the yellow microphone glowing at the bottom." loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Just ask.</h2>
+        <p>Say “Hey Relay” or tap, and talk like you would to a teammate. ArcRelay answers out loud, then listens for a follow-up, so your eyes stay on the TV and your hands stay on the pad.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature flip">
+    <div class="wrap">
+      <div class="phone-col reveal">
+        <div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i>
+          <div class="screen shot"><img src="screens/screen-4-find.webp" width="390" height="844" alt="ArcRelay's answer to where is the nearest Rocketeer: Nearest Rocketeer, west. Below, the map with you, a dashed line and a yellow dot on the nearest spawn." loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Find what you need.</h2>
+        <p>Ask for an item, an enemy or a spawn. One dot on the map shows the nearest, so you can drop your waypoint in-game without scrolling a guide full of adverts. Hunting for Dead Flowers? It names the best places to look, and tells you straight when something has no fixed spot.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature">
+    <div class="wrap">
+      <div class="phone-col reveal">
+        <div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i>
+          <div class="screen shot"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="ArcRelay's answer from the Village: Cliffside Airshaft, south-east. Below, the map with you, a yellow dot on the airshaft and a dashed line between." loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Need a quick evac?</h2>
+        <p>Say where you are, and ArcRelay names the nearest way out and shows the route on the map. Short on time? Tell it how many minutes are left and it gets straight to the point.</p>
+      </div>
+    </div>
+  </section>
+  <section class="feature flip">
+    <div class="wrap">
+      <div class="phone-col reveal">
+        <div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i>
+          <div class="screen shot"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="ArcRelay asking Where are you? Below, the map with the nearest ways out in yellow, the spot you tapped as a white ring, and a yellow I'm here button." loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Show it where you are.</h2>
+        <p>Can't remember the name of the place? Tap your spot on the map and confirm. ArcRelay works out the nearest way out, or your next step, from right where you're standing.</p>
+        <a class="btn" href="how-it-works">See how it works</a>
+      </div>
+    </div>
+  </section>
+
+  </div>
+</main>
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftop">
+      <p class="credit">&copy; 2026 <span data-name>Relay</span>. Made in London by <a href="https://gandalondon.com" target="_blank" rel="noopener">Tony Goff-Yu</a>. Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>.</p>
+      <nav aria-label="Footer"><a href="how-it-works">How it works</a><a href="feedback">Feedback</a><a href="privacy">Privacy policy</a><a href="legal">Credits and legal</a></nav>
+    </div>
+  </div>
+</footer>
+</div>
+<script src="site.js"></script>
+<script>
+/* v2: the word spans the page; the mark draws in; the hero phone straightens as you scroll; feature phones turn to face you */
+(function(){
+  var w=document.querySelector(".heyhero .word");
+  function fit(){ w.style.fontSize="100px"; var cs=getComputedStyle(w.parentNode), avail=w.parentNode.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight); w.style.fontSize=(100*avail/w.getBoundingClientRect().width)+"px"; }
+  fit(); addEventListener("resize",fit); if(document.fonts) document.fonts.ready.then(fit);
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll("#logo path").forEach(function(p,i){ if(!p.animate) return; var L=Math.ceil(p.getTotalLength()); p.style.strokeDasharray=L; p.animate([{strokeDashoffset:L},{strokeDashoffset:0}],{duration:440,delay:i*70,easing:"cubic-bezier(.3,0,.2,1)",fill:"backwards"}); });
+  var hp=document.querySelector(".heyhero .p3"), hero=document.querySelector(".heyhero"), fs=[].slice.call(document.querySelectorAll(".feature .p3")), q=false;
+  function f(){ q=false; var vh=innerHeight;
+    var t=Math.max(0,Math.min(1,scrollY/(hero.offsetHeight*.9))), e=1-Math.pow(1-t,2);
+    hp.style.transform="translateY("+(-e*60)+"px) rotateX("+(26-26*e)+"deg) rotateY("+(-30+30*e)+"deg) rotateZ("+(12-12*e)+"deg) scale("+(1+.06*e)+")";
+    fs.forEach(function(el,i){ var r=el.parentNode.getBoundingClientRect(), u=Math.max(0,Math.min(1,(vh-r.top)/(vh*.85))), s=u*u*(3-2*u); el.style.transform="rotateY("+((i%2?-34:34)*(1-s)).toFixed(2)+"deg)"; });
+  }
+  addEventListener("scroll",function(){ if(!q){ q=true; requestAnimationFrame(f); } },{passive:true}); addEventListener("resize",f); f();
+})();
+</script>
+</body>
+</html>
