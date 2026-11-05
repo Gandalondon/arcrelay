@@ -1,3 +1,5 @@
-arcrelay-play-screenshot-1-ask.png: Relay home screen on a phone: "Evening, Raider. Need a hand topside?" with the yellow microphone button.
-arcrelay-play-screenshot-2-hey-relay.png: Relay listening after "Hey Relay": the screen says "Go ahead." and the microphone glows.
-arcrelay-play-feature-graphic.png: "Ask. Find. Get out." beside a phone on a desk showing "Cliffside Airshaft, south-east."
+arcrelay-play-screenshot-1-evac.png: "Need a quick evac?" above Relay's answer on a phone: "Forest Airshaft, south-east." with the map below showing you, a dashed line and a yellow dot on the airshaft.
+arcrelay-play-screenshot-2-ask.png: "Just ask." above Relay listening on a phone: the screen says "Go ahead." and the yellow microphone glows.
+arcrelay-play-screenshot-3-find.png: "Find what you need." above Relay's answer on a phone: "Nearest Rocketeer: west." with the map showing the nearest spawn as a yellow dot.
+arcrelay-play-screenshot-4-where.png: "Show it where you are." above Relay asking "Where are you?" with the map, the nearest ways out in yellow, the spot you tapped as a white ring and a yellow I'm here button.
+arcrelay-play-feature-graphic.png: "Ask. Find. Get out." in large cream type beside a phone, turned at an angle, showing Relay's answer "Forest Airshaft, south-east." over the map.
