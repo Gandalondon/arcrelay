@@ -7,7 +7,7 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 - Name (5 Nov): the brand is Relay. Domain stays getarcrelay.app, package app.spottr.companion and repo arcrelay unchanged. Play title "Relay: Raid Voice Guide"; "for ARC Raiders" lives in the short and full descriptions. Tony updates Play Console himself.
 
 ## Where things are
-- Site copy (5 Nov): Google Doc "Relay site copy" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/19BOlsHoYCjPqrISH58HC7CALxmGhzDompAL2HYUgYyw/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
+- Site copy (5 Nov): Google Doc "Relay site copy" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/1hS12w_3GLEDgG62_lDrAJV3aB_Nl2Je9P-BKeoo7MrU/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
 - Repo: github.com/Gandalondon/arcrelay (renamed from spottr), branch main. Mac copy: `~/Relay` (git clone; pull after each push).
 - App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/spottr/companion/`. Tests: `node tests/run.js`.
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
