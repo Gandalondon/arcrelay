@@ -36,7 +36,7 @@ HOME = ('<div class="screen home" data-i="9"><div class="top"><p class="greet" d
 lastshot = '<div class="screen shot on" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" loading="lazy" decoding="async"></div>'
 lander = '<div class="lander" aria-hidden="true"><div class="phone p3">' + slabs + lastshot + HOME + '</div></div>'
 fphone = '<div class="phone p3 fphone">' + slabs + HOME.replace(' data-i="9"', ' data-i="9" style="opacity:1"') + '</div>'
-finale = ('  <section class="finale"><div class="wrap">\n    <div class="ftxt"><h2 class="fin">Ask. Find.\nGet out.</h2><span class="btn">Coming soon to Android</span></div>\n'
+finale = ('  <section class="finale"><div class="wrap">\n    <div class="ftxt"><h2 class="fin">Ask. Find.\nGet out.</h2><span class="btn">Get the app</span></div>\n'
           '    <div class="fslot" aria-hidden="true">' + fphone + '</div>\n  </div></section>\n')
 
 CSS = """<style>
