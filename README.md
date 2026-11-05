@@ -1,6 +1,6 @@
 # Relay
 
-_Formerly Spottr and ArcRelay. Android app id app.getarcrelay (since 1.0.69; earlier builds were app.spottr.companion, a separate install)._
+_Formerly Spottr and ArcRelay. Android app id app.getarcrelay (since 1.0.86; earlier builds were app.spottr.companion, a separate install)._
 
 A voice companion for ARC Raiders. Leave it open beside you, tap the mic, ask where the next quest step is, hear the answer.
 
