@@ -179,6 +179,11 @@ module.exports = [
   { set: NONE, say: "show me the blue gate map, I'm at the village", want: { map: "blue-gate", place: "Village" } },
   { set: { map: "dam" }, say: "open the map", want: { map: "dam", show: "Dam Battlegrounds" } },
   { set: NONE, say: ["pull up spaceport", "show me buried city"], want: { map: "buried-city", show: "Buried City" } },
+  { set: NONE, say: "I'm at the village", want: { place: "Village", noExit: true } },  /* location only: "What do you need?", not an exit (Tony's test, 5 Nov) */
+  { set: { map: "dam" }, say: "I'm at the control tower", want: { map: "dam", place: "Control Tower", noExit: true } },
+  { set: NONE, say: ["show me the blue gate map", "the village"], want: { map: "blue-gate", place: "Village", noExit: true } },
+  { set: NONE, say: ["show me the dam map", "the control tower"], want: { map: "dam", place: "Control Tower", noExit: true } },
+  { set: { map: "riven-tides" }, say: "I'm at the hotel", want: { map: "riven-tides", place: "Hotel Panorama Azzurro", noExit: true } },
   { set: { map: "dam" }, say: "I'm going to Blue Gate, show me locations of sentinels", want: { map: "blue-gate", show: "Sentinel spawns, marked" } },
   { set: { map: "dam" }, say: ["I'm on dam", "I'm Blue Gate, south east, find me a sentinel"], want: { map: "blue-gate", show: "Nearest Sentinel" } },
   { set: { map: "dam" }, say: "I'm on blue gate", want: { map: "blue-gate", show: "Blue Gate" } },

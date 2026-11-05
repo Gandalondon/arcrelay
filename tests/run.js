@@ -43,7 +43,8 @@ const page_ = process.argv[2] || path.join(__dirname, "../www/index.html");
     else if (w.near) ok = new RegExp(w.near, "i").test(A.say) && !/shops|homes, shops/i.test(A.say);
     if (ok && w.place && w.exitName) ok = r.after.place === w.place;
     if (w.map) ok = r.after.map === w.map && (!w.place || r.after.place === w.place) && (!w.exitName || A.say.includes(w.exitName)) && (!w.show || A.show.includes(w.show)) && !isFallback;  /* which map it ended up on (5 Nov) */
-    if (ok && /can you see/i.test(A.say)) ok = false;  /* never ask about something you'd need to see */
+    if (ok && /can you see/i.test(A.say)) ok = false;
+    if (ok && w.noExit) ok = !/way out|airshaft|elevator|\blift\b|station|transceiver|hatch/i.test(A.show + " " + A.say);  /* a location on its own isn't asking for the way out (5 Nov) */  /* never ask about something you'd need to see */
     if (ok) pass++; else fails.push(`  ✗ "${say_}"  want ${JSON.stringify(w)}\n      got: ${A.show} | ${A.say.slice(0, 90)}`);
   }
   console.log(`${pass}/${CASES.length} understood`);

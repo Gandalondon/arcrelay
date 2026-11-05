@@ -228,7 +228,7 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
   <button class="obskip" id="obskip" type="button" aria-label="Skip (test builds only)"></button>
   <section class="obs" data-i="0"><h1>Say “Hey Relay”.</h1><p>Or tap the button. It answers out loud, then listens for one follow-up.</p><div class="obvis"><div class="obmic" aria-hidden="true"><svg class="obwv" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M285-270v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165 160v-740q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v740q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63Q450-97.25 450-110ZM120-430v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm495 160v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165-160v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></div></div></section>
   <section class="obs" data-i="1" hidden><h1>Find what you need.</h1><p>Ask for an item, an enemy or a spawn. It shows the nearest one.</p><div class="obvis"><img src="onboard-find.webp" alt="Map: you at the Village, a dashed line to the nearest Rocketeer spawn"><span class="obcredit">Maps by MetaForge</span></div></section>
-  <section class="obs" data-i="2" hidden><h1>Find the nearest exit.</h1><p>Say where you are, or tap the map. It shows the way out.</p><div class="obvis"><img src="onboard-exit.webp" alt="Map: you on open ground, a dashed line to the nearest airshaft"><span class="obcredit">Maps by MetaForge</span></div></section>
+  <section class="obs" data-i="2" hidden><h1>Find the nearest exit.</h1><p>Ask for the way out. Say where you are, or tap the map, and it shows the nearest.</p><div class="obvis"><img src="onboard-exit.webp" alt="Map: you on open ground, a dashed line to the nearest airshaft"><span class="obcredit">Maps by MetaForge</span></div></section>
   <section class="obs" data-i="3" hidden><h1>Pick Relay’s voice.</h1><p id="obvtxt">The natural voices are a one-off 130&nbsp;MB download. Until then, Relay uses your phone’s voice.</p><div class="obprog" id="obprog" hidden><i></i></div><div class="obvis"><ul class="obvoices" id="obvoices"></ul></div></section>
   <div class="obfoot"><div class="obdots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
   <div class="obbtns" id="obbtns"><button class="obbtn" id="obnext" type="button">Next</button></div></div>
@@ -701,15 +701,16 @@ function answer(raw, opts) {
 }
 /* the whole map, ready for where you are: say a place (or a side), or tap it */
 const MAP_ASK = "\u0000where-on-map";
+const NEXT_HINT = "Ask for the way out, an item, an enemy or your quest";
 function showMapAnswer() {
-  if (posState() === "fresh") { const e = near(S.place, EXITS); return { show: MAP.name + ".", say: MAP.name + ". You're at " + S.place.n + ". Nearest way out is " + e.n + ", " + compass(S.place, e) + ".", map: { you: S.place, stars: [e] } }; }
+  if (posState() === "fresh") return { show: MAP.name + ".", say: MAP.name + ". You're at " + S.place.n + ". What do you need?", ctx: NEXT_HINT, map: { you: S.place, stars: [] } };
   S.pending = { q: MAP_ASK, asks: 0 }; save();
   return { show: MAP.name + ".", say: MAP.name + ". Where are you?", ctx: "Say a place or a side, or tap the map", map: { you: null, stars: [], pick: true } };
 }
 function answerOn(raw, opts) {
   opts = opts || {};
   if (raw === MAP_ASK && !S.place) return { show: "No problem.", say: "No problem. Tap the map when you know, or just ask.", map: { you: null, stars: [], pick: true } };
-  if (raw === MAP_ASK) { const e = near(S.place, EXITS); return { show: "Got it. " + S.place.n.charAt(0).toUpperCase() + S.place.n.slice(1) + ".", say: "Nearest way out is " + e.n + ", " + compass(S.place, e) + ".", map: { you: S.place.rough ? Object.assign({ guess: true }, S.place) : S.place, stars: [e] } }; }
+  if (raw === MAP_ASK) return { show: "Got it. " + S.place.n.charAt(0).toUpperCase() + S.place.n.slice(1) + ".", say: vary(["What do you need?", "What are you after?", "What's next?"]), ctx: NEXT_HINT, map: { you: S.place.rough ? Object.assign({ guess: true }, S.place) : S.place, stars: [] } };
   const t = norm(raw);
   const terse = inRaid();
   const ps = opts.general ? "general" : posState();
@@ -746,8 +747,8 @@ function answerOn(raw, opts) {
     if (!S.place || S.place.n !== w.n) { S.avoid = []; S.exitSaid = null; S.hatchTold = false; }  /* somewhere new: every exit is back on the table */
     S.place = w; S.placeAt = Date.now(); S.raidAt = S.raidAt || Date.now(); save();
     if (!has(t, ["extract", "exit", " out ", "leave", "evac", "escape", "step", "where", "hatch", ...ENEMY_WORDS])) {  /* " out " as a word: "south" contains "out" */
-      const e = near(w, EXITS);
-      return { show: "Got it. " + w.n.charAt(0).toUpperCase() + w.n.slice(1) + ".", say: "Got it, " + w.n + ". Nearest way out is " + e.n + ", " + compass(w, e) + ".", map: { you: w.rough ? Object.assign({ guess: true }, w) : w, stars: [e] } };
+      
+      return { show: "Got it. " + w.n.charAt(0).toUpperCase() + w.n.slice(1) + ".", say: "Got it, " + w.n + ". " + vary(["What do you need?", "What are you after?", "What's next?"]), ctx: NEXT_HINT, map: { you: w.rough ? Object.assign({ guess: true }, w) : w, stars: [] } };  /* a place on its own isn't asking for the way out (5 Nov, Tony's test) */
     }
   }
   const psNow = opts.general ? "general" : posState();
@@ -755,9 +756,9 @@ function answerOn(raw, opts) {
   if (has(t, ["what's near", "whats near", "what is near", "what's around", "whats around", "what is around", "where am i ", "what's close", "whats close", "anything near"])) {
     const lp = opts.general ? null : likelyPos();
     if (!lp) return askWhere(raw);
-    const ar = nearestAreas(lp.p, 3).filter(a => a.n !== lp.p.n).slice(0, 2), e = near(lp.p, EXITS);
+    const ar = nearestAreas(lp.p, 3).filter(a => a.n !== lp.p.n).slice(0, 2);
     const from = lp.p.rough ? "Around " + lp.p.n + ": " : lp.sure ? "" : "If you're still near " + lp.p.n + ": ";
-    return { show: ar.map(a => a.n).join(", ") + ".", say: from + ar.map(a => a.n + " is " + compass(lp.p, a)).join(", ") + ". Nearest way out is " + e.n + ", " + compass(lp.p, e) + ".", map: { you: lp.p, stars: ar.concat([e]) } };
+    return { show: ar.map(a => a.n).join(", ") + ".", say: from + ar.map(a => a.n + " is " + compass(lp.p, a)).join(", ") + ".", map: { you: lp.p, stars: ar } };
   }
   /* "can't go that way", "too many enemies", "another one": the last exit (and that direction) is out, give the next best */
   const OTHER = ["another", "different", "other one", "other way", "something else", "somewhere else", "alternative", "can't go", "cant go", "can not go", "cannot go", "too many", "blocked", "not that one", "not that way", "too dangerous", "too hot", "swarming", "camped", "no good", "next closest", "next nearest", "second closest", "plan b", "backup", "closed", "shut", "locked", "not open", "isn't open", "isnt open", "not working"];
@@ -1386,10 +1387,10 @@ function pinHere(pt) {
   if (document.body.classList.contains("speaking")) stopSpeaking();
   let q = S.pending ? S.pending.q : S.last && S.last.q; S.pending = null; save();
   /* if the last thing said was itself a location ("I'm at the Village"), re-asking it would put you back there:
-     the pin wins, and the answer is the one that statement gives, the nearest way out, from the pin */
-  if (q && findWhere(norm(q))) q = "nearest way out";
+     the pin wins, and like a spoken location it asks what you need, rather than assuming the way out (5 Nov) */
+  if (q && findWhere(norm(q))) q = null;
   const a = q ? answer(q) : null;
-  if (!a || a.map && a.map.pick) { deliver(q || "pin", { show: "Got it" + (nb ? ", " + nb.n.replace(/^the /, "") : "") + ".", say: "Got it.", map: { you: S.place, stars: [] } }); return; }
+  if (!a || a.map && a.map.pick) { deliver(q || "pin", { show: "Got it" + (nb ? ", " + nb.n.replace(/^the /, "") : "") + ".", say: "Got it. What do you need?", ctx: NEXT_HINT, map: { you: S.place, stars: [] } }); return; }
   a.say = "Got it. " + a.say; deliver(q, a);
 }
 function deliver(q, a) {
