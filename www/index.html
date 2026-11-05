@@ -54,6 +54,7 @@ body.listening .close{color:var(--amber)}
 .mpick li:last-child button{margin-bottom:0}
 @media (max-height:800px){.mpick h2{margin-bottom:8px}.mpick button{padding:10px 16px;margin-bottom:6px}}  /* short phones: tighter rows so seven still fit under the greeting */
 .mpick button.on{background:var(--amber);color:var(--ink)}
+.mpick .n{display:block}.mpick .m{display:block;font-size:14px;line-height:20px;font-weight:400;color:var(--grey)}  /* the one-row version on short phones: map in use, "Change map" */
 .mpick button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 /* map: edge to edge, runs down to the soundwave */
 /* map: an inset, rounded tile inside the same 24px margins as the text (4 Nov), not edge to edge */
@@ -217,6 +218,10 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
   <div class="vhead"><button class="back" id="vback" type="button" aria-label="Back"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="m274-450 227 227q9 9 9 21t-9 21q-9 9-21 9t-21-9L181-459q-5-5-7-10t-2-11q0-6 2-11t7-10l278-278q9-9 21-9t21 9q9 9 9 21t-9 21L274-510h496q13 0 21.5 8.5T800-480q0 13-8.5 21.5T770-450H274Z"/></svg></button><h2>Voice</h2></div>
   <div class="gkey" id="ov"><p id="ovstat"></p><div class="gkrow"><button type="button" id="ovget">Download voice (130 MB)</button></div></div>
   <ul id="ovitems"></ul>
+</div>
+<div class="vlist" id="maplist" hidden role="dialog" aria-label="Maps">
+  <div class="vhead"><button class="back" id="mback" type="button" aria-label="Back"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="m274-450 227 227q9 9 9 21t-9 21q-9 9-21 9t-21-9L181-459q-5-5-7-10t-2-11q0-6 2-11t7-10l278-278q9-9 21-9t21 9q9 9 9 21t-9 21L274-510h496q13 0 21.5 8.5T800-480q0 13-8.5 21.5T770-450H274Z"/></svg></button><h2>Maps</h2></div>
+  <ul id="mapitems"></ul>
 </div>
 <div class="ob" id="ob" hidden role="dialog" aria-label="Welcome to Relay">
   <button class="obskip" id="obskip" type="button" aria-label="Skip (test builds only)"></button>
@@ -1001,7 +1006,7 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) chec
 /* "Hey Relay": standby only while Relay is idle on screen; off while listening to you, speaking, in Settings or in the background */
 const WK = CAP && CAP.RelayWake ? CAP.RelayWake : null;
 let wakeOn = false, wakeErr = "";
-function relayIdle() { return !listening && !document.body.classList.contains("speaking") && !document.hidden && Date.now() > convoUntil && $("settings").hidden && $("vlist").hidden && $("debug").hidden && !document.body.classList.contains("intro"); }
+function relayIdle() { return !listening && !document.body.classList.contains("speaking") && !document.hidden && Date.now() > convoUntil && $("settings").hidden && $("vlist").hidden && $("maplist").hidden && $("debug").hidden && !document.body.classList.contains("intro"); }
 function wakeStandby() { if (!WK || !CFG.wake || wakeOn || !relayIdle()) return; wakeOn = true; WK.start().catch(e => { wakeOn = false; wakeErr = String(e && e.message || e); }); if (!S.last) setCtx("Say \u201cHey Relay\u201d, or tap."); }
 function wakeStop() { if (!WK || !wakeOn) return Promise.resolve(); wakeOn = false; return WK.stop().catch(() => {}); }
 if (WK) {
@@ -1142,6 +1147,14 @@ function mapPicker(ids, noTitle) {  /* noTitle: the headline already asks "Which
   ids = ids || Object.keys(MAP_NAMES).filter(ready);
   return '<section class="mpick" aria-label="Which map?">' + (noTitle ? "" : '<h2>Which map?</h2>') + '<ul>' + ids.map(id => '<li><button type="button" data-map="' + id + '"' + (S.map === id ? ' class="on" aria-current="true"' : '') + '>' + esc(MAP_NAMES[id]) + '</button></li>').join("") + '</ul></section>';
 }
+/* short phones (older 16:9): one row, the map in use and "Change map", which opens every map full screen like the voice list */
+function mapPickerShort() {
+  return '<section class="mpick" aria-label="Map"><ul><li><button type="button" data-open="maps"><span class="n">' + esc(MAP.name) + '</span><span class="m">Change map</span></button></li></ul></section>';
+}
+function openMaps() {
+  $("mapitems").innerHTML = Object.keys(MAP_NAMES).filter(ready).map(id => '<li><button type="button" data-map="' + id + '"' + (MAP.id === id ? ' class="on" aria-current="true"' : '') + '><span class="n">' + esc(MAP_NAMES[id]) + '</span>' + (MAP.id === id ? '<span class="m">In use</span>' : '') + '</button></li>').join("");
+  show("maplist", true);
+}
 function renderReady() {
   clearMap(); bars(false);
   document.body.classList.remove("listening", "session", "follow"); $("close").hidden = true;
@@ -1150,7 +1163,11 @@ function renderReady() {
   const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.innerHTML = esc(part + ", Raider.") + '<span class="gl">' + esc(LINE) + "</span>";
   setCtx(WK && CFG.wake ? "Say \u201cHey Relay\u201d, or tap." : "");  /* with the greeting, in the same fade, not a moment later when the listener starts (4 Nov) */
   $("stage").innerHTML = mapPicker();
-  fitGreet(w); requestAnimationFrame(() => fitGreet(w));
+  fitGreet(w);
+  /* the full list doesn't fit under the greeting at its smallest size: the one-row version instead */
+  const pk = $("stage").querySelector(".mpick"), st = $("stage");
+  if (pk && (pk.getBoundingClientRect().top < w.getBoundingClientRect().bottom + 16 || st.scrollHeight > st.clientHeight + 1)) { st.innerHTML = mapPickerShort(); fitGreet(w); }
+  requestAnimationFrame(() => fitGreet(w));
 }
 function renderListening() {
   clearMap(); setVoiceState("listening"); bars(true);
@@ -1441,6 +1458,8 @@ function preview(sid, note) {
 $("setplay").addEventListener("click", e => { e.stopPropagation(); preview(null, t => { $("setvmeta").textContent = t; }); });
 $("setback").addEventListener("click", () => { stopSpeaking(); show("settings", false); renderReady(); });
 $("setvoice").addEventListener("click", () => { show("vlist", true); ovRender(); });
+$("mback").addEventListener("click", () => show("maplist", false));
+$("mapitems").addEventListener("click", e => { const b = e.target.closest("button[data-map]"); if (!b) return; show("maplist", false); stopSpeaking(); stopListening(); endFollow(); handle("show me the " + MAP_NAMES[b.dataset.map] + " map"); });
 $("vback").addEventListener("click", () => { stopSpeaking(); clearTimeout(ovPoll); show("vlist", false); renderSettings(); });
 $("dback").addEventListener("click", () => show("debug", false));
 /* hidden diagnostics: press and hold the version line */
@@ -1545,6 +1564,7 @@ const OB_KEY = "relay-onb";
 })();
 $("word").addEventListener("click", () => listen());
 document.querySelector(".app").addEventListener("click", e => {
+  if (e.target.closest(".mpick button[data-open]")) { openMaps(); return; }
   const pick = e.target.closest(".mpick button[data-map]"); if (pick) { stopSpeaking(); stopListening(); endFollow(); handle("show me the " + MAP_NAMES[pick.dataset.map] + " map"); return; }
   if (e.target.closest(".mapwrap,.mpick,.close,.mic,.word,.cog")) return; listen(); });
 $("close").addEventListener("click", e => {
