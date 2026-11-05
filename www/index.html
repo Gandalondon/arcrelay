@@ -226,6 +226,7 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
 <script src="data-bluegate-places.js"></script>
 <script src="data-dam.js"></script>
 <script src="data-dam-places.js"></script>
+<script src="data-dam-quests.js"></script>
 <script src="data-buried-city.js"></script>
 <script src="data-spaceport.js"></script>
 <script src="data-stella-montis.js"></script>
@@ -366,6 +367,13 @@ const QUESTS = [
   { n: "Belly of the Beast", al: ["belly", "emperor"], who: "Shani",
     steps: [ { t: "Enter the Emperor" }, { t: "Find the source of the Emperor's power" }, { t: "Find out what happens to Harvester Payloads inside" }, { t: "Find where the Payloads are stored" }, { t: "Search 5 containers inside the Emperor" }, { t: "Take a unique piece of Emperor loot" } ] }
 ];
+/* Dam's quests (www/data-dam-quests.js): steps checked against two guides, pins from MetaForge matched by quest and step name,
+   since several Dam steps share a name ("Notice Board"). A quest already listed above (Taking Stock) is replaced (5 Nov). */
+const pinQ = (id, quest, name, label) => { const r = rowsOf(id).find(r => r.k === "q" && r.c === quest && r.n === name); return r ? Object.assign(pt(label || r.n, r.y, r.x), { map: id }) : null; };
+(window.DAM_QUESTS || []).forEach(q => {
+  const quest = { n: q.n, al: q.al, who: q.who || "", note: q.note, steps: q.steps.map(st => Object.assign({}, st, { pin: st.p ? pinQ("dam", q.id, st.p, st.label) : null })) };
+  const i = QUESTS.findIndex(x => x.n === q.n); if (i >= 0) QUESTS[i] = quest; else QUESTS.push(quest);
+});
 /* items (Soul's Offering, Oct to 16 Nov 2026). From MetaForge's item data (metaforge.app): where each kind of item turns up,
    matched to Blue Gate's areas by their loot type (allthings.how). Fertilizer has exact MetaForge spots on Blue Gate. */
 const FERT = [[4939,9405],[3213,5807],[3183,5816],[3208,5814],[3014,6255],[4944,9397],[3199,5830],[3008,6229],[4942,9442],[3204,5822],[3022,6259],[3025,6236],[3017,6232],[3178,5823],[4949,9449],[3000,6225]].map(([y, x]) => pt("Fertilizer", y, x));
