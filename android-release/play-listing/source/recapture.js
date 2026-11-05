@@ -1,7 +1,7 @@
 // Re-captures the four listing screens from the current app (www/index.html), so their text is in the app's current font.
-// The workspace can't load MetaForge's map tiles, so each map area is taken from the earlier capture of the same screen
-// (pixel-4nov/screen-*.webp, 780 x 1688, taken on the Pixel): the answer text, buttons, credit and dock come from the live app.
-// Run from this folder:  cp pixel-4nov/screen-*.webp . && node recapture.js && python3 composite.py && node render.js && python3 finish.py
+// The workspace can't reach MetaForge, so the Blue Gate tiles these screens need are kept in tiles/ (fetched through Chrome on 5 Nov)
+// and served to the page locally: every pixel, map included, comes from the live app.
+// Run from this folder:  node recapture.js && python3 composite.py && node render.js && python3 finish.py
 // Then copy the four screen-*.webp to site/beta/screens/ so the site matches.
 const path = require('path');
 const { chromium } = require('playwright');
@@ -18,7 +18,13 @@ const SHOTS = [
   const rects = {};
   for (const s of SHOTS) {
     const p = await ctx.newPage();
-    await p.route(/^https?:/, r => r.abort());
+    await p.route(/^https?:/, r => {  // Blue Gate tiles come from tiles/ (saved from MetaForge, 5 Nov); everything else stays offline
+      const m = r.request().url().match(/maps\/blue-gate\/[^/]+\/(\d+\/\d+\/\d+\.webp)$/);
+      const f = m && path.join(__dirname, 'tiles/blue-gate', m[1]);
+      if (f && require('fs').existsSync(f)) return r.fulfill({ path: f, contentType: 'image/webp' });
+      r.abort();
+    });
+    await p.addInitScript(() => { try { localStorage.setItem('relay-onb', '1'); } catch (e) {} });  // past onboarding
     await p.goto(APP); await p.waitForTimeout(1500);
     await p.evaluate(() => { const el = document.getElementById('sppack'); if (el) el.hidden = true; });
     await p.evaluate(async (s) => {
