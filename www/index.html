@@ -1018,11 +1018,11 @@ function drawMap(m) {
   lmap.setMinZoom(lmap.getBoundsZoom(L.latLngBounds(MAP.maxBounds), true));
   let fails = 0;
   const tl = L.tileLayer(MAP.tiles, { tileSize: MAP.tileSize, maxNativeZoom: MAP.maxNativeZoom, noWrap: true, keepBuffer: 4, bounds: MAP.tileBounds, attribution: 'Maps by <a href="https://metaforge.app/arc-raiders" target="_blank" rel="noopener">MetaForge</a>' }).addTo(lmap);
-  /* loot zones as in the game: abundant outlined red, decent yellow (dashed, so it never reads as the amber destination) (4 Nov) */
+  /* loot zones as in the game: abundant outlined red, decent solid yellow at 70% so the amber destination still leads (5 Nov) */
   const ZN = window.ZONES && window.ZONES[MAP.id];
   const abundant = ZN ? [].concat(...ZN.zones.filter(c => c.key === "abundant").map(c => c.zones.map(z => z.poly))) : [];
   if (ZN) ZN.zones.forEach(c => { const red = c.key === "abundant";
-    c.zones.forEach(z => !red && mostlyInside(z.poly, abundant) ? null : L.polygon(z.poly, { color: red ? "#EB574B" : "#FFC100", weight: 2, opacity: .9, dashArray: red ? null : "6 6", fillColor: red ? "#EB574B" : "#FFC100", fillOpacity: .07, interactive: false }).addTo(lmap)); });
+    c.zones.forEach(z => !red && mostlyInside(z.poly, abundant) ? null : L.polygon(z.poly, { color: red ? "#EB574B" : "#FFC100", weight: 2, opacity: red ? .9 : .7, fillColor: red ? "#EB574B" : "#FFC100", fillOpacity: .07, interactive: false }).addTo(lmap)); });
   tl.on("tileerror", () => { fails++; if (fails === 3 && $("pinok").hidden) { $("mapnote").hidden = false; $("mapnote").textContent = "Map needs a connection. The answer above still stands."; } });
   const ll = p => [p.y, p.x];
   /* with you on the map, the first dot is the answer (e.g. the nearest airshaft): it gets the dashed line and the big dot.
