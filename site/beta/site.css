@@ -20,7 +20,7 @@
   /* type scale (5 Nov): the site uses these sizes only. Display words (Hey Relay, Ask. Find. / Get out.) are fitted to the window. */
   --h1:clamp(56px,8vw,112px);   /* page titles, 700, line .92 */
   --h2:clamp(40px,4.6vw,64px);  /* section headings, 600, line 1 */
-  --h3:24px; --h3-lh:30px;      /* small headings and labels over lists, 500: anything below section size is 500 */
+  --h3:24px; --h3-lh:30px;      /* small headings and labels over lists: 600 at +1% (5 Nov; 500 read too thin next to the 600 headings) */
   --lede:24px; --lede-lh:34px;  /* intro line under a title */
   --body:18px; --body-lh:28px;  /* everything you read */
   --small:16px; --small-lh:24px;/* footer, small buttons, field labels */
@@ -40,7 +40,7 @@ p{margin:0;text-wrap:pretty}
 :focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 
 /* buttons: pills, sentence case */
-.btn{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 32px;border:0;border-radius:999px;background:var(--amber);color:var(--ink);font:500 18px/1 var(--font);letter-spacing:.005em;white-space:nowrap;cursor:pointer;transition:background .2s ease}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 32px;border:0;border-radius:999px;background:var(--amber);color:var(--ink);font:600 18px/1 var(--font);letter-spacing:.01em;white-space:nowrap;cursor:pointer;transition:background .2s ease}
 .btn:hover{background:var(--amber-hi)}
 .btn.sm{height:44px;padding:0 20px;font-size:16px}
 
@@ -148,7 +148,7 @@ canvas.topo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-even
 .prose{margin-top:80px;display:flex;flex-direction:column;gap:64px}
 .prose section{display:flex;flex-direction:column;gap:16px}
 .prose a{color:var(--text-hi);text-decoration:none;font-weight:500}  /* links and button text: 500 (5 Nov) */
-.prose h2{font-size:var(--h3);line-height:var(--h3-lh);font-weight:500;letter-spacing:0}
+.prose h2{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;letter-spacing:.01em}
 .muted{color:var(--text-meta)}
 .kv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:16px 24px}
 .kv div:nth-child(odd){font-weight:500;color:var(--text-hi)}
@@ -205,7 +205,7 @@ canvas.topo{display:none}
 
 /* how it works (5 Nov): Sniff's pattern. Section title on the left, icon rows on the right; one column on phones. */
 .hright{display:flex;align-items:center;gap:32px}
-.topnav{font:500 18px/1 var(--font);color:var(--text-hi);white-space:nowrap;transition:color .25s ease}
+.topnav{font:600 18px/1 var(--font);letter-spacing:.01em;color:var(--text-hi);white-space:nowrap;transition:color .25s ease}
 .topnav:hover,.topnav[aria-current="page"]{color:var(--amber)}
 @media (max-width:520px){ .hright{gap:20px} .topnav{font-size:16px} }
 .hsec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px 64px;margin-top:120px}  /* two equal halves: section title on the left, content from the middle to the right gutter (5 Nov, Tony's reference) */
@@ -214,12 +214,12 @@ canvas.topo{display:none}
 .how{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;align-items:start}
 .how .ico{width:48px;height:48px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center}
 .how .ic{width:26px;height:26px;display:block}
-.how h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:500;margin-top:8px}
+.how h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;margin-top:8px}
 .how p{margin-top:10px;max-width:42em}
 .hnote{max-width:34em}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px;margin-top:40px}
 .pgrid:first-child{margin-top:0}  /* no intro line above it: line up with the section title */
-.pgroup h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:500;color:var(--text-hi)}
+.pgroup h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;color:var(--text-hi)}
 .pgroup ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
 .pgroup li{font:400 var(--body)/var(--body-lh) var(--font);color:var(--text)}  /* same as body text */
 .prosebit{gap:20px}
