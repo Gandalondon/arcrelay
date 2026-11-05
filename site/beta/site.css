@@ -20,7 +20,7 @@
   /* type scale (5 Nov): the site uses these sizes only. Display words (Hey Relay, Ask. Find. / Get out.) are fitted to the window. */
   --h1:clamp(56px,8vw,112px);   /* page titles, 700, line .92 */
   --h2:clamp(40px,4.6vw,64px);  /* section headings, 600, line 1 */
-  --h3:24px; --h3-lh:30px;      /* small headings and labels over lists, 600 */
+  --h3:24px; --h3-lh:30px;      /* small headings and labels over lists, 500: anything below section size is 500 */
   --lede:24px; --lede-lh:34px;  /* intro line under a title */
   --body:18px; --body-lh:28px;  /* everything you read */
   --small:16px; --small-lh:24px;/* footer, small buttons, field labels */
@@ -148,16 +148,16 @@ canvas.topo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-even
 .prose{margin-top:80px;display:flex;flex-direction:column;gap:64px}
 .prose section{display:flex;flex-direction:column;gap:16px}
 .prose a{color:var(--text-hi);text-decoration:none;font-weight:500}  /* links and button text: 500 (5 Nov) */
-.prose h2{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;letter-spacing:0}
+.prose h2{font-size:var(--h3);line-height:var(--h3-lh);font-weight:500;letter-spacing:0}
 .muted{color:var(--text-meta)}
 .kv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:16px 24px}
-.kv div:nth-child(odd){font-weight:600;color:var(--text-hi)}
+.kv div:nth-child(odd){font-weight:500;color:var(--text-hi)}
 @media (max-width:600px){ .kv{grid-template-columns:minmax(0,1fr);gap:4px} .kv div:nth-child(odd):not(:first-child){margin-top:16px} }
 
 /* feedback form (follows Sniff: message, optional email) */
 form.fb{margin-top:64px;display:flex;flex-direction:column;gap:24px}
 .field{position:relative;display:block;background:var(--text);border-radius:16px;overflow:hidden}  /* cream fields: the one off-white, never pure white */
-.field span{position:absolute;left:16px;top:16px;font-size:var(--small);line-height:20px;font-weight:600;color:var(--ink)}  /* field labels in the heading weight (5 Nov) */
+.field span{position:absolute;left:16px;top:16px;font-size:var(--small);line-height:20px;font-weight:500;color:var(--ink)}  /* field labels: 500, like every heading below section size (5 Nov) */
 .field input,.field textarea{display:block;width:100%;border:0;background:transparent;color:var(--ink);font:400 var(--body)/var(--body-lh) var(--font);padding:44px 16px 16px;caret-color:var(--ink)}  /* 16 px on every side, the label 16 px in from the top and left */
 .field textarea{min-height:192px;resize:vertical}
 .field:focus-within{outline:3px solid var(--amber);outline-offset:3px}
@@ -211,12 +211,12 @@ canvas.topo{display:none}
 .how{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;align-items:start}
 .how .ico{width:48px;height:48px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center}
 .how .ic{width:26px;height:26px;display:block}
-.how h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;margin-top:8px}
+.how h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:500;margin-top:8px}
 .how p{margin-top:10px;max-width:42em}
 .hnote{max-width:34em}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px;margin-top:40px}
 .pgrid:first-child{margin-top:0}  /* no intro line above it: line up with the section title */
-.pgroup h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;color:var(--text-hi)}
+.pgroup h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:500;color:var(--text-hi)}
 .pgroup ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
 .pgroup li{font:400 var(--body)/var(--body-lh) var(--font);color:var(--text)}  /* same as body text */
 .prosebit{gap:20px}
