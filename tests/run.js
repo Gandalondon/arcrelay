@@ -23,7 +23,7 @@ const page_ = process.argv[2] || path.join(__dirname, "../www/index.html");
     }, { c });
     const w = c.want, A = r.a, txt = (A.show + " " + A.say).toLowerCase();
     const say_ = Array.isArray(c.say) ? c.say.join(" / ") : c.say;
-    const isFallback = /didn't catch|say again/i.test(A.show);
+    const isFallback = !!A.fallback || /didn't catch|say (that )?again/i.test(A.show);
     let ok;
     if (w.fallback) ok = isFallback;
     else if (w.quest) ok = r.after.quest === w.quest && (!w.step || r.after.step === w.step - 1) && !isFallback;

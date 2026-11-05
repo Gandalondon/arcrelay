@@ -582,11 +582,11 @@ function askWhere(raw) {
   S.pending = { q: raw, asks: S.pending ? S.pending.asks : 0 }; save();
   /* short: the hint is on screen; spoken in full only the first time in a while */
   const full = !S.whereAt || Date.now() - S.whereAt > 300000; S.whereAt = Date.now();
-  return { show: "Where are you?", say: full ? "Where are you? Say a place, or tap the map." : "Where are you?", ctx: "Say a place or a side, or tap the map", map: { you: null, stars: [], pick: true } };
+  return { show: "Where are you?", say: full ? "Where are you? Say a place, or tap the map." : "Where are you?", map: { you: null, stars: [], pick: true } };
 }
 function askStill(raw) {
   S.pending = { q: raw, asks: S.pending ? S.pending.asks : 0 }; save();
-  return { show: "Still near " + S.place.n + "?", say: "Are you still near " + S.place.n + "? You told me " + Math.round(placeAge()) + " minutes ago.", ctx: "Say yes, or where you are now" };
+  return { show: "Still near " + S.place.n + "?", say: "Are you still near " + S.place.n + "? You told me " + Math.round(placeAge()) + " minutes ago." };
 }
 function resolvePending(q) {
   const p = S.pending, t = norm(q);
@@ -601,7 +601,7 @@ function resolvePending(q) {
   if (newQ) { S.pending = null; save(); return null; }
   p.asks += 1; save();
   if (p.asks >= 2) { S.pending = null; save(); const a = answer(p.q, { general: true }); a.say = "I can't place that, so here's everything. " + a.say; return a; }
-  return { show: "Which side of the map?", say: "I don't know that one. Roughly which side of the map are you on? North, south, east or west.", ctx: "Heard: \u201C" + String(q).trim() + "\u201D", unplaced: true };
+  return { show: "Which side of the map?", say: "I don't know that one. Roughly which side of the map are you on? North, south, east or west.", unplaced: true, map: { you: null, stars: [], pick: true } };  /* keep the map up so they can tap instead (5 Nov) */
 }
 
 const NUM = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10, first:1, second:2, third:3, fourth:4, fifth:5, sixth:6, seventh:7, eighth:8, last:99 };
@@ -671,8 +671,8 @@ function stepIntent(t) {
    rest of what was said is answered on that map. A map with no markers yet gets an honest "not yet" (5 Nov). */
 function answer(raw, opts) {
   syncMap();
-  const t = norm(raw), heard = "Heard: \u201C" + String(raw).trim() + "\u201D";
-  const notYet = (id) => ({ show: (id ? MAP_NAMES[id] + ": not yet." : readyNames() + " only, for now."), say: (id ? "That's on " + MAP_NAMES[id] + ". " : "That's on another map. ") + "I only have " + readyNames() + " so far, the other maps are coming.", ctx: heard });
+  const t = norm(raw);
+  const notYet = (id) => ({ show: (id ? MAP_NAMES[id] + ": not yet." : readyNames() + " only, for now."), say: (id ? "That's on " + MAP_NAMES[id] + ". " : "That's on another map. ") + "I only have " + readyNames() + " so far, the other maps are coming." });
   let switched = false;
   const said = mapSaid(t);
   /* "show me the Dam map", "open the map", "pull up Blue Gate": a request to see a map (5 Nov) */
@@ -686,7 +686,7 @@ function answer(raw, opts) {
       const go = om.ids.filter(ready);
       if (go.length === 1) { switchMap(go[0]); switched = true; }
       else if (!go.length) return notYet(om.one ? om.ids[0] : null);
-      else return { show: "Which map?", say: "That's on " + andList(go.map(id => MAP_NAMES[id])) + ". Which map are you on?", ctx: heard, maps: go };
+      else return { show: "Which map?", say: "That's on " + andList(go.map(id => MAP_NAMES[id])) + ". Which map are you on?", maps: go };
     }
   }
   /* just the map ("I'm on Dam", "show me the Blue Gate map"): show it whole and ask where you are; anything more
@@ -701,16 +701,15 @@ function answer(raw, opts) {
 }
 /* the whole map, ready for where you are: say a place (or a side), or tap it */
 const MAP_ASK = "\u0000where-on-map";
-const NEXT_HINT = "Ask for the way out, an item, an enemy or your quest";
 function showMapAnswer() {
-  if (posState() === "fresh") return { show: MAP.name + ".", say: MAP.name + ". You're at " + S.place.n + ". What do you need?", ctx: NEXT_HINT, map: { you: S.place, stars: [] } };
+  if (posState() === "fresh") return { show: MAP.name + ".", say: MAP.name + ". You're at " + S.place.n + ". What do you need?", map: { you: S.place, stars: [] } };
   S.pending = { q: MAP_ASK, asks: 0 }; save();
-  return { show: MAP.name + ".", say: MAP.name + ". Where are you?", ctx: "Say a place or a side, or tap the map", map: { you: null, stars: [], pick: true } };
+  return { show: MAP.name + ".", say: MAP.name + ". Where are you?", map: { you: null, stars: [], pick: true } };
 }
 function answerOn(raw, opts) {
   opts = opts || {};
   if (raw === MAP_ASK && !S.place) return { show: "No problem.", say: "No problem. Tap the map when you know, or just ask.", map: { you: null, stars: [], pick: true } };
-  if (raw === MAP_ASK) return { show: "Got it. " + S.place.n.charAt(0).toUpperCase() + S.place.n.slice(1) + ".", say: vary(["What do you need?", "What are you after?", "What's next?"]), ctx: NEXT_HINT, map: { you: S.place.rough ? Object.assign({ guess: true }, S.place) : S.place, stars: [] } };
+  if (raw === MAP_ASK) return { show: "Got it. " + S.place.n.charAt(0).toUpperCase() + S.place.n.slice(1) + ".", say: vary(["What do you need?", "What are you after?", "What's next?"]), map: { you: S.place.rough ? Object.assign({ guess: true }, S.place) : S.place, stars: [] } };
   const t = norm(raw);
   const terse = inRaid();
   const ps = opts.general ? "general" : posState();
@@ -748,7 +747,7 @@ function answerOn(raw, opts) {
     S.place = w; S.placeAt = Date.now(); S.raidAt = S.raidAt || Date.now(); save();
     if (!has(t, ["extract", "exit", " out ", "leave", "evac", "escape", "step", "where", "hatch", ...ENEMY_WORDS])) {  /* " out " as a word: "south" contains "out" */
       
-      return { show: "Got it. " + w.n.charAt(0).toUpperCase() + w.n.slice(1) + ".", say: "Got it, " + w.n + ". " + vary(["What do you need?", "What are you after?", "What's next?"]), ctx: NEXT_HINT, map: { you: w.rough ? Object.assign({ guess: true }, w) : w, stars: [] } };  /* a place on its own isn't asking for the way out (5 Nov, Tony's test) */
+      return { show: "Got it. " + w.n.charAt(0).toUpperCase() + w.n.slice(1) + ".", say: "Got it, " + w.n + ". " + vary(["What do you need?", "What are you after?", "What's next?"]), map: { you: w.rough ? Object.assign({ guess: true }, w) : w, stars: [] } };  /* a place on its own isn't asking for the way out (5 Nov, Tony's test) */
     }
   }
   const psNow = opts.general ? "general" : posState();
@@ -859,20 +858,19 @@ function answerOn(raw, opts) {
   }
   if (has(t, ["grandioso", "launch tower"])) return { show: readyNames() + " only, for now.", say: "That's on another map. I only have " + readyNames() + " so far." };
 
-  /* didn't understand: never drop the quest. Remind them where they are, and show what Relay heard so mishearings are obvious. */
-  /* the full reminder once; after that, short and varied. It comes back after five quiet minutes. */
-  const heard = "Heard: \u201C" + String(raw).trim() + "\u201D";
+  /* didn't understand: the screen just asks again and the voice says it didn't catch that; no "Heard: ..." line (5 Nov, Tony).
+     The quest isn't dropped: the full reminder once says the step; after that, short and varied. It comes back after five quiet minutes. */
   const full = !S.helpAt || Date.now() - S.helpAt > 5 * 60000;
   if (full) { S.helpAt = Date.now(); save(); }
-  const short = vary(["Say again?", "Didn't catch that.", "One more time?", "Sorry, again?"]);
+  const short = vary(["Didn't catch that. Say it again?", "Sorry, didn't catch that. Again?", "Didn't get that. One more time?"]);
   const cq = QUESTS.find(q => q.n === S.quest);
   if (cq) {
     const a = stepAnswer(cq, S.step || 0);
-    a.say = full ? "Didn't catch that. Still step " + ((S.step || 0) + 1) + ". " + a.show : short;
-    a.full = "Still step " + ((S.step || 0) + 1) + ". " + a.show; a.ctx = heard; a.fallback = true;
+    a.say = full ? "Didn't catch that. Still step " + ((S.step || 0) + 1) + ". " + a.show + " Say it again?" : short;
+    a.full = "Still step " + ((S.step || 0) + 1) + ". " + a.show; a.show = "Say that again?"; a.ctx = ""; a.fallback = true;
     return a;
   }
-  return { show: "Say again?", say: full ? "Sorry, say that again? You can ask for the way out, where to find something, or tell me your quest and step." : short, ctx: heard, fallback: true };
+  return { show: "Say that again?", say: full ? "Didn't catch that. Say it again? You can ask for the way out, where to find something, or tell me your quest and step." : short, fallback: true };
 }
 
 /* =================== voice: native app or browser =================== */
@@ -1371,7 +1369,6 @@ async function aiAnswer(q) {
     if (!cmd) return null;
     const a = answer(cmd);
     if (a.fallback) return null;
-    a.ctx = "Heard: \u201C" + q + "\u201D. Understood as: " + cmd + " (" + (r.ms || "?") + " ms)";
     return a;
   } catch (e) { return null; }
 }
@@ -1390,7 +1387,7 @@ function pinHere(pt) {
      the pin wins, and like a spoken location it asks what you need, rather than assuming the way out (5 Nov) */
   if (q && findWhere(norm(q))) q = null;
   const a = q ? answer(q) : null;
-  if (!a || a.map && a.map.pick) { deliver(q || "pin", { show: "Got it" + (nb ? ", " + nb.n.replace(/^the /, "") : "") + ".", say: "Got it. What do you need?", ctx: NEXT_HINT, map: { you: S.place, stars: [] } }); return; }
+  if (!a || a.map && a.map.pick) { deliver(q || "pin", { show: "Got it" + (nb ? ", " + nb.n.replace(/^the /, "") : "") + ".", say: "Got it. What do you need?", map: { you: S.place, stars: [] } }); return; }
   a.say = "Got it. " + a.say; deliver(q, a);
 }
 function deliver(q, a) {
@@ -1405,7 +1402,7 @@ async function handle(q) {
   if (a && a.unplaced) {  /* Relay didn't recognise the place: ask Nano before asking the player again */
     const pend = S.pending;
     const b = await aiPlace(q);
-    if (b) { S.pending = pend; const c = resolvePending(b.cmd); if (c && !c.unplaced) { c.ctx = "Heard: \u201C" + q + "\u201D. Understood as: " + b.cmd + " (" + b.ms + " ms)"; a = c; } else S.pending = pend; }
+    if (b) { S.pending = pend; const c = resolvePending(b.cmd); if (c && !c.unplaced) { a = c; } else S.pending = pend; }
   }
   if (!a) a = answer(q);
   if (a.fallback) { const b = await aiAnswer(q); if (b) a = b; }
