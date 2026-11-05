@@ -226,6 +226,11 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
 <script src="data-bluegate-places.js"></script>
 <script src="data-dam.js"></script>
 <script src="data-dam-places.js"></script>
+<script src="data-buried-city-places.js"></script>
+<script src="data-spaceport-places.js"></script>
+<script src="data-stella-montis-places.js"></script>
+<script src="data-riven-tides-places.js"></script>
+<script src="data-pendola-pass-places.js"></script>
 <script src="data-dam-quests.js"></script>
 <script src="data-buried-city.js"></script>
 <script src="data-spaceport.js"></script>
@@ -244,6 +249,7 @@ const pt = (n, y, x) => ({ n, y, x });
 let MAP, R, EXITS, HATCHES, ENEMIES, AREAS, PLACES, EXT, ENEMY_WORDS, METRES, WAYS;
 const byName = s => R.find(r => r.n.toLowerCase().includes(s.toLowerCase()));
 const fromRow = (r, label) => r ? Object.assign(pt(label || r.n, r.y, r.x), { map: MAP.id }) : null;  /* a quest pin remembers its map */
+const pinQ = (id, quest, name, label) => { const r = rowsOf(id).find(r => r.k === "q" && r.c === quest && r.n === name); return r ? Object.assign(pt(label || r.n, r.y, r.x), { map: id }) : null; };
 const pinIn = (id, s, label) => { const r = rowsOf(id).find(r => r.n.toLowerCase().includes(s.toLowerCase())); return r ? Object.assign(pt(label || r.n, r.y, r.x), { map: id }) : null; };
 
 /* places you can say you're at (names from MetaForge markers) */
@@ -255,7 +261,7 @@ const NUMW = ["no", "one", "two", "three", "four", "five", "six", "seven", "eigh
 const andList = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a.at(-1);
 /* "four airshafts: Warehouse, Overlook, Forest and Cliffside". When every name ends in the same word (Airshaft, Hatch) it's the noun; else "exits" */
 function ways(list, fallback) {
-  const last = list.map(e => e.n.split(" ").at(-1)), same = list.length > 1 && last.every(w => w === last[0]);
+  const last = list.map(e => e.n.split(" ").at(-1)), same = list.length > 1 && last.every(w => w.toLowerCase() === last[0].toLowerCase());
   const one = same ? last[0].toLowerCase() : fallback;
   return { one, many: one + "s", count: NUMW[list.length] || String(list.length), list: andList(same ? list.map(e => e.n.slice(0, -last[0].length - 1)) : list.map(e => e.n)) };
 }
@@ -265,8 +271,8 @@ const posOf = (p, b) => { const fy = (p.y - b[0][0]) / (b[1][0] - b[0][0]), fx =
 function useMap(id) {
   if (!ready(id)) id = "blue-gate";
   MAP = MAPS[id]; R = rowsOf(id);
-  /* t: the badge drawn. Blue Gate's ways out are airshafts (fan); Dam's are lifts and elevators (lift) */
-  EXITS = R.filter(r => r.c === "extraction").map(r => Object.assign(pt(r.n, r.y, r.x), { t: /\b(lift|elevator)$/i.test(r.n) ? "lift" : "shaft" }));
+  /* t: the badge drawn: airshafts (fan), lifts and elevators (lift), metro stations (train), Pendola's transceivers (radio mast) */
+  EXITS = R.filter(r => r.c === "extraction").map(r => Object.assign(pt(r.n, r.y, r.x), { t: /\b(lift|elevator)$/i.test(r.n) ? "lift" : /\bstation$/i.test(r.n) ? "metro" : /\btransceiver$/i.test(r.n) ? "radio" : "shaft" }));
   HATCHES = R.filter(r => r.c === "hatch").map(r => Object.assign(pt(r.n, r.y, r.x), { t: "hatch" }));
   ENEMIES = {};
   R.filter(r => r.k === "a").forEach(r => { (ENEMIES[r.c] = ENEMIES[r.c] || []).push(pt(r.c, r.y, r.x)); });
@@ -285,7 +291,7 @@ function useMap(id) {
     ];
     METRES = 5.5;  /* map units per metre on Blue Gate, from the fitted place distances */
   } else {
-    const D = id === "dam" ? window.DAM_PLACES || {} : {};
+    const D = (window.MAP_PLACES || {})[id] || {};
     AREAS = (D.areas || []).map(a => Object.assign(P(a.n, a.y, a.x, a.al), { area: true, pos: posOf(a, MAP.bounds) }));
     PLACES = [
       ...EXITS.map(e => P(e.n, e.y, e.x, (D.exits || {})[e.n] || [e.n.toLowerCase()])),
@@ -326,8 +332,8 @@ const QUESTS = [
   { n: "Wires Crossed", al: ["wires crossed", "snitch scanner"], who: "Celeste", note: "Position: MetaForge.",
     steps: [
       { t: "On Blue Gate, attach a Snitch Scanner to the antenna at Pilgrim's Peak", go: "The antenna is on Pilgrim's Peak, in the north-east.", show: "Antenna on Pilgrim's Peak, north-east.", pin: fromRow(byName("attach a Snitch Scanner"), "Antenna") },
-      { t: "On Spaceport, attach a Surveyor Vault to the antenna on the Launch Towers", go: "Relay doesn't have Spaceport's map yet." },
-      { t: "On Buried City, attach a Sentinel Firing Core to the antenna on the Grandioso Apartments roof", go: "Relay doesn't have Buried City's map yet." }
+      { t: "On Spaceport, attach a Surveyor Vault to the antenna on the Launch Towers", go: "Climb the Launch Towers to the antenna at the top.", show: "Launch Towers antenna, Spaceport.", pin: pinQ("spaceport", "wires-crossed", "Surveyor Vault on the Launch Towers", "Launch Towers antenna") },
+      { t: "On Buried City, attach a Sentinel Firing Core to the antenna on the Grandioso Apartments roof", go: "Get onto the Grandioso Apartments roof; the antenna is up there.", show: "Grandioso roof antenna, Buried City.", pin: pinQ("buried-city", "wires-crossed", "Firing Core on the Grandioso antenna", "Grandioso antenna") }
     ] },
   { n: "The First Nomads", al: ["first nomads", "nomads"], who: "", note: "Positions: MetaForge.",
     steps: [
@@ -358,20 +364,21 @@ const QUESTS = [
       { t: "Follow the trail of destruction", pin: fromRow(byName("Follow the trail of destruction"), "Trail"), al: ["trail"] },
       { t: "Investigate the unknown ARC machines", pin: fromRow(byName("Investigate the Unknown Arc"), "ARC machines"), al: ["unknown arc", "machines"] }
     ] },
-  { n: "Bait, Fetch, Blast", al: ["bait", "fetch", "blast", "bully"], who: "Apollo",
-    steps: [ { t: "Destroy a Bully, its head, or 4 of its legs", go: "This one's on Pendola Pass. Relay doesn't have that map yet." }, { t: "Deliver a Bully Fragmenter to Apollo", go: "The Fragmenter comes from the Bully." } ] },
+  { n: "Bait, Fetch, Blast", al: ["bait", "fetch", "blast"], who: "Apollo",
+    steps: [ { t: "Destroy a Bully, its head, or 4 of its legs", enemy: "bully", map: "pendola-pass" }, { t: "Deliver a Bully Fragmenter to Apollo", go: "The Fragmenter comes from the Bully." } ] },
   { n: "Taking Stock", al: ["taking stock"], who: "Cassio",
     steps: [ { t: "On Stella Montis, photograph the sculpture in the Atrium" }, { t: "On Spaceport, photograph a Baron Husk" }, { t: "Deliver 3 Industrial Batteries to the Nomadic Envoy" }, { t: "Ping a Bombardier on Dam, or a Bastion on Buried City" } ] },
   { n: "Boarding the Frigate", al: ["boarding the frigate", "frigate"], who: "Shani",
     steps: [ { t: "Find a way onto the Frigate's top" }, { t: "Damage a Hydra, a Vaporizer and a Rocketeer" } ] },
-  { n: "Belly of the Beast", al: ["belly", "emperor"], who: "Shani",
-    steps: [ { t: "Enter the Emperor" }, { t: "Find the source of the Emperor's power" }, { t: "Find out what happens to Harvester Payloads inside" }, { t: "Find where the Payloads are stored" }, { t: "Search 5 containers inside the Emperor" }, { t: "Take a unique piece of Emperor loot" } ] }
+  { n: "Belly of the Beast", al: ["belly", "emperor"], who: "Shani", note: "Positions on Pendola Pass: MetaForge.",
+    steps: [ { t: "Enter the Emperor", pin: pinQ("pendola-pass", "belly-of-the-beast", "Enter the Emperor") }, { t: "Find the source of the Emperor's power", pin: pinQ("pendola-pass", "belly-of-the-beast", "Find the Emperor's power source", "Power source") },
+      { t: "Find out what happens to Harvester Payloads inside", pin: pinQ("pendola-pass", "belly-of-the-beast", "Follow the Harvester Payloads", "Harvester Payloads") }, { t: "Find where the Payloads are stored", pin: pinQ("pendola-pass", "belly-of-the-beast", "Find the stored Harvester Payloads", "Stored Payloads") },
+      { t: "Search 5 containers inside the Emperor", pin: pinQ("pendola-pass", "belly-of-the-beast", "Search 5 containers inside the Emperor", "Containers") }, { t: "Take a unique piece of Emperor loot" } ] }
 ];
 /* Dam's quests (www/data-dam-quests.js): steps checked against two guides, pins from MetaForge matched by quest and step name,
    since several Dam steps share a name ("Notice Board"). A quest already listed above (Taking Stock) is replaced (5 Nov). */
-const pinQ = (id, quest, name, label) => { const r = rowsOf(id).find(r => r.k === "q" && r.c === quest && r.n === name); return r ? Object.assign(pt(label || r.n, r.y, r.x), { map: id }) : null; };
 (window.DAM_QUESTS || []).forEach(q => {
-  const quest = { n: q.n, al: q.al, who: q.who || "", note: q.note, steps: q.steps.map(st => Object.assign({}, st, { pin: st.p ? pinQ("dam", q.id, st.p, st.label) : null })) };
+  const quest = { n: q.n, al: q.al, who: q.who || "", note: q.note, steps: q.steps.map(st => Object.assign({}, st, { pin: st.p ? pinQ(st.pm || "dam", q.id, st.p, st.label) : null })) };
   const i = QUESTS.findIndex(x => x.n === q.n); if (i >= 0) QUESTS[i] = quest; else QUESTS.push(quest);
 });
 /* a quest's home map: where all its pins are. Its unpinned steps are done there too, unless the step names another map */
@@ -770,18 +777,20 @@ function answerOn(raw, opts) {
       return { show: (rush ? "Move. " : "") + Wc + " " + W.many + ", marked.", say: rush + "There are " + W.count + " " + W.many + ": " + W.list + ". They're all marked on the map." + tail, map: { you: psNow === "fresh" ? S.place : null, stars: EXITS } };
     }
     const pool = EXITS.filter(e => !(S.avoid || []).includes(e.n));
+    if (!pool.length && !HATCHES.length) { S.avoid = []; save(); return { show: "That's every " + WAYS.exits.one + ".", say: "That's every " + WAYS.exits.one + " ruled out, and " + MAP.name + " has no hatches. Wait it out somewhere quiet, then try again.", map: { you: lp.p, stars: EXITS } }; }
     if (!pool.length) { S.avoid = []; save(); const hb = near(lp.p, HATCHES); return { show: "That's every " + WAYS.exits.one + ".", say: "That's every " + WAYS.exits.one + " ruled out. Nearest hatch is " + hb.n + ", " + compass(lp.p, hb) + ", if you've got a key. Or wait it out somewhere quiet.", map: { you: lp.p, stars: [hb] } }; }
     const best = near(lp.p, pool);
     const dir = compass(lp.p, best);
     S.exitSaid = { n: best.n, at: Date.now() }; save();
     const alt = wantsOther ? vary(["Next best is ", "Try ", "Then go for "]) : "";
     if (dist(lp.p, best) < 80 && !lp.p.rough) return { show: "You're at " + best.n + ".", say: rush + "You're right at " + best.n + ". Extract there.", map: { you: null, stars: [best] } };
-    const hb = near(lp.p, HATCHES), hatchTip = !(wantsOther && S.hatchTold) && dist(lp.p, hb) < dist(lp.p, best) * 0.7 ? " " + hb.n + " is closer, " + compass(lp.p, hb) + ", if you've got a hatch key." : "";
+    const hb = HATCHES.length ? near(lp.p, HATCHES) : null, hatchTip = hb && !(wantsOther && S.hatchTold) && dist(lp.p, hb) < dist(lp.p, best) * 0.7 ? " " + hb.n + " is closer, " + compass(lp.p, hb) + ", if you've got a hatch key." : "";
     if (hatchTip) { S.hatchTold = true; save(); }
     const lead = lp.p.rough ? vary(["Your best bet is ", "Head for ", "From " + lp.p.n + ", try "]) : "";
     const how = lp.p.rough ? ". Head " + dir + "." : ", " + far(lp.p, best) + dir + ".";
     return { show: (rush ? "Move. " : "") + best.n + ", " + dir + ".", say: rush + (alt ? alt + best.n : lead ? lead + best.n : best.n) + how + hatchTip, map: { you: lp.p.rough ? Object.assign({ guess: true }, lp.p) : lp.p, stars: hatchTip ? [best, hb] : [best] } };
   }
+  if (has(t, ["hatch"]) && !HATCHES.length) return { show: "No hatches here.", say: MAP.name + " has no Raider Hatches. Nearest way out is " + (likelyPos() ? near(likelyPos().p, EXITS).n + ", " + compass(likelyPos().p, near(likelyPos().p, EXITS)) + "." : "one of the " + WAYS.exits.count + " " + WAYS.exits.many + ", marked."), map: { you: likelyPos() ? likelyPos().p : null, stars: likelyPos() ? [near(likelyPos().p, EXITS)] : EXITS } };
   if (has(t, ["hatch"])) {
     if (psNow === "fresh") { const b = near(S.place, HATCHES); const dir = compass(S.place, b); return { show: b.n + ", " + dir + ". Needs a key.", say: "The nearest hatch is " + b.n + ", " + dir + " of you. You'll need a Raider Hatch key.", map: { you: S.place, stars: [b] } }; }
     const H = WAYS.hatches, Hc = H.count.charAt(0).toUpperCase() + H.count.slice(1);
@@ -1132,7 +1141,7 @@ function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably 
 /* markers: a yellow dot for the place, a white dot for you, a dashed ring when your position is a guess */
 /* ways out are badges, as in the game: a rounded square with the airshaft fan, the lift (Dam's lifts and elevators) or the hatch arrow (Material Symbols Rounded).
    Amber when it's where you're going, cream when it's an alternative; ink glyph either way (5 Nov) */
-const EXIT_GLYPH = { lift: "M280-400v140q0 12.75 8.63 21.37Q297.25-230 310-230h60q12.75 0 21.38-8.63Q400-247.25 400-260v-140h10q13 0 21.5-8.5T440-430v-80q0-33-23.5-56.5T360-590h-40q-33 0-56.5 23.5T240-510v80q0 13 8.5 21.5T270-400h10Zm99.5-240.5Q396-657 396-680t-16.5-39.5Q363-736 340-736t-39.5 16.5Q284-703 284-680t16.5 39.5Q317-624 340-624t39.5-16.5ZM542-530h146q9.39 0 13.7-7.5 4.3-7.5-.7-15.5l-73-117q-4.5-7-12.75-7T602-670l-73 117q-5 8-.7 15.5 4.31 7.5 13.7 7.5Zm86 240 73-117q5-8 .7-15.5-4.31-7.5-13.7-7.5H542q-9.39 0-13.7 7.5-4.3 7.5.7 15.5l73 117q4.5 7 12.75 7t13.25-7ZM180-120q-24 0-42-18t-18-42v-600q0-23 18-41.5t42-18.5h600q23 0 41.5 18.5T840-780v600q0 24-18.5 42T780-120H180Zm0-60h600v-600H180v600Zm0 0v-600 600Z", shaft: "M424-80q-51 0-77.5-30.5T320-180q0-26 11.5-50.5T367-271q22-14 36.5-37.5T425-373q-1 0-1-.5t-2-1.5l-116 41q-17 6-33 10t-33 4q-63 0-111.5-55T80-536q0-51 30.5-77.5T179-640q26 0 51 11.5t41 35.5q14 22 39.5 37.5T373-535q1-1 1.5-2t.5-2l-41-115q-6-17-10-33t-4-32q0-64 55-112.5T536-880q51 0 77.5 30.5T640-781q0 26-11.5 51T593-689q-26 17-40.5 45T536-586q1 1 1.5.5t1.5 1.5l115-43q17-6 32.5-9.5T719-640q81 0 121 67t40 149q0 51-32 77.5T777-320q-25 0-48.5-11.5T689-367q-14-22-37.5-36.5T587-426l-1.5 3q-.5 1-1.5 2l42 115q6 16 10 30.5t4 30.5q1 65-54 115T424-80Zm56-340q25 0 42.5-17.5T540-480q0-25-17.5-42.5T480-540q-25 0-42.5 17.5T420-480q0 25 17.5 42.5T480-420Z", hatch: "M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36 9.11-21.36 9.39-9 21.89-9t21.5 9l98 99v-341q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v341l99-99q8.8-9 20.9-8.5 12.1.5 21.49 9.5 8.61 9 8.61 21.5t-9 21.5L501-334q-5 5-10.13 7-5.14 2-11 2-5.87 0-10.87-2ZM220-160q-24 0-42-18t-18-42v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113h520v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113q0 24-18 42t-42 18H220Z" };
+const EXIT_GLYPH = { metro: "M80-140v-474q0-82 42.5-144T241-850q56-21 119-25.5t120-4.5q57 0 120.5 4.5T720-850q76 30 118 92t42 144v474q0 25-17.5 42.5T820-80H140q-25 0-42.5-17.5T80-140Zm205-288v-175h390v175H285Zm307 116q-11-11-11-28t11-28q11-11 28-11t28 11q11 11 11 28t-11 28q-11 11-28 11t-28-11Zm-280 0q-11-11-11-28t11-28q11-11 28-11t28 11q11 11 11 28t-11 28q-11 11-28 11t-28-11ZM140-140h680v-474q0-66-31.5-109.5T695-793q-47-19-104-23t-111-4q-54 0-110.5 4T266-793q-62 26-94 69.5T140-614v474Zm288-81h104l74 74q4 4 8 5.5t9 1.5q17 0 22.5-15t-5.5-26l-40-40q47 0 83.5-31.5T720-340v-263q0-72-75-94.5T480-720q-106 0-173 22.5T240-603v263q0 60 41 89.5t79 29.5l-40 40q-11 11-5 26t22 15q5 0 9.5-2t7.5-5l74-74Zm-288 81h680-680Z", radio: "M130-560q0 57 21.5 118T214-333q8 8 9 18.5t-7 18.5q-8 8-18.5 7.5T180-297q-51-57-75.5-126T80-560q0-68 24.5-137T180-823q7-8 17-9t18 7q8 8 7.5 19t-8.5 19q-41 48-62.5 109T130-560Zm132 0q0 30 13 67t34 68q6 9 6.5 19t-7.5 18q-8 8-18.5 7.5T272-389q-31-37-45.5-83T212-560q0-42 14.5-88t45.5-83q7-8 17-8.5t18 7.5q8 8 8 18t-6 18q-22 29-34.5 66T262-560Zm121 390-24 71q-3 8-10 13.5T333-80q-14 0-23-11.5t-4-25.5l121-368q-17-12-27.5-31T389-560q0-38 26.5-64.5T480-651q38 0 64.5 26.5T571-560q0 25-10.5 44T533-485l121 368q5 14-4 25.5T627-80q-9 0-16-5t-10-14l-23-71H383Zm19-60h156l-78-238-78 238Zm296-330q0-30-13-67t-34-68q-6-9-6-19t8-18q8-8 18-7.5t17 8.5q30 37 45 83t15 88q0 42-15 88t-45 83q-7 8-17 8.5t-18-7.5q-8-8-8-18t6-18q22-29 34.5-66t12.5-70Zm110.5-118Q787-739 746-787q-8-8-9-18.5t7-18.5q8-8 18.5-7.5T780-823q51 57 75.5 126T880-560q0 69-23.5 137.5T781-297q-8 8-18 8.5t-18-7.5q-8-8-7.5-18.5T746-333q41-48 62.5-109T830-560q0-57-21.5-118Z", lift: "M280-400v140q0 12.75 8.63 21.37Q297.25-230 310-230h60q12.75 0 21.38-8.63Q400-247.25 400-260v-140h10q13 0 21.5-8.5T440-430v-80q0-33-23.5-56.5T360-590h-40q-33 0-56.5 23.5T240-510v80q0 13 8.5 21.5T270-400h10Zm99.5-240.5Q396-657 396-680t-16.5-39.5Q363-736 340-736t-39.5 16.5Q284-703 284-680t16.5 39.5Q317-624 340-624t39.5-16.5ZM542-530h146q9.39 0 13.7-7.5 4.3-7.5-.7-15.5l-73-117q-4.5-7-12.75-7T602-670l-73 117q-5 8-.7 15.5 4.31 7.5 13.7 7.5Zm86 240 73-117q5-8 .7-15.5-4.31-7.5-13.7-7.5H542q-9.39 0-13.7 7.5-4.3 7.5.7 15.5l73 117q4.5 7 12.75 7t13.25-7ZM180-120q-24 0-42-18t-18-42v-600q0-23 18-41.5t42-18.5h600q23 0 41.5 18.5T840-780v600q0 24-18.5 42T780-120H180Zm0-60h600v-600H180v600Zm0 0v-600 600Z", shaft: "M424-80q-51 0-77.5-30.5T320-180q0-26 11.5-50.5T367-271q22-14 36.5-37.5T425-373q-1 0-1-.5t-2-1.5l-116 41q-17 6-33 10t-33 4q-63 0-111.5-55T80-536q0-51 30.5-77.5T179-640q26 0 51 11.5t41 35.5q14 22 39.5 37.5T373-535q1-1 1.5-2t.5-2l-41-115q-6-17-10-33t-4-32q0-64 55-112.5T536-880q51 0 77.5 30.5T640-781q0 26-11.5 51T593-689q-26 17-40.5 45T536-586q1 1 1.5.5t1.5 1.5l115-43q17-6 32.5-9.5T719-640q81 0 121 67t40 149q0 51-32 77.5T777-320q-25 0-48.5-11.5T689-367q-14-22-37.5-36.5T587-426l-1.5 3q-.5 1-1.5 2l42 115q6 16 10 30.5t4 30.5q1 65-54 115T424-80Zm56-340q25 0 42.5-17.5T540-480q0-25-17.5-42.5T480-540q-25 0-42.5 17.5T420-480q0 25 17.5 42.5T480-420Z", hatch: "M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36 9.11-21.36 9.39-9 21.89-9t21.5 9l98 99v-341q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v341l99-99q8.8-9 20.9-8.5 12.1.5 21.49 9.5 8.61 9 8.61 21.5t-9 21.5L501-334q-5 5-10.13 7-5.14 2-11 2-5.87 0-10.87-2ZM220-160q-24 0-42-18t-18-42v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113h520v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113q0 24-18 42t-42 18H220Z" };
 const BADGE = (t, s, amber) => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:' + Math.round(s * .28) + 'px;background:' + (amber ? "#F2B33D" : "#EEE8DC") + ';color:#15171C;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #1C1E22' + (amber ? ',0 0 0 5px rgba(242,179,61,.35)' : '') + '"><svg viewBox="0 -960 960 960" width="' + Math.round(s * .72) + '" height="' + Math.round(s * .72) + '" fill="currentColor" aria-hidden="true"><path d="' + EXIT_GLYPH[t] + '"/></svg></div>';
 const DOT = s => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:50%;background:#F2B33D;box-shadow:0 0 0 3px #1C1E22,0 0 0 5px rgba(242,179,61,.35)"></div>';
 const YOU = '<div style="width:20px;height:20px;border-radius:50%;background:#EEE8DC;box-shadow:0 0 0 3px #1C1E22"></div>';

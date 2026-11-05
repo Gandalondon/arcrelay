@@ -25,7 +25,8 @@ const QF = { dam: "data-dam-quests.js" };
 for (const [id, f] of Object.entries(QF)) {
   require(path.join(__dirname, "../www/" + f));
   const M = Object.values(window).find(m => m && m.id === id), Q = window[id.toUpperCase().replace(/-/g, "_") + "_QUESTS"] || [];
-  let pins = 0; Q.forEach(q => q.steps.forEach(st => { if (!st.p) return; pins++; if (!M.rows.some(r => r[0] === "q" && r[1] === q.id && r[2] === st.p)) fails.push(`${id} quest ${q.n}: no marker "${st.p}"`); }));
+  let pins = 0; Q.forEach(q => q.steps.forEach(st => { if (!st.p) return; pins++; const PM = st.pm ? Object.values(window).find(m => m && m.id === st.pm) : M;  /* pm: a pin on another map */
+    if (!PM || !PM.rows.some(r => r[0] === "q" && r[1] === q.id && r[2] === st.p)) fails.push(`${id} quest ${q.n}: no marker "${st.p}"` + (st.pm ? " on " + st.pm : "")); }));
   console.log(`${M.name}: ${Q.length} quests, ${pins} pinned steps`);
 }
 console.log(`${checked} maps with markers checked` + (fails.length ? "\n" + fails.map(f => "  ✗ " + f).join("\n") : ", all good"));

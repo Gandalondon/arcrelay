@@ -39,6 +39,7 @@ const page_ = process.argv[2] || path.join(__dirname, "../www/index.html");
     else if (w.stop) ok = /standing by/i.test(A.show);
     else if (w.exitName) ok = A.say.includes(w.exitName);
     else if (w.othermap) ok = A.show.includes(w.othermap === "any" ? "only, for now" : w.othermap);
+    else if (w.show && !w.map) ok = A.show.includes(w.show);
     else if (w.near) ok = new RegExp(w.near, "i").test(A.say) && !/shops|homes, shops/i.test(A.say);
     if (ok && w.place && w.exitName) ok = r.after.place === w.place;
     if (w.map) ok = r.after.map === w.map && (!w.place || r.after.place === w.place) && (!w.exitName || A.say.includes(w.exitName)) && (!w.show || A.show.includes(w.show)) && !isFallback;  /* which map it ended up on (5 Nov) */

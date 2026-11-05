@@ -153,13 +153,20 @@ module.exports = [
   /* a place on another map: say which map, not "Say again?" (4 Nov) */
   { set: NONE, say: "I'm at the Hydroponic Dome Complex", want: { map: "dam", place: "Hydroponic Dome Complex" } },  /* a Dam place switches to Dam (5 Nov) */
   { set: NONE, say: "nearest exit from Victory Ridge", want: { map: "dam", exitName: "Central Swamp Lift" } },
-  { set: NONE, say: "I'm in Old Town", want: { othermap: "any" } },
+  { set: NONE, say: "I'm in Old Town", want: { show: "Which map" } },  /* Old Town is on Buried City and Pendola Pass */
   { set: NONE, say: "near the gate control room", want: { place: "Gate Control Room" } },
 
   /* which map, and Dam (5 Nov) */
   { set: NONE, say: "I'm on dam", want: { map: "dam", show: "Dam Battlegrounds" } },
   { set: NONE, say: "we're playing dam battlegrounds", want: { map: "dam", show: "Dam Battlegrounds" } },
-  { set: NONE, say: "I'm on spaceport", want: { map: "blue-gate", show: "not yet" } },
+  { set: NONE, say: "I'm on spaceport", want: { map: "spaceport", show: "Spaceport" } },
+  { set: { map: "pendola-pass" }, say: "nearest hatch", want: { map: "pendola-pass", show: "No hatches" } },
+  { set: { map: "pendola-pass", place: "Railyard" }, say: "nearest bully", want: { map: "pendola-pass", show: "Bully" } },
+  { set: { map: "buried-city" }, say: "I'm at the hospital", want: { map: "buried-city", place: "Hospital" } },
+  { set: { map: "riven-tides" }, say: "I'm at the hotel", want: { map: "riven-tides", place: "Hotel Panorama Azzurro" } },
+  { set: { map: "stella-montis", place: "Cafeteria" }, say: "nearest exit", want: { map: "stella-montis", exitName: "Seed Vault Airshaft" } },
+  { set: { map: "spaceport" }, say: "I'm at the launch towers", want: { map: "spaceport", place: "Launch Towers" } },
+  { set: NONE, say: "wires crossed step 2", want: { quest: "Wires Crossed", step: 2 } },
   { set: { map: "dam" }, say: "I'm on blue gate", want: { map: "blue-gate", show: "Blue Gate" } },
   { set: { map: "dam" }, say: "I'm at the farmlands", want: { map: "blue-gate", place: "Farmlands" } },
   { set: { place: "Village" }, say: "damn, nearest exit", want: { map: "blue-gate", exitName: "Cliffside Airshaft" } },
