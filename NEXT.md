@@ -15,7 +15,7 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 ## Where things are
 - Site copy (5 Nov): Google Doc "Relay" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/1hS12w_3GLEDgG62_lDrAJV3aB_Nl2Je9P-BKeoo7MrU/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
 - Repo: github.com/Gandalondon/relay (was spottr, then arcrelay; GitHub forwards the old addresses), branch main. Mac copy: `~/ArcRelay` (git clone; pull after each push).
-- App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js`.
+- App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js` (understanding, 120/120) and `node tests/maps.js` (every map's markers well formed and inside its bounds).
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
 - Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. getarcrelay.app = holding page; getarcrelay.app/beta = full site (noindex).
 - Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Raid Voice Guide".
@@ -35,11 +35,12 @@ Since 1.0.66 (4 Nov, 1.0.67): answer headline with a map is fixed 48 px, three l
 
 ## Next: all the other maps (one map per day, fresh chat each)
 Maps (7): Dam Battlegrounds, Buried City, Spaceport, Blue Gate (done), Stella Montis, Riven Tides (Apr 2026), Pendola Pass (8 Oct 2026, largest). MetaForge has all seven (metaforge.app/arc-raiders/map/<id>: dam, buried-city, spaceport, blue-gate, stella-montis, riven-tides, pendola-pass).
-MetaForge OK'd using their data (Tony, 4 Nov evening), with credit. DONE 4 Nov: loot zone outlines and region / loot-zone / landmark names for all seven maps in `www/data-zones.js` (from their map config chunk, read through Chrome; the workspace can't reach metaforge.app, so files come via Tony's Downloads). Zones are drawn on the map. Still to pull: the markers (exits, hatches, quest spots, ARC) for the six new maps.
-Step 1 (tiles and transform) is DONE for all six (4 Nov): `www/data-<map>.js`, read from MetaForge's live map config. Tile size, max zoom, tile bounds and pan limits are now per map (Dam and Stella Montis use 256 px tiles; Pendola Pass tops out at zoom 4; Stella Montis tiles are {z}/{x}_{y} and only its "default" floor layer is in). bounds/maxBounds are the whole image until markers arrive.
+MetaForge OK'd using their data (Tony, 4 Nov evening), with credit. DONE 4 Nov: loot zone outlines and region / loot-zone / landmark names for all seven maps in `www/data-zones.js` (from their map config chunk, read through Chrome; the workspace can't reach metaforge.app, so files come via Tony's Downloads). Zones are drawn on the map. Still to pull: the markers for five maps (Dam done 5 Nov).
+Step 1 (tiles and transform) is DONE for all six (4 Nov): `www/data-<map>.js`, read from MetaForge's live map config. Tile size, max zoom, tile bounds and pan limits are now per map (Dam and Stella Montis use 256 px tiles; Pendola Pass tops out at zoom 4; Stella Montis tiles are {z}/{x}_{y} and only its "default" floor layer is in). bounds/maxBounds are the whole image until markers arrive (Dam's tightened 5 Nov).
 Per map (Blue Gate is the template; roughly a day each):
 1. Tiles and coordinate transform (quick).
-2. Markers: exits, hatches, quest spots, ARC.
+2. Markers: exits, hatches, quest spots, ARC. How (Dam, 5 Nov): in Chrome on metaforge.app/arc-raiders/map/<id>, `fetch('/api/game-map-data?tableID=arc_map_data&mapID=<id>')` returns `allData`. Blue Gate's filter: locations extraction / hatch / locked_room / breach_room / antenna / raider_camp; ARC comet / sentinel / vaporizer / rocketeer / turbine / bison / bastion / bombardier / shredder / leaper / queen / matriarch; quests only rows with an instanceName. Row: [l/a/q, subcategory, name, round(lat), round(lng)]. Read the rows out in chunks of ~20 (tool output truncates near 1,000 characters) and check a checksum against the page. bounds = markers, zones and labels plus 150.
+   DONE: Blue Gate, Dam (178 markers: 4 exits, 4 hatches, 9 key rooms, 47 quest steps). The app still only uses Blue Gate until map switching is built.
 3. Named places for "where are you?": MetaForge's labels are now in `www/data-zones.js` (regions, loot zones, landmarks), so this step is mostly data wiring, not fitting.
 4. Quest steps and items for that map, checked against two guides.
 5. Tests, like Blue Gate's.
