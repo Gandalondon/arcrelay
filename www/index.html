@@ -32,6 +32,7 @@ body.listening{background:var(--navy);color:var(--bone)}
 .word{all:unset;display:block;min-width:0;max-width:100%;cursor:pointer;font-family:var(--display);font-weight:700;font-size:80px;line-height:76px;letter-spacing:.01em;white-space:pre-line;text-wrap:balance}
 /* answer type (with a map): fixed 48px, three lines max, box always three lines tall. Set in fitInstr(). */
 .word.instr{letter-spacing:.01em;white-space:normal;overflow-wrap:normal}
+.word[data-map="1"]{display:flex;flex-direction:column;justify-content:flex-start}  /* the headline is a button, and a button centres its content in a fixed-height box: pin it to the top, level with the greeting (5 Nov) */
 .word:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .word.greet{white-space:pre-line;letter-spacing:.01em}
 .word.greet .gl{display:block;text-wrap:balance}  /* the varied line balances on its own (no lone last word); same size as the rest */
