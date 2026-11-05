@@ -15,7 +15,8 @@
 /* sticky bar: always solid charcoal, so it never changes colour as you scroll */
 .hdr{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);padding-top:env(safe-area-inset-top,0px)}
 .hdr .wrap{height:88px}  /* as Sniff: 88 px bar, 72 px on phones */
-.hdr .btn.sm{height:48px;padding:0 24px;font-size:17px}
+.hdr .btn.sm{height:40px;padding:0 20px;font-size:16px}
+@media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px;font-size:15px} }  /* as Sniff's sticky bar */
 .heyhero{position:relative;padding-top:calc(128px + env(safe-area-inset-top,0px));padding-bottom:24px}  /* bar + 40 px, as Sniff */
 .heyhero .wrap{display:block;max-width:none}
 .heyhero .word{margin:0;font-weight:700;font-size:16vw;line-height:.82;letter-spacing:-.045em;white-space:nowrap;width:max-content;color:var(--text-hi);position:relative;z-index:1}
