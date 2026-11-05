@@ -23,8 +23,8 @@
     <div class="col reveal"><h1>Feedback</h1>
     <p class="intro">Sent the wrong way? Missing a step? Got an idea? Tell us. Wrong directions are the most useful thing you can report.</p>
     <form class="fb" id="fb" novalidate>
-      <label class="field"><span>Your message</span><textarea id="fb-msg" name="message" required></textarea></label>
-      <label class="field"><span>Email (optional, if you'd like a reply)</span><input id="fb-email" name="email" type="email" autocomplete="email"></label>
+      <div class="fbfield"><label for="fb-msg">Your message</label><div class="field"><textarea id="fb-msg" name="message" required></textarea></div></div>
+      <div class="fbfield"><label for="fb-email">Email <span class="opt">(optional, if you'd like a reply)</span></label><div class="field"><input id="fb-email" name="email" type="email" autocomplete="email"></div></div>
       <div><button class="btn" type="submit" id="fb-send">Send feedback</button></div>
       <p class="status" id="fb-status" aria-live="polite"></p>
     </form>
