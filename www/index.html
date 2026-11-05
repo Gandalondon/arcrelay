@@ -1192,7 +1192,7 @@ function openSettings() {
 }
 function renderSettings() {
   $("setvname").textContent = ovInstalled ? voiceName(CFG.sid) : "Not downloaded yet";
-  $("setvmeta").textContent = ovInstalled ? (CFG.off ? "Using the phone's voice for now. Tap to choose." : "Supertonic, offline. Tap to change.") : "Tap to download the voice (130 MB, once)";
+  $("setvmeta").textContent = ovInstalled ? (CFG.off ? "Using the phone's voice for now. Tap to choose." : "Offline. Tap to change.") : "Tap to download the voice (130 MB, once)";
   const box = $("speeds"); box.innerHTML = "";
   SPEEDS.forEach(sp => {
     const b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "radio"); b.setAttribute("aria-checked", String(CFG.speed === sp.v));
