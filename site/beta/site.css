@@ -24,9 +24,9 @@
 @media (min-width:1440px){ :root{ --edge:80px; --edge-r:80px } }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:400 18px/28px var(--font);letter-spacing:.01em;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--text);font:400 18px/28px var(--font);letter-spacing:.02em;overflow-x:hidden}  /* body copy: +2% (Inter Tight is tight at reading sizes) */
 a{color:inherit;text-decoration:none}
-h1,h2,h3{font-family:var(--font);margin:0;color:var(--text-hi);text-wrap:balance}
+h1,h2,h3{font-family:var(--font);margin:0;color:var(--text-hi);text-wrap:balance;letter-spacing:.01em}  /* headings keep their own tracking; small ones +1% */
 p{margin:0;text-wrap:pretty}
 .wrap{max-width:none;margin:0 auto;padding-left:var(--edge);padding-right:var(--edge-r)}  /* every page runs to the same gutters as the homepage (5 Nov) */
 :focus-visible{outline:3px solid var(--amber);outline-offset:3px}
