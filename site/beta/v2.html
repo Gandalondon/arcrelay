@@ -37,6 +37,7 @@
   .heyhero .wrap{display:flex;flex-direction:column}  /* phones: the line sits under the word, then the phone */
   .heyhero .lede{order:1;margin-top:24px;font-size:21px;line-height:31px}
   .heyhero .stage{display:none}  /* phones: no hero phone (5 Nov); the feature phones follow straight after */
+  .heyhero{padding-bottom:0} .rows{padding-top:0} .rows .feature:first-child{padding-top:var(--heygap,54px)}  /* gap under the intro matches the gap above the word */
   .feature .p3{--d:33px}
 }
 @media (prefers-reduced-motion:no-preference){
