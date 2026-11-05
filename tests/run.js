@@ -13,12 +13,13 @@ const page_ = process.argv[2] || path.join(__dirname, "../www/index.html");
   for (const c of CASES) {
     const r = await p.evaluate(({ c }) => {
       S = Object.assign({}, EMPTY); S.voiceV = 2;
+      if (c.set.map) S.map = c.set.map; syncMap();
       if (c.set.quest) { S.quest = c.set.quest; S.step = (c.set.step || 1) - 1; const q = QUESTS.find(q => q.n === S.quest); S.lastStep = { quest: q.n, i: S.step }; }
       if (c.set.place) { const pl = PLACES.find(p => p.n === c.set.place); S.place = { n: pl.n, y: pl.y, x: pl.x }; S.placeAt = Date.now(); S.raidAt = Date.now(); }
       const before = { quest: S.quest, step: S.step };
       const turns = Array.isArray(c.say) ? c.say : [c.say]; let a;
       for (const say of turns) { a = S.pending ? resolvePending(say) : null; if (!a) a = answer(say); }
-      return { before, after: { quest: S.quest, step: S.step, place: S.place && S.place.n }, a: { show: a.show, say: a.say, ctx: a.ctx || "", intent: a.intent || "" } };
+      return { before, after: { quest: S.quest, step: S.step, place: S.place && S.place.n, map: MAP.id }, a: { show: a.show, say: a.say, ctx: a.ctx || "", intent: a.intent || "" } };
     }, { c });
     const w = c.want, A = r.a, txt = (A.show + " " + A.say).toLowerCase();
     const say_ = Array.isArray(c.say) ? c.say.join(" / ") : c.say;
@@ -37,9 +38,10 @@ const page_ = process.argv[2] || path.join(__dirname, "../www/index.html");
     else if (w.enemy) ok = /spawn|nearest/i.test(txt) && !isFallback;
     else if (w.stop) ok = /standing by/i.test(A.show);
     else if (w.exitName) ok = A.say.includes(w.exitName);
-    else if (w.othermap) ok = A.show.includes(w.othermap === "any" ? "Blue Gate only" : w.othermap);
+    else if (w.othermap) ok = A.show.includes(w.othermap === "any" ? "only, for now" : w.othermap);
     else if (w.near) ok = new RegExp(w.near, "i").test(A.say) && !/shops|homes, shops/i.test(A.say);
     if (ok && w.place && w.exitName) ok = r.after.place === w.place;
+    if (w.map) ok = r.after.map === w.map && (!w.place || r.after.place === w.place) && (!w.exitName || A.say.includes(w.exitName)) && (!w.show || A.show.includes(w.show)) && !isFallback;  /* which map it ended up on (5 Nov) */
     if (ok && /can you see/i.test(A.say)) ok = false;  /* never ask about something you'd need to see */
     if (ok) pass++; else fails.push(`  ✗ "${say_}"  want ${JSON.stringify(w)}\n      got: ${A.show} | ${A.say.slice(0, 90)}`);
   }

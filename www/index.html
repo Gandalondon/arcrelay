@@ -225,6 +225,7 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
 <script src="data-bluegate.js"></script>
 <script src="data-bluegate-places.js"></script>
 <script src="data-dam.js"></script>
+<script src="data-dam-places.js"></script>
 <script src="data-buried-city.js"></script>
 <script src="data-spaceport.js"></script>
 <script src="data-stella-montis.js"></script>
@@ -234,34 +235,71 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
 <script>
 const $ = id => document.getElementById(id);
 /* =================== data =================== */
-const MAP = window.BLUE_GATE;
-const R = MAP.rows.map(([k, c, n, y, x]) => ({ k, c, n, y, x }));
+/* every map; one is in use at a time (S.map, kept for the raid). Saying a map, or a place only one map has, switches (5 Nov). */
+const MAPS = { "blue-gate": window.BLUE_GATE, "dam": window.DAM, "buried-city": window.BURIED_CITY, "spaceport": window.SPACEPORT, "stella-montis": window.STELLA_MONTIS, "riven-tides": window.RIVEN_TIDES, "pendola-pass": window.PENDOLA_PASS };
+const ready = id => !!(MAPS[id] && MAPS[id].rows && MAPS[id].rows.length);  /* has markers, so Relay can answer on it */
+const rowsOf = id => ((MAPS[id] || {}).rows || []).map(([k, c, n, y, x]) => ({ k, c, n, y, x }));
 const pt = (n, y, x) => ({ n, y, x });
+let MAP, R, EXITS, HATCHES, ENEMIES, AREAS, PLACES, EXT, ENEMY_WORDS, METRES, WAYS;
 const byName = s => R.find(r => r.n.toLowerCase().includes(s.toLowerCase()));
-const fromRow = (r, label) => r ? pt(label || r.n, r.y, r.x) : null;
-
-const EXITS = R.filter(r => r.c === "extraction").map(r => Object.assign(pt(r.n, r.y, r.x), { t: "shaft" }));  /* t: drawn as an airshaft badge */
-const HATCHES = R.filter(r => r.c === "hatch").map(r => Object.assign(pt(r.n, r.y, r.x), { t: "hatch" }));  /* t: drawn as a hatch badge */
-const ENEMIES = {};
-R.filter(r => r.k === "a").forEach(r => { (ENEMIES[r.c] = ENEMIES[r.c] || []).push(pt(r.c, r.y, r.x)); });
+const fromRow = (r, label) => r ? Object.assign(pt(label || r.n, r.y, r.x), { map: MAP.id }) : null;  /* a quest pin remembers its map */
+const pinIn = (id, s, label) => { const r = rowsOf(id).find(r => r.n.toLowerCase().includes(s.toLowerCase())); return r ? Object.assign(pt(label || r.n, r.y, r.x), { map: id }) : null; };
 
 /* places you can say you're at (names from MetaForge markers) */
 const P = (n, y, x, al) => ({ n, y, x, al });
 /* places, from the map's 28 named areas plus the exits, hatches and a few landmarks inside them.
    al = what players actually say. Matching is on whole words; the longest match wins ("warehouse airshaft" beats "warehouse"). */
 const EXIT_AL = { "Warehouse Airshaft": ["warehouse airshaft", "warehouse shaft"], "Overlook Airshaft": ["overlook airshaft", "overlook"], "Forest Airshaft": ["forest airshaft", "forest shaft"], "Cliffside Airshaft": ["cliffside airshaft", "cliffside", "cliff side", "cliff"] };
-const AREAS = (window.BLUE_GATE_AREAS || []).map(a => Object.assign(P(a.n, a.y, a.x, a.al), { area: true, pos: a.pos }));
-const PLACES = [
-  ...EXITS.map(e => P(e.n, e.y, e.x, EXIT_AL[e.n] || [e.n.toLowerCase()])),
-  ...HATCHES.map(e => P(e.n, e.y, e.x, [e.n.toLowerCase(), e.n.split(" ")[0].toLowerCase() + " hatch"])),
-  ...AREAS,
-  P("the Communication Tower", 3374, 9539, ["communication tower", "comms tower", "comm tower", "radio tower"]),
-  P("the Cellar", 6684, 6461, ["cellar"]),
-  P("the Control Room", 4206, 7380, ["control room"]),
-  P("the Confiscation Room", 4017, 7387, ["confiscation room"]),
-  P("the Enelica Building", 5721, 7795, ["enelica"]),
-  P("the Raider Camp", 5252, 8836, ["raider camp"])
-];
+const NUMW = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+const andList = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a.at(-1);
+/* "four airshafts: Warehouse, Overlook, Forest and Cliffside". When every name ends in the same word (Airshaft, Hatch) it's the noun; else "exits" */
+function ways(list, fallback) {
+  const last = list.map(e => e.n.split(" ").at(-1)), same = list.length > 1 && last.every(w => w === last[0]);
+  const one = same ? last[0].toLowerCase() : fallback;
+  return { one, many: one + "s", count: NUMW[list.length] || String(list.length), list: andList(same ? list.map(e => e.n.slice(0, -last[0].length - 1)) : list.map(e => e.n)) };
+}
+/* where a place is on the map, in words, for "where's X": thirds of the playable area */
+const posOf = (p, b) => { const fy = (p.y - b[0][0]) / (b[1][0] - b[0][0]), fx = (p.x - b[0][1]) / (b[1][1] - b[0][1]);
+  const v = fy < 1 / 3 ? "upper" : fy > 2 / 3 ? "lower" : "middle", h = fx < 1 / 3 ? "left" : fx > 2 / 3 ? "right" : "middle"; return v === h ? "middle" : v + " " + h; };
+function useMap(id) {
+  if (!ready(id)) id = "blue-gate";
+  MAP = MAPS[id]; R = rowsOf(id);
+  /* t: the badge drawn. Blue Gate's ways out are airshafts (fan); Dam's are lifts and elevators (lift) */
+  EXITS = R.filter(r => r.c === "extraction").map(r => Object.assign(pt(r.n, r.y, r.x), { t: /\b(lift|elevator)$/i.test(r.n) ? "lift" : "shaft" }));
+  HATCHES = R.filter(r => r.c === "hatch").map(r => Object.assign(pt(r.n, r.y, r.x), { t: "hatch" }));
+  ENEMIES = {};
+  R.filter(r => r.k === "a").forEach(r => { (ENEMIES[r.c] = ENEMIES[r.c] || []).push(pt(r.c, r.y, r.x)); });
+  if (id === "blue-gate") {
+    AREAS = (window.BLUE_GATE_AREAS || []).map(a => Object.assign(P(a.n, a.y, a.x, a.al), { area: true, pos: a.pos }));
+    PLACES = [
+      ...EXITS.map(e => P(e.n, e.y, e.x, EXIT_AL[e.n] || [e.n.toLowerCase()])),
+      ...HATCHES.map(e => P(e.n, e.y, e.x, [e.n.toLowerCase(), e.n.split(" ")[0].toLowerCase() + " hatch"])),
+      ...AREAS,
+      P("the Communication Tower", 3374, 9539, ["communication tower", "comms tower", "comm tower", "radio tower"]),
+      P("the Cellar", 6684, 6461, ["cellar"]),
+      P("the Control Room", 4206, 7380, ["control room"]),
+      P("the Confiscation Room", 4017, 7387, ["confiscation room"]),
+      P("the Enelica Building", 5721, 7795, ["enelica"]),
+      P("the Raider Camp", 5252, 8836, ["raider camp"])
+    ];
+    METRES = 5.5;  /* map units per metre on Blue Gate, from the fitted place distances */
+  } else {
+    const D = id === "dam" ? window.DAM_PLACES || {} : {};
+    AREAS = (D.areas || []).map(a => Object.assign(P(a.n, a.y, a.x, a.al), { area: true, pos: posOf(a, MAP.bounds) }));
+    PLACES = [
+      ...EXITS.map(e => P(e.n, e.y, e.x, (D.exits || {})[e.n] || [e.n.toLowerCase()])),
+      ...HATCHES.map(e => P(e.n, e.y, e.x, (D.hatches || {})[e.n] || [e.n.toLowerCase()])),
+      ...AREAS,
+      ...(D.regions || []).map(a => Object.assign(P(a.n, a.y, a.x, a.al), { pos: posOf(a, MAP.bounds) }))  /* regions: said, not drawn */
+    ];
+    METRES = null;  /* not fitted yet, so no distances in metres on this map: directions only */
+  }
+  const ys = PLACES.map(p => p.y), xs = PLACES.map(p => p.x); EXT = { y0: Math.min(...ys), y1: Math.max(...ys), x0: Math.min(...xs), x1: Math.max(...xs) };
+  ENEMY_WORDS = Object.keys(ENEMIES);
+  WAYS = { exits: ways(EXITS, "exit"), hatches: ways(HATCHES, "hatch") };
+}
+useMap("blue-gate");
+const syncMap = () => { const id = ready(S.map) ? S.map : "blue-gate"; if (MAP.id !== id) useMap(id); };
 
 /* quests: steps follow the in-game order; pins from MetaForge quest markers */
 const HTR = n => fromRow(byName("Part " + n + " -"), "Step " + n);
@@ -328,8 +366,6 @@ const QUESTS = [
   { n: "Belly of the Beast", al: ["belly", "emperor"], who: "Shani",
     steps: [ { t: "Enter the Emperor" }, { t: "Find the source of the Emperor's power" }, { t: "Find out what happens to Harvester Payloads inside" }, { t: "Find where the Payloads are stored" }, { t: "Search 5 containers inside the Emperor" }, { t: "Take a unique piece of Emperor loot" } ] }
 ];
-const OTHER_MAPS = ["dam", "spaceport", "buried city", "stella montis", "pendola", "riven tides"];
-const ENEMY_WORDS = Object.keys(ENEMIES);
 /* items (Soul's Offering, Oct to 16 Nov 2026). From MetaForge's item data (metaforge.app): where each kind of item turns up,
    matched to Blue Gate's areas by their loot type (allthings.how). Fertilizer has exact MetaForge spots on Blue Gate. */
 const FERT = [[4939,9405],[3213,5807],[3183,5816],[3208,5814],[3014,6255],[4944,9397],[3199,5830],[3008,6229],[4942,9442],[3204,5822],[3022,6259],[3025,6236],[3017,6232],[3178,5823],[4949,9449],[3000,6225]].map(([y, x]) => pt("Fertilizer", y, x));
@@ -349,17 +385,18 @@ const ITEMS = [
 ];
 function findItem(t) { let best = null, len = 0; for (const it of ITEMS) for (const a of it.al) if (a.length > len && t.includes(" " + a + " ")) { best = it; len = a.length; } return best; }
 function itemAnswer(it) {
+  if (MAP.id !== "blue-gate" && (it.spots || it.areas)) return { show: it.n + ": Blue Gate spots only.", say: it.n + ". I only have spots for it on Blue Gate so far." + (it.loose ? " It's a search, so try houses and crates." : ""), ctx: "Soul's Offering item" };
   const lp = likelyPos(), here = lp ? lp.p : null;
   const pts = it.spots || (it.areas || []).map(AREA).filter(Boolean);
   if (!pts.length) return { show: it.n + ": no spots yet.", say: it.n + ". " + it.note, ctx: "Soul's Offering item" };
   if (here) {
     const b = near(here, pts), area = it.spots ? nearestAreas(b, 1)[0] : b;
     const where = it.spots ? "near " + area.n : area.n;
-    const far = here.rough ? "" : "about " + metres(here, b) + " metres ";
+    const away = here.rough ? "" : far(here, b);
     /* "loose" items have no fixed spot: name the best area, and say once that it's a search, not a guaranteed spawn */
     const looseTip = it.loose && !S.looseTold ? " No fixed spot, so search the houses there." : "";
     if (looseTip) { S.looseTold = true; save(); }
-    return { show: it.n + ": " + where + ".", say: (it.loose ? "Try " + where + ", " : "Nearest " + it.n.toLowerCase() + ": " + where + ", ") + far + compass(here, b) + " of you." + looseTip + (it.spots || it.loose ? "" : " " + it.note), map: { you: here.rough ? Object.assign({ guess: true }, here) : here, stars: [b] }, ctx: "Soul's Offering item" };
+    return { show: it.n + ": " + where + ".", say: (it.loose ? "Try " + where + ", " : "Nearest " + it.n.toLowerCase() + ": " + where + ", ") + away + compass(here, b) + " of you." + looseTip + (it.spots || it.loose ? "" : " " + it.note), map: { you: here.rough ? Object.assign({ guess: true }, here) : here, stars: [b] }, ctx: "Soul's Offering item" };
   }
   const names = it.spots ? "the Village and the Abandoned Housing Project" : (it.areas || []).slice(0, 3).join(", ").replace(/, ([^,]*)$/, " or $1");
   return { show: it.n + ": " + (it.spots ? "Village, Housing Project." : (it.areas || []).slice(0, 2).join(", ") + "."), say: it.n + ". Try " + names + "." + (it.loose ? " No fixed spot, it's a search." : it.spots || !it.note ? "" : " " + it.note) + " Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts }, ctx: "Soul's Offering item" };
@@ -369,6 +406,7 @@ function itemAnswer(it) {
 const EMPTY = { place: null, placeAt: null, minutesLeft: null, minutesAt: null, quest: null, step: 0, last: null, raidAt: null, pending: null, seen: null, exitSaid: null, avoid: [] };
 let S = Object.assign({}, EMPTY);
 try { const saved = JSON.parse(localStorage.getItem("relay-state") || "null"); if (saved) S = Object.assign(S, saved); } catch (e) {}
+syncMap();
 function save() { try { localStorage.setItem("relay-state", JSON.stringify(S)); } catch (e) {} }
 const inRaid = () => S.raidAt && Date.now() - S.raidAt < 40 * 60 * 1000;
 function minsNow() { if (S.minutesLeft == null) return null; return Math.max(0, Math.round(S.minutesLeft - (Date.now() - S.minutesAt) / 60000)); }
@@ -392,7 +430,6 @@ function findPlace(t) {
   return null;
 }
 /* rough position from a direction: "south-east", "bottom left", "middle of the map". Thirds of the area the named places cover. */
-const EXT = (() => { const ys = PLACES.map(p => p.y), xs = PLACES.map(p => p.x); return { y0: Math.min(...ys), y1: Math.max(...ys), x0: Math.min(...xs), x1: Math.max(...xs) }; })();
 function findDir(t) {
   t = t.replace(/\b(north|south)(east|west)(ern)?\b/g, "$1 $2");  /* "southeast" */
   const side = "(?: side| part| bit| corner| end| edge| area| of the map)";
@@ -410,19 +447,40 @@ function findDir(t) {
   return { n: n === "middle" ? "the middle of the map" : "the " + n, y: Math.round(EXT.y0 + (EXT.y1 - EXT.y0) * fy), x: Math.round(EXT.x0 + (EXT.x1 - EXT.x0) * fx), rough: true };
 }
 /* where the player says they are: a named place beats a direction */
-/* place names from every other map (MetaForge labels), to tell which map someone means. Names Blue Gate also has are skipped. */
-const MAP_NAMES = { "dam": "Dam Battlegrounds", "buried-city": "Buried City", "spaceport": "Spaceport", "stella-montis": "Stella Montis", "riven-tides": "Riven Tides", "pendola-pass": "Pendola Pass" };
-const OTHER_PLACES = (() => {
-  const Z = window.ZONES || {}, nm = s => " " + s.toLowerCase().replace(/^the /, "").replace(/[’]/g, "'").replace(/&/g, "and").replace(/[^a-z0-9' ]/g, " ").replace(/\s+/g, " ").trim() + " ";
-  const blue = new Set([].concat(...((Z["blue-gate"] || {}).labels || []).map(c => c.labels.map(l => nm(l.n))), (window.BLUE_GATE_AREAS || []).map(a => nm(a.n))));
-  const blueAll = [...blue, ...[].concat(...(window.BLUE_GATE_AREAS || []).map(a => (a.al || []).map(x => " " + x + " ")))];  /* also Blue Gate's spoken aliases */
-  const by = {};
-  Object.keys(MAP_NAMES).forEach(id => ((Z[id] || {}).labels || []).forEach(c => c.labels.forEach(l => { const k = nm(l.n); if (k.trim().length < 5 || blue.has(k) || blueAll.some(b => b.includes(k))) return; (by[k] = by[k] || new Set()).add(id); })));
-  return Object.entries(by).sort((a, b) => b[0].length - a[0].length);  /* longest first */
-})();
+/* place names from every other map (MetaForge labels), to tell which map someone means. Names the map in use also has are skipped.
+   Worked out per map in use (5 Nov): on Dam, Blue Gate's names count as another map's. */
+const MAP_NAMES = { "blue-gate": "Blue Gate", "dam": "Dam Battlegrounds", "buried-city": "Buried City", "spaceport": "Spaceport", "stella-montis": "Stella Montis", "riven-tides": "Riven Tides", "pendola-pass": "Pendola Pass" };
+const nmPlace = s => " " + s.toLowerCase().replace(/^the /, "").replace(/[’]/g, "'").replace(/&/g, "and").replace(/[^a-z0-9' ]/g, " ").replace(/\s+/g, " ").trim() + " ";
+const OTHER_CACHE = {};
+function otherPlaces() {
+  if (OTHER_CACHE[MAP.id]) return OTHER_CACHE[MAP.id];
+  const Z = window.ZONES || {};
+  const mine = new Set([].concat(...((Z[MAP.id] || {}).labels || []).map(c => c.labels.map(l => nmPlace(l.n))), PLACES.map(p => nmPlace(p.n))));
+  const mineAll = [...mine, ...[].concat(...PLACES.map(p => (p.al || []).map(x => " " + x + " ")))];  /* also this map's spoken aliases */
+  const by = {}, add = (id, n) => { const k = nmPlace(n); if (k.trim().length < 5 || mine.has(k) || mineAll.some(b => b.includes(k))) return; (by[k] = by[k] || new Set()).add(id); };
+  Object.keys(MAP_NAMES).filter(id => id !== MAP.id).forEach(id => {
+    ((Z[id] || {}).labels || []).forEach(c => c.labels.forEach(l => add(id, l.n)));
+    if (id === "blue-gate") (window.BLUE_GATE_AREAS || []).forEach(a => add(id, a.n));
+    rowsOf(id).filter(r => r.c === "extraction" || r.c === "hatch").forEach(r => add(id, r.n));  /* its exits and hatches too */
+  });
+  return (OTHER_CACHE[MAP.id] = Object.entries(by).sort((a, b) => b[0].length - a[0].length));  /* longest first */
+}
 function placeMap(t) {
-  const hit = OTHER_PLACES.find(([k]) => t.includes(k)); if (!hit) return null;
+  const hit = otherPlaces().find(([k]) => t.includes(k)); if (!hit) return null;
   const ids = [...hit[1]]; return { ids, one: ids.length === 1, name: MAP_NAMES[ids[0]], len: hit[0].trim().length, words: hit[0].trim().split(" ").length };
+}
+/* a map said by name: "I'm on Dam", "Dam Battlegrounds", "the dam". "Damn" alone is not Dam. */
+const MAP_SAID = [
+  ["blue-gate", [" blue gate ", " bluegate ", " blue gates "]],
+  ["dam", [" dam battlegrounds ", " dam battleground ", " damn battlegrounds ", " damn battleground ", " dam battle grounds ", " battlegrounds ", " the dam ", " on dam ", " dam map ", " playing dam "]],
+  ["buried-city", [" buried city "]], ["spaceport", [" spaceport ", " space port "]], ["stella-montis", [" stella montis ", " stella "]],
+  ["riven-tides", [" riven tides ", " riven "]], ["pendola-pass", [" pendola pass ", " pendola "]]
+];
+function mapSaid(t) { for (const [id, al] of MAP_SAID) { const a = al.find(a => t.includes(a)); if (a) return { id, a }; } return null; }
+const readyNames = () => andList(Object.keys(MAP_NAMES).filter(ready).map(id => MAP_NAMES[id]));
+function switchMap(id) {
+  S.map = id; S.place = null; S.placeAt = null; S.avoid = []; S.exitSaid = null; S.seen = null; S.hatchTold = false; S.pending = null; save();
+  useMap(id);
 }
 function findWhere(t) { const p = findPlace(t); if (p) return { n: p.n, y: p.y, x: p.x }; return findDir(t); }
 /* a compass direction the player names ("south", "north-east", "southwest") */
@@ -438,8 +496,9 @@ const inWedge = (from, to, dir) => { const d = Math.abs(((bearing(from, to) - BE
 const EDGE = { north: "northern", south: "southern", east: "eastern", west: "western", "north-east": "north-eastern", "north-west": "north-western", "south-east": "south-eastern", "south-west": "south-western" };
 /* a little variety in how answers open, without changing what they say */
 function vary(list) { S.varyN = ((S.varyN || 0) + 1) % 997; return list[S.varyN % list.length]; }
-const METRES = 5.5;  /* map units per metre on Blue Gate, from the fitted place distances */
 const metres = (a, b) => { const m = dist(a, b) / METRES; return m < 100 ? Math.max(10, Math.round(m / 10) * 10) : Math.round(m / 50) * 50; };
+/* "about 120 metres " on a map with a fitted scale; nothing on one without (direction only) */
+const far = (a, b) => METRES ? "about " + metres(a, b) + " metres " : "";
 const nearestAreas = (p, n) => AREAS.slice().sort((a, b) => dist(p, a) - dist(p, b)).slice(0, n);
 /* quest names, forgiving of mishearing: exact words first, then near matches ("home to boost" = Home to Roost).
    A name of several words may be 2 letters off in total; a single long word 1; short single words must be exact. */
@@ -506,6 +565,8 @@ const NUM = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, ni
 function stepAnswer(q, i, prefix) {
   i = Math.max(0, Math.min(i, q.steps.length - 1));
   const st = q.steps[i];
+  /* this step's spot is on another map: that's the map you're on now */
+  if (st.pin && st.pin.map && st.pin.map !== MAP.id && ready(st.pin.map)) { switchMap(st.pin.map); prefix = MAP.name + ". " + (prefix || ""); }
   S.quest = q.n; S.step = i; save();
   let go = st.go || "";
   let map = null;
@@ -514,8 +575,8 @@ function stepAnswer(q, i, prefix) {
     const pts = ENEMIES[st.enemy] || [];
     if (pts.length) {
       if (you) { const b = near(you, pts); map = { you, stars: [b], others: pts.filter(p => p !== b) }; go = go || "Nearest " + st.enemy + " spawn is " + compass(you, b) + " of you."; }
-      else { map = { you: null, stars: pts, others: [] }; go = go || pts.length + " " + st.enemy + " spawn points on Blue Gate."; }
-    } else go = go || "I have no " + st.enemy + " spawn points on Blue Gate.";
+      else { map = { you: null, stars: pts, others: [] }; go = go || pts.length + " " + st.enemy + " spawn points on " + MAP.name + "."; }
+    } else go = go || "I have no " + st.enemy + " spawn points on " + MAP.name + ".";
   }
   /* the map is for getting from A to B. If this step's spot is within ~150 map units of the last one (same building or
      room), you're already there: no map. First steps and real journeys (300+ units on Blue Gate) get the route. */
@@ -562,16 +623,39 @@ function stepIntent(t) {
   return null;
 }
 
+/* which map: a map said by name, or a place only one map has, switches to it (when Relay has its markers) and the
+   rest of what was said is answered on that map. A map with no markers yet gets an honest "not yet" (5 Nov). */
 function answer(raw, opts) {
+  syncMap();
+  const t = norm(raw), heard = "Heard: \u201C" + String(raw).trim() + "\u201D";
+  const notYet = (id) => ({ show: (id ? MAP_NAMES[id] + ": not yet." : readyNames() + " only, for now."), say: (id ? "That's on " + MAP_NAMES[id] + ". " : "That's on another map. ") + "I only have " + readyNames() + " so far, the other maps are coming.", ctx: heard });
+  let switched = false;
+  const said = mapSaid(t);
+  if (said) {
+    if (!ready(said.id)) return notYet(said.id);
+    if (said.id !== MAP.id) { switchMap(said.id); switched = true; }
+    /* just the map ("I'm on Dam"): confirm it, and show it */
+    const rest = t.replace(said.a, " ").replace(/\b(i'm|im|i am|we're|we are|were|on|in|at|playing|play|the|map|now|today|this|raid|it's|its|it is|switch|switching|switched|to|change|changed|go|going|we|i|got|ok|okay|so|just|actually|loaded|loading|into|dropped|dropping)\b/g, " ").trim();
+    if (!rest) return { show: MAP.name + ".", say: MAP.name + ". Got it.", ctx: "Say where you are, or tap the map", map: { you: null, stars: [] } };
+  } else {
+    const om = placeMap(t);
+    if (om && (!findPlace(t) || (om.len >= 8 && om.words > 1))) {
+      const go = om.ids.filter(ready);
+      if (go.length === 1) { switchMap(go[0]); switched = true; }
+      else if (!go.length) return notYet(om.one ? om.ids[0] : null);
+      else return { show: "Which map?", say: "That's on " + andList(go.map(id => MAP_NAMES[id])) + ". Which map are you on?", ctx: heard };
+    }
+  }
+  const a = answerOn(raw, opts);
+  if (switched) { a.say = MAP.name + ". " + a.say; if (a.full) a.full = MAP.name + ". " + a.full; }
+  return a;
+}
+function answerOn(raw, opts) {
   opts = opts || {};
   const t = norm(raw);
   const terse = inRaid();
   const ps = opts.general ? "general" : posState();
 
-  /* a place on another map (MetaForge's names for all seven): say which map, honestly, rather than "Say again?" (4 Nov).
-     Once a map has its markers, this is where Relay will switch to it. */
-  const om = placeMap(t);
-  if (om && (!findPlace(t) || (om.len >= 8 && om.words > 1))) return { show: om.one ? om.name + ", for now." : "Blue Gate only, for now.", say: om.one ? "That's on " + om.name + ". I only have Blue Gate so far, the other maps are coming." : "That's on another map. I only have Blue Gate so far.", ctx: "Heard: \u201C" + String(raw).trim() + "\u201D" };
   if (has(t, ["change voice", "different voice", "another voice", "next voice", "new voice"])) return nextVoice();
   if (has(t, ["voice test", "test voice", "test the voice", "testing"])) return { show: "Voice test.", say: TEST_LINE, ctx: "Speaking after the microphone...", after: () => setCtx(voiceInfo() + " Straight after the mic."), follow: false };
   if (has(t, ["that's all", "thats all", "stop listening", "thanks", "thank you", "cheers", "that's it", "thats it"]) && t.trim().split(" ").length <= 4) return { show: "Standing by.", say: "Standing by.", follow: false, keepLast: true };
@@ -582,12 +666,12 @@ function answer(raw, opts) {
   if (has(t, [" i died", " died ", " dead ", " killed ", "got me ", " got downed", " i'm down ", " im down "]) && !findItem(t)) {  /* "dead flowers" is an item, not a death */ S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Unlucky. Your quest's still here.", say: "Unlucky. Your quest and step are still here when you drop back in.", ctx: S.quest ? S.quest + ", step " + ((S.step || 0) + 1) : "" }; }
   if (has(t, ["extracted", " made it out", " got out "])) { S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Nice. Raid cleared.", say: "Nice one. Raid cleared." }; }
   if (has(t, ["where were we", "recap"])) {
-    const bits = [];
+    const bits = ["You're on " + MAP.name + "."];
     const cq = QUESTS.find(q => q.n === S.quest);
     if (cq) bits.push("You're on " + cq.n + ", step " + ((S.step || 0) + 1) + ": " + cq.steps[S.step || 0].t + ".");
     if (S.place) bits.push("Last place you told me: " + S.place.n + ".");
     const m = minsNow(); if (m != null) bits.push("About " + m + " minutes left, from what you told me.");
-    const s = bits.length ? bits.join(" ") : "Nothing yet. Tell me a quest, or where you are.";
+    const s = bits.length > 1 ? bits.join(" ") : bits[0] + " Nothing else yet. Tell me a quest, or where you are.";
     return { show: cq ? cq.n + ", step " + ((S.step || 0) + 1) + "." : "Nothing yet.", say: s, ctx: cq ? cq.steps[S.step || 0].t : "" };
   }
 
@@ -596,7 +680,7 @@ function answer(raw, opts) {
 
   const placeMention = findPlace(t);
   const iAm = /\b(i'm|i am|im|we're|we are)\b/.test(t);
-  const setsLocation = placeMention && (/\b(i'm|i am|im|we're|we are)\s+(at|near|in|by|next to|outside|on|inside|beside|around|close to)\b/.test(t) || (/\b(at|near|by|next to|beside|outside|inside|around|close to)\b/.test(t) && !has(t, ["where", "how"])));
+  const setsLocation = placeMention && (/\b(i'm|i am|im|we're|we are)\s+(at|near|in|by|next to|outside|on|inside|beside|around|close to)\b/.test(t) || (/\b(at|near|by|next to|beside|outside|inside|around|close to|from)\b/.test(t) && !has(t, ["where", "how"])));  /* "nearest exit from the Village" (5 Nov) */
   const dirQ = !!findCompass(t) && (/\b(of me|of here|of my|to my|from me)\b/.test(t) || has(t, ["anything", "what's to", "whats to", "what is to", "is there", "any exit", "exit to", "exits to", "towards", "way out to", "out to the"]));
   const dirOnly = !placeMention && !dirQ && !has(t, ["step"]) && (iAm || /\b(from|in|on|around|near) the\b/.test(t)) ? findDir(t) : null;  /* "I'm in the south-east", "evac from the south east" */  /* "I'm in the south-east" */
   if (setsLocation || dirOnly) {
@@ -641,9 +725,9 @@ function answer(raw, opts) {
     const exits = EXITS.filter(e => inWedge(lp.p, e, dq)).sort((a, b) => dist(lp.p, a) - dist(lp.p, b));
     const areas = AREAS.filter(a => a.n !== lp.p.n && inWedge(lp.p, a, dq) && dist(lp.p, a) > 60).sort((a, b) => dist(lp.p, a) - dist(lp.p, b));
     if (wantsExit || has(t, ["exit", "airshaft", "way out", "extract", "evac"])) {
-      if (!exits.length) { const e = near(lp.p, EXITS); return { show: "No exit " + dq + ".", say: "No airshaft to the " + dq + " of you. Nearest is " + e.n + ", " + compass(lp.p, e) + ".", map: { you: lp.p, stars: [e] } }; }
+      if (!exits.length) { const e = near(lp.p, EXITS); return { show: "No exit " + dq + ".", say: "No " + WAYS.exits.one + " to the " + dq + " of you. Nearest is " + e.n + ", " + compass(lp.p, e) + ".", map: { you: lp.p, stars: [e] } }; }
       const e = exits[0]; S.exitSaid = { n: e.n, at: Date.now() }; save();
-      return { show: e.n + ", " + compass(lp.p, e) + ".", say: e.n + (lp.p.rough ? ", " : ", about " + metres(lp.p, e) + " metres ") + compass(lp.p, e) + ".", map: { you: lp.p, stars: [e] } };
+      return { show: e.n + ", " + compass(lp.p, e) + ".", say: e.n + ", " + (lp.p.rough ? "" : far(lp.p, e)) + compass(lp.p, e) + ".", map: { you: lp.p, stars: [e] } };
     }
     if (!areas.length && !exits.length) {
       const e = near(lp.p, EXITS);
@@ -651,11 +735,9 @@ function answer(raw, opts) {
     }
     const picks = areas.slice(0, 2);
     const ex = exits[0] ? " " + exits[0].n + " is that way too." : "";
-    return { show: (picks[0] || exits[0]).n + ", " + compass(lp.p, picks[0] || exits[0]) + ".", say: picks.map(a => a.n + (lp.p.rough ? ", " : ", about " + metres(lp.p, a) + " metres ") + compass(lp.p, a)).join(". ") + "." + ex, map: { you: lp.p, stars: picks.concat(exits.slice(0, 1)) } };
+    return { show: (picks[0] || exits[0]).n + ", " + compass(lp.p, picks[0] || exits[0]) + ".", say: picks.map(a => a.n + ", " + (lp.p.rough ? "" : far(lp.p, a)) + compass(lp.p, a)).join(". ") + "." + ex, map: { you: lp.p, stars: picks.concat(exits.slice(0, 1)) } };
   }
 
-  const otherMap = OTHER_MAPS.find(m => t.includes(m));
-  if (otherMap && !has(t, ["blue gate"])) return { show: "Blue Gate only, for now.", say: "I only have Blue Gate's map so far." };
 
   if (wantsExit) {
     const m = minsNow(); const rush = m != null && m <= 5 ? "Move now. " : "";
@@ -668,13 +750,14 @@ function answer(raw, opts) {
       S.exitSaid = { n: best.n, at: Date.now() }; S.guessTold = true; save();
       return { show: (rush ? "Move. " : "") + best.n + ", " + dir + ".", say: rush + (wantsOther ? vary(["Next best is ", "Try ", "Then go for "]) : "") + best.n + ". Head " + dir + "." + caveat, map: { you: Object.assign({ guess: true }, lp.p), stars: [best] }, ctx: "A guess from " + lp.short + ". Say where you are if you've moved." };
     }
-    if (wantsNearest && !lp && !opts.general) { const a = askWhere(raw); a.say = vary(["All four airshafts marked. Where are you?", "Four airshafts on the map. Where are you?", "Exits marked. Where are you?"]); a.map = { you: null, stars: EXITS, pick: true }; return a; }
+    if (wantsNearest && !lp && !opts.general) { const a = askWhere(raw); const W = WAYS.exits, Wc = W.count.charAt(0).toUpperCase() + W.count.slice(1); a.say = vary(["All " + W.count + " " + W.many + " marked. Where are you?", Wc + " " + W.many + " on the map. Where are you?", "Exits marked. Where are you?"]); a.map = { you: null, stars: EXITS, pick: true }; return a; }
     if (!lp || !wantsNearest) {
       const tail = "";
-      return { show: (rush ? "Move. " : "") + "Four airshafts, marked.", say: rush + "There are four airshafts: Warehouse, Overlook, Forest and Cliffside. They're all marked on the map." + tail, map: { you: psNow === "fresh" ? S.place : null, stars: EXITS } };
+      const W = WAYS.exits, Wc = W.count.charAt(0).toUpperCase() + W.count.slice(1);
+      return { show: (rush ? "Move. " : "") + Wc + " " + W.many + ", marked.", say: rush + "There are " + W.count + " " + W.many + ": " + W.list + ". They're all marked on the map." + tail, map: { you: psNow === "fresh" ? S.place : null, stars: EXITS } };
     }
     const pool = EXITS.filter(e => !(S.avoid || []).includes(e.n));
-    if (!pool.length) { S.avoid = []; save(); const hb = near(lp.p, HATCHES); return { show: "That's every airshaft.", say: "That's every airshaft ruled out. Nearest hatch is " + hb.n + ", " + compass(lp.p, hb) + ", if you've got a key. Or wait it out somewhere quiet.", map: { you: lp.p, stars: [hb] } }; }
+    if (!pool.length) { S.avoid = []; save(); const hb = near(lp.p, HATCHES); return { show: "That's every " + WAYS.exits.one + ".", say: "That's every " + WAYS.exits.one + " ruled out. Nearest hatch is " + hb.n + ", " + compass(lp.p, hb) + ", if you've got a key. Or wait it out somewhere quiet.", map: { you: lp.p, stars: [hb] } }; }
     const best = near(lp.p, pool);
     const dir = compass(lp.p, best);
     S.exitSaid = { n: best.n, at: Date.now() }; save();
@@ -683,12 +766,13 @@ function answer(raw, opts) {
     const hb = near(lp.p, HATCHES), hatchTip = !(wantsOther && S.hatchTold) && dist(lp.p, hb) < dist(lp.p, best) * 0.7 ? " " + hb.n + " is closer, " + compass(lp.p, hb) + ", if you've got a hatch key." : "";
     if (hatchTip) { S.hatchTold = true; save(); }
     const lead = lp.p.rough ? vary(["Your best bet is ", "Head for ", "From " + lp.p.n + ", try "]) : "";
-    const how = lp.p.rough ? ". Head " + dir + "." : ", about " + metres(lp.p, best) + " metres " + dir + ".";
+    const how = lp.p.rough ? ". Head " + dir + "." : ", " + far(lp.p, best) + dir + ".";
     return { show: (rush ? "Move. " : "") + best.n + ", " + dir + ".", say: rush + (alt ? alt + best.n : lead ? lead + best.n : best.n) + how + hatchTip, map: { you: lp.p.rough ? Object.assign({ guess: true }, lp.p) : lp.p, stars: hatchTip ? [best, hb] : [best] } };
   }
   if (has(t, ["hatch"])) {
     if (psNow === "fresh") { const b = near(S.place, HATCHES); const dir = compass(S.place, b); return { show: b.n + ", " + dir + ". Needs a key.", say: "The nearest hatch is " + b.n + ", " + dir + " of you. You'll need a Raider Hatch key.", map: { you: S.place, stars: [b] } }; }
-    return { show: "Four hatches, marked. Needs a key.", say: "There are four Raider Hatches: Prefab, Fragrant, Lucky and Reinforced. They're marked on the map, and you'll need a key.", map: { you: null, stars: HATCHES } };
+    const H = WAYS.hatches, Hc = H.count.charAt(0).toUpperCase() + H.count.slice(1);
+    return { show: Hc + " hatches, marked. Needs a key.", say: "There are " + H.count + " Raider Hatches: " + H.list + ". They're marked on the map, and you'll need a key.", map: { you: null, stars: HATCHES } };
   }
 
   const item = findItem(t);
@@ -701,16 +785,16 @@ function answer(raw, opts) {
     if (wantsNearest && psNow === "none") return askWhere(raw);
     const E = enemy.charAt(0).toUpperCase() + enemy.slice(1);
     if (psNow === "fresh") { const b = near(S.place, pts); const dir = compass(S.place, b); return { show: "Nearest " + E + ": " + dir + ".", say: "The nearest " + enemy + " spawn is " + dir + " of you.", map: { you: S.place, stars: [b] } }; }
-    return { show: pts.length + " " + E + " spawns, marked.", say: "There are " + pts.length + " " + enemy + " spawn points on Blue Gate. They're marked on the map. Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts } };
+    return { show: pts.length + " " + E + " spawns, marked.", say: "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". They're marked on the map. Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts } };
   }
 
   if (placeMention && has(t, ["where"])) {
     const P1 = placeMention.n.charAt(0).toUpperCase() + placeMention.n.slice(1);
     const dir = psNow === "fresh" ? compass(S.place, placeMention) : "";
-    const far = dir && !S.place.rough ? "about " + metres(S.place, placeMention) + " metres " : "";
-    return { show: P1 + (dir ? ", " + dir + "." : "."), say: P1 + (dir ? " is " + far + dir + " of you." : " is marked on the map." + (placeMention.pos ? " It's in the " + placeMention.pos + " of the map." : "")), map: { you: psNow === "fresh" ? S.place : null, stars: [placeMention] } };
+    const away = dir && !S.place.rough ? far(S.place, placeMention) : "";
+    return { show: P1 + (dir ? ", " + dir + "." : "."), say: P1 + (dir ? " is " + away + dir + " of you." : " is marked on the map." + (placeMention.pos ? " It's in the " + placeMention.pos + " of the map." : "")), map: { you: psNow === "fresh" ? S.place : null, stars: [placeMention] } };
   }
-  if (has(t, ["grandioso", "launch tower"])) return { show: "Blue Gate only, for now.", say: "That's on another map. I only have Blue Gate so far." };
+  if (has(t, ["grandioso", "launch tower"])) return { show: readyNames() + " only, for now.", say: "That's on another map. I only have " + readyNames() + " so far." };
 
   /* didn't understand: never drop the quest. Remind them where they are, and show what Relay heard so mishearings are obvious. */
   /* the full reminder once; after that, short and varied. It comes back after five quiet minutes. */
@@ -1030,12 +1114,12 @@ function renderAnswer(q, a) {
   $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="full" aria-label="Full map">' + IC.map + '</button><button type="button" id="setloc" aria-label="Set location" aria-pressed="false">' + IC.pin + '</button>' + (a.map.you && a.map.stars.length >= 1 ? '<button type="button" id="route" aria-label="Show route">' + IC.route + '</button>' : '') + '</div><div class="maphint" id="maphint" hidden>Tap the map to set your location</div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
   if (hasMap) requestAnimationFrame(() => drawMap(a.map));
 }
-function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably near " : "you at ") + m.you.n); if (m.stars.length) p.push("marked: " + m.stars.map(s => s.n).join(", ")); return "Blue Gate map, " + p.join("; "); }
+function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably near " : "you at ") + m.you.n); if (m.stars.length) p.push("marked: " + m.stars.map(s => s.n).join(", ")); return MAP.name + " map, " + p.join("; "); }
 
 /* markers: a yellow dot for the place, a white dot for you, a dashed ring when your position is a guess */
-/* ways out are badges, as in the game: a rounded square with the airshaft fan or the hatch arrow (Material Symbols Rounded).
+/* ways out are badges, as in the game: a rounded square with the airshaft fan, the lift (Dam's lifts and elevators) or the hatch arrow (Material Symbols Rounded).
    Amber when it's where you're going, cream when it's an alternative; ink glyph either way (5 Nov) */
-const EXIT_GLYPH = { shaft: "M424-80q-51 0-77.5-30.5T320-180q0-26 11.5-50.5T367-271q22-14 36.5-37.5T425-373q-1 0-1-.5t-2-1.5l-116 41q-17 6-33 10t-33 4q-63 0-111.5-55T80-536q0-51 30.5-77.5T179-640q26 0 51 11.5t41 35.5q14 22 39.5 37.5T373-535q1-1 1.5-2t.5-2l-41-115q-6-17-10-33t-4-32q0-64 55-112.5T536-880q51 0 77.5 30.5T640-781q0 26-11.5 51T593-689q-26 17-40.5 45T536-586q1 1 1.5.5t1.5 1.5l115-43q17-6 32.5-9.5T719-640q81 0 121 67t40 149q0 51-32 77.5T777-320q-25 0-48.5-11.5T689-367q-14-22-37.5-36.5T587-426l-1.5 3q-.5 1-1.5 2l42 115q6 16 10 30.5t4 30.5q1 65-54 115T424-80Zm56-340q25 0 42.5-17.5T540-480q0-25-17.5-42.5T480-540q-25 0-42.5 17.5T420-480q0 25 17.5 42.5T480-420Z", hatch: "M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36 9.11-21.36 9.39-9 21.89-9t21.5 9l98 99v-341q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v341l99-99q8.8-9 20.9-8.5 12.1.5 21.49 9.5 8.61 9 8.61 21.5t-9 21.5L501-334q-5 5-10.13 7-5.14 2-11 2-5.87 0-10.87-2ZM220-160q-24 0-42-18t-18-42v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113h520v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113q0 24-18 42t-42 18H220Z" };
+const EXIT_GLYPH = { lift: "M280-400v140q0 12.75 8.63 21.37Q297.25-230 310-230h60q12.75 0 21.38-8.63Q400-247.25 400-260v-140h10q13 0 21.5-8.5T440-430v-80q0-33-23.5-56.5T360-590h-40q-33 0-56.5 23.5T240-510v80q0 13 8.5 21.5T270-400h10Zm99.5-240.5Q396-657 396-680t-16.5-39.5Q363-736 340-736t-39.5 16.5Q284-703 284-680t16.5 39.5Q317-624 340-624t39.5-16.5ZM542-530h146q9.39 0 13.7-7.5 4.3-7.5-.7-15.5l-73-117q-4.5-7-12.75-7T602-670l-73 117q-5 8-.7 15.5 4.31 7.5 13.7 7.5Zm86 240 73-117q5-8 .7-15.5-4.31-7.5-13.7-7.5H542q-9.39 0-13.7 7.5-4.3 7.5.7 15.5l73 117q4.5 7 12.75 7t13.25-7ZM180-120q-24 0-42-18t-18-42v-600q0-23 18-41.5t42-18.5h600q23 0 41.5 18.5T840-780v600q0 24-18.5 42T780-120H180Zm0-60h600v-600H180v600Zm0 0v-600 600Z", shaft: "M424-80q-51 0-77.5-30.5T320-180q0-26 11.5-50.5T367-271q22-14 36.5-37.5T425-373q-1 0-1-.5t-2-1.5l-116 41q-17 6-33 10t-33 4q-63 0-111.5-55T80-536q0-51 30.5-77.5T179-640q26 0 51 11.5t41 35.5q14 22 39.5 37.5T373-535q1-1 1.5-2t.5-2l-41-115q-6-17-10-33t-4-32q0-64 55-112.5T536-880q51 0 77.5 30.5T640-781q0 26-11.5 51T593-689q-26 17-40.5 45T536-586q1 1 1.5.5t1.5 1.5l115-43q17-6 32.5-9.5T719-640q81 0 121 67t40 149q0 51-32 77.5T777-320q-25 0-48.5-11.5T689-367q-14-22-37.5-36.5T587-426l-1.5 3q-.5 1-1.5 2l42 115q6 16 10 30.5t4 30.5q1 65-54 115T424-80Zm56-340q25 0 42.5-17.5T540-480q0-25-17.5-42.5T480-540q-25 0-42.5 17.5T420-480q0 25 17.5 42.5T480-420Z", hatch: "M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36 9.11-21.36 9.39-9 21.89-9t21.5 9l98 99v-341q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v341l99-99q8.8-9 20.9-8.5 12.1.5 21.49 9.5 8.61 9 8.61 21.5t-9 21.5L501-334q-5 5-10.13 7-5.14 2-11 2-5.87 0-10.87-2ZM220-160q-24 0-42-18t-18-42v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113h520v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113q0 24-18 42t-42 18H220Z" };
 const BADGE = (t, s, amber) => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:' + Math.round(s * .28) + 'px;background:' + (amber ? "#F2B33D" : "#EEE8DC") + ';color:#15171C;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #1C1E22' + (amber ? ',0 0 0 5px rgba(242,179,61,.35)' : '') + '"><svg viewBox="0 -960 960 960" width="' + Math.round(s * .72) + '" height="' + Math.round(s * .72) + '" fill="currentColor" aria-hidden="true"><path d="' + EXIT_GLYPH[t] + '"/></svg></div>';
 const DOT = s => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:50%;background:#F2B33D;box-shadow:0 0 0 3px #1C1E22,0 0 0 5px rgba(242,179,61,.35)"></div>';
 const YOU = '<div style="width:20px;height:20px;border-radius:50%;background:#EEE8DC;box-shadow:0 0 0 3px #1C1E22"></div>';
@@ -1145,7 +1229,7 @@ function aiPrompt(q) {
   const cq = QUESTS.find(x => x.n === S.quest), st = cq ? cq.steps[S.step || 0] : null;
   const where = cq ? `The player is on the quest "${cq.n}", step ${(S.step || 0) + 1} of ${cq.steps.length}: "${st.t}".` : "The player hasn't said which quest they're on.";
   const place = S.place ? ` They last said they were at ${S.place.n}.` : "";
-  return `You help a player of the video game ARC Raiders, on the map Blue Gate. Speech recognition heard them say:
+  return `You help a player of the video game ARC Raiders, on the map ${MAP.name}. Speech recognition heard them say:
 "${q}"
 ${where}${place}
 It may be misheard, casual or said in a hurry. Reply with exactly ONE line from this list, filled in, and nothing else:
@@ -1180,9 +1264,9 @@ function aiToCommand(line) {
 async function aiPlace(q) {
   if (!AI || aiStatus !== "available") return null;
   try {
-    const prompt = `A player of ARC Raiders on the map Blue Gate was asked where they are. They said: "${q}" (speech recognition, may be misheard).
+    const prompt = `A player of ARC Raiders on the map ${MAP.name} was asked where they are. They said: "${q}" (speech recognition, may be misheard).
 Known places: ${PLACES.map(p => p.n.replace(/^the /, "")).join("; ")}.
-Reply with exactly one line and nothing else: "at PLACE" if they mean one of the known places (a farm means Farmlands, a homestead means Ruined Homestead), or "side DIRECTION" if they only give a direction (north, south, east, west, north-east, north-west, south-east, south-west, middle), or "unknown".`;
+Reply with exactly one line and nothing else: "at PLACE" if they mean one of the known places${MAP.id === "blue-gate" ? " (a farm means Farmlands, a homestead means Ruined Homestead)" : ""}, or "side DIRECTION" if they only give a direction (north, south, east, west, north-east, north-west, south-east, south-west, middle), or "unknown".`;
     const r = await AI.ask({ prompt });
     const cmd = aiToCommand(r && r.text);
     return cmd && /^i'm (at|in) /i.test(cmd) ? { cmd, ms: r.ms } : null;

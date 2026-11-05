@@ -151,8 +151,23 @@ module.exports = [
   { set: NONE, say: "pass me the remote", want: { fallback: true } },
 
   /* a place on another map: say which map, not "Say again?" (4 Nov) */
-  { set: NONE, say: "I'm at the Hydroponic Dome Complex", want: { othermap: "Dam Battlegrounds" } },
-  { set: NONE, say: "nearest exit from Victory Ridge", want: { othermap: "Dam Battlegrounds" } },
+  { set: NONE, say: "I'm at the Hydroponic Dome Complex", want: { map: "dam", place: "Hydroponic Dome Complex" } },  /* a Dam place switches to Dam (5 Nov) */
+  { set: NONE, say: "nearest exit from Victory Ridge", want: { map: "dam", exitName: "Central Swamp Lift" } },
   { set: NONE, say: "I'm in Old Town", want: { othermap: "any" } },
-  { set: NONE, say: "near the gate control room", want: { place: "Gate Control Room" } }
+  { set: NONE, say: "near the gate control room", want: { place: "Gate Control Room" } },
+
+  /* which map, and Dam (5 Nov) */
+  { set: NONE, say: "I'm on dam", want: { map: "dam", show: "Dam Battlegrounds" } },
+  { set: NONE, say: "we're playing dam battlegrounds", want: { map: "dam", show: "Dam Battlegrounds" } },
+  { set: NONE, say: "I'm on spaceport", want: { map: "blue-gate", show: "not yet" } },
+  { set: { map: "dam" }, say: "I'm on blue gate", want: { map: "blue-gate", show: "Blue Gate" } },
+  { set: { map: "dam" }, say: "I'm at the farmlands", want: { map: "blue-gate", place: "Farmlands" } },
+  { set: { place: "Village" }, say: "damn, nearest exit", want: { map: "blue-gate", exitName: "Cliffside Airshaft" } },
+  { set: { map: "dam" }, say: "I'm at the control tower", want: { map: "dam", place: "Control Tower" } },
+  { set: { map: "dam" }, say: "I'm in the swamp", want: { map: "dam", place: "the Swamp" } },
+  { set: { map: "dam" }, say: "I'm at the hydroponics", want: { map: "dam", place: "Hydroponic Dome Complex" } },
+  { set: { map: "dam" }, say: "I'm by the pump house", want: { map: "dam", place: "Pump House Hatch" } },
+  { set: { map: "dam", place: "Control Tower" }, say: "nearest exit", want: { map: "dam", exitName: "Water Treatment Elevator" } },
+  { set: { map: "dam" }, say: "nearest exit from the scrap yard", want: { map: "dam", exitName: "Water Treatment Elevator" } },
+  { set: { map: "dam", place: "the Swamp" }, say: "nearest hatch", want: { map: "dam", show: "Sunroof Hatch" } }
 ];

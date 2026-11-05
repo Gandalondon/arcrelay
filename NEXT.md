@@ -44,7 +44,7 @@ Per map (Blue Gate is the template; roughly a day each):
 3. Named places for "where are you?": MetaForge's labels are now in `www/data-zones.js` (regions, loot zones, landmarks), so this step is mostly data wiring, not fitting.
 4. Quest steps and items for that map, checked against two guides.
 5. Tests, like Blue Gate's.
-Then: work out which map you're on from a spoken landmark (unique name: switch; ambiguous: "Which map?"; keep it for the raid). Order: the map Tony plays most after Blue Gate first, Pendola Pass last.
+Map switching: DONE 5 Nov. `useMap(id)` rebuilds exits, hatches, ARC, places and wording for the map in use (`S.map`, kept for the raid). A map name or a place only one ready map has switches; several: "Which map?"; no markers yet: "X: not yet." A quest step pinned on another map switches to it. Per map: places in `www/data-<map>-places.js` (Dam: MetaForge labels plus spoken aliases), `METRES` (Blue Gate 5.5; Dam not fitted, so directions only), items are Blue Gate only. Order: the map Tony plays most after Blue Gate first, Pendola Pass last.
 
 ## Onboarding (built 5 Nov)
 - **Before release: remove the invisible test skip** (`#obskip`, top right, in `www/index.html`; marked TEST BUILD ONLY). Shows once per install (`relay-onb` in storage).
