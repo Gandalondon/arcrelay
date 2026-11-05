@@ -9,13 +9,13 @@
 <meta property="og:title" content="Relay, coming soon">
 <meta property="og:description" content="A voice guide for ARC Raiders. Ask where to go, find what you need and get out, without leaving the game. Coming soon to Android.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 72 72%27%3E%3Crect width=%2772%27 height=%2772%27 rx=%2716%27 fill=%27%231C1E22%27/%3E%3Cg fill=%27none%27 stroke=%27%23F2B33D%27 stroke-width=%2710%27%3E%3Cpath d=%27M -10 12 H 14 A 46 46 0 0 1 60 58 V 82%27/%3E%3Cpath d=%27M -10 28 H 14 A 30 30 0 0 1 44 58 V 82%27/%3E%3Cpath d=%27M -10 44 H 14 A 14 14 0 0 1 28 58 V 82%27/%3E%3C/g%3E%3C/svg%3E">
-<link rel="preload" href="/fonts/barlow-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-tight-600.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face{font-family:"Barlow";font-weight:400;font-display:swap;src:url(/fonts/barlow-400.woff2) format("woff2")}
-@font-face{font-family:"Barlow";font-weight:600;font-display:swap;src:url(/fonts/barlow-600.woff2) format("woff2")}
-@font-face{font-family:"Barlow";font-weight:700;font-display:swap;src:url(/fonts/barlow-700.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-weight:400;font-display:swap;src:url(/fonts/inter-tight-400.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-weight:600;font-display:swap;src:url(/fonts/inter-tight-600.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-weight:700;font-display:swap;src:url(/fonts/inter-tight-700.woff2) format("woff2")}
 /* Relay holding page. Three colours only: charcoal, cream, amber. Same type and logo as the app and the beta site. */
-:root{--bg:#1C1E22;--text:#EEE8DC;--amber:#F2B33D;--font:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;color-scheme:dark}
+:root{--bg:#1C1E22;--text:#EEE8DC;--amber:#F2B33D;--font:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text)}
 body{font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100svh;display:flex;flex-direction:column}
@@ -27,7 +27,7 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 
 .word{font:700 32px/1 var(--font);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .word .arc{font-weight:400}
 .word .rl,h1 .rl{color:var(--amber)}
-h1{margin:0;font-weight:600;font-size:clamp(56px,9vw,104px);line-height:.95;letter-spacing:-.015em;text-wrap:balance}
+h1{margin:0;font-weight:600;font-size:clamp(56px,9vw,104px);line-height:.95;letter-spacing:-.01em;text-wrap:balance}
 p{margin:24px auto 0;max-width:520px;font-size:20px;line-height:1.5;text-wrap:pretty}
 .soon{display:inline-block;margin-top:32px;font:600 16px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
 footer{padding:24px 40px 32px;font-size:14px;line-height:1.5;text-align:center}

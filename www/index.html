@@ -8,32 +8,32 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<style>/* Barlow (SIL Open Font Licence), bundled so Relay never calls Google Fonts */
-@font-face{font-family:"Barlow";font-weight:400;font-display:swap;src:url(fonts/barlow-400.woff2) format("woff2")}
-@font-face{font-family:"Barlow";font-weight:500;font-display:swap;src:url(fonts/barlow-500.woff2) format("woff2")}
-@font-face{font-family:"Barlow";font-weight:600;font-display:swap;src:url(fonts/barlow-600.woff2) format("woff2")}
-@font-face{font-family:"Barlow";font-weight:700;font-display:swap;src:url(fonts/barlow-700.woff2) format("woff2")}</style>
+<style>/* Inter Tight (SIL Open Font Licence), bundled so Relay never calls Google Fonts */
+@font-face{font-family:"Inter Tight";font-weight:400;font-display:swap;src:url(fonts/inter-tight-400.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-weight:500;font-display:swap;src:url(fonts/inter-tight-500.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-weight:600;font-display:swap;src:url(fonts/inter-tight-600.woff2) format("woff2")}
+@font-face{font-family:"Inter Tight";font-weight:700;font-display:swap;src:url(fonts/inter-tight-700.woff2) format("woff2")}</style>
 <link rel="stylesheet" href="leaflet.css">
 <style>
 :root{
   --navy:#1C1E22; --panel:#26282D; --bone:#EEE8DC; --grey:#EEE8DC; /* no grey: three colours only, off-white, blue-black, yellow */ --amber:#F2B33D; --ink:#15171C; --red:#E5483B;
-  --display:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
-  --body:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
+  --display:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;
+  --body:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;
   --pad:24px;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;overscroll-behavior:none}
-body{background:var(--navy);color:var(--bone);font-family:var(--body);font-size:16px;line-height:24px;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background .2s,color .2s}
+body{background:var(--navy);color:var(--bone);font-family:var(--body);font-size:16px;line-height:24px;letter-spacing:.01em;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background .2s,color .2s}
 body.listening{background:var(--navy);color:var(--bone)}
 .app{height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;padding:calc(var(--pad) + env(safe-area-inset-top,0px)) var(--pad) 0}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex:none}
 .top .word{flex:1 1 auto}
-.word{all:unset;display:block;min-width:0;max-width:100%;cursor:pointer;font-family:var(--display);font-weight:600;font-size:80px;line-height:76px;letter-spacing:-.015em;white-space:pre-line;text-wrap:balance}
+.word{all:unset;display:block;min-width:0;max-width:100%;cursor:pointer;font-family:var(--display);font-weight:600;font-size:80px;line-height:76px;letter-spacing:-.01em;white-space:pre-line;text-wrap:balance}
 /* answer type (with a map): fixed 48px, three lines max, box always three lines tall. Set in fitInstr(). */
 .word.instr{letter-spacing:-.01em;white-space:normal;overflow-wrap:normal}
 .word:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
-.word.greet{white-space:pre-line;letter-spacing:-.015em}
+.word.greet{white-space:pre-line;letter-spacing:-.01em}
 .word.greet .gl{display:block;text-wrap:balance}  /* the varied line balances on its own (no lone last word); same size as the rest */
 .close{all:unset;flex:none;width:48px;height:48px;margin:-8px -12px 0 0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--amber)}  /* the close X is yellow, like the mic */
 .close svg{width:32px;height:32px}
@@ -60,7 +60,7 @@ body.listening .close{color:var(--amber)}
 .pinok:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
 .mapctl button:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
 /* place names drawn by Relay: cream on a soft dark halo, so they read over any terrain */
-.plabel{font:600 12px/14px var(--body);color:var(--bone);white-space:nowrap;text-shadow:0 0 3px #1C1E22,0 0 6px #1C1E22,0 1px 2px #1C1E22;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.01em}
+.plabel{font:600 12px/14px var(--body);color:var(--bone);white-space:nowrap;text-shadow:0 0 3px #1C1E22,0 0 6px #1C1E22,0 1px 2px #1C1E22;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.02em}
 .plabel.target{color:var(--amber);font-size:14px;line-height:16px;transform:translate(-50%,14px)}
 .map.zfar .plabel:not(.target):not(.pin){display:none}
 .plabel.pin{transform:translate(18px,-50%)}  /* the pin's place name sits to the right of the dot */  /* zoomed right out: only the target's name */
@@ -166,7 +166,7 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
   <div class="gkey"><p id="spsettxt"></p><div class="gkrow"><button type="button" class="spget" id="spsetget">Download offline speech</button></div></div></div>
   <h3>About</h3>
   <p class="about">Ask Relay where to go, how to get out, or what's next on your quest. Tap the microphone and talk; it listens once more for a follow-up. Everything runs on your phone, so it works without internet once the voice is downloaded.</p>
-  <p class="about">Unofficial companion, not made or endorsed by Embark Studios. Map data from <span class="u">MetaForge</span> (metaforge.app). Place names and distances from allthings.how. Voice: Supertonic 3 by Supertone (OpenRAIL-M licence), running on sherpa-onnx (Apache 2.0). Font: Barlow (SIL Open Font Licence).</p>
+  <p class="about">Unofficial companion, not made or endorsed by Embark Studios. Map data from <span class="u">MetaForge</span> (metaforge.app). Place names and distances from allthings.how. Voice: Supertonic 3 by Supertone (OpenRAIL-M licence), running on sherpa-onnx (Apache 2.0). Font: Inter Tight (SIL Open Font Licence).</p>
   <p class="about ver" id="ver"></p>
 </div>
 <div class="vlist" id="vlist" hidden role="dialog" aria-label="Voice">
@@ -928,11 +928,11 @@ const LINE = (() => { let last = -1; try { last = parseInt(localStorage.getItem(
 /* the one size for screens without a map, on this phone: the biggest at which "Afternoon," (the greeting's longest word) fits beside the cog */
 let BASE = 0;
 /* one type size for every screen without a map: the largest step where "Afternoon," fits on a line AND every greeting line
-   wraps in three lines or fewer, so it never becomes a stack of single words (4 Nov). Measured once Barlow has loaded. */
+   wraps in three lines or fewer, so it never becomes a stack of single words (4 Nov). Measured once Inter Tight has loaded. */
 function baseSize(w) {
   if (BASE && BASE.width === w.clientWidth) return BASE.size;
   const m = document.createElement("span"); m.className = "word"; m.style.cssText = "position:absolute;visibility:hidden;white-space:pre;width:auto"; m.textContent = "Afternoon,";
-  const d = document.createElement("div"); d.className = "word"; d.style.cssText = "position:absolute;visibility:hidden;white-space:normal;letter-spacing:-.015em;width:" + w.clientWidth + "px";
+  const d = document.createElement("div"); d.className = "word"; d.style.cssText = "position:absolute;visibility:hidden;white-space:normal;letter-spacing:-.01em;width:" + w.clientWidth + "px";
   document.body.appendChild(m); document.body.appendChild(d); let size = 40;
   for (const s of [64, 56, 52, 48, 44, 40]) {
     m.style.fontSize = s + "px"; d.style.fontSize = s + "px"; d.style.lineHeight = s + "px";
@@ -940,8 +940,8 @@ function baseSize(w) {
     if (LINES.every(t => { d.textContent = t; return Math.round(d.getBoundingClientRect().height / s) <= 3; })) { size = s; break; }
   }
   m.remove(); d.remove();
-  let ready = true; try { ready = !document.fonts || document.fonts.check('600 16px "Barlow"'); } catch (e) {}
-  if (w.clientWidth > 0 && ready) BASE = { width: w.clientWidth, size };  /* not cached until Barlow is in: the fallback font is wider */
+  let ready = true; try { ready = !document.fonts || document.fonts.check('600 16px "Inter Tight"'); } catch (e) {}
+  if (w.clientWidth > 0 && ready) BASE = { width: w.clientWidth, size };  /* not cached until Inter Tight is in: the fallback font is wider */
   return size;
 }
 if (document.fonts) document.fonts.addEventListener("loadingdone", () => { BASE = null; const w = $("word"); if (w && w.classList.contains("greet")) fitGreet(w); });

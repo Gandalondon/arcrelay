@@ -7,7 +7,7 @@
 <!--
   Relay style guide (canonical). Documents the app as built (www/index.html) and the site (site/).
   Every value here is taken from the source; where the app has no rule yet, it says so under "Gaps".
-  Works offline: Barlow and the Material Symbols icons the app uses are embedded.
+  Works offline: Inter Tight and the Material Symbols icons the app uses are embedded.
   Built by tools/style-guide/make.py from tools/style-guide/template.html. Edit the template, then run the script.
   Last checked against: app 1.0.68, 5 November 2026.
 -->
@@ -15,7 +15,7 @@
 {{FONTS}}
 :root{
   --charcoal:#1C1E22; --panel:#26282D; --ink:#15171C; --cream:#EEE8DC; --amber:#F2B33D; --amber-hi:#F6C25E;
-  --font:"Barlow","Helvetica Neue",Arial,system-ui,sans-serif;
+  --font:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -48,7 +48,7 @@ main{margin-left:248px;padding:48px 64px 96px;max-width:1120px}
 }
 section{padding-top:24px;margin-top:48px;border-top:1px solid var(--panel)}
 section:first-of-type{border-top:0;margin-top:0}
-.g-h1{font-size:clamp(40px,6vw,64px);line-height:1;letter-spacing:-.015em}
+.g-h1{font-size:clamp(40px,6vw,64px);line-height:1;letter-spacing:-.01em}
 .g-h2{font-size:32px;line-height:36px;letter-spacing:-.01em;margin-bottom:8px}
 .g-h3{font-size:20px;line-height:28px;margin:32px 0 8px}
 .lead{font-size:20px;line-height:30px;max-width:44em;margin:16px 0 0}
@@ -118,7 +118,7 @@ ul.plain li{margin:6px 0}
 .phone{width:300px;border-radius:40px;padding:10px;background:var(--ink);box-shadow:0 0 0 2px var(--panel)}
 .scr{position:relative;height:600px;border-radius:30px;background:var(--charcoal);padding:20px 18px 0;display:flex;flex-direction:column;overflow:hidden;text-align:left}
 .scr .hd{display:flex;justify-content:space-between;gap:8px}
-.scr .w{font:600 40px/39px var(--font);letter-spacing:-.015em;white-space:pre-line}
+.scr .w{font:600 40px/39px var(--font);letter-spacing:-.01em;white-space:pre-line}
 .scr .ins{font:600 34px/35px var(--font);letter-spacing:-.01em;text-wrap:balance}
 .scr .x{width:22px;height:22px;color:var(--amber);flex:none}
 .scr .x svg,.scr .cog svg{width:22px;height:22px}
@@ -202,9 +202,9 @@ ul.plain li{margin:6px 0}
   <p class="note">Secondary text is cream at 75% opacity (it renders as #BAB6AE on charcoal, 8.3:1). That is the only "grey", and it's flagged under Gaps.</p>
 
   <h3 class="g-h3">Type</h3>
-  <p class="intro">Barlow, bundled with the app (SIL Open Font Licence), never loaded from Google Fonts. Weights 400, 500, 600 and 700.</p>
+  <p class="intro">Inter Tight, bundled with the app and the site (SIL Open Font Licence), never loaded from Google Fonts. Weights 400, 500, 600 and 700. Replaced Barlow on 5 November 2026: same straight-sided a and e, without the rounded corners. Tracking: −1% on headings, +1% on body text.</p>
   <div class="spec">
-    <div><small>Greeting<br>600 · 80/76 · −0.015em</small><span style="font:600 80px/76px var(--font);letter-spacing:-.015em">Evening, Raider.</span></div>
+    <div><small>Greeting<br>600 · 80/76 · −0.01em</small><span style="font:600 80px/76px var(--font);letter-spacing:-.01em">Evening, Raider.</span></div>
     <div><small>Answer headline<br>600 · 48 fixed · line 49 px</small><span style="font:600 48px/49px var(--font);letter-spacing:-.01em">Cliffside Airshaft, south-east.</span></div>
     <div><small>Settings title<br>600 · 20/28</small><span style="font:600 20px/28px var(--font)">Settings</span></div>
     <div><small>Voice name<br>600 · 18/24</small><span style="font:600 18px/24px var(--font)">Sophie</span></div>
@@ -252,7 +252,7 @@ ul.plain li{margin:6px 0}
   </div>
   <table class="rules">
     <tr><th>Geometry</th><td>A 72-unit square (the part of Android's adaptive icon that shows). Stroke 10. Arc centre (14, 58), radii 46, 30 and 14. Lines run off the left and bottom edges. Source: <code>tools/make-icon.py</code>.</td></tr>
-    <tr><th>Wordmark</th><td>RELAY: Barlow 700, capitals, +0.04em, cream. Amber is for the signal lines only, never the name. Set as text by <code>site.js</code>; never redraw it in another font. Elsewhere the name is plain text, "Relay". Never "Arc Relay" or "ArcRelay".</td></tr>
+    <tr><th>Wordmark</th><td>RELAY: Inter Tight 700, capitals, +0.04em, cream. Amber is for the signal lines only, never the name. Set as text by <code>site.js</code>; never redraw it in another font. Elsewhere the name is plain text, "Relay". Never "Arc Relay" or "ArcRelay".</td></tr>
     <tr><th>Files</th><td>Launcher icons in <code>android/app/src/main/res/mipmap-*</code>. Play icon: <code>android-release/icon/arcrelay-play-icon.png</code> (512 × 512, no alpha, full square).</td></tr>
     <tr><th>Never</th><td>Use Embark's art or the ARC Raiders logo. Add a gradient, outline or second colour to the lines.</td></tr>
   </table>
@@ -423,7 +423,7 @@ ahead.</div><span class="x">{{I:close}}</span></div><div class="fill"></div><div
   <h2 class="g-h2">Checklist before shipping a change</h2>
   <ul class="plain">
     <li>Only charcoal, panel, cream, amber and ink. Amber only for things you can act on, or the destination.</li>
-    <li>Barlow, sizes from the scale. Headline with a map: 48 px, three lines max.</li>
+    <li>Inter Tight, sizes from the scale. Headline with a map: 48 px, three lines max.</li>
     <li>Material Symbols Rounded, from the icon list.</li>
     <li>Mic in the same place, halo only when the mic is on.</li>
     <li>No widows; no em dashes; UK spelling.</li>

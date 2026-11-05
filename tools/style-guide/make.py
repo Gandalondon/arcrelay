@@ -1,10 +1,10 @@
-"""Builds src/docs/style-guide.html from template.html: embeds Barlow and the app's icons, so the guide opens offline.
+"""Builds src/docs/style-guide.html from template.html: embeds Inter Tight and the app's icons, so the guide opens offline.
 Run from the repo root:  python3 tools/style-guide/make.py"""
 import base64, json, os, re
 R = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(os.path.dirname(R))
 t = open(os.path.join(R, "template.html")).read()
-faces = "".join('@font-face{font-family:"Barlow";font-weight:%d;font-display:swap;src:url(data:font/woff2;base64,%s) format("woff2")}\n'
-                % (w, base64.b64encode(open(os.path.join(ROOT, "www/fonts/barlow-%d.woff2" % w), "rb").read()).decode()) for w in (400, 500, 600, 700))
+faces = "".join('@font-face{font-family:"Inter Tight";font-weight:%d;font-display:swap;src:url(data:font/woff2;base64,%s) format("woff2")}\n'
+                % (w, base64.b64encode(open(os.path.join(ROOT, "www/fonts/inter-tight-%d.woff2" % w), "rb").read()).decode()) for w in (400, 500, 600, 700))
 app = open(os.path.join(ROOT, "www/index.html")).read()
 def grab(pat):
     m = re.search(pat, app, flags=re.S)
