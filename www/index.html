@@ -52,6 +52,7 @@ body.listening .close{color:var(--amber)}
 .mpick ul{list-style:none;margin:0;padding:0}
 .mpick button{all:unset;box-sizing:border-box;width:100%;display:block;padding:14px 16px;margin:0 0 8px;border-radius:16px;background:var(--panel);color:var(--bone);font:600 18px/24px var(--body);cursor:pointer}
 .mpick li:last-child button{margin-bottom:0}
+@media (max-height:800px){.mpick h2{margin-bottom:8px}.mpick button{padding:10px 16px;margin-bottom:6px}}  /* short phones: tighter rows so seven still fit under the greeting */
 .mpick button.on{background:var(--amber);color:var(--ink)}
 .mpick button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 /* map: edge to edge, runs down to the soundwave */
@@ -1128,7 +1129,8 @@ function baseSize(w) {
 }
 if (document.fonts) document.fonts.addEventListener("loadingdone", () => { BASE = null; const w = $("word"); if (w && w.classList.contains("greet")) fitGreet(w); });
 function fitGreet(w) {
-  const room = Math.max(240, $("stage").getBoundingClientRect().bottom - w.getBoundingClientRect().top - 24);
+  const pk = document.querySelector("#stage .mpick");  /* with the map list on the home screen: the greeting is sized to the room above it, so they never overlap (5 Nov) */
+  const room = pk ? pk.getBoundingClientRect().top - w.getBoundingClientRect().top - 24 : Math.max(240, $("stage").getBoundingClientRect().bottom - w.getBoundingClientRect().top - 24);
   const top = baseSize(w);
   for (const s of [64, 56, 52, 48, 44, 40].filter(x => x <= top)) {  /* the same size on every screen without a map; smaller only if a word won't fit */ const lh = Math.round(s * 1.0); w.style.fontSize = s + "px"; w.style.lineHeight = lh + "px"; if (w.scrollWidth <= w.clientWidth + 1 && w.scrollHeight <= room) return; }
 }
@@ -1147,9 +1149,8 @@ function renderReady() {
   const part = hr >= 5 && hr < 12 ? "Morning" : hr >= 12 && hr < 18 ? "Afternoon" : "Evening";
   const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.innerHTML = esc(part + ", Raider.") + '<span class="gl">' + esc(LINE) + "</span>";
   setCtx(WK && CFG.wake ? "Say \u201cHey Relay\u201d, or tap." : "");  /* with the greeting, in the same fade, not a moment later when the listener starts (4 Nov) */
-  $("stage").innerHTML = "";
-  fitGreet(w); requestAnimationFrame(() => fitGreet(w));
   $("stage").innerHTML = mapPicker();
+  fitGreet(w); requestAnimationFrame(() => fitGreet(w));
 }
 function renderListening() {
   clearMap(); setVoiceState("listening"); bars(true);
