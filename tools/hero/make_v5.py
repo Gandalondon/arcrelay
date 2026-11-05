@@ -48,9 +48,9 @@ CSS = """<style>
 @media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px;font-size:15px} }
 .heyhero{position:relative;padding-top:calc(128px + env(safe-area-inset-top,0px));padding-bottom:24px}
 .heyhero .wrap{display:block;max-width:none}
-.heyhero .word{margin:0;font-weight:700;font-size:min(19vw,calc((100svh - 260px) / 2.1));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi);position:relative;z-index:1}
+.heyhero .word{margin:0;font-weight:700;font-size:min(15vw,calc((100svh - 300px) / 2.3));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi);position:relative;z-index:1}
 .heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,5vw,72px);max-width:min(600px,calc(100% - 384px));font-size:24px;line-height:34px}
-.phone{--pw:clamp(220px,min(21vw,calc((100svh - 150px) * 0.462)),340px)}
+.phone{--pw:clamp(200px,min(19vw,calc((100svh - 200px) * 0.462)),320px)}
 .p3{position:relative;transform-style:preserve-3d;will-change:transform;--d:35px}
 .p3 .slab{position:absolute;inset:0;border-radius:inherit;background:#222429;transform:translateZ(calc(var(--k) * var(--d) / -12))}
 .p3 .slab.rim{background:#34363C}
@@ -70,11 +70,11 @@ html.parked .park .p3{visibility:visible}
 html.landing .park .p3{visibility:hidden}
 .mphone{display:none}
 .flyer{position:absolute;z-index:3;left:0;top:0;perspective:1400px;pointer-events:none;will-change:transform}
-html.parked .flyer{visibility:hidden}
+html.parked .flyer,html.landing .flyer{visibility:hidden}
 .ftr{padding-top:96px}
 /* finale: the hero's words mirrored, the phone turned the other way, showing the home greeting */
 .finale .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px;min-height:calc(100svh - 88px);align-items:center}
-.fin{margin:0;font-weight:700;font-size:min(15vw,calc((100svh - 330px) / 3.1));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
+.fin{margin:0;font-weight:700;font-size:min(11.5vw,calc((100svh - 380px) / 3.3));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
 .ftxt .btn{margin-top:48px;cursor:default}
 .ftxt .btn:hover{background:var(--amber)}
 .fslot{display:flex;justify-content:center;perspective:1400px}
