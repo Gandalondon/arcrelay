@@ -9,7 +9,7 @@
   Every value here is taken from the source; where the app has no rule yet, it says so under "Gaps".
   Works offline: Inter Tight and the Material Symbols icons the app uses are embedded.
   Built by tools/style-guide/make.py from tools/style-guide/template.html. Edit the template, then run the script.
-  Last checked against: app 1.0.68, 5 November 2026.
+  Last checked against: app 1.0.87 and the site, 5 November 2026.
 -->
 <style>
 {{FONTS}}
@@ -388,12 +388,25 @@ ahead.</div><span class="x">{{I:close}}</span></div><div class="fill"></div><div
   <h2 class="g-h2">Site patterns</h2>
   <div class="board dark"><span class="sitebtn">Get the app</span><div class="lockup"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word">Relay</span></div></div>
   <table class="rules">
-    <tr><th>Gutters</th><td>24 px on phones, 64 px from 1024 px wide, 80 px from 1440 px.</td></tr>
-    <tr><th>Hero</th><td>"Ask. Find. Get out." with "Get out." in amber, beside the desk photo. On phones the photo is a square crop with the phone centred.</td></tr>
-    <tr><th>Sections</th><td>Just ask · Know where to go · Need a quick evac? · Show it where you are. Each pairs a phone mockup with a short heading and one paragraph.</td></tr>
-    <tr><th>Phone mockups</th><td>HTML replicas of the app, sized in em so they scale with the phone. They must match the app: inset map, the three amber buttons, filled mic.</td></tr>
-    <tr><th>Buttons</th><td>56 px amber pill, ink text, 600 18 px. Hover amber #F6C25E.</td></tr>
-    <tr><th>Footer</th><td>Credit line with "Maps by MetaForge" on every page; links to Feedback, Privacy and Credits.</td></tr>
+    <tr><th>Gutters</th><td>24 px on phones, 64 px from 1024 px wide, 80 px from 1440 px. Every page runs to these gutters (no centred column).</td></tr>
+    <tr><th>Header</th><td>A solid charcoal bar fixed to the top of every page: 88 px tall (72 on phones), the three-line mark only, then How it works and a small amber "Get the app". It never changes colour.</td></tr>
+    <tr><th>Grid</th><td>Homepage: a 600 px text column on the left gutter, the phone centred in the space to its right. How it works: two equal halves with a 64 px gap, section title left, content right.</td></tr>
+    <tr><th>Homepage</th><td>"Hey / Relay" stacked, one 3D phone that travels down, parks on the right and cross-fades screens while the four features scroll past (Need a quick evac?, Just ask., Find what you need., Show it where you are.), then "Ask. Find. / Get out." with the phone turned the other way showing the time-of-day greeting. Phones: stacked rows, words only at the end. Built by <code>tools/hero/make_v5.py</code>.</td></tr>
+    <tr><th>Phone mockups</th><td>Real app screen captures in a 3D frame. Frame, corners and screen radius scale with the phone (3.3%, 14.7% and 11.3% of its width), so a smaller phone keeps the same shape.</td></tr>
+    <tr><th>Buttons</th><td>56 px amber pill, ink text, 600 18 px. Small: 44 px (40 in the header, 36 on phones), 600 16 px. Hover amber #F6C25E.</td></tr>
+    <tr><th>Fields</th><td>Cream, 16 px corners, 16 px padding on every side. Label 600 16/20, 16 px in from the top and left; text 400 18/28 below it.</td></tr>
+    <tr><th>Footer</th><td>Credit line with "Maps by MetaForge" on every page; links to How it works, Feedback, Privacy and Credits. 400 16/24.</td></tr>
+  </table>
+  <h3 class="g-h3">Site type scale</h3>
+  <p>The display words plus six sizes, nothing else. Inter Tight throughout. Tracking: −1% on display words and page titles, 0 on section headings, +1% on small headings, +2% on body text. Tokens in <code>site/beta/site.css</code>.</p>
+  <table class="rules">
+    <tr><th>Display</th><td>700, fitted to the window, line 1.02. "Hey / Relay" and "Ask. Find. / Get out." only.</td></tr>
+    <tr><th>Page title <code>--h1</code></th><td>700, 56 to 112 px (8vw), line .92. One per inner page.</td></tr>
+    <tr><th>Section heading <code>--h2</code></th><td>600, 40 to 64 px (4.6vw), line 1. Homepage features and How it works sections.</td></tr>
+    <tr><th>Small heading <code>--h3</code></th><td>600, 24/30 (22/28 on phones). How it works rows, "Getting out" and the other phrase groups, privacy and credits subheadings.</td></tr>
+    <tr><th>Intro <code>--lede</code></th><td>400, 24/34 (21/31 on phones). The line under "Hey Relay" and under each page title.</td></tr>
+    <tr><th>Body <code>--body</code></th><td>400, 18/28. Every paragraph and list, homepage features included.</td></tr>
+    <tr><th>Small <code>--small</code></th><td>400 or 600, 16/24. Footer, small buttons, field labels.</td></tr>
   </table>
 </section>
 

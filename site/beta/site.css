@@ -17,9 +17,17 @@
   /* symbol on the site: yellow bars, cream wordmark */
   --sym-1:#F2B33D; --sym-2:#F2B33D; --sym-3:#F2B33D;
   --font:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;
+  /* type scale (5 Nov): the site uses these sizes only. Display words (Hey Relay, Ask. Find. / Get out.) are fitted to the window. */
+  --h1:clamp(56px,8vw,112px);   /* page titles, 700, line .92 */
+  --h2:clamp(40px,4.6vw,64px);  /* section headings, 600, line 1 */
+  --h3:24px; --h3-lh:30px;      /* small headings and labels over lists, 600 */
+  --lede:24px; --lede-lh:34px;  /* intro line under a title */
+  --body:18px; --body-lh:28px;  /* everything you read */
+  --small:16px; --small-lh:24px;/* footer, small buttons, field labels */
   --edge:max(24px,env(safe-area-inset-left,0px)); --edge-r:max(24px,env(safe-area-inset-right,0px));
   color-scheme:dark;
 }
+@media (max-width:600px){ :root{ --h3:22px; --h3-lh:28px; --lede:21px; --lede-lh:31px } }
 @media (min-width:1024px){ :root{ --edge:64px; --edge-r:64px } }
 @media (min-width:1440px){ :root{ --edge:80px; --edge-r:80px } }
 *{box-sizing:border-box}
@@ -40,7 +48,7 @@ p{margin:0;text-wrap:pretty}
 .hdr{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);padding-top:env(safe-area-inset-top,0px)}
 .hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0}
 .hdr .btn.sm{height:40px;padding:0 20px;font-size:16px}
-@media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px;font-size:15px} }
+@media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px} }
 /* the header runs to the page's outer margins, wider than the content column: logo far left, Get the app far right */
 .hdr .wrap{max-width:none;height:88px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 /* logo: the three signal lines + wordmark (the wordmark stays in capitals). Draws in once on load, then stays still. */
@@ -115,8 +123,8 @@ canvas.topo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-even
 .feature .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:96px;align-items:center}
 .feature.flip .phone-col{order:2}
 .feature .phone-col{justify-self:center}
-.feature h2{font-size:clamp(40px,4.6vw,64px);line-height:1;font-weight:600;letter-spacing:0}
-.feature p{margin-top:24px;max-width:26em;font-size:20px;line-height:31px;color:var(--text)}
+.feature h2{font-size:var(--h2);line-height:1;font-weight:600;letter-spacing:0}
+.feature p{margin-top:24px;max-width:26em;font-size:var(--body);line-height:var(--body-lh);color:var(--text)}
 .feature .btn{margin-top:40px}
 @media (max-width:900px){ .rows{padding-block:32px} .feature{padding-block:64px} .feature .wrap{grid-template-columns:minmax(0,1fr);gap:56px} .feature .phone-col,.feature.flip .phone-col{order:2} .feature .btn{margin-top:32px} }
 
@@ -135,22 +143,22 @@ canvas.topo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-even
 /* inner pages: one reading column, intro the same width */
 .page{padding-block:calc(160px + env(safe-area-inset-top,0px)) 144px}
 .page .col{max-width:720px}
-.page h1{font-size:clamp(56px,8vw,112px);line-height:.92;font-weight:700;letter-spacing:-.01em}
-.page .intro{font-size:24px;line-height:34px;margin-top:40px;color:var(--text)}
+.page h1{font-size:var(--h1);line-height:.92;font-weight:700;letter-spacing:-.01em}
+.page .intro{font-size:var(--lede);line-height:var(--lede-lh);margin-top:40px;color:var(--text)}
 .prose{margin-top:80px;display:flex;flex-direction:column;gap:64px}
 .prose section{display:flex;flex-direction:column;gap:16px}
 .prose a{color:var(--text-hi);text-decoration:none;font-weight:600}
-.prose h2{font-size:28px;line-height:34px;font-weight:600;letter-spacing:0}
+.prose h2{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;letter-spacing:0}
 .muted{color:var(--text-meta)}
 .kv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:16px 24px}
 .kv div:nth-child(odd){font-weight:600;color:var(--text-hi)}
-@media (max-width:600px){ .page .intro{font-size:21px;line-height:31px} .kv{grid-template-columns:minmax(0,1fr);gap:4px} .kv div:nth-child(odd):not(:first-child){margin-top:16px} }
+@media (max-width:600px){ .kv{grid-template-columns:minmax(0,1fr);gap:4px} .kv div:nth-child(odd):not(:first-child){margin-top:16px} }
 
 /* feedback form (follows Sniff: message, optional email) */
 form.fb{margin-top:64px;display:flex;flex-direction:column;gap:24px}
 .field{position:relative;display:block;background:var(--text);border-radius:16px;overflow:hidden}  /* cream fields: the one off-white, never pure white */
-.field span{position:absolute;left:16px;top:10px;font-size:14px;line-height:16px;font-weight:600;color:var(--ink)}  /* field labels in the heading weight (5 Nov) */
-.field input,.field textarea{display:block;width:100%;border:0;background:transparent;color:var(--ink);font:400 18px/28px var(--font);padding:32px 16px 12px;caret-color:var(--ink)}
+.field span{position:absolute;left:16px;top:16px;font-size:var(--small);line-height:20px;font-weight:600;color:var(--ink)}  /* field labels in the heading weight (5 Nov) */
+.field input,.field textarea{display:block;width:100%;border:0;background:transparent;color:var(--ink);font:400 var(--body)/var(--body-lh) var(--font);padding:44px 16px 16px;caret-color:var(--ink)}  /* 16 px on every side, the label 16 px in from the top and left */
 .field textarea{min-height:192px;resize:vertical}
 .field:focus-within{outline:3px solid var(--amber);outline-offset:3px}
 .field input:focus-visible,.field textarea:focus-visible{outline:none}
@@ -198,23 +206,23 @@ canvas.topo{display:none}
 .topnav:hover,.topnav[aria-current="page"]{color:var(--amber)}
 @media (max-width:520px){ .hright{gap:20px} .topnav{font-size:16px} }
 .hsec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px 64px;margin-top:120px}  /* two equal halves: section title on the left, content from the middle to the right gutter (5 Nov, Tony's reference) */
-.hsec h2{font-size:clamp(36px,3.6vw,52px);line-height:1;font-weight:600;letter-spacing:0}
+.hsec h2{font-size:var(--h2);line-height:1;font-weight:600;letter-spacing:0}
 .hlist{display:flex;flex-direction:column;gap:48px;min-width:0}
 .how{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;align-items:start}
 .how .ico{width:48px;height:48px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center}
 .how .ic{width:26px;height:26px;display:block}
-.how h3{font-size:24px;line-height:30px;font-weight:600;margin-top:8px}
+.how h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;margin-top:8px}
 .how p{margin-top:10px;max-width:42em}
 .hnote{max-width:34em}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px;margin-top:40px}
 .pgrid:first-child{margin-top:0}  /* no intro line above it: line up with the section title */
-.pgroup h3{font-size:20px;line-height:26px;font-weight:600;color:var(--text-hi)}
+.pgroup h3{font-size:var(--h3);line-height:var(--h3-lh);font-weight:600;color:var(--text-hi)}
 .pgroup ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
-.pgroup li{font:400 18px/28px var(--font);color:var(--text)}  /* same as body text */
+.pgroup li{font:400 var(--body)/var(--body-lh) var(--font);color:var(--text)}  /* same as body text */
 .prosebit{gap:20px}
 .prosebit a{color:var(--text-hi);font-weight:600}
 @media (max-width:900px){ .hsec{grid-template-columns:minmax(0,1fr);margin-top:88px} }
-@media (max-width:600px){ .pgrid{grid-template-columns:minmax(0,1fr);gap:32px} .how{grid-template-columns:40px minmax(0,1fr);gap:16px} .how .ico{width:40px;height:40px} .how .ic{width:22px;height:22px} .how h3{margin-top:5px;font-size:22px} }
+@media (max-width:600px){ .pgrid{grid-template-columns:minmax(0,1fr);gap:32px} .how{grid-template-columns:40px minmax(0,1fr);gap:16px} .how .ico{width:40px;height:40px} .how .ic{width:22px;height:22px} .how h3{margin-top:5px} }
 /* phones: the header shows the mark only, so "How it works" and "Get the app" both fit (5 Nov). The name stays for screen readers. */
 @media (max-width:600px){ .hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0} }
 @media (max-width:900px){ .hdr .wrap{height:72px} }

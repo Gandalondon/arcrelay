@@ -45,11 +45,11 @@ CSS = """<style>
 .hdr{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);padding-top:env(safe-area-inset-top,0px)}
 .hdr .wrap{height:88px}
 .hdr .btn.sm{height:40px;padding:0 20px;font-size:16px}
-@media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px;font-size:15px} }
+@media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px} }
 .heyhero{position:relative;padding-top:calc(128px + env(safe-area-inset-top,0px));padding-bottom:24px}
 .heyhero .wrap{display:block;max-width:none}
 .heyhero .word{margin:0;font-weight:700;font-size:min(15vw,calc((100svh - 300px) / 2.3));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi);position:relative;z-index:1}
-.heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,5vw,72px);max-width:min(600px,calc(100% - 384px));font-size:24px;line-height:34px}
+.heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,5vw,72px);max-width:min(600px,calc(100% - 384px));font-size:var(--lede);line-height:var(--lede-lh)}
 .phone{--pw:clamp(200px,min(19vw,calc((100svh - 200px) * 0.462)),320px)}
 .p3{position:relative;transform-style:preserve-3d;will-change:transform;--d:35px}
 .p3 .slab{position:absolute;inset:0;border-radius:inherit;background:#222429;transform:translateZ(calc(var(--k) * var(--d) / -12))}
@@ -61,8 +61,8 @@ CSS = """<style>
 .story .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px}
 .steps{display:flex;flex-direction:column}
 .step{min-height:calc(100svh - 88px);display:flex;align-items:center}
-.step h2{font-size:clamp(40px,4.6vw,64px);line-height:1;font-weight:600;letter-spacing:0}
-.step p{margin-top:24px;max-width:26em;font-size:20px;line-height:31px}
+.step h2{font-size:var(--h2);line-height:1;font-weight:600;letter-spacing:0}
+.step p{margin-top:24px;max-width:26em;font-size:var(--body);line-height:var(--body-lh)}
 .step .btn{margin-top:40px}
 .park{position:sticky;top:88px;height:calc(100svh - 88px);display:flex;align-items:center;justify-content:center;perspective:1400px}
 .park .p3{visibility:hidden}
@@ -91,7 +91,7 @@ html.landing .lander{display:block}
   .hdr .wrap{height:72px}
   .heyhero{padding-top:calc(140px + env(safe-area-inset-top,0px));padding-bottom:0}
   .heyhero .word{font-size:30vw}
-  .heyhero .lede{max-width:none;margin-top:24px;font-size:21px;line-height:31px}
+  .heyhero .lede{max-width:none;margin-top:24px}
   .story .wrap{display:block}
   .park,.flyer,.lander,.fslot{display:none}
   .step{min-height:0;display:block;padding-block:64px}
