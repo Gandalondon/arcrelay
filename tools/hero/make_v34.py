@@ -113,7 +113,7 @@ def page(variant):
 """
     flyer = ('<div class="flyer" aria-hidden="true"><div class="phone p3">' + slabs +
              '<div class="screen shot"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="" decoding="async" fetchpriority="high"></div></div></div>')
-    cmp = ('<nav class="cmp" aria-label="Compare versions"><a href="v3"%s>B2 stacked</a><a href="v4"%s>C2 floating</a></nav>'
+    cmp = ('<nav class="cmp" aria-label="Compare versions"><a href="v3"%s>B2 stacked</a><a href="v4"%s>C2 floating</a><a href="v5">One phone</a></nav>'
            % ((' aria-current="page"', '') if b2 else ('', ' aria-current="page"')))
     body = ('<body class="%s" data-start=\'%s\'>\n' % (variant, start) + hdr +
             '<div class="site">\n<main>\n  <section class="heyhero">\n    <div class="wrap">\n      <h1 class="word">' + word +
