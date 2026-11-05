@@ -813,6 +813,8 @@ function answerOn(raw, opts) {
     if (wantsNearest && psNow === "none") return askWhere(raw);
     const E = enemy.charAt(0).toUpperCase() + enemy.slice(1);
     if (psNow === "fresh") { const b = near(S.place, pts); const dir = compass(S.place, b); return { show: "Nearest " + E + ": " + dir + ".", say: "The nearest " + enemy + " spawn is " + dir + " of you.", map: { you: S.place, stars: [b] } }; }
+    /* lots of spawns and no location: ask first rather than fill the map with markers (5 Nov) */
+    if (pts.length > 8 && psNow !== "fresh") { const q = askWhere(raw); q.show = pts.length + " " + E + " spawns. Where are you?"; q.say = "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". Where are you? I'll find the nearest."; return q; }
     return { show: pts.length + " " + E + " spawns, marked.", say: "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". They're marked on the map. Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts } };
   }
 

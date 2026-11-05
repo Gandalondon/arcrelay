@@ -167,6 +167,7 @@ module.exports = [
   { set: { map: "stella-montis", place: "Cafeteria" }, say: "nearest exit", want: { map: "stella-montis", exitName: "Seed Vault Airshaft" } },
   { set: { map: "spaceport" }, say: "I'm at the launch towers", want: { map: "spaceport", place: "Launch Towers" } },
   { set: NONE, say: "wires crossed step 2", want: { quest: "Wires Crossed", step: 2 } },
+  { set: { map: "dam" }, say: "rocketeers", want: { map: "dam", show: "Where are you" } },  /* 25 spawns: ask first */
   { set: { map: "dam" }, say: "I'm on blue gate", want: { map: "blue-gate", show: "Blue Gate" } },
   { set: { map: "dam" }, say: "I'm at the farmlands", want: { map: "blue-gate", place: "Farmlands" } },
   { set: { place: "Village" }, say: "damn, nearest exit", want: { map: "blue-gate", exitName: "Cliffside Airshaft" } },
