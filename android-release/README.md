@@ -1,4 +1,4 @@
-# ArcRelay for Android: Play Store release
+# Relay for Android: Play Store release
 
 Everything for the Google Play listing lives here. Off the site (the site is `site/`), and changes here don't build the APK.
 
@@ -14,7 +14,7 @@ Everything for the Google Play listing lives here. Off the site (the site is `si
 
 ## Listing details
 
-- App name: ArcRelay: Voice Companion. Category: Tools. Privacy policy: https://getarcrelay.app/beta/privacy
+- App name: Relay: Raid Voice Guide. Category: Tools. Privacy policy: https://getarcrelay.app/beta/privacy
 - Data safety: collects nothing, shares nothing, no account.
 
 ## To do

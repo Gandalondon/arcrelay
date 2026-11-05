@@ -2,7 +2,7 @@
 @font-face{font-family:"Barlow";font-weight:500;font-display:swap;src:url(/fonts/barlow-500.woff2) format("woff2")}
 @font-face{font-family:"Barlow";font-weight:600;font-display:swap;src:url(/fonts/barlow-600.woff2) format("woff2")}
 @font-face{font-family:"Barlow";font-weight:700;font-display:swap;src:url(/fonts/barlow-700.woff2) format("woff2")}
-/* ArcRelay site. Barlow throughout. One charcoal ground with faint contour lines behind the whole page, fixed while you scroll.
+/* Relay site. Barlow throughout. One charcoal ground with faint contour lines behind the whole page, fixed while you scroll.
    Hierarchy comes from size, weight and space. No divider lines or borders. 8px grid. */
 :root{
   --bg:#1C1E22;        /* charcoal base: hero, footer, pages */

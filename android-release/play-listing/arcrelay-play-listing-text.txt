@@ -1,8 +1,10 @@
+Relay: Raid Voice Guide
+---
 Ask where to go, find what you need and get out. A voice guide for ARC Raiders.
 ---
 Ask. Find. Get out.
 
-ArcRelay is a voice guide for ARC Raiders. Ask out loud and it answers out loud, so your eyes stay on the screen and your hands stay on the pad. No alt-tabbing, no scrolling a guide mid-raid.
+Relay is a voice guide for ARC Raiders. Ask out loud and it answers out loud, so your eyes stay on the screen and your hands stay on the pad. No alt-tabbing, no scrolling a guide mid-raid.
 
 Say "Hey Relay", or tap, and ask like you would ask a teammate:
 
@@ -24,8 +26,8 @@ Built to run on your phone
 Free. No account, no ads, no tracking.
 
 Early access
-ArcRelay currently covers Blue Gate. More maps will follow. If it gets something wrong, let us know and we will fix it.
+Relay currently covers Blue Gate. More maps will follow. If it gets something wrong, let us know and we will fix it.
 
 Maps by MetaForge (metaforge.app), used with permission.
 
-ArcRelay is an independent, unofficial companion app. It is not made, affiliated with or endorsed by Embark Studios. ARC Raiders is a trademark of Embark Studios.
+Relay is an independent, unofficial companion app. It is not made, affiliated with or endorsed by Embark Studios. ARC Raiders is a trademark of Embark Studios.

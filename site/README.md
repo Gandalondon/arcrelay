@@ -1,4 +1,4 @@
-# ArcRelay site (getarcrelay.app)
+# Relay site (getarcrelay.app)
 
 - `index.html`: the holding page ("coming soon").
 - `beta/`: the full site, unlisted (noindex) at getarcrelay.app/beta.

@@ -1,4 +1,4 @@
-# ArcRelay marketing
+# Relay marketing
 
 Brand assets and campaign material that aren't part of the app, the site or the Play listing. Empty for now.
 

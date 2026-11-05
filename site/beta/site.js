@@ -1,13 +1,13 @@
-/* ArcRelay site: shared behaviour for every page. */
+/* Relay site: shared behaviour for every page. */
 const still = matchMedia("(prefers-reduced-motion: reduce)");
 /* every page opens at the top (no carried-over scroll position), unless the link points at a section */
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 /* scrollIntoView also reaches a viewer that wraps the page, where scrollTo alone does not */
 if (!location.hash) { window.scrollTo(0, 0); try { document.documentElement.scrollIntoView({ block: "start" }); } catch (e) {} }
 /* ============ name: change it here and in each page's <title> ============ */
-const APP_NAME = "ArcRelay";
+const APP_NAME = "Relay";
 /* the wordmark: ARC light cream, RELAY bold amber. Elsewhere the name is plain text */
-document.querySelectorAll("[data-name]").forEach(el => { if (el.closest(".logo")) el.innerHTML = '<span class="arc">Arc</span><span class="rl">Relay</span>'; else el.textContent = APP_NAME; });
+document.querySelectorAll("[data-name]").forEach(el => { if (el.closest(".logo")) el.textContent = "Relay"; else el.textContent = APP_NAME; });
 
 /* ============ logo: the three lines draw in once on load (about 600ms), then stay still ============
    Each line draws from its left end, a beat after the one above, then the wordmark wipes in left to right. Skipped with reduced motion. */
