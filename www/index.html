@@ -60,7 +60,7 @@ body.listening .close{color:var(--amber)}
 .pinok:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
 .mapctl button:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
 /* place names drawn by Relay: cream on a soft dark halo, so they read over any terrain */
-.plabel{font:500 12px/16px var(--body);color:var(--bone);white-space:nowrap;background:rgba(28,30,34,.78);padding:2px 6px;border-radius:3px;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.01em}  /* place names as in the game: cream on a dark translucent chip, no shadow (5 Nov) */
+.plabel{width:max-content;font:500 12px/16px var(--body);color:var(--bone);white-space:nowrap;background:rgba(28,30,34,.78);padding:2px 6px;border-radius:3px;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.01em}  /* place names as in the game: cream on a dark translucent chip, no shadow (5 Nov) */
 .plabel.target{color:var(--amber);font-size:14px;line-height:16px;transform:translate(-50%,14px)}
 .map.zfar .plabel:not(.target):not(.pin){display:none}
 .plabel.pin{transform:translate(18px,-50%)}  /* the pin's place name sits to the right of the dot */  /* zoomed right out: only the target's name */
@@ -1083,9 +1083,23 @@ function drawMap(m) {
   const farZ = lmap.getBoundsZoom(MAP.bounds, false, L.point(32, 32)) + 0.8;
   const zoomCls = () => $("map") && $("map").classList.toggle("zfar", lmap.getZoom() < farZ);
   lmap.on("zoom zoomend", zoomCls);
-  /* a place name under the map buttons is hidden rather than half covered */
-  const clearCtl = () => { const c = $("map") && $("map").parentNode.querySelector(".mapctl"); if (!c) return; const b = c.getBoundingClientRect();
-    $("map").querySelectorAll(".plabel:not(.target):not(.pin)").forEach(e => { const g = document.createRange(); g.selectNodeContents(e); const r = g.getBoundingClientRect(); e.style.visibility = (r.right > b.left - 4 && r.left < b.right && r.bottom > b.top - 4 && r.top < b.bottom + 4) ? "hidden" : ""; }); };
+  /* place names never show cut off (5 Nov). In order (target, pin, then the rest):
+     - a name whose point is off the tile is hidden, so no half name peeks in from the edge
+     - a name whose point is on the tile but whose chip runs past the edge slides back inside (6 px clear)
+     - a name under the map buttons or the MetaForge credit, or overlapping a name already shown, is hidden (the target's and the pin's never are) */
+  const clearCtl = () => { const mp = $("map"); if (!mp) return; const w = mp.getBoundingClientRect(), g = 6, shown = [];
+    const blk = [mp.parentNode.querySelector(".mapctl"), mp.querySelector(".leaflet-control-attribution")].filter(Boolean).map(x => x.getBoundingClientRect());
+    const hit = (r, q, m) => r.right > q.left - m && r.left < q.right + m && r.bottom > q.top - m && r.top < q.bottom + m;
+    const all = [...mp.querySelectorAll(".plabel.target, .plabel.pin"), ...mp.querySelectorAll(".plabel:not(.target):not(.pin)")];
+    all.forEach(e => { e.style.marginLeft = e.style.marginTop = ""; e.style.visibility = "";
+      if (getComputedStyle(e).display === "none") return;
+      const a = e.parentNode.getBoundingClientRect(), key = e.matches(".target, .pin");
+      if (a.left < w.left || a.left > w.right || a.top < w.top || a.top > w.bottom) { e.style.visibility = "hidden"; return; }
+      let r = e.getBoundingClientRect(); const dx = Math.max(w.left + g - r.left, 0) + Math.min(w.right - g - r.right, 0), dy = Math.max(w.top + g - r.top, 0) + Math.min(w.bottom - g - r.bottom, 0);
+      if (dx) e.style.marginLeft = Math.round(dx) + "px"; if (dy) e.style.marginTop = Math.round(dy) + "px";
+      if (dx || dy) r = e.getBoundingClientRect();
+      if (!key && (blk.some(q => hit(r, q, 4)) || shown.some(q => hit(r, q, 2)))) { e.style.visibility = "hidden"; return; }
+      shown.push(r); }); };
   lmap.on("move zoom moveend zoomend", clearCtl);
   if (m.you) { const g = !!m.you.guess, s = g ? 44 : 20; L.marker(ll(m.you), { icon: L.divIcon({ className: "", html: g ? YOU_GUESS : YOU, iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); }
   const pts = [...m.stars, ...(m.you ? [m.you] : [])].map(ll);
@@ -1104,7 +1118,7 @@ function drawMap(m) {
     if (pin) pin.remove(); if (pinLab) pinLab.remove();
     pin = L.marker(e.latlng, { icon: L.divIcon({ className: "", html: PIN_NEW, iconSize: [24, 24], iconAnchor: [12, 12] }), keyboard: false, interactive: false }).addTo(lmap);
     if (nb) pinLab = L.marker([pinPt.y, pinPt.x], { icon: L.divIcon({ className: "", html: '<div class="plabel pin">' + esc(nb.n.replace(/^the /, "")) + '</div>', iconSize: [0, 0] }), keyboard: false, interactive: false }).addTo(lmap);
-    $("maphint").hidden = true; $("pinok").hidden = false;
+    clearCtl(); $("maphint").hidden = true; $("pinok").hidden = false;
     $("pinok").onclick = ev => { ev.stopPropagation(); pinHere(pinPt); };
   });
   const fitAll = () => lmap.fitBounds(MAP.bounds, { padding: [16, 16] });

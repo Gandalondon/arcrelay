@@ -1,9 +1,9 @@
-# Relay: where we are (end of Wednesday 4 November 2026)
+# Relay: where we are (Thursday 5 November 2026)
 
-Start a new conversation by reading this file. It replaces the long 4 Nov chat.
+Start a new conversation by reading this file, then the style guide.
 
 ## The project in one paragraph
-Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Android companion for ARC Raiders (Pixel 9). Ask out loud ("Hey Relay" or tap), it answers out loud and shows a map: nearest exit, quest steps, items, "not that one" rerouting. Everything runs on the phone. Blue Gate only so far. Rules: £0 to run (no paid services or keys), UK English, no em dashes, no widows, palette charcoal #1C1E22 / panel #26282D / ink #15171C / cream #EEE8DC / amber #F2B33D, Barlow, Material Symbols Rounded only. Push to main when Tony says push or has approved the work. The style guide is the rulebook: `src/docs/style-guide.html`.
+Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Android companion for ARC Raiders (Pixel 9). Ask out loud ("Hey Relay" or tap), it answers out loud and shows a map: nearest exit, quest steps, items, "not that one" rerouting. Everything runs on the phone. Blue Gate only so far. Rules: £0 to run (no paid services or keys), UK English, no em dashes, no widows, palette charcoal #1C1E22 / panel #26282D / ink #15171C / cream #EEE8DC / amber #F2B33D, Inter Tight, Material Symbols Rounded only. Push to main only when Tony says push; Claude pushes itself. Run `node tests/run.js` before every commit. The style guide is the rulebook: edit `tools/style-guide/template.html`, then `python3 tools/style-guide/make.py` builds `src/docs/style-guide.html` (never edit the built file).
 - Name (5 Nov): the brand is Relay. Domain getarcrelay.app unchanged; repo renamed to relay (5 Nov). Package renamed to app.getarcrelay (5 Nov, matches Play Console; Sniff is app.getsniff); Java in `android/app/src/main/java/app/getarcrelay/`. Builds from 1.0.86 install as a new app: re-add it in Obtainium (APK is now relay.apk), re-download voices and the offline speech pack, then uninstall the old one. Play title "Relay: Raid Voice Guide"; "for ARC Raiders" lives in the short and full descriptions. Tony updates Play Console himself.
 
 ## Site, 5 Nov
@@ -31,7 +31,6 @@ Since 1.0.66 (4 Nov, 1.0.67): answer headline with a map is fixed 48 px, three l
 - Start animation: 1.0.65 launcher-icon match undone 4 Nov (logo shrank and jumped after Android's splash); back to the splash-matched 1.0.64 version. Check it on the Pixel.
 - Test the pin flow in a raid (1.0.66).
 - "Hey Relay" with game audio playing: false triggers or misses?
-- Take a real screenshot with the map (for a third Play screenshot later; no Play changes until all maps are in).
 - Reply from MetaForge on the marker data (below).
 
 ## Next: all the other maps (one map per day, fresh chat each)
@@ -48,7 +47,8 @@ Then: work out which map you're on from a spoken landmark (unique name: switch; 
 
 ## Onboarding (built 5 Nov)
 - **Before release: remove the invisible test skip** (`#obskip`, top right, in `www/index.html`; marked TEST BUILD ONLY). Shows once per install (`relay-onb` in storage).
-- Screens 2 and 3 use map captures from the 4 Nov mockup (`www/onboard-find.webp`, `www/onboard-exit.webp`); re-capture on the Pixel once the exit badges are settled.
+- Screens 2 and 3 (`www/onboard-find.webp`, `www/onboard-exit.webp`) and the site screens are regenerated from the live app with the real Blue Gate tiles (5 Nov): tiles are saved in `android-release/play-listing/source/tiles`, run `recapture.js` then `composite.py`. No Pixel screenshots needed.
+- Play Store visuals: on hold; the relay-play-listing-art skill is there for when Tony asks.
 
 ## Onboarding (agreed 4 Nov)
 Mockup: https://claude.ai/artifact/LaZfxhucnGwofdQdHAVK9d . Four screens, no Skip, each heading / body / visual, headlines two lines, dots centred with a full-width button under them:
