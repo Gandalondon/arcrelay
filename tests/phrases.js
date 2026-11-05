@@ -174,6 +174,13 @@ module.exports = [
   { set: NONE, say: "celeste's teenage rebellion", want: { quest: "Celeste's Teenage Rebellion", step: 1 } },
   { set: NONE, say: "on sizing things up", want: { quest: "Sizing Things Up", step: 1 } },
   { set: NONE, say: "starting when everything falls", want: { map: "spaceport" } },
+  { set: NONE, say: "show me the dam map", want: { map: "dam", show: "Dam Battlegrounds" } },  /* show a map, then ask where (5 Nov) */
+  { set: NONE, say: ["show me the dam map", "the control tower"], want: { map: "dam", place: "Control Tower" } },
+  { set: NONE, say: "show me the blue gate map, I'm at the village", want: { map: "blue-gate", place: "Village" } },
+  { set: { map: "dam" }, say: "open the map", want: { map: "dam", show: "Dam Battlegrounds" } },
+  { set: NONE, say: ["pull up spaceport", "show me buried city"], want: { map: "buried-city", show: "Buried City" } },
+  { set: { map: "dam" }, say: "I'm going to Blue Gate, show me locations of sentinels", want: { map: "blue-gate", show: "Sentinel spawns, marked" } },
+  { set: { map: "dam" }, say: ["I'm on dam", "I'm Blue Gate, south east, find me a sentinel"], want: { map: "blue-gate", show: "Nearest Sentinel" } },
   { set: { map: "dam" }, say: "I'm on blue gate", want: { map: "blue-gate", show: "Blue Gate" } },
   { set: { map: "dam" }, say: "I'm at the farmlands", want: { map: "blue-gate", place: "Farmlands" } },
   { set: { place: "Village" }, say: "damn, nearest exit", want: { map: "blue-gate", exitName: "Cliffside Airshaft" } },

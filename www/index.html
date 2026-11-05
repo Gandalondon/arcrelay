@@ -574,12 +574,14 @@ function askStill(raw) {
 }
 function resolvePending(q) {
   const p = S.pending, t = norm(q);
+  /* after "show me the map": a whole question ("I'm Blue Gate, south-east, find me a Sentinel") is answered as asked, not just as a place */
+  if (p.q === MAP_ASK && (mapSaid(t) || placeMap(t) || findItem(t) || findQuest(t) || has(t, ["exit", "extract", "evac", "way out", "hatch", "where", "nearest", "find", ...ENEMY_WORDS]))) { S.pending = null; save(); return null; }
   const place = findWhere(t);
   if (place) { S.place = place; S.placeAt = Date.now(); S.raidAt = S.raidAt || Date.now(); S.pending = null; save(); const a = answer(p.q); a.say = (place.rough ? "Got it. " : "Got it, " + place.n + ". ") + a.say; return a; }
   if (/\b(yes|yeah|yep|yup|still|same|correct)\b/.test(t) && S.place) { S.placeAt = Date.now(); S.pending = null; save(); return answer(p.q); }
   if (/(don't know|dont know|no idea|not sure|lost|no clue|skip)/.test(t)) { S.pending = null; save(); return answer(p.q, { general: true }); }
   if (/\b(no|nope|moved)\b/.test(t)) { S.place = null; save(); return askWhere(p.q); }
-  const newQ = has(t, ["extract", "exit", "quest", "where's", "where is", "what", "died", "new raid", "recap", "where were we", "step", "next", "done", ...ENEMY_WORDS]) || findQuest(t);
+  const newQ = has(t, ["extract", "exit", "quest", "where's", "where is", "what", "died", "new raid", "recap", "where were we", "step", "next", "done", ...ENEMY_WORDS]) || findQuest(t) || mapSaid(t) || /\bmaps?\b/.test(t) || placeMap(t);  /* a map, or a place on another map, is a new question */
   if (newQ) { S.pending = null; save(); return null; }
   p.asks += 1; save();
   if (p.asks >= 2) { S.pending = null; save(); const a = answer(p.q, { general: true }); a.say = "I can't place that, so here's everything. " + a.say; return a; }
@@ -657,12 +659,11 @@ function answer(raw, opts) {
   const notYet = (id) => ({ show: (id ? MAP_NAMES[id] + ": not yet." : readyNames() + " only, for now."), say: (id ? "That's on " + MAP_NAMES[id] + ". " : "That's on another map. ") + "I only have " + readyNames() + " so far, the other maps are coming.", ctx: heard });
   let switched = false;
   const said = mapSaid(t);
+  /* "show me the Dam map", "open the map", "pull up Blue Gate": a request to see a map (5 Nov) */
+  const showQ = /\b(show|open|pull up|bring up|display|view|load|see|check)\b/.test(t) && (/\bmaps?\b/.test(t) || !!said);
   if (said) {
     if (!ready(said.id)) return notYet(said.id);
     if (said.id !== MAP.id) { switchMap(said.id); switched = true; }
-    /* just the map ("I'm on Dam"): confirm it, and show it */
-    const rest = t.replace(said.a, " ").replace(/\b(i'm|im|i am|we're|we are|were|on|in|at|playing|play|the|map|now|today|this|raid|it's|its|it is|switch|switching|switched|to|change|changed|go|going|we|i|got|ok|okay|so|just|actually|loaded|loading|into|dropped|dropping)\b/g, " ").trim();
-    if (!rest) return { show: MAP.name + ".", say: MAP.name + ". Got it.", ctx: "Say where you are, or tap the map", map: { you: null, stars: [] } };
   } else {
     const om = placeMap(t);
     if (om && (!findPlace(t) || (om.len >= 8 && om.words > 1))) {
@@ -672,12 +673,27 @@ function answer(raw, opts) {
       else return { show: "Which map?", say: "That's on " + andList(go.map(id => MAP_NAMES[id])) + ". Which map are you on?", ctx: heard };
     }
   }
+  /* just the map ("I'm on Dam", "show me the Blue Gate map"): show it whole and ask where you are; anything more
+     ("show me the Blue Gate map, I'm at the Village") is answered on that map */
+  if (said || showQ) {
+    const rest = (said ? t.replace(said.a, " ") : t).replace(/\b(i'm|im|i am|we're|we are|were|on|in|at|playing|play|the|map|maps|now|today|this|raid|it's|its|it is|switch|switching|switched|to|change|changed|go|going|we|i|got|ok|okay|so|just|actually|loaded|loading|into|dropped|dropping|show|showing|open|pull|bring|up|display|view|load|see|check|me|us|can|could|you|please|let's|lets|let|a|look|of|for|give|whole|full|hey)\b/g, " ").trim();
+    if (!rest) return showMapAnswer();
+  }
   const a = answerOn(raw, opts);
   if (switched) { a.say = MAP.name + ". " + a.say; if (a.full) a.full = MAP.name + ". " + a.full; }
   return a;
 }
+/* the whole map, ready for where you are: say a place (or a side), or tap it */
+const MAP_ASK = "\u0000where-on-map";
+function showMapAnswer() {
+  if (posState() === "fresh") { const e = near(S.place, EXITS); return { show: MAP.name + ".", say: MAP.name + ". You're at " + S.place.n + ". Nearest way out is " + e.n + ", " + compass(S.place, e) + ".", map: { you: S.place, stars: [e] } }; }
+  S.pending = { q: MAP_ASK, asks: 0 }; save();
+  return { show: MAP.name + ".", say: MAP.name + ". Where are you?", ctx: "Say a place or a side, or tap the map", map: { you: null, stars: [], pick: true } };
+}
 function answerOn(raw, opts) {
   opts = opts || {};
+  if (raw === MAP_ASK && !S.place) return { show: "No problem.", say: "No problem. Tap the map when you know, or just ask.", map: { you: null, stars: [], pick: true } };
+  if (raw === MAP_ASK) { const e = near(S.place, EXITS); return { show: "Got it. " + S.place.n.charAt(0).toUpperCase() + S.place.n.slice(1) + ".", say: "Nearest way out is " + e.n + ", " + compass(S.place, e) + ".", map: { you: S.place.rough ? Object.assign({ guess: true }, S.place) : S.place, stars: [e] } }; }
   const t = norm(raw);
   const terse = inRaid();
   const ps = opts.general ? "general" : posState();
@@ -814,7 +830,7 @@ function answerOn(raw, opts) {
     const E = enemy.charAt(0).toUpperCase() + enemy.slice(1);
     if (psNow === "fresh") { const b = near(S.place, pts); const dir = compass(S.place, b); return { show: "Nearest " + E + ": " + dir + ".", say: "The nearest " + enemy + " spawn is " + dir + " of you.", map: { you: S.place, stars: [b] } }; }
     /* lots of spawns and no location: ask first rather than fill the map with markers (5 Nov) */
-    if (pts.length > 8 && psNow !== "fresh") { const q = askWhere(raw); q.show = pts.length + " " + E + " spawns. Where are you?"; q.say = "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". Where are you? I'll find the nearest."; return q; }
+    if (pts.length > 8 && psNow !== "fresh" && !has(t, ["show", "location", " all ", " every", "spawns", "where are the", " list", "mark"])) { const q = askWhere(raw); q.show = pts.length + " " + E + " spawns. Where are you?"; q.say = "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". Where are you? I'll find the nearest."; return q; }
     return { show: pts.length + " " + E + " spawns, marked.", say: "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". They're marked on the map. Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts } };
   }
 
