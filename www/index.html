@@ -29,11 +29,11 @@ body.listening{background:var(--navy);color:var(--bone)}
 .app{height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;padding:calc(var(--pad) + env(safe-area-inset-top,0px)) var(--pad) 0}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex:none}
 .top .word{flex:1 1 auto}
-.word{all:unset;display:block;min-width:0;max-width:100%;cursor:pointer;font-family:var(--display);font-weight:600;font-size:80px;line-height:76px;letter-spacing:-.01em;white-space:pre-line;text-wrap:balance}
+.word{all:unset;display:block;min-width:0;max-width:100%;cursor:pointer;font-family:var(--display);font-weight:700;font-size:80px;line-height:76px;letter-spacing:0;white-space:pre-line;text-wrap:balance}
 /* answer type (with a map): fixed 48px, three lines max, box always three lines tall. Set in fitInstr(). */
-.word.instr{letter-spacing:-.01em;white-space:normal;overflow-wrap:normal}
+.word.instr{letter-spacing:0;white-space:normal;overflow-wrap:normal}
 .word:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
-.word.greet{white-space:pre-line;letter-spacing:-.01em}
+.word.greet{white-space:pre-line;letter-spacing:0}
 .word.greet .gl{display:block;text-wrap:balance}  /* the varied line balances on its own (no lone last word); same size as the rest */
 .close{all:unset;flex:none;width:48px;height:48px;margin:-8px -12px 0 0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--amber)}  /* the close X is yellow, like the mic */
 .close svg{width:32px;height:32px}
@@ -137,6 +137,36 @@ body.session .sppack,body.listening .sppack{display:none}
 /* settings only on the home screen: hidden while listening, speaking or in a conversation, so it can't interrupt */
 body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{display:none}
 @media (prefers-reduced-motion:reduce){body{transition:none} .wave i,.mic svg,.mic{animation:none!important}}
+/* onboarding (5 Nov): four screens on first open. Heading / body / visual, dots centred, full-width button.
+   TEST BUILD ONLY: an invisible tap target top right skips it. Remove #obskip before release. */
+.ob{position:fixed;inset:0;z-index:70;background:var(--navy);color:var(--bone);display:flex;flex-direction:column;padding:calc(var(--pad) + env(safe-area-inset-top,0px)) var(--pad) calc(24px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto}
+.ob[hidden]{display:none}
+.obskip{all:unset;position:absolute;top:env(safe-area-inset-top,0px);right:0;width:72px;height:72px;cursor:pointer}  /* invisible, test builds only */
+.obs{flex:1;min-height:0;display:flex;flex-direction:column}
+.obs[hidden]{display:none}
+.obs h1{margin:48px 0 0;font:700 56px/56px var(--display);letter-spacing:0;text-wrap:balance}
+.obs p{margin:16px 0 0;font-size:18px;line-height:27px;opacity:.75;text-wrap:pretty}
+.obvis{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;margin:28px 0}
+.obvis img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:24px}
+.obmic{width:96px;height:96px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 22px rgba(242,179,61,.28),0 0 0 48px rgba(242,179,61,.12)}
+.obmic svg{width:44px;height:44px}
+.obvoices{list-style:none;margin:0;padding:0;width:100%;align-self:stretch;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.obvoices button{all:unset;box-sizing:border-box;width:100%;display:block;padding:14px 16px;border-radius:16px;background:var(--panel);cursor:pointer}
+.obvoices button.on{background:var(--amber);color:var(--ink)}
+.obvoices .n{display:block;font-size:18px;line-height:24px;font-weight:500}
+.obvoices .m{display:block;font-size:14px;line-height:20px;opacity:.75}
+.obfoot{flex:none;display:flex;flex-direction:column;gap:20px}
+.obdots{display:flex;gap:8px;align-self:center}
+.obdots i{display:block;width:8px;height:8px;border-radius:4px;background:rgba(238,232,220,.3);transition:width .2s}
+.obdots i.on{width:24px;background:var(--bone)}
+.obbtns{display:grid;grid-template-columns:1fr;gap:8px}
+.obbtns.two{grid-template-columns:1fr 2fr}
+.obbtn{all:unset;box-sizing:border-box;height:56px;border-radius:999px;background:var(--amber);color:var(--ink);font:500 18px/56px var(--body);text-align:center;cursor:pointer}
+.obbtn.alt{background:transparent;color:var(--bone);box-shadow:inset 0 0 0 1.5px rgba(238,232,220,.45)}
+.obbtn:focus-visible,.obvoices button:focus-visible{outline:3px solid var(--bone);outline-offset:3px}
+.obcredit{position:absolute;right:12px;bottom:8px;font-size:11px;line-height:14px;opacity:.75}
+.obvis{position:relative}
+@media (max-height:700px){ .obs h1{margin-top:24px;font-size:44px;line-height:46px} .obvis{margin:20px 0} }
 </style>
 </head>
 <body>
@@ -173,6 +203,15 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
   <div class="vhead"><button class="back" id="vback" type="button" aria-label="Back"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="m274-450 227 227q9 9 9 21t-9 21q-9 9-21 9t-21-9L181-459q-5-5-7-10t-2-11q0-6 2-11t7-10l278-278q9-9 21-9t21 9q9 9 9 21t-9 21L274-510h496q13 0 21.5 8.5T800-480q0 13-8.5 21.5T770-450H274Z"/></svg></button><h2>Voice</h2></div>
   <div class="gkey" id="ov"><p id="ovstat"></p><div class="gkrow"><button type="button" id="ovget">Download voice (130 MB)</button></div></div>
   <ul id="ovitems"></ul>
+</div>
+<div class="ob" id="ob" hidden role="dialog" aria-label="Welcome to Relay">
+  <button class="obskip" id="obskip" type="button" aria-label="Skip (test builds only)"></button>
+  <section class="obs" data-i="0"><h1>Say “Hey Relay”.</h1><p>Or tap the button. It answers out loud, then listens for one follow-up.</p><div class="obvis"><div class="obmic" aria-hidden="true"><svg class="obwv" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M285-270v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165 160v-740q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v740q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63Q450-97.25 450-110ZM120-430v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm495 160v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165-160v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></div></div></section>
+  <section class="obs" data-i="1" hidden><h1>Find what you need.</h1><p>Ask for an item, an enemy or a spawn. It shows the nearest one.</p><div class="obvis"><img src="onboard-find.webp" alt="Map: you at the Village, a dashed line to the nearest Rocketeer spawn"><span class="obcredit">Maps by MetaForge</span></div></section>
+  <section class="obs" data-i="2" hidden><h1>Find the nearest exit.</h1><p>Say where you are, or tap the map. It shows the way out.</p><div class="obvis"><img src="onboard-exit.webp" alt="Map: you on open ground, a dashed line to the nearest airshaft"><span class="obcredit">Maps by MetaForge</span></div></section>
+  <section class="obs" data-i="3" hidden><h1>Pick Relay’s voice.</h1><p>The natural voices are a one-off 130&nbsp;MB download. Until then, Relay uses your phone’s voice.</p><div class="obvis"><ul class="obvoices" id="obvoices"></ul></div></section>
+  <div class="obfoot"><div class="obdots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="obbtns" id="obbtns"><button class="obbtn" id="obnext" type="button">Next</button></div></div>
 </div>
 <div class="vlist" id="debug" hidden role="dialog" aria-label="Diagnostics">
   <div class="vhead"><button class="back" id="dback" type="button" aria-label="Back"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="m274-450 227 227q9 9 9 21t-9 21q-9 9-21 9t-21-9L181-459q-5-5-7-10t-2-11q0-6 2-11t7-10l278-278q9-9 21-9t21 9q9 9 9 21t-9 21L274-510h496q13 0 21.5 8.5T800-480q0 13-8.5 21.5T770-450H274Z"/></svg></button><h2>Diagnostics</h2></div>
@@ -932,7 +971,7 @@ let BASE = 0;
 function baseSize(w) {
   if (BASE && BASE.width === w.clientWidth) return BASE.size;
   const m = document.createElement("span"); m.className = "word"; m.style.cssText = "position:absolute;visibility:hidden;white-space:pre;width:auto"; m.textContent = "Afternoon,";
-  const d = document.createElement("div"); d.className = "word"; d.style.cssText = "position:absolute;visibility:hidden;white-space:normal;letter-spacing:-.01em;width:" + w.clientWidth + "px";
+  const d = document.createElement("div"); d.className = "word"; d.style.cssText = "position:absolute;visibility:hidden;white-space:normal;letter-spacing:0;width:" + w.clientWidth + "px";
   document.body.appendChild(m); document.body.appendChild(d); let size = 40;
   for (const s of [64, 56, 52, 48, 44, 40]) {
     m.style.fontSize = s + "px"; d.style.fontSize = s + "px"; d.style.lineHeight = s + "px";
@@ -940,7 +979,7 @@ function baseSize(w) {
     if (LINES.every(t => { d.textContent = t; return Math.round(d.getBoundingClientRect().height / s) <= 3; })) { size = s; break; }
   }
   m.remove(); d.remove();
-  let ready = true; try { ready = !document.fonts || document.fonts.check('600 16px "Inter Tight"'); } catch (e) {}
+  let ready = true; try { ready = !document.fonts || document.fonts.check('700 16px "Inter Tight"'); } catch (e) {}
   if (w.clientWidth > 0 && ready) BASE = { width: w.clientWidth, size };  /* not cached until Inter Tight is in: the fallback font is wider */
   return size;
 }
@@ -1294,6 +1333,36 @@ async function ovRender() {
   });
 }
 $("ovget").addEventListener("click", async () => { try { await OV.download(); } catch (e) {} ovRender(); });
+/* onboarding: first open only (relay-onb in storage). Screen 4 picks the voice; Download starts it, Skip keeps the phone's voice. */
+const OB_KEY = "relay-onb";
+(function onboarding() {
+  let seen = false; try { seen = localStorage.getItem(OB_KEY) === "1"; } catch (e) {}
+  if (seen) return;
+  const ob = $("ob"), screens = [...ob.querySelectorAll(".obs")], dots = [...ob.querySelectorAll(".obdots i")], btns = $("obbtns");
+  let i = 0;
+  const done = () => { try { localStorage.setItem(OB_KEY, "1"); } catch (e) {} ob.hidden = true; };
+  const list = $("obvoices");
+  OV_VOICES.forEach(v => {
+    const li = document.createElement("li"), b = document.createElement("button"); b.type = "button";
+    b.innerHTML = '<span class="n"></span><span class="m"></span>'; b.querySelector(".n").textContent = v.label; b.querySelector(".m").textContent = v.kind;
+    if (CFG.sid === v.sid) { b.classList.add("on"); b.setAttribute("aria-current", "true"); }
+    b.addEventListener("click", () => { list.querySelectorAll("button.on").forEach(x => { x.classList.remove("on"); x.removeAttribute("aria-current"); }); b.classList.add("on"); b.setAttribute("aria-current", "true"); CFG.sid = v.sid; saveCfg(); });
+    li.appendChild(b); list.appendChild(li);
+  });
+  const show = n => {
+    i = n; screens.forEach((s, k) => { s.hidden = k !== n; }); dots.forEach((d, k) => d.classList.toggle("on", k === n));
+    if (n < 3) { btns.className = "obbtns"; btns.innerHTML = '<button class="obbtn" type="button">Next</button>'; btns.firstChild.addEventListener("click", () => show(n + 1)); }
+    else {
+      btns.className = "obbtns two"; btns.innerHTML = '<button class="obbtn alt" type="button">Skip</button><button class="obbtn" type="button">Download</button>';
+      btns.children[0].addEventListener("click", done);
+      btns.children[1].addEventListener("click", async () => { done(); if (OV) { try { await OV.download(); } catch (e) {} } });
+    }
+  };
+  $("obskip").addEventListener("click", done);  /* TEST BUILD ONLY: remove before release */
+  let x0 = null; ob.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+  ob.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (dx < -60 && i < 3) show(i + 1); else if (dx > 60 && i > 0) show(i - 1); });
+  show(0); ob.hidden = false;
+})();
 $("word").addEventListener("click", () => listen());
 document.querySelector(".app").addEventListener("click", e => { if (e.target.closest(".mapwrap,.close,.mic,.word,.cog")) return; listen(); });
 $("close").addEventListener("click", e => {

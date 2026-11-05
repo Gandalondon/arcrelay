@@ -46,7 +46,11 @@ Per map (Blue Gate is the template; roughly a day each):
 5. Tests, like Blue Gate's.
 Then: work out which map you're on from a spoken landmark (unique name: switch; ambiguous: "Which map?"; keep it for the raid). Order: the map Tony plays most after Blue Gate first, Pendola Pass last.
 
-## Onboarding (agreed 4 Nov, not built yet)
+## Onboarding (built 5 Nov)
+- **Before release: remove the invisible test skip** (`#obskip`, top right, in `www/index.html`; marked TEST BUILD ONLY). Shows once per install (`relay-onb` in storage).
+- Screens 2 and 3 use map captures from the 4 Nov mockup (`www/onboard-find.webp`, `www/onboard-exit.webp`); re-capture on the Pixel once the exit badges are settled.
+
+## Onboarding (agreed 4 Nov)
 Mockup: https://claude.ai/artifact/LaZfxhucnGwofdQdHAVK9d . Four screens, no Skip, each heading / body / visual, headlines two lines, dots centred with a full-width button under them:
 1. "Say “Hey Relay”." Listening mic (static, with halo).
 2. "Find what you need." Nearest Rocketeer map (items, enemies, spawns; not quests for now).
