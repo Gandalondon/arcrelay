@@ -60,7 +60,7 @@ body.listening .close{color:var(--amber)}
 .pinok:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
 .mapctl button:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
 /* place names drawn by Relay: cream on a soft dark halo, so they read over any terrain */
-.plabel{font:600 12px/14px var(--body);color:var(--bone);white-space:nowrap;text-shadow:0 0 3px #1C1E22,0 0 6px #1C1E22,0 1px 2px #1C1E22;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.02em}
+.plabel{font:500 12px/14px var(--body);color:var(--bone);white-space:nowrap;text-shadow:0 1px 2px rgba(21,23,28,.9),0 0 6px rgba(21,23,28,.75);transform:translate(-50%,-50%);pointer-events:none;letter-spacing:.01em}  /* place names as in the game: medium weight, plain cream, a soft halo instead of a heavy outline (5 Nov) */
 .plabel.target{color:var(--amber);font-size:14px;line-height:16px;transform:translate(-50%,14px)}
 .map.zfar .plabel:not(.target):not(.pin){display:none}
 .plabel.pin{transform:translate(18px,-50%)}  /* the pin's place name sits to the right of the dot */  /* zoomed right out: only the target's name */
@@ -197,8 +197,8 @@ const pt = (n, y, x) => ({ n, y, x });
 const byName = s => R.find(r => r.n.toLowerCase().includes(s.toLowerCase()));
 const fromRow = (r, label) => r ? pt(label || r.n, r.y, r.x) : null;
 
-const EXITS = R.filter(r => r.c === "extraction").map(r => pt(r.n, r.y, r.x));
-const HATCHES = R.filter(r => r.c === "hatch").map(r => pt(r.n, r.y, r.x));
+const EXITS = R.filter(r => r.c === "extraction").map(r => Object.assign(pt(r.n, r.y, r.x), { t: "shaft" }));  /* t: drawn as an airshaft badge */
+const HATCHES = R.filter(r => r.c === "hatch").map(r => Object.assign(pt(r.n, r.y, r.x), { t: "hatch" }));  /* t: drawn as a hatch badge */
 const ENEMIES = {};
 R.filter(r => r.k === "a").forEach(r => { (ENEMIES[r.c] = ENEMIES[r.c] || []).push(pt(r.c, r.y, r.x)); });
 
@@ -990,6 +990,10 @@ function renderAnswer(q, a) {
 function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably near " : "you at ") + m.you.n); if (m.stars.length) p.push("marked: " + m.stars.map(s => s.n).join(", ")); return "Blue Gate map, " + p.join("; "); }
 
 /* markers: a yellow dot for the place, a white dot for you, a dashed ring when your position is a guess */
+/* ways out are badges, as in the game: a rounded square with the airshaft fan or the hatch arrow (Material Symbols Rounded).
+   Amber when it's where you're going, cream when it's an alternative; ink glyph either way (5 Nov) */
+const EXIT_GLYPH = { shaft: "M424-80q-51 0-77.5-30.5T320-180q0-26 11.5-50.5T367-271q22-14 36.5-37.5T425-373q-1 0-1-.5t-2-1.5l-116 41q-17 6-33 10t-33 4q-63 0-111.5-55T80-536q0-51 30.5-77.5T179-640q26 0 51 11.5t41 35.5q14 22 39.5 37.5T373-535q1-1 1.5-2t.5-2l-41-115q-6-17-10-33t-4-32q0-64 55-112.5T536-880q51 0 77.5 30.5T640-781q0 26-11.5 51T593-689q-26 17-40.5 45T536-586q1 1 1.5.5t1.5 1.5l115-43q17-6 32.5-9.5T719-640q81 0 121 67t40 149q0 51-32 77.5T777-320q-25 0-48.5-11.5T689-367q-14-22-37.5-36.5T587-426l-1.5 3q-.5 1-1.5 2l42 115q6 16 10 30.5t4 30.5q1 65-54 115T424-80Zm56-340q25 0 42.5-17.5T540-480q0-25-17.5-42.5T480-540q-25 0-42.5 17.5T420-480q0 25 17.5 42.5T480-420Z", hatch: "M469-327q-5-2-10-7L308-485q-9-9.27-8.5-21.64.5-12.36 9.11-21.36 9.39-9 21.89-9t21.5 9l98 99v-341q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v341l99-99q8.8-9 20.9-8.5 12.1.5 21.49 9.5 8.61 9 8.61 21.5t-9 21.5L501-334q-5 5-10.13 7-5.14 2-11 2-5.87 0-10.87-2ZM220-160q-24 0-42-18t-18-42v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113h520v-113q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v113q0 24-18 42t-42 18H220Z" };
+const BADGE = (t, s, amber) => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:' + Math.round(s * .28) + 'px;background:' + (amber ? "#F2B33D" : "#EEE8DC") + ';color:#15171C;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #1C1E22' + (amber ? ',0 0 0 5px rgba(242,179,61,.35)' : '') + '"><svg viewBox="0 -960 960 960" width="' + Math.round(s * .72) + '" height="' + Math.round(s * .72) + '" fill="currentColor" aria-hidden="true"><path d="' + EXIT_GLYPH[t] + '"/></svg></div>';
 const DOT = s => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:50%;background:#F2B33D;box-shadow:0 0 0 3px #1C1E22,0 0 0 5px rgba(242,179,61,.35)"></div>';
 const YOU = '<div style="width:20px;height:20px;border-radius:50%;background:#EEE8DC;box-shadow:0 0 0 3px #1C1E22"></div>';
 /* the spot you've tapped but not confirmed: a hollow cream ring; it becomes the solid dot after "I'm here" */
@@ -1025,7 +1029,7 @@ function drawMap(m) {
      Any extra dot (a closer hatch) is smaller. Without you, all dots are equal (e.g. "Four airshafts, marked") (4 Nov) */
   const single = m.stars.length === 1, lead = !!m.you && m.stars.length > 0;
   if (lead) L.polyline([ll(m.you), ll(m.stars[0])], { color: "#EEE8DC", weight: 2, opacity: .7, dashArray: "4 8", lineCap: "round" }).addTo(lmap);
-  m.stars.forEach((p, i) => { const s = single || (lead && i === 0) ? 22 : 14; L.marker(ll(p), { icon: L.divIcon({ className: "", html: DOT(s), iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); });
+  m.stars.forEach((p, i) => { const main = single || (lead && i === 0) || !lead, s = p.t ? (single || (lead && i === 0) ? 30 : 24) : (single || (lead && i === 0) ? 22 : 14); L.marker(ll(p), { icon: L.divIcon({ className: "", html: p.t ? BADGE(p.t, s, main) : DOT(s), iconSize: [s, s], iconAnchor: [s / 2, s / 2] }), keyboard: false, interactive: false }).addTo(lmap); });
   /* place names: every named area, plus the target's own name in amber under its dot */
   const lab = (p, cls) => L.marker(ll(p), { icon: L.divIcon({ className: "", html: '<div class="plabel' + (cls ? " " + cls : "") + '">' + esc(p.n.replace(/^the /, "")) + '</div>', iconSize: [0, 0] }), keyboard: false, interactive: false }).addTo(lmap);
   const starNames = new Set(m.stars.map(p => p.n));
