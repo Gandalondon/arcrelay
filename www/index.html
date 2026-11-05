@@ -45,12 +45,13 @@ body.listening .close{color:var(--amber)}
 .ctxline.keep{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ctxline.keep:empty{display:block;height:24px}
 .stage{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;margin-top:24px}
-/* "Which map?": a tile of map rows, like the voice rows in Settings; amber is the map in use. On the ready screen and when a name is on several maps (5 Nov) */
-.mpick{margin:auto 0 24px;padding:16px;border-radius:16px;background:var(--panel)}
+/* "Which map?": full-width rows, the same pattern as the voice list in Settings (panel rows on the background, no box around them);
+   amber is the map in use. On the ready screen and when a name is on several maps (5 Nov) */
+.mpick{margin:auto 0 24px}
 .mpick h2{margin:0 0 12px;font:600 16px/24px var(--body);color:var(--grey)}
-.mpick ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.mpick li{display:flex}  /* both rows in a pair the same height when a name wraps */
-.mpick button{all:unset;box-sizing:border-box;flex:1;display:flex;align-items:center;width:100%;min-height:48px;padding:12px 14px;border-radius:12px;background:var(--navy);color:var(--bone);font:600 16px/24px var(--body);cursor:pointer;text-wrap:balance}
+.mpick ul{list-style:none;margin:0;padding:0}
+.mpick button{all:unset;box-sizing:border-box;width:100%;display:block;padding:14px 16px;margin:0 0 8px;border-radius:16px;background:var(--panel);color:var(--bone);font:600 18px/24px var(--body);cursor:pointer}
+.mpick li:last-child button{margin-bottom:0}
 .mpick button.on{background:var(--amber);color:var(--ink)}
 .mpick button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 /* map: edge to edge, runs down to the soundwave */
@@ -1135,9 +1136,9 @@ function setSub() {}
 function setCtx(t) { $("ctx").textContent = t || ""; }
 
 /* the map picker: every ready map (or just the ones a name could mean); a tap is the same as saying "Show me the X map" */
-function mapPicker(ids, title) {
+function mapPicker(ids, noTitle) {  /* noTitle: the headline already asks "Which map?" */
   ids = ids || Object.keys(MAP_NAMES).filter(ready);
-  return '<section class="mpick" aria-label="' + esc(title || "Which map?") + '"><h2>' + esc(title || "Which map?") + '</h2><ul>' + ids.map(id => '<li><button type="button" data-map="' + id + '"' + (S.map === id ? ' class="on" aria-current="true"' : '') + '>' + esc(MAP_NAMES[id]) + '</button></li>').join("") + '</ul></section>';
+  return '<section class="mpick" aria-label="Which map?">' + (noTitle ? "" : '<h2>Which map?</h2>') + '<ul>' + ids.map(id => '<li><button type="button" data-map="' + id + '"' + (S.map === id ? ' class="on" aria-current="true"' : '') + '>' + esc(MAP_NAMES[id]) + '</button></li>').join("") + '</ul></section>';
 }
 function renderReady() {
   clearMap(); bars(false);
@@ -1177,7 +1178,7 @@ function renderAnswer(q, a) {
   setWord(a.show || a.text || "", true, hasMap); setSub(""); setCtx(a.ctx || ""); $("ctx").classList.toggle("keep", !!hasMap);
   $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="full" aria-label="Full map">' + IC.map + '</button><button type="button" id="setloc" aria-label="Set location" aria-pressed="false">' + IC.pin + '</button>' + (a.map.you && a.map.stars.length >= 1 ? '<button type="button" id="route" aria-label="Show route">' + IC.route + '</button>' : '') + '</div><div class="maphint" id="maphint" hidden>Tap the map to set your location</div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
   if (hasMap) requestAnimationFrame(() => drawMap(a.map));
-  else if (a.maps) $("stage").innerHTML = mapPicker(a.maps);
+  else if (a.maps) $("stage").innerHTML = mapPicker(a.maps, true);
 }
 function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably near " : "you at ") + m.you.n); if (m.stars.length) p.push("marked: " + m.stars.map(s => s.n).join(", ")); return MAP.name + " map, " + p.join("; "); }
 
