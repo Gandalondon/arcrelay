@@ -168,7 +168,7 @@ canvas.topo{display:none}
 .hero.photo{position:relative;overflow:hidden;background:var(--bg);padding-block:calc(88px + env(safe-area-inset-top,0px)) 88px}
 .hero.photo .hero-img{position:absolute;inset:0;z-index:0;overflow:hidden}
 /* the photo is drawn a little larger than the hero and pushed up; the phone sits a little in from the right (4 Nov) */
-.hero.photo .hero-img img{position:absolute;width:112%;height:116%;right:0;top:-14%;object-fit:cover;object-position:78% 62%;display:block}
+.hero.photo .hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%;display:block}  /* 5 Nov top-down photo: already framed with room on the left, so no zoom */
 .hero.photo::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(28,30,34,.78) 0%,rgba(28,30,34,.4) 36%,rgba(28,30,34,0) 58%),linear-gradient(180deg,rgba(28,30,34,0) 55%,rgba(28,30,34,.7) 82%,var(--bg) 100%)}
 .hero.photo .wrap{position:relative;z-index:1;display:block;max-width:none;margin-top:-6svh}  /* lined up with the logo, a touch above centre */
 .hero.photo .wrap > div{max-width:min(720px,46vw)}
