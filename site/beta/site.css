@@ -197,7 +197,7 @@ canvas.topo{display:none}
 .topnav{font:600 18px/1 var(--font);color:var(--text-hi);white-space:nowrap;transition:color .25s ease}
 .topnav:hover,.topnav[aria-current="page"]{color:var(--amber)}
 @media (max-width:520px){ .hright{gap:20px} .topnav{font-size:16px} }
-.hsec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px clamp(64px,8vw,160px);margin-top:120px}  /* two equal halves: section title on the left, content from the middle to the right gutter (5 Nov, Tony's reference) */
+.hsec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px 64px;margin-top:120px}  /* two equal halves: section title on the left, content from the middle to the right gutter (5 Nov, Tony's reference) */
 .hsec h2{font-size:clamp(36px,3.6vw,52px);line-height:1;font-weight:600;letter-spacing:0}
 .hlist{display:flex;flex-direction:column;gap:48px;min-width:0}
 .how{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;align-items:start}
