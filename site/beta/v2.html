@@ -32,9 +32,11 @@
 @media (max-width:900px){
   .hdr .wrap{height:72px}
   .heyhero{padding-top:calc(106px + env(safe-area-inset-top,0px))}  /* word starts where Sniff's does on a phone (about 120 px down) */
-  .heyhero .stage{position:relative;right:auto;top:auto;width:min(220px,52vw);margin:6vw auto 0}
+  .heyhero .stage{position:relative;right:auto;top:auto;width:min(220px,52vw);margin:6vw auto 0;align-self:center}
   .heyhero .p3{--d:calc(min(220px, 52vw) * .118)}
-  .heyhero .lede{margin-top:40px;font-size:21px;line-height:31px}
+  .heyhero .wrap{display:flex;flex-direction:column}  /* phones: the line sits under the word, then the phone */
+  .heyhero .lede{order:1;margin-top:24px;font-size:21px;line-height:31px}
+  .heyhero .stage{order:2;margin-top:48px}
   .feature .p3{--d:33px}
 }
 @media (prefers-reduced-motion:no-preference){
