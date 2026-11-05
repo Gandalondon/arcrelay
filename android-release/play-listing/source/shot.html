@@ -9,9 +9,9 @@
 @font-face{font-family:IT;font-weight:700;src:url(inter-tight-700.woff2)}
 html,body{margin:0;background:#1C1E22;color:#EEE8DC;font-family:IT}
 .s{position:relative;width:1080px;height:1920px;overflow:hidden;background:#1C1E22;margin-bottom:40px}
-.s h1{position:absolute;left:96px;right:96px;top:136px;margin:0;font:600 104px/1 IT;letter-spacing:0;text-wrap:balance}
+.s h1{position:absolute;left:96px;right:96px;top:136px;margin:0;font:600 104px/1 IT;letter-spacing:0;white-space:pre-line}  /* every title on two lines, so the phones line up */
 /* phone: frame, corners and screen radius in proportion to its width, as on the site */
-.ph{--pw:640px;position:absolute;left:50%;top:520px;width:var(--pw);aspect-ratio:390/844;transform:translateX(-50%);box-sizing:border-box;padding:calc(var(--pw) * .0333);border-radius:calc(var(--pw) * .1467);background:#2A2C32;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08)}
+.ph{--pw:640px;position:absolute;left:50%;top:440px;width:var(--pw);aspect-ratio:390/844;transform:translateX(-50%);box-sizing:border-box;padding:calc(var(--pw) * .0333);border-radius:calc(var(--pw) * .1467);background:#2A2C32;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08)}
 .ph img{display:block;width:100%;height:100%;border-radius:calc(var(--pw) * .1133);object-fit:cover;object-position:top}
 /* feature graphic: the site's closing lockup, phone turned the way it is in the finale */
 .fg{position:relative;width:1024px;height:500px;overflow:hidden;background:#1C1E22;display:flex;align-items:center}
@@ -23,9 +23,13 @@ html,body{margin:0;background:#1C1E22;color:#EEE8DC;font-family:IT}
 .p3 .scr{position:absolute;inset:calc(var(--pw) * .0333);border-radius:calc(var(--pw) * .1133);overflow:hidden;transform:translateZ(.5px)}
 .p3 .scr img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 </style>
-<div class="s" id="s1"><h1>Need a quick evac?</h1><div class="ph"><img src="screen-3-exit.webp" alt=""></div></div>
-<div class="s" id="s2"><h1>Just ask.</h1><div class="ph"><img src="screen-2-listening.webp" alt=""></div></div>
-<div class="s" id="s3"><h1>Find what you need.</h1><div class="ph"><img src="screen-4-find.webp" alt=""></div></div>
-<div class="s" id="s4"><h1>Show it where you are.</h1><div class="ph"><img src="screen-5-pin.webp" alt=""></div></div>
+<div class="s" id="s1"><h1>Need a
+quick evac?</h1><div class="ph"><img src="screen-3-exit.webp" alt=""></div></div>
+<div class="s" id="s2"><h1>Just
+ask.</h1><div class="ph"><img src="screen-2-listening.webp" alt=""></div></div>
+<div class="s" id="s3"><h1>Find what
+you need.</h1><div class="ph"><img src="screen-4-find.webp" alt=""></div></div>
+<div class="s" id="s4"><h1>Show it where
+you are.</h1><div class="ph"><img src="screen-5-pin.webp" alt=""></div></div>
 <div class="fg" id="fg"><h2>Ask. Find.
 Get out.</h2><div class="stage"><div class="p3"><i style="--k:12"></i><i style="--k:11"></i><i style="--k:10"></i><i style="--k:9"></i><i style="--k:8"></i><i style="--k:7"></i><i style="--k:6"></i><i style="--k:5"></i><i style="--k:4"></i><i style="--k:3"></i><i style="--k:2"></i><i class="rim" style="--k:1"></i><div class="scr"><img src="screen-3-exit.webp" alt=""></div></div></div></div>
