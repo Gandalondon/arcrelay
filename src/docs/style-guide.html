@@ -35,7 +35,7 @@ p,li{text-wrap:pretty}
 .g-side .mark{display:flex;align-items:center;gap:10px;margin:0 0 32px;text-decoration:none;color:var(--cream)}
 .g-side .mark svg{width:28px;height:28px;overflow:hidden}
 .g-side .mark path{fill:none;stroke:var(--amber);stroke-width:10}
-.word{font:700 18px/1 var(--font);letter-spacing:.04em;text-transform:uppercase}.word .rl{color:var(--amber)}
+.word{font:700 18px/1 var(--font);letter-spacing:.04em;text-transform:uppercase}.word{color:var(--cream)}
 .g-side nav a{display:block;padding:6px 0;color:var(--cream);text-decoration:none;font-size:15px}
 .g-side nav a:hover{color:var(--amber)}
 main{margin-left:248px;padding:48px 64px 96px;max-width:1120px}
@@ -159,7 +159,7 @@ ul.plain li{margin:6px 0}
 </head>
 <body>
 <aside class="g-side">
-  <a class="mark" href="#start"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word"><span class="rl">Relay</span></span></a>
+  <a class="mark" href="#start"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word">Relay</span></a>
   <nav aria-label="Contents">
     <a href="#start">Start here</a>
     <a href="#foundations">Foundations</a>
@@ -250,13 +250,13 @@ ul.plain li{margin:6px 0}
   <h2 class="g-h2">Logo and app icon</h2>
   <p class="intro">Three amber signal lines. Each runs along the top, turns a quarter circle and runs down, like a radio signal and a stylised R. Relay is the brand and the voice ("Hey Relay"). Domain getarcrelay.app, package <code>app.spottr.companion</code> and repo <code>arcrelay</code> keep their old names.</p>
   <div class="board dark">
-    <div class="ex"><div class="lockup"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word"><span class="rl">Relay</span></span></div><small>Site lockup</small></div>
+    <div class="ex"><div class="lockup"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word">Relay</span></div><small>Site lockup</small></div>
     <div class="ex"><div class="appicon"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg></div><small>Launcher (circle)</small></div>
     <div class="ex"><div class="appicon sq"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg></div><small>Play Store (Play rounds the corners)</small></div>
   </div>
   <table class="rules">
     <tr><th>Geometry</th><td>A 72-unit square (the part of Android's adaptive icon that shows). Stroke 10. Arc centre (14, 58), radii 46, 30 and 14. Lines run off the left and bottom edges. Source: <code>tools/make-icon.py</code>.</td></tr>
-    <tr><th>Wordmark</th><td>RELAY: Barlow 700, capitals, +0.04em, amber. One word, one colour. Set as text by <code>site.js</code>; never redraw it in another font. Elsewhere the name is plain text, "Relay". Never "Arc Relay" or "ArcRelay".</td></tr>
+    <tr><th>Wordmark</th><td>RELAY: Barlow 700, capitals, +0.04em, cream. Amber is for the signal lines only, never the name. Set as text by <code>site.js</code>; never redraw it in another font. Elsewhere the name is plain text, "Relay". Never "Arc Relay" or "ArcRelay".</td></tr>
     <tr><th>Files</th><td>Launcher icons in <code>android/app/src/main/res/mipmap-*</code>. Play icon: <code>android-release/icon/arcrelay-play-icon.png</code> (512 × 512, no alpha, full square).</td></tr>
     <tr><th>Never</th><td>Use Embark's art or the ARC Raiders logo. Add a gradient, outline or second colour to the lines.</td></tr>
   </table>
@@ -390,7 +390,7 @@ ahead.</div><span class="x"><svg viewBox="0 -960 960 960" fill="currentColor" ar
 
 <section id="site">
   <h2 class="g-h2">Site patterns</h2>
-  <div class="board dark"><span class="sitebtn">Get the app</span><div class="lockup"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word"><span class="rl">Relay</span></span></div></div>
+  <div class="board dark"><span class="sitebtn">Get the app</span><div class="lockup"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word">Relay</span></div></div>
   <table class="rules">
     <tr><th>Gutters</th><td>24 px on phones, 64 px from 1024 px wide, 80 px from 1440 px.</td></tr>
     <tr><th>Hero</th><td>"Ask. Find. Get out." with "Get out." in amber, beside the desk photo. On phones the photo is a square crop with the phone centred.</td></tr>
