@@ -169,5 +169,11 @@ module.exports = [
   { set: { map: "dam" }, say: "I'm by the pump house", want: { map: "dam", place: "Pump House Hatch" } },
   { set: { map: "dam", place: "Control Tower" }, say: "nearest exit", want: { map: "dam", exitName: "Water Treatment Elevator" } },
   { set: { map: "dam" }, say: "nearest exit from the scrap yard", want: { map: "dam", exitName: "Water Treatment Elevator" } },
-  { set: { map: "dam", place: "the Swamp" }, say: "nearest hatch", want: { map: "dam", show: "Sunroof Hatch" } }
+  { set: { map: "dam", place: "the Swamp" }, say: "nearest hatch", want: { map: "dam", show: "Sunroof Hatch" } },
+  { set: NONE, say: "I'm doing keeping the memory", want: { quest: "Keeping the Memory", step: 1 } },
+  { set: NONE, say: "eyes in the sky step 2", want: { quest: "Eyes in the Sky", step: 2 } },
+  { set: NONE, say: "on a balanced harvest", want: { quest: "A Balanced Harvest", step: 1 } },
+  { set: { quest: "Straight Record", step: 2 }, say: "done", want: { advance: true } },
+  { set: NONE, say: "starting straight record", want: { map: "dam", show: "Victory Ridge" } },
+  { set: { map: "dam", place: "Control Tower" }, say: "I'm having trouble, nearest exit", want: { map: "dam", exitName: "Water Treatment Elevator" } }
 ];

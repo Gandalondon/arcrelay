@@ -326,8 +326,8 @@ const QUESTS = [
   { n: "Wires Crossed", al: ["wires crossed", "snitch scanner"], who: "Celeste", note: "Position: MetaForge.",
     steps: [
       { t: "On Blue Gate, attach a Snitch Scanner to the antenna at Pilgrim's Peak", go: "The antenna is on Pilgrim's Peak, in the north-east.", show: "Antenna on Pilgrim's Peak, north-east.", pin: fromRow(byName("attach a Snitch Scanner"), "Antenna") },
-      { t: "On Spaceport, attach a Surveyor Vault to the antenna on the Launch Towers", go: "Relay only has Blue Gate's map so far." },
-      { t: "On Buried City, attach a Sentinel Firing Core to the antenna on the Grandioso Apartments roof", go: "Relay only has Blue Gate's map so far." }
+      { t: "On Spaceport, attach a Surveyor Vault to the antenna on the Launch Towers", go: "Relay doesn't have Spaceport's map yet." },
+      { t: "On Buried City, attach a Sentinel Firing Core to the antenna on the Grandioso Apartments roof", go: "Relay doesn't have Buried City's map yet." }
     ] },
   { n: "The First Nomads", al: ["first nomads", "nomads"], who: "", note: "Positions: MetaForge.",
     steps: [
@@ -359,7 +359,7 @@ const QUESTS = [
       { t: "Investigate the unknown ARC machines", pin: fromRow(byName("Investigate the Unknown Arc"), "ARC machines"), al: ["unknown arc", "machines"] }
     ] },
   { n: "Bait, Fetch, Blast", al: ["bait", "fetch", "blast", "bully"], who: "Apollo",
-    steps: [ { t: "Destroy a Bully, its head, or 4 of its legs", go: "This one's on Pendola Pass. Relay only has Blue Gate's map so far." }, { t: "Deliver a Bully Fragmenter to Apollo", go: "The Fragmenter comes from the Bully." } ] },
+    steps: [ { t: "Destroy a Bully, its head, or 4 of its legs", go: "This one's on Pendola Pass. Relay doesn't have that map yet." }, { t: "Deliver a Bully Fragmenter to Apollo", go: "The Fragmenter comes from the Bully." } ] },
   { n: "Taking Stock", al: ["taking stock"], who: "Cassio",
     steps: [ { t: "On Stella Montis, photograph the sculpture in the Atrium" }, { t: "On Spaceport, photograph a Baron Husk" }, { t: "Deliver 3 Industrial Batteries to the Nomadic Envoy" }, { t: "Ping a Bombardier on Dam, or a Bastion on Buried City" } ] },
   { n: "Boarding the Frigate", al: ["boarding the frigate", "frigate"], who: "Shani",
@@ -374,6 +374,10 @@ const pinQ = (id, quest, name, label) => { const r = rowsOf(id).find(r => r.k ==
   const quest = { n: q.n, al: q.al, who: q.who || "", note: q.note, steps: q.steps.map(st => Object.assign({}, st, { pin: st.p ? pinQ("dam", q.id, st.p, st.label) : null })) };
   const i = QUESTS.findIndex(x => x.n === q.n); if (i >= 0) QUESTS[i] = quest; else QUESTS.push(quest);
 });
+/* a quest's home map: where all its pins are. Its unpinned steps are done there too, unless the step names another map */
+QUESTS.forEach(q => { const ms = [...new Set(q.steps.filter(s => s.pin).map(s => s.pin.map))]; if (ms.length === 1) q.home = ms[0]; });
+const OFF_MAP = /^(on )?(blue gate|dam|dam battlegrounds|buried city|spaceport|the spaceport|stella montis|riven tides|pendola pass)\b|^(buried city|spaceport|stella montis|riven tides|pendola pass|blue gate) map\./i;
+const offMap = st => OFF_MAP.test(st.t) || OFF_MAP.test(st.go || "") || /\bSperanza\b/.test(st.go || "");
 /* items (Soul's Offering, Oct to 16 Nov 2026). From MetaForge's item data (metaforge.app): where each kind of item turns up,
    matched to Blue Gate's areas by their loot type (allthings.how). Fertilizer has exact MetaForge spots on Blue Gate. */
 const FERT = [[4939,9405],[3213,5807],[3183,5816],[3208,5814],[3014,6255],[4944,9397],[3199,5830],[3008,6229],[4942,9442],[3204,5822],[3022,6259],[3025,6236],[3017,6232],[3178,5823],[4949,9449],[3000,6225]].map(([y, x]) => pt("Fertilizer", y, x));
@@ -574,7 +578,8 @@ function stepAnswer(q, i, prefix) {
   i = Math.max(0, Math.min(i, q.steps.length - 1));
   const st = q.steps[i];
   /* this step's spot is on another map: that's the map you're on now */
-  if (st.pin && st.pin.map && st.pin.map !== MAP.id && ready(st.pin.map)) { switchMap(st.pin.map); prefix = MAP.name + ". " + (prefix || ""); }
+  const stepMap = (st.pin && st.pin.map) || st.map || (offMap(st) ? null : q.home);  /* st.map: a step done on one map with no fixed spot (ping a Dam Bombardier) */
+  if (stepMap && stepMap !== MAP.id && ready(stepMap)) { switchMap(stepMap); prefix = MAP.name + ". " + (prefix || ""); }
   S.quest = q.n; S.step = i; save();
   let go = st.go || "";
   let map = null;
