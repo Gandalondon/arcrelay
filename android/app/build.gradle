@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "app.spottr.companion"
+    namespace "app.getarcrelay"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "app.spottr.companion"
+        applicationId "app.getarcrelay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // each GitHub build gets its own number, so the phone (and Obtainium) can tell builds apart

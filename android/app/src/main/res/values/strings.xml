@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">Relay</string>
     <string name="title_activity_main">Relay</string>
-    <string name="package_name">app.spottr.companion</string>
-    <string name="custom_url_scheme">app.spottr.companion</string>
+    <string name="package_name">app.getarcrelay</string>
+    <string name="custom_url_scheme">app.getarcrelay</string>
 </resources>

@@ -106,8 +106,8 @@ const ENEMY_WORDS = Object.keys(ENEMIES);
 /* =================== state =================== */
 const EMPTY = { place: null, placeAt: null, minutesLeft: null, minutesAt: null, quest: null, step: 0, last: null, raidAt: null, pending: null };
 let S = Object.assign({}, EMPTY);
-try { const saved = JSON.parse(localStorage.getItem("spottr-state") || "null"); if (saved) S = Object.assign(S, saved); } catch (e) {}
-function save() { try { localStorage.setItem("spottr-state", JSON.stringify(S)); } catch (e) {} }
+try { const saved = JSON.parse(localStorage.getItem("relay-state") || "null"); if (saved) S = Object.assign(S, saved); } catch (e) {}
+function save() { try { localStorage.setItem("relay-state", JSON.stringify(S)); } catch (e) {} }
 const inRaid = () => S.raidAt && Date.now() - S.raidAt < 40 * 60 * 1000;
 function minsNow() { if (S.minutesLeft == null) return null; return Math.max(0, Math.round(S.minutesLeft - (Date.now() - S.minutesAt) / 60000)); }
 

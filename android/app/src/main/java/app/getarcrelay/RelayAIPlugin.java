@@ -1,4 +1,4 @@
-package app.spottr.companion;
+package app.getarcrelay;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;

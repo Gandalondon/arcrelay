@@ -1,4 +1,4 @@
-package app.spottr.companion;
+package app.getarcrelay;
 
 import android.Manifest;
 import android.media.AudioFormat;

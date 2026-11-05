@@ -4,15 +4,15 @@ Start a new conversation by reading this file. It replaces the long 4 Nov chat.
 
 ## The project in one paragraph
 Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Android companion for ARC Raiders (Pixel 9). Ask out loud ("Hey Relay" or tap), it answers out loud and shows a map: nearest exit, quest steps, items, "not that one" rerouting. Everything runs on the phone. Blue Gate only so far. Rules: £0 to run (no paid services or keys), UK English, no em dashes, no widows, palette charcoal #1C1E22 / panel #26282D / ink #15171C / cream #EEE8DC / amber #F2B33D, Barlow, Material Symbols Rounded only. Push to main when Tony says push or has approved the work. The style guide is the rulebook: `src/docs/style-guide.html`.
-- Name (5 Nov): the brand is Relay. Domain stays getarcrelay.app, package app.spottr.companion and repo arcrelay unchanged. Play title "Relay: Raid Voice Guide"; "for ARC Raiders" lives in the short and full descriptions. Tony updates Play Console himself.
+- Name (5 Nov): the brand is Relay. Domain getarcrelay.app and repo arcrelay unchanged. Package renamed to app.getarcrelay (5 Nov, matches Play Console; Sniff is app.getsniff); Java in `android/app/src/main/java/app/getarcrelay/`. Builds from 1.0.69 install as a new app: re-add it in Obtainium (APK is now relay.apk), re-download voices and the offline speech pack, then uninstall the old one. Play title "Relay: Raid Voice Guide"; "for ARC Raiders" lives in the short and full descriptions. Tony updates Play Console himself.
 
 ## Where things are
 - Site copy (5 Nov): Google Doc "Relay site copy" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/1hS12w_3GLEDgG62_lDrAJV3aB_Nl2Je9P-BKeoo7MrU/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
 - Repo: github.com/Gandalondon/arcrelay (renamed from spottr), branch main. Mac copy: `~/ArcRelay` (git clone; pull after each push).
-- App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/spottr/companion/`. Tests: `node tests/run.js`.
+- App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js`.
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
 - Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. getarcrelay.app = holding page; getarcrelay.app/beta = full site (noindex).
-- Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Voice Companion".
+- Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Raid Voice Guide".
 - Email: *@getarcrelay.app forwards to tony@gandalondon.com via ImprovMX (second account, Tony's personal Gmail login). DNS records in Vercel.
 - Map data: MetaForge (metaforge.app). Map images allowed with credit "at the bottom of every page" (Discord ticket #2061, 1 Nov 2026). `www/data-bluegate.js` (markers), `www/data-bluegate-places.js` (28 named areas, fitted with `tools/places/`).
 

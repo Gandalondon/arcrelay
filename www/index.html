@@ -325,8 +325,8 @@ function itemAnswer(it) {
 /* =================== state =================== */
 const EMPTY = { place: null, placeAt: null, minutesLeft: null, minutesAt: null, quest: null, step: 0, last: null, raidAt: null, pending: null, seen: null, exitSaid: null, avoid: [] };
 let S = Object.assign({}, EMPTY);
-try { const saved = JSON.parse(localStorage.getItem("spottr-state") || "null"); if (saved) S = Object.assign(S, saved); } catch (e) {}
-function save() { try { localStorage.setItem("spottr-state", JSON.stringify(S)); } catch (e) {} }
+try { const saved = JSON.parse(localStorage.getItem("relay-state") || "null"); if (saved) S = Object.assign(S, saved); } catch (e) {}
+function save() { try { localStorage.setItem("relay-state", JSON.stringify(S)); } catch (e) {} }
 const inRaid = () => S.raidAt && Date.now() - S.raidAt < 40 * 60 * 1000;
 function minsNow() { if (S.minutesLeft == null) return null; return Math.max(0, Math.round(S.minutesLeft - (Date.now() - S.minutesAt) / 60000)); }
 
@@ -924,7 +924,7 @@ let lmap = null;
 function clearMap() { if (lmap) { lmap.remove(); lmap = null; } }
 /* greeting: time of day, then one of six lines. A new line each launch (never the same twice running); it doesn't change while you're using the app. */
 const LINES = ["Let's get you home in one piece.", "Need a hand topside?", "Try not to get lost out there.", "What's the plan?", "Got yourself into trouble again?", "Let's make this a quick one."];
-const LINE = (() => { let last = -1; try { last = parseInt(localStorage.getItem("spottr-line") || "-1", 10); } catch (e) {} let i = Math.floor(Math.random() * (LINES.length - 1)); if (i >= last && last >= 0) i++; try { localStorage.setItem("spottr-line", String(i)); } catch (e) {} return LINES[i]; })();
+const LINE = (() => { let last = -1; try { last = parseInt(localStorage.getItem("relay-line") || "-1", 10); } catch (e) {} let i = Math.floor(Math.random() * (LINES.length - 1)); if (i >= last && last >= 0) i++; try { localStorage.setItem("relay-line", String(i)); } catch (e) {} return LINES[i]; })();
 /* the one size for screens without a map, on this phone: the biggest at which "Afternoon," (the greeting's longest word) fits beside the cog */
 let BASE = 0;
 /* one type size for every screen without a map: the largest step where "Afternoon," fits on a line AND every greeting line
