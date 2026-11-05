@@ -6,6 +6,16 @@
       "source": "/beta/index",
       "destination": "/beta/",
       "permanent": true
+    },
+    {
+      "source": "/beta/v2",
+      "destination": "/beta/",
+      "permanent": false
+    },
+    {
+      "source": "/beta/v5",
+      "destination": "/beta/",
+      "permanent": false
     }
   ],
   "headers": [

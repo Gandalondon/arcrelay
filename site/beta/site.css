@@ -28,7 +28,7 @@ body{margin:0;background:var(--bg);color:var(--text);font:400 18px/28px var(--fo
 a{color:inherit;text-decoration:none}
 h1,h2,h3{font-family:var(--font);margin:0;color:var(--text-hi);text-wrap:balance}
 p{margin:0;text-wrap:pretty}
-.wrap{max-width:1240px;margin:0 auto;padding-left:var(--edge);padding-right:var(--edge-r)}
+.wrap{max-width:none;margin:0 auto;padding-left:var(--edge);padding-right:var(--edge-r)}  /* every page runs to the same gutters as the homepage (5 Nov) */
 :focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 
 /* buttons: pills, sentence case */
@@ -36,10 +36,13 @@ p{margin:0;text-wrap:pretty}
 .btn:hover{background:var(--amber-hi)}
 .btn.sm{height:44px;padding:0 20px;font-size:16px}
 
-/* header: an ordinary bar at the top of the page that scrolls away with it. No sticky nav, no floating button. */
-.hdr{position:absolute;inset:0 0 auto;z-index:2;padding-top:calc(24px + env(safe-area-inset-top,0px))}
+/* header (5 Nov): a solid charcoal bar fixed to the top on every page, mark only (the name stays for screen readers). It never changes colour. */
+.hdr{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);padding-top:env(safe-area-inset-top,0px)}
+.hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0}
+.hdr .btn.sm{height:40px;padding:0 20px;font-size:16px}
+@media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px;font-size:15px} }
 /* the header runs to the page's outer margins, wider than the content column: logo far left, Get the app far right */
-.hdr .wrap{max-width:none;height:48px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hdr .wrap{max-width:none;height:88px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 /* logo: the three signal lines + wordmark (the wordmark stays in capitals). Draws in once on load, then stays still. */
 .logo{display:inline-flex;align-items:center;color:var(--text-hi)}
 .logo svg{flex:none;width:32px;height:32px;display:block;overflow:hidden}
@@ -213,3 +216,4 @@ canvas.topo{display:none}
 @media (max-width:600px){ .pgrid{grid-template-columns:minmax(0,1fr);gap:32px} .how{grid-template-columns:40px minmax(0,1fr);gap:16px} .how .ico{width:40px;height:40px} .how .ic{width:22px;height:22px} .how h3{margin-top:5px;font-size:22px} }
 /* phones: the header shows the mark only, so "How it works" and "Get the app" both fit (5 Nov). The name stays for screen readers. */
 @media (max-width:600px){ .hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0} }
+@media (max-width:900px){ .hdr .wrap{height:72px} }

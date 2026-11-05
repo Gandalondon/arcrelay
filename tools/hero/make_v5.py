@@ -1,4 +1,4 @@
-"""Builds site/beta/v5.html and v2.html (the same page, v2 without the compare pill): one phone for the whole story (5 Nov).
+"""Builds site/beta/index.html (the homepage, from 5 Nov) (v5 was its test page; retired once it became the homepage): one phone for the whole story (5 Nov).
 Hero: "Hey / Relay" stacked, the phone angled level with the top of the word (B2, picked 5 Nov). As you scroll it travels down,
 straightens and parks on the right. From then on it stays still while the four features scroll past on
 the left, always left-aligned; the phone's screen cross-fades to match whichever feature is in the middle.
@@ -36,7 +36,7 @@ HOME = ('<div class="screen home" data-i="9"><div class="top"><p class="greet" d
 lastshot = '<div class="screen shot on" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" loading="lazy" decoding="async"></div>'
 lander = '<div class="lander" aria-hidden="true"><div class="phone p3">' + slabs + lastshot + HOME + '</div></div>'
 fphone = '<div class="phone p3 fphone">' + slabs + HOME.replace(' data-i="9"', ' data-i="9" style="opacity:1"') + '</div>'
-finale = ('  <section class="finale"><div class="wrap">\n    <div class="ftxt"><h2 class="fin">Ask.\nFind.\nGet out.</h2><span class="btn">Coming soon to Android</span></div>\n'
+finale = ('  <section class="finale"><div class="wrap">\n    <div class="ftxt"><h2 class="fin">Ask. Find.\nGet out.</h2><span class="btn">Coming soon to Android</span></div>\n'
           '    <div class="fslot" aria-hidden="true">' + fphone + '</div>\n  </div></section>\n')
 
 CSS = """<style>
@@ -74,7 +74,7 @@ html.parked .flyer,html.landing .flyer{visibility:hidden}
 .ftr{padding-top:96px}
 /* finale: the hero's words mirrored, the phone turned the other way, showing the home greeting */
 .finale .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px;min-height:calc(100svh - 88px - var(--fh,150px));align-items:center;padding-block:32px}
-.fin{margin:0;font-weight:700;font-size:min(9.5vw,calc((100svh - 420px) / 3.4));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
+.fin{margin:0;font-weight:700;font-size:min(10vw,calc((100svh - 88px - var(--fh,150px) - 200px) / 2.1));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
 .ftxt .btn{margin-top:48px;cursor:default}
 .ftxt .btn:hover{background:var(--amber)}
 .fslot{display:flex;justify-content:center;perspective:1400px}
@@ -99,7 +99,7 @@ html.landing .lander{display:block}
   .mphone{display:flex;justify-content:center;margin-top:56px}
   .mphone .phone{--pw:min(300px,78vw)}
   .finale .wrap{display:block;min-height:0;padding-block:112px 0}
-  .fin{font-size:22vw}
+  .fin{font-size:17vw}
 }
 @media (prefers-reduced-motion:reduce){
   .flyer{display:none}
@@ -175,7 +175,7 @@ JS = """<script>
 </script>
 """
 
-cmp = '<nav class="cmp" aria-label="Compare versions"><a href="v3">B2 stacked</a><a href="v4">C2 floating</a><a href="v5" aria-current="page">One phone</a></nav>'
+cmp = '<nav class="cmp" aria-label="Compare versions"><a href="v3">B2 stacked</a><a href="v4">C2 floating</a><a href="./" aria-current="page">One phone</a></nav>'
 CMP_CSS = """<style>
 .cmp{position:fixed;z-index:30;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--panel)}
 .cmp a{height:36px;padding:0 16px;border-radius:999px;display:flex;align-items:center;font:600 15px/1 var(--font);color:var(--text-hi)}
@@ -187,7 +187,6 @@ body = ("<body>\n" + hdr + '<div class="site">\n<main>\n  <section class="heyher
         '  <div class="story"><div class="wrap">\n  <div class="steps">\n' + steps + '  </div>\n  <div class="park" aria-hidden="true">' + phone3d + '</div>\n  </div></div>\n' +
         finale + '</main>\n<div class="flyer" aria-hidden="true">' + phone3d + "</div>\n" + lander + "\n" + foot + "</div>\n" + cmp + "\n" +
         '<script src="site.js"></script>\n' + JS + "</body>\n</html>\n")
-open("v5.html", "w").write(head + CSS + CMP_CSS + "</head>\n" + body)
-v2 = (head.replace("(v5, one phone)", "(v2)") + CSS + "</head>\n" + body.replace(cmp + "\n", ""))
-open("v2.html", "w").write(v2)
+home = (head.replace("<title>Relay · Hey Relay (v5, one phone)</title>", "<title>Relay</title>") + CSS + "</head>\n" + body.replace(cmp + "\n", ""))
+open("index.html", "w").write(home)
 print("ok")
