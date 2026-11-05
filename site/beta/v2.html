@@ -12,6 +12,8 @@
 <style>
 /* v2 (5 Nov): giant "Hey Relay" hero with the real app on a 3D phone; feature phones turn to face you on scroll. Same content as the homepage. */
 .hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* sticky bar: always solid charcoal, so it never changes colour as you scroll */
+.hdr{position:fixed;inset:0 0 auto;z-index:20;background:var(--bg);padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:16px}
 .heyhero{position:relative;padding-top:calc(152px + env(safe-area-inset-top,0px));padding-bottom:24px}
 .heyhero .wrap{display:block;max-width:none}
 .heyhero .word{margin:0;font-weight:700;font-size:16vw;line-height:.82;letter-spacing:-.045em;white-space:nowrap;width:max-content;color:var(--text-hi);position:relative;z-index:1}
