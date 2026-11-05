@@ -232,6 +232,11 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
 <script src="data-riven-tides-places.js"></script>
 <script src="data-pendola-pass-places.js"></script>
 <script src="data-dam-quests.js"></script>
+<script src="data-buried-city-quests.js"></script>
+<script src="data-spaceport-quests.js"></script>
+<script src="data-stella-montis-quests.js"></script>
+<script src="data-riven-tides-quests.js"></script>
+<script src="data-pendola-pass-quests.js"></script>
 <script src="data-buried-city.js"></script>
 <script src="data-spaceport.js"></script>
 <script src="data-stella-montis.js"></script>
@@ -377,10 +382,11 @@ const QUESTS = [
 ];
 /* Dam's quests (www/data-dam-quests.js): steps checked against two guides, pins from MetaForge matched by quest and step name,
    since several Dam steps share a name ("Notice Board"). A quest already listed above (Taking Stock) is replaced (5 Nov). */
-(window.DAM_QUESTS || []).forEach(q => {
-  const quest = { n: q.n, al: q.al, who: q.who || "", note: q.note, steps: q.steps.map(st => Object.assign({}, st, { pin: st.p ? pinQ(st.pm || "dam", q.id, st.p, st.label) : null })) };
+/* every map's quest file the same way (www/data-<map>-quests.js); Dam's came first as DAM_QUESTS */
+Object.entries(Object.assign({ dam: window.DAM_QUESTS || [] }, window.MAP_QUESTS || {})).forEach(([mid, list]) => list.forEach(q => {
+  const quest = { n: q.n, al: q.al, who: q.who || "", note: q.note, steps: q.steps.map(st => Object.assign({}, st, { pin: st.p ? pinQ(st.pm || mid, q.id, st.p, st.label) : null })) };
   const i = QUESTS.findIndex(x => x.n === q.n); if (i >= 0) QUESTS[i] = quest; else QUESTS.push(quest);
-});
+}));
 /* a quest's home map: where all its pins are. Its unpinned steps are done there too, unless the step names another map */
 QUESTS.forEach(q => { const ms = [...new Set(q.steps.filter(s => s.pin).map(s => s.pin.map))]; if (ms.length === 1) q.home = ms[0]; });
 const OFF_MAP = /^(on )?(blue gate|dam|dam battlegrounds|buried city|spaceport|the spaceport|stella montis|riven tides|pendola pass)\b|^(buried city|spaceport|stella montis|riven tides|pendola pass|blue gate) map\./i;

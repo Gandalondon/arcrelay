@@ -21,10 +21,9 @@ for (const [file, key] of Object.entries(MAPS)) {
   console.log(`${M.name}: ${rows.length} markers, ${exits} exits, ${hatches} hatches`);
 }
 /* every quest pin points at a real marker on its map (5 Nov) */
-const QF = { dam: "data-dam-quests.js" };
-for (const [id, f] of Object.entries(QF)) {
-  require(path.join(__dirname, "../www/" + f));
-  const M = Object.values(window).find(m => m && m.id === id), Q = window[id.toUpperCase().replace(/-/g, "_") + "_QUESTS"] || [];
+for (const id of ["dam", "buried-city", "spaceport", "stella-montis", "riven-tides", "pendola-pass"]) {
+  try { require(path.join(__dirname, "../www/data-" + id + "-quests.js")); } catch (e) { fails.push(id + ": no quest file"); continue; }
+  const M = Object.values(window).find(m => m && m.id === id), Q = id === "dam" ? window.DAM_QUESTS || [] : (window.MAP_QUESTS || {})[id] || [];
   let pins = 0; Q.forEach(q => q.steps.forEach(st => { if (!st.p) return; pins++; const PM = st.pm ? Object.values(window).find(m => m && m.id === st.pm) : M;  /* pm: a pin on another map */
     if (!PM || !PM.rows.some(r => r[0] === "q" && r[1] === q.id && r[2] === st.p)) fails.push(`${id} quest ${q.n}: no marker "${st.p}"` + (st.pm ? " on " + st.pm : "")); }));
   console.log(`${M.name}: ${Q.length} quests, ${pins} pinned steps`);
