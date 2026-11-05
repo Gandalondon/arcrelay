@@ -18,7 +18,7 @@ icons = {
     "back": grab(r'id="setback"[^>]*><svg[^>]*><path d="([^"]+)"'),
     "play": grab(r"const PLAY_ICON = '<svg[^>]*><path d=\"([^\"]+)\""),
 }
-for k, f in (("map", "map"), ("pin", "my_location"), ("zoomin", "zoom_in_map"), ("route", "route"), ("shaft", "mode_fan"), ("hatch", "download")):
+for k, f in (("map", "map"), ("pin", "my_location"), ("whole", "zoom_out_map"), ("route", "route"), ("shaft", "mode_fan"), ("hatch", "download")):
     icons[k] = re.search(r'<path d="([^"]+)"', open(os.path.join(R, "icons", f + ".svg")).read()).group(1)
 t = t.replace("{{FONTS}}", faces)
 t = re.sub(r"\{\{I:(\w+)\}\}", lambda m: '<svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="%s"/></svg>' % icons[m.group(1)], t)
