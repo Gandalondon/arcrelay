@@ -49,7 +49,7 @@ body.listening .close{color:var(--amber)}
 /* "Which map?": full-width rows, the same pattern as the voice list in Settings (panel rows on the background, no box around them);
    amber is the map in use. On the ready screen and when a name is on several maps (5 Nov) */
 .mpick{margin:auto 0 24px}
-.mpick h2{margin:0 0 12px;font:600 16px/24px var(--body);color:var(--grey)}
+.mpick h2{margin:0 0 16px;font:500 18px/24px var(--body);color:var(--bone)}
 .mpick ul{list-style:none;margin:0;padding:0}
 .mpick button{all:unset;box-sizing:border-box;width:100%;display:block;padding:14px 16px;margin:0 0 8px;border-radius:16px;background:var(--panel);color:var(--bone);font:600 18px/24px var(--body);cursor:pointer}
 .mpick li:last-child button{margin-bottom:0}
@@ -119,8 +119,9 @@ body.intro .app{opacity:0}
 .vlist li button.on{background:var(--amber);color:var(--ink)}
 .vlist li .n{display:block;font-size:18px;line-height:24px;font-weight:600}
 .vlist li .m{display:block;font-size:14px;line-height:20px;opacity:.75}
-.gkey{margin:0 0 20px;display:flex;flex-direction:column;gap:8px}
+.gkey{margin:0;display:flex;flex-direction:column;gap:16px}
 .gkey .gkrow{display:flex;gap:8px}
+.gkey .gkrow:not(:has(button:not([hidden]))){display:none}  /* no empty button row (and its gap) once offline speech is in */
 .gkey button{all:unset;cursor:pointer;height:44px;padding:0 20px;border-radius:999px;background:var(--amber);color:var(--ink);font:600 16px/44px var(--body)}
 .gkey button[hidden]{display:none}
 .gkey p{margin:0;font-size:14px;line-height:20px}
@@ -129,7 +130,10 @@ body.session .sppack,body.listening .sppack{display:none}
 .vhead{display:flex;align-items:center;gap:4px;margin:-12px 0 8px -12px}
 .back{all:unset;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--amber)}
 .back svg{width:28px;height:28px}
-.vlist h3{margin:16px 0 12px;font:600 16px/24px var(--body);opacity:.75}
+.vlist h3{margin:0 0 16px;font:500 18px/24px var(--body);color:var(--bone)}  /* section headings: cream, 500 like the site's small headings; never grey (5 Nov) */
+#settings .vhead{margin-bottom:0}
+#settings .sset{margin-top:48px}  /* 48 from the back row to the first section, and between every section (5 Nov) */
+#settings .sset .about:last-child{margin-bottom:0}
 #ovitems,#settings ul{padding-bottom:0}
 .seg{display:flex;gap:8px}
 /* a play button at the right of a voice row: hear it without leaving the screen */
@@ -141,9 +145,10 @@ body.session .sppack,body.listening .sppack{display:none}
 .vlist li .play[hidden]{display:none}
 .seg button{all:unset;cursor:pointer;flex:1 1 0;text-align:center;height:48px;border-radius:999px;background:#26282D;font:600 16px/48px var(--body)}
 .seg button.on{background:var(--amber);color:var(--ink)}
-.about.wakenote{margin-top:12px;opacity:.75;font-size:14px;line-height:20px}
-.about{margin:0 0 12px;font-size:16px;line-height:24px;text-wrap:pretty}
-.about.ver{opacity:.75;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+.about.wakenote{margin-top:16px;opacity:.75;font-size:14px;line-height:20px}
+.about{margin:0 0 16px;font-size:16px;line-height:24px;text-wrap:pretty}
+.about.ver{opacity:.75;margin-bottom:0}
+#settings{padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}
 .dbg{white-space:pre-wrap;font:400 14px/20px ui-monospace,monospace;margin:0;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));-webkit-user-select:text;user-select:text}
 .cog svg{width:28px;height:28px}
 /* settings only on the home screen: hidden while listening, speaking or in a conversation, so it can't interrupt */
@@ -201,19 +206,19 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
 
 <div class="vlist" id="settings" hidden role="dialog" aria-label="Settings">
   <div class="vhead"><button class="back" id="setback" type="button" aria-label="Back"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="m274-450 227 227q9 9 9 21t-9 21q-9 9-21 9t-21-9L181-459q-5-5-7-10t-2-11q0-6 2-11t7-10l278-278q9-9 21-9t21 9q9 9 9 21t-9 21L274-510h496q13 0 21.5 8.5T800-480q0 13-8.5 21.5T770-450H274Z"/></svg></button><h2>Settings</h2></div>
-  <h3>Voice</h3>
-  <ul><li class="vrow"><button type="button" id="setvoice"><span class="n" id="setvname"></span><span class="m" id="setvmeta"></span></button><button type="button" class="play" id="setplay" aria-label="Hear this voice"></button></li></ul>
-  <h3>Speaking speed</h3>
-  <div class="seg" id="speeds" role="radiogroup" aria-label="Speaking speed"></div>
-  <h3>Say “Hey Relay”</h3>
+  <section class="sset"><h3>Voice</h3>
+  <ul><li class="vrow"><button type="button" id="setvoice"><span class="n" id="setvname"></span><span class="m" id="setvmeta"></span></button><button type="button" class="play" id="setplay" aria-label="Hear this voice"></button></li></ul></section>
+  <section class="sset"><h3>Speaking speed</h3>
+  <div class="seg" id="speeds" role="radiogroup" aria-label="Speaking speed"></div></section>
+  <section class="sset"><h3>Say “Hey Relay”</h3>
   <div class="seg" id="wakeopt" role="radiogroup" aria-label="Wake phrase"></div>
-  <p class="about wakenote">Relay listens for just those two words while it's open on your screen. Nothing else is transcribed or sent anywhere.</p>
-  <div id="spset" hidden><h3>Offline speech</h3>
-  <div class="gkey"><p id="spsettxt"></p><div class="gkrow"><button type="button" class="spget" id="spsetget">Download offline speech</button></div></div></div>
-  <h3>About</h3>
+  <p class="about wakenote">Relay listens for just those two words while it's open on your screen. Nothing else is transcribed or sent anywhere.</p></section>
+  <section class="sset" id="spset" hidden><h3>Offline speech</h3>
+  <div class="gkey"><p id="spsettxt"></p><div class="gkrow"><button type="button" class="spget" id="spsetget">Download offline speech</button></div></div></section>
+  <section class="sset"><h3>About</h3>
   <p class="about">Ask Relay where to go, how to get out, or what's next on your quest. Tap the microphone and talk; it listens once more for a follow-up. Everything runs on your phone, so it works without internet once the voice is downloaded.</p>
   <p class="about">Unofficial companion, not made or endorsed by Embark Studios. Map data from <span class="u">MetaForge</span> (metaforge.app). Place names and distances from allthings.how. Voice: Supertonic 3 by Supertone (OpenRAIL-M licence), running on sherpa-onnx (Apache 2.0). Font: Inter Tight (SIL Open Font Licence).</p>
-  <p class="about ver" id="ver"></p>
+  <p class="about ver" id="ver"></p></section>
 </div>
 <div class="vlist" id="vlist" hidden role="dialog" aria-label="Voice">
   <div class="vhead"><button class="back" id="vback" type="button" aria-label="Back"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="m274-450 227 227q9 9 9 21t-9 21q-9 9-21 9t-21-9L181-459q-5-5-7-10t-2-11q0-6 2-11t7-10l278-278q9-9 21-9t21 9q9 9 9 21t-9 21L274-510h496q13 0 21.5 8.5T800-480q0 13-8.5 21.5T770-450H274Z"/></svg></button><h2>Voice</h2></div>
