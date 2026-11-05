@@ -188,3 +188,28 @@ canvas.topo{display:none}
 /* real app captures (4 Nov 2026): the screen is a picture of the app, so it always matches */
 .screen.shot{padding:0;display:block}
 .screen.shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+
+/* how it works (5 Nov): Sniff's pattern. Section title on the left, icon rows on the right; one column on phones. */
+.hright{display:flex;align-items:center;gap:32px}
+.topnav{font:600 18px/1 var(--font);color:var(--text-hi);white-space:nowrap;transition:color .25s ease}
+.topnav:hover,.topnav[aria-current="page"]{color:var(--amber)}
+@media (max-width:520px){ .hright{gap:20px} .topnav{font-size:16px} }
+.hsec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:32px 64px;margin-top:120px;max-width:1120px}
+.hsec h2{font-size:clamp(36px,3.6vw,52px);line-height:1;font-weight:600;letter-spacing:-.02em}
+.hlist{display:flex;flex-direction:column;gap:48px;min-width:0}
+.how{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;align-items:start}
+.how .ico{width:48px;height:48px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center}
+.how .ic{width:26px;height:26px;display:block}
+.how h3{font-size:24px;line-height:30px;font-weight:600;margin-top:8px}
+.how p{margin-top:10px;max-width:34em}
+.hnote{max-width:34em}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px;margin-top:40px}
+.pgroup h3{font-size:20px;line-height:26px;font-weight:600;color:var(--amber)}
+.pgroup ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.pgroup li{font-size:20px;line-height:28px}
+.prosebit{gap:20px}
+.prosebit a{color:var(--text-hi);font-weight:600}
+@media (max-width:900px){ .hsec{grid-template-columns:minmax(0,1fr);margin-top:88px} }
+@media (max-width:600px){ .pgrid{grid-template-columns:minmax(0,1fr);gap:32px} .how{grid-template-columns:40px minmax(0,1fr);gap:16px} .how .ico{width:40px;height:40px} .how .ic{width:22px;height:22px} .how h3{margin-top:5px;font-size:22px} }
+/* phones: the header shows the mark only, so "How it works" and "Get the app" both fit (5 Nov). The name stays for screen readers. */
+@media (max-width:600px){ .hdr .logo .name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0} }

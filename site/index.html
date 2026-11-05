@@ -22,7 +22,7 @@ body{font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100sv
 main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px}
 .content{width:100%;max-width:800px;text-align:center}
 .mark{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 0 48px}
-.mark svg{width:56px;height:56px;display:block;overflow:hidden}
+.mark svg{width:72px;height:72px;display:block;overflow:hidden}
 .mark path{fill:none;stroke:var(--amber);stroke-width:10}
 .word{font:700 32px/1 var(--font);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .word .arc{font-weight:400}
@@ -36,13 +36,13 @@ footer p+p{margin-top:8px}
 footer a{color:var(--text);text-decoration:underline;text-underline-offset:3px}
 footer a:hover{color:var(--amber)}
 footer a:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
-@media (max-width:600px){main{padding:32px 24px}.mark{margin-bottom:40px}.mark svg{width:44px;height:44px}.word{font-size:26px}p{font-size:18px}footer{padding:24px}}
+@media (max-width:600px){main{padding:32px 24px}.mark{margin-bottom:40px}.mark svg{width:60px;height:60px}.word{font-size:26px}p{font-size:18px}footer{padding:24px}}
 </style>
 </head>
 <body>
 <main>
 <div class="content">
-<div class="mark" role="img" aria-label="ArcRelay"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg><span class="word" aria-hidden="true"><span class="arc">Arc</span><span class="rl">Relay</span></span></div>
+<div class="mark" role="img" aria-label="ArcRelay"><svg viewBox="0 0 72 72" aria-hidden="true"><path d="M -10 12 H 14 A 46 46 0 0 1 60 58 V 82"/><path d="M -10 28 H 14 A 30 30 0 0 1 44 58 V 82"/><path d="M -10 44 H 14 A 14 14 0 0 1 28 58 V 82"/></svg></div>
 <h1>Ask. Find.<br><span class="rl">Get out.</span></h1>
 <p>A voice guide for ARC Raiders. Ask where to go, find what you need and get out, without taking your eyes off the game.</p>
 <span class="soon">Coming soon to Android</span>
@@ -53,7 +53,7 @@ footer a:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
 <p>An independent, unofficial companion, not affiliated with or endorsed by Embark Studios. ARC Raiders is a trademark of Embark Studios.</p>
 </footer>
 <script>
-/* the three signal lines draw in once on load, then the wordmark wipes in, as on the beta site. Skipped with reduced motion. */
+/* the three signal lines draw in once on load. The mark stands alone here (no wordmark, 5 Nov). Skipped with reduced motion. */
 (function () {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   document.querySelectorAll(".mark path").forEach(function (p, i) {
@@ -61,9 +61,6 @@ footer a:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
     var L = Math.ceil(p.getTotalLength()); p.style.strokeDasharray = L;
     p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 440, delay: i * 70, easing: "cubic-bezier(.3,0,.2,1)", fill: "backwards" });
   });
-  /* then the wordmark wipes in left to right, letter by letter */
-  var w = document.querySelector(".mark .word");
-  if (w && w.animate) w.animate([{ clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0 0 0)" }], { duration: 360, delay: 520, easing: "cubic-bezier(.4,0,.2,1)", fill: "backwards" });
 })();
 </script>
 </body>
