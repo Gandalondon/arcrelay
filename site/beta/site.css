@@ -197,14 +197,14 @@ canvas.topo{display:none}
 .topnav{font:600 18px/1 var(--font);color:var(--text-hi);white-space:nowrap;transition:color .25s ease}
 .topnav:hover,.topnav[aria-current="page"]{color:var(--amber)}
 @media (max-width:520px){ .hright{gap:20px} .topnav{font-size:16px} }
-.hsec{display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:32px 64px;margin-top:120px}  /* same grid as the homepage story: a 600 px column on the gutter, the rest beside it (5 Nov) */
+.hsec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px clamp(64px,8vw,160px);margin-top:120px}  /* two equal halves: section title on the left, content from the middle to the right gutter (5 Nov, Tony's reference) */
 .hsec h2{font-size:clamp(36px,3.6vw,52px);line-height:1;font-weight:600;letter-spacing:0}
 .hlist{display:flex;flex-direction:column;gap:48px;min-width:0}
 .how{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;align-items:start}
 .how .ico{width:48px;height:48px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center}
 .how .ic{width:26px;height:26px;display:block}
 .how h3{font-size:24px;line-height:30px;font-weight:600;margin-top:8px}
-.how p{margin-top:10px;max-width:38em}
+.how p{margin-top:10px;max-width:42em}
 .hnote{max-width:34em}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px;margin-top:40px}
 .pgroup h3{font-size:20px;line-height:26px;font-weight:600;color:var(--text-hi)}
