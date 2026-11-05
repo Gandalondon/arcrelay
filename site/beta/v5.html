@@ -43,11 +43,11 @@ html.landing .park .p3{visibility:hidden}
 html.parked .flyer,html.landing .flyer{visibility:hidden}
 .ftr{padding-top:96px}
 /* finale: the hero's words mirrored, the phone turned the other way, showing the home greeting */
-.finale .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px;min-height:calc(100svh - 88px);align-items:center}
+.finale .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px;min-height:calc(100svh - 88px - var(--fh,150px));align-items:center;padding-block:32px}
 .fin{margin:0;font-weight:700;font-size:min(9.5vw,calc((100svh - 420px) / 3.4));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
 .ftxt .btn{margin-top:48px;cursor:default}
 .ftxt .btn:hover{background:var(--amber)}
-.fslot{display:flex;justify-content:center;perspective:1400px;align-self:start;padding-top:24px}
+.fslot{display:flex;justify-content:center;perspective:1400px}
 .fslot .phone{--pw:clamp(180px,min(15vw,calc((100svh - 260px) * 0.462)),260px)}
 .fphone{transform:rotateX(22deg) rotateY(34deg) rotateZ(-10deg)}
 html.fx .fphone{visibility:hidden}
@@ -164,8 +164,10 @@ Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" a
   var hr=new Date().getHours(), gw=hr<12?"Morning":hr<18?"Afternoon":"Evening";
   [].forEach.call(document.querySelectorAll("[data-greet]"),function(el){ el.textContent=gw+",\nRaider."; });  /* starts angled, level with the top of the word (B2) */
   function show(i){ if(i===cur) return; cur=i; [fp,dp].forEach(function(ph){ [].forEach.call(ph.querySelectorAll(".screen"),function(sc){ sc.classList.toggle("on", +sc.dataset.i===i); }); }); }
+  var ftr=document.querySelector(".ftr");
   function measure(){
     fit();
+    if(ftr) root.style.setProperty("--fh", ftr.offsetHeight+"px");
     if(mq.matches){ G=null; F=null; root.classList.remove("parked","landing","fx"); return; }
     var sr=site.getBoundingClientRect(), base=sr.top+scrollY, st=story.getBoundingClientRect().top+scrollY;
     /* where the parked phone sits once the story column is stuck under the 88 px header */
@@ -179,9 +181,10 @@ Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" a
     fpn.style.transform="none"; var fr=fpn.getBoundingClientRect(); fpn.style.transform="";
     var sb=story.getBoundingClientRect().bottom+scrollY, S0=sb-innerHeight, fy=fr.top-sr.top, S1=Math.max(S0+1, base+fy-yEnd);
     var fsc=fr.width/dr.width, ltop=fr.top-sr.top+(fr.height-dr.height)/2, lleft=fr.left-sr.left+(fr.width-dr.width)/2;
-    fy=ltop; S1=Math.max(S0+1, base+fy-yEnd);
+    var maxS=Math.max(0,document.documentElement.scrollHeight-innerHeight);
+    fy=ltop; S1=Math.min(maxS, Math.max(S0+1, base+fy-yEnd));
     ld.style.width=dr.width+"px"; lp.style.width=dr.width+"px"; ld.style.left=lleft+"px"; ld.style.top=fy+"px";
-    F={S0:S0, S1:S1, fy:fy, k:fsc};
+    F={S0:S0, S1:S1, fy:fy, k:fsc, yT:base+fy-S1};
     f();
   }
   function f(){ q=false;
@@ -194,7 +197,7 @@ Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" a
     root.classList.toggle("parked", u>=1 && !land); root.classList.toggle("landing", !!land);
     if(land){
       var v=Math.max(0,Math.min(1,(s-F.S0)/(F.S1-F.S0))), m=v*v*(3-2*v);
-      ld.style.transform="translateY("+(s<F.S1 ? (G.yEnd-G.base-F.fy+s) : 0).toFixed(1)+"px)";
+      ld.style.transform="translateY("+(s<F.S1 ? (G.yEnd*(1-m)+F.yT*m - (G.base+F.fy-s)) : 0).toFixed(1)+"px)";
       lp.style.transform="rotateX("+(M.rx*m).toFixed(2)+"deg) rotateY("+(M.ry*m).toFixed(2)+"deg) rotateZ("+(M.rz*m).toFixed(2)+"deg) scale("+(1+(F.k-1)*m).toFixed(3)+")";
       [].forEach.call(lp.querySelectorAll(".screen"),function(sc){ sc.classList.toggle("on", (sc.dataset.i==="9")===(v>.5)); });
       return;
