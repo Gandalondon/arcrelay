@@ -1,5 +1,5 @@
 """Builds site/beta/v5.html: one phone for the whole story (5 Nov).
-Hero: the full-width word with the phone floating side-on under it (C2). As you scroll it travels down,
+Hero: "Hey / Relay" stacked, the phone angled level with the top of the word (B2, picked 5 Nov). As you scroll it travels down,
 straightens and parks on the right. From then on it stays still while the four features scroll past on
 the left, always left-aligned; the phone's screen cross-fades to match whichever feature is in the middle.
 Text scrolls normally and never fades (motion goes on the picture, not the words). Phones and reduced
@@ -37,7 +37,7 @@ CSS = """<style>
 @media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px;font-size:15px} }
 .heyhero{position:relative;padding-top:calc(128px + env(safe-area-inset-top,0px));padding-bottom:24px}
 .heyhero .wrap{display:block;max-width:none}
-.heyhero .word{margin:0;font-weight:700;font-size:16vw;line-height:.82;letter-spacing:-.01em;white-space:nowrap;width:max-content;color:var(--text-hi);position:relative;z-index:1}
+.heyhero .word{margin:0;font-weight:700;font-size:min(19vw,calc((100svh - 260px) / 2.1));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi);position:relative;z-index:1}
 .heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,5vw,72px);max-width:min(600px,calc(100% - 384px));font-size:24px;line-height:34px}
 .phone{--pw:clamp(220px,min(21vw,calc((100svh - 150px) * 0.462)),340px)}
 .p3{position:relative;transform-style:preserve-3d;will-change:transform;--d:35px}
@@ -63,6 +63,7 @@ html.parked .flyer{visibility:hidden}
 @media (max-width:900px){
   .hdr .wrap{height:72px}
   .heyhero{padding-top:calc(140px + env(safe-area-inset-top,0px));padding-bottom:0}
+  .heyhero .word{font-size:30vw}
   .heyhero .lede{max-width:none;margin-top:24px;font-size:21px;line-height:31px}
   .story .wrap{display:block}
   .dock,.flyer{display:none}
@@ -83,11 +84,11 @@ JS = """<script>
 /* v5: fit the word; fly the phone from under the word to its parking spot; swap screens as the story scrolls */
 (function(){
   var w=document.querySelector(".heyhero .word");
-  function fit(){ w.style.fontSize="100px"; var p=w.parentNode, cs=getComputedStyle(p), avail=p.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight); w.style.fontSize=(100*avail/w.getBoundingClientRect().width)+"px"; }
+  function fit(){}  /* stacked word: sized in CSS */
   var fl=document.querySelector(".flyer"), fp=fl.querySelector(".p3"), dock=document.querySelector(".dock"), dp=dock.querySelector(".p3"),
       story=document.querySelector(".story"), site=document.querySelector(".site"), steps=[].slice.call(document.querySelectorAll(".step")),
       mq=matchMedia("(max-width:900px)"), rm=matchMedia("(prefers-reduced-motion: reduce)"), G=null, q=false, cur=-1, root=document.documentElement;
-  var S={rx:28, ry:-52, rz:16, s:.82};
+  var S={rx:22, ry:-34, rz:10, s:1};  /* starts angled, level with the top of the word (B2) */
   function show(i){ if(i===cur) return; cur=i; [fp,dp].forEach(function(ph){ [].forEach.call(ph.querySelectorAll(".screen"),function(sc){ sc.classList.toggle("on", +sc.dataset.i===i); }); }); }
   function measure(){
     fit();
@@ -96,7 +97,7 @@ JS = """<script>
     /* where the parked phone sits once the story column is stuck under the 88 px header */
     dp.style.transform="none";
     var dr=dp.getBoundingClientRect(), dk=dock.getBoundingClientRect(), oy=dr.top-dk.top, wr=w.getBoundingClientRect();
-    var E=Math.max(1, st-88), yEnd=88+oy, tx=dr.left-sr.left, sy=wr.bottom-sr.top+24;
+    var E=Math.max(1, st-88), yEnd=88+oy, tx=dr.left-sr.left, sy=wr.top-sr.top;
     fl.style.width=dr.width+"px"; fp.style.width=dr.width+"px"; fl.style.left=tx+"px"; fl.style.top=sy+"px";
     G={base:base, sy:sy, E:E, yEnd:yEnd};
     f();
@@ -128,7 +129,7 @@ CMP_CSS = """<style>
 .cmp a[aria-current="page"]{background:var(--amber);color:var(--ink)}
 </style>
 """
-body = ("<body>\n" + hdr + '<div class="site">\n<main>\n  <section class="heyhero">\n    <div class="wrap">\n      <h1 class="word">Hey Relay</h1>\n'
+body = ("<body>\n" + hdr + '<div class="site">\n<main>\n  <section class="heyhero">\n    <div class="wrap">\n      <h1 class="word">Hey\nRelay</h1>\n'
         '      <p class="lede">A voice companion for ARC Raiders. Ask where to go, hear the answer, keep playing.</p>\n    </div>\n  </section>\n'
         '  <div class="story"><div class="wrap">\n  <div class="steps">\n' + steps + '  </div>\n  <div class="dock" aria-hidden="true">' + phone3d + '</div>\n  </div></div>\n'
         '</main>\n<div class="flyer" aria-hidden="true">' + phone3d + "</div>\n" + foot + "</div>\n" + cmp + "\n" +
