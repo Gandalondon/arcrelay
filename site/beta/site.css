@@ -204,9 +204,9 @@ canvas.topo{display:none}
 .how p{margin-top:10px;max-width:34em}
 .hnote{max-width:34em}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px;margin-top:40px}
-.pgroup h3{font-size:20px;line-height:26px;font-weight:600;color:var(--amber)}
+.pgroup h3{font-size:20px;line-height:26px;font-weight:600;color:var(--text-hi)}
 .pgroup ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
-.pgroup li{font-size:20px;line-height:28px}
+.pgroup li{font:400 18px/28px var(--font);color:var(--text)}  /* same as body text */
 .prosebit{gap:20px}
 .prosebit a{color:var(--text-hi);font-weight:600}
 @media (max-width:900px){ .hsec{grid-template-columns:minmax(0,1fr);margin-top:88px} }
