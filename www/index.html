@@ -45,6 +45,14 @@ body.listening .close{color:var(--amber)}
 .ctxline.keep{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ctxline.keep:empty{display:block;height:24px}
 .stage{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;margin-top:24px}
+/* "Which map?": a tile of map rows, like the voice rows in Settings; amber is the map in use. On the ready screen and when a name is on several maps (5 Nov) */
+.mpick{margin:auto 0 24px;padding:16px;border-radius:16px;background:var(--panel)}
+.mpick h2{margin:0 0 12px;font:600 16px/24px var(--body);color:var(--grey)}
+.mpick ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mpick li{display:flex}  /* both rows in a pair the same height when a name wraps */
+.mpick button{all:unset;box-sizing:border-box;flex:1;display:flex;align-items:center;width:100%;min-height:48px;padding:12px 14px;border-radius:12px;background:var(--navy);color:var(--bone);font:600 16px/24px var(--body);cursor:pointer;text-wrap:balance}
+.mpick button.on{background:var(--amber);color:var(--ink)}
+.mpick button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 /* map: edge to edge, runs down to the soundwave */
 /* map: an inset, rounded tile inside the same 24px margins as the text (4 Nov), not edge to edge */
 .mapwrap{position:relative;flex:1 1 auto;min-height:240px;margin:0 0 24px;border-radius:16px;overflow:hidden;background:var(--panel);isolation:isolate}
@@ -504,7 +512,7 @@ const MAP_SAID = [
 function mapSaid(t) { for (const [id, al] of MAP_SAID) { const a = al.find(a => t.includes(a)); if (a) return { id, a }; } return null; }
 const readyNames = () => andList(Object.keys(MAP_NAMES).filter(ready).map(id => MAP_NAMES[id]));
 function switchMap(id) {
-  S.map = id; S.place = null; S.placeAt = null; S.avoid = []; S.exitSaid = null; S.seen = null; S.hatchTold = false; S.pending = null; save();
+  S.map = id; S.lastMap = null; S.place = null; S.placeAt = null; S.avoid = []; S.exitSaid = null; S.seen = null; S.hatchTold = false; S.pending = null; save();
   useMap(id);
 }
 function findWhere(t) { const p = findPlace(t); if (p) return { n: p.n, y: p.y, x: p.x }; return findDir(t); }
@@ -670,7 +678,7 @@ function answer(raw, opts) {
       const go = om.ids.filter(ready);
       if (go.length === 1) { switchMap(go[0]); switched = true; }
       else if (!go.length) return notYet(om.one ? om.ids[0] : null);
-      else return { show: "Which map?", say: "That's on " + andList(go.map(id => MAP_NAMES[id])) + ". Which map are you on?", ctx: heard };
+      else return { show: "Which map?", say: "That's on " + andList(go.map(id => MAP_NAMES[id])) + ". Which map are you on?", ctx: heard, maps: go };
     }
   }
   /* just the map ("I'm on Dam", "show me the Blue Gate map"): show it whole and ask where you are; anything more
@@ -704,7 +712,7 @@ function answerOn(raw, opts) {
   if (S.last && S.last.a && has(t, ["more detail", "more details", "tell me more", "say again", "say that again", "repeat", "not sure", "didn't catch", "didnt catch", " what ", "pardon", "explain"]) && t.trim().split(" ").length <= 6) {
     const a = Object.assign({}, S.last.a); a.say = a.full || a.say; return a;
   }
-  if (has(t, [" new raid", "just spawned", " spawned", "dropped in", "dropping in", " new run", "starting a run", "starting a raid", "loading in"])) { S.place = null; S.pending = null; S.minutesLeft = null; S.raidAt = Date.now(); S.avoid = []; S.exitSaid = null; S.helpAt = 0; S.guessTold = false; S.looseTold = false; save(); return { show: "New raid. Good luck.", say: "New raid. Good luck. I'll ask where you are when an answer needs it." }; }
+  if (has(t, [" new raid", "just spawned", " spawned", "dropped in", "dropping in", " new run", "starting a run", "starting a raid", "loading in"])) { S.place = null; S.lastMap = null; S.pending = null; S.minutesLeft = null; S.raidAt = Date.now(); S.avoid = []; S.exitSaid = null; S.helpAt = 0; S.guessTold = false; S.looseTold = false; save(); return { show: "New raid. Good luck.", say: "New raid. Good luck. I'll ask where you are when an answer needs it." }; }
   if (has(t, [" i died", " died ", " dead ", " killed ", "got me ", " got downed", " i'm down ", " im down "]) && !findItem(t)) {  /* "dead flowers" is an item, not a death */ S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Unlucky. Your quest's still here.", say: "Unlucky. Your quest and step are still here when you drop back in.", ctx: S.quest ? S.quest + ", step " + ((S.step || 0) + 1) : "" }; }
   if (has(t, ["extracted", " made it out", " got out "])) { S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Nice. Raid cleared.", say: "Nice one. Raid cleared." }; }
   if (has(t, ["where were we", "recap"])) {
@@ -1126,6 +1134,11 @@ function fitGreet(w) {
 function setSub() {}
 function setCtx(t) { $("ctx").textContent = t || ""; }
 
+/* the map picker: every ready map (or just the ones a name could mean); a tap is the same as saying "Show me the X map" */
+function mapPicker(ids, title) {
+  ids = ids || Object.keys(MAP_NAMES).filter(ready);
+  return '<section class="mpick" aria-label="' + esc(title || "Which map?") + '"><h2>' + esc(title || "Which map?") + '</h2><ul>' + ids.map(id => '<li><button type="button" data-map="' + id + '"' + (S.map === id ? ' class="on" aria-current="true"' : '') + '>' + esc(MAP_NAMES[id]) + '</button></li>').join("") + '</ul></section>';
+}
 function renderReady() {
   clearMap(); bars(false);
   document.body.classList.remove("listening", "session", "follow"); $("close").hidden = true;
@@ -1135,7 +1148,7 @@ function renderReady() {
   setCtx(WK && CFG.wake ? "Say \u201cHey Relay\u201d, or tap." : "");  /* with the greeting, in the same fade, not a moment later when the listener starts (4 Nov) */
   $("stage").innerHTML = "";
   fitGreet(w); requestAnimationFrame(() => fitGreet(w));
-  $("stage").innerHTML = "";
+  $("stage").innerHTML = mapPicker();
 }
 function renderListening() {
   clearMap(); setVoiceState("listening"); bars(true);
@@ -1155,10 +1168,16 @@ const IC = {
 function renderAnswer(q, a) {
   clearMap(); bars(false);
   document.body.classList.remove("listening"); document.body.classList.add("session"); $("close").hidden = false;
+  /* an answer without a map of its own keeps the last one on screen for the raid, with you on it if Relay knows where you are (5 Nov) */
+  if (!(a.map && (a.map.stars.length || a.map.you || a.map.pick)) && !a.maps && S.lastMap && S.lastMap.id === MAP.id && inRaid()) {
+    const you = posState() !== "none" ? (posState() === "fresh" ? S.place : Object.assign({ guess: true }, S.place)) : S.lastMap.m.you;
+    a = Object.assign({}, a, { map: Object.assign({}, S.lastMap.m, { you, pick: false }) });
+  } else if (a.map && (a.map.stars.length || a.map.you || a.map.pick)) { S.lastMap = { id: MAP.id, m: a.map }; save(); }
   const hasMap = a.map && (a.map.stars.length || a.map.you || a.map.pick);
   setWord(a.show || a.text || "", true, hasMap); setSub(""); setCtx(a.ctx || ""); $("ctx").classList.toggle("keep", !!hasMap);
   $("stage").innerHTML = hasMap ? '<div class="mapwrap"><div class="map" id="map" role="img" aria-label="' + esc(mapLabel(a.map)) + '"></div><div class="mapctl"><button type="button" id="full" aria-label="Full map">' + IC.map + '</button><button type="button" id="setloc" aria-label="Set location" aria-pressed="false">' + IC.pin + '</button>' + (a.map.you && a.map.stars.length >= 1 ? '<button type="button" id="route" aria-label="Show route">' + IC.route + '</button>' : '') + '</div><div class="maphint" id="maphint" hidden>Tap the map to set your location</div><div class="mapnote" id="mapnote" hidden></div><button type="button" class="pinok" id="pinok" hidden>I\'m here</button></div>' : "";
   if (hasMap) requestAnimationFrame(() => drawMap(a.map));
+  else if (a.maps) $("stage").innerHTML = mapPicker(a.maps);
 }
 function mapLabel(m) { const p = []; if (m.you) p.push((m.you.guess ? "probably near " : "you at ") + m.you.n); if (m.stars.length) p.push("marked: " + m.stars.map(s => s.n).join(", ")); return MAP.name + " map, " + p.join("; "); }
 
@@ -1523,7 +1542,9 @@ const OB_KEY = "relay-onb";
   show(0); ob.hidden = false;
 })();
 $("word").addEventListener("click", () => listen());
-document.querySelector(".app").addEventListener("click", e => { if (e.target.closest(".mapwrap,.close,.mic,.word,.cog")) return; listen(); });
+document.querySelector(".app").addEventListener("click", e => {
+  const pick = e.target.closest(".mpick button[data-map]"); if (pick) { stopSpeaking(); stopListening(); endFollow(); handle("show me the " + MAP_NAMES[pick.dataset.map] + " map"); return; }
+  if (e.target.closest(".mapwrap,.mpick,.close,.mic,.word,.cog")) return; listen(); });
 $("close").addEventListener("click", e => {
   e.stopPropagation();
   /* listening for a first question: X just cancels it and goes back. Quest and step are kept. */

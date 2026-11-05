@@ -69,4 +69,4 @@ Also: Settings voice row says "Offline. Tap to change." (drop "Supertonic"; cred
 - Style guide Gaps: done 4 Nov (48 px map buttons, "Maps by MetaForge" everywhere, dead `.gkey input` styles gone, names under the map buttons hidden). 75% cream secondary text kept as the one exception.
 - Block taps outside the playable area if MetaForge publishes a boundary.
 - Estimates only: screen-off listening, live exit status. Loot tiers: parked (Tony, 4 Nov). MetaForge only has 8 loot zone points on Blue Gate anyway.
-- Idea agreed in principle: keep the map tile on screen on standby once the map is known, with a map picker inside it before that (also answers "Which map?"). No new icon next to the mic.
+- Map on screen (5 Nov, built): the ready screen shows a "Which map?" picker (a tap = "Show me the X map"); a name on several maps shows just those; an answer without its own map keeps the last map for the raid. "Show me the Dam map" and friends show the whole map and ask where you are. No new icon next to the mic.
