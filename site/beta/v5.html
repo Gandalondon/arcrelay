@@ -34,28 +34,46 @@
 .step h2{font-size:clamp(40px,4.6vw,64px);line-height:1;font-weight:600;letter-spacing:0}
 .step p{margin-top:24px;max-width:26em;font-size:20px;line-height:31px}
 .step .btn{margin-top:40px}
-.dock{position:sticky;top:88px;height:calc(100svh - 88px);display:flex;align-items:center;justify-content:center;perspective:1400px}
-.dock .p3{visibility:hidden}
-html.parked .dock .p3{visibility:visible}
+.park{position:sticky;top:88px;height:calc(100svh - 88px);display:flex;align-items:center;justify-content:center;perspective:1400px}
+.park .p3{visibility:hidden}
+html.parked .park .p3{visibility:visible}
+html.landing .park .p3{visibility:hidden}
 .mphone{display:none}
 .flyer{position:absolute;z-index:3;left:0;top:0;perspective:1400px;pointer-events:none;will-change:transform}
 html.parked .flyer{visibility:hidden}
 .ftr{padding-top:96px}
+/* finale: the hero's words mirrored, the phone turned the other way, showing the home greeting */
+.finale .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px;min-height:calc(100svh - 88px);align-items:center}
+.fin{margin:0;font-weight:700;font-size:min(15vw,calc((100svh - 330px) / 3.1));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
+.ftxt .btn{margin-top:48px;cursor:default}
+.ftxt .btn:hover{background:var(--amber)}
+.fslot{display:flex;justify-content:center;perspective:1400px}
+.fphone{transform:rotateX(22deg) rotateY(34deg) rotateZ(-10deg)}
+html.fx .fphone{visibility:hidden}
+.lander{position:absolute;z-index:3;left:0;top:0;perspective:1400px;pointer-events:none;will-change:transform;display:none}
+html.landing .lander{display:block}
+.screen.home{background:var(--bg)}
+.screen.home .fill{flex:1 1 auto}
+.screen.home .cog{color:var(--amber);width:1.75em;height:1.75em;flex:none}
+.screen.home .cog svg{display:block;width:100%;height:100%}
 @media (max-width:900px){
   .hdr .wrap{height:72px}
   .heyhero{padding-top:calc(140px + env(safe-area-inset-top,0px));padding-bottom:0}
   .heyhero .word{font-size:30vw}
   .heyhero .lede{max-width:none;margin-top:24px;font-size:21px;line-height:31px}
   .story .wrap{display:block}
-  .dock,.flyer{display:none}
+  .park,.flyer,.lander,.fslot{display:none}
   .step{min-height:0;display:block;padding-block:64px}
   .step:first-child{padding-top:54px}
   .mphone{display:flex;justify-content:center;margin-top:56px}
   .mphone .phone{--pw:min(300px,78vw)}
+  .finale .wrap{display:block;min-height:0;padding-block:112px 0}
+  .fin{font-size:22vw}
 }
 @media (prefers-reduced-motion:reduce){
   .flyer{display:none}
-  .dock .p3{visibility:visible}
+  .park .p3{visibility:visible}
+  .lander{display:none}
   .p3 .screen{transition:none}
 }
 </style>
@@ -106,10 +124,19 @@ Relay</h1>
       <div class="mphone"><div class="phone"><div class="screen shot"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="Relay asking Where are you? Below, the map with the nearest ways out in yellow, the spot you tapped as a white ring, and a yellow I'm here button." loading="lazy" decoding="async"></div></div></div>
     </section>
   </div>
-  <div class="dock" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="0"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="" decoding="async" fetchpriority="high"></div><div class="screen shot" data-i="1"><img src="screens/screen-2-listening.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="2"><img src="screens/screen-4-find.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div></div></div>
+  <div class="park" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="0"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="" decoding="async" fetchpriority="high"></div><div class="screen shot" data-i="1"><img src="screens/screen-2-listening.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="2"><img src="screens/screen-4-find.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div></div></div>
   </div></div>
+  <section class="finale"><div class="wrap">
+    <div class="ftxt"><h2 class="fin">Ask.
+Find.
+Get out.</h2><span class="btn">Coming soon to Android</span></div>
+    <div class="fslot" aria-hidden="true"><div class="phone p3 fphone"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen home" data-i="9" style="opacity:1"><div class="top"><p class="greet" data-greet>Evening,
+Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M421-80q-14 0-25-9t-13-23l-15-94q-19-7-40-19t-37-25l-86 40q-14 6-28 1.5T155-226L97-330q-8-13-4.5-27t15.5-23l80-59q-2-9-2.5-20.5T185-480q0-9 .5-20.5T188-521l-80-59q-12-9-15.5-23t4.5-27l58-104q8-13 22-17.5t28 1.5l86 40q16-13 37-25t40-18l15-95q2-14 13-23t25-9h118q14 0 25 9t13 23l15 94q19 7 40.5 18.5T669-710l86-40q14-6 27.5-1.5T804-734l59 104q8 13 4.5 27.5T852-580l-80 57q2 10 2.5 21.5t.5 21.5q0 10-.5 21t-2.5 21l80 58q12 8 15.5 22.5T863-330l-58 104q-8 13-22 17.5t-28-1.5l-86-40q-16 13-36.5 25.5T592-206l-15 94q-2 14-13 23t-25 9H421Zm59-270q54 0 92-38t38-92q0-54-38-92t-92-38q-54 0-92 38t-38 92q0 54 38 92t92 38Z"/></svg></span></div><div class="fill"></div><div class="dock"><svg class="mic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM450-150v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></div></div></div></div>
+  </div></section>
 </main>
 <div class="flyer" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="0"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="" decoding="async" fetchpriority="high"></div><div class="screen shot" data-i="1"><img src="screens/screen-2-listening.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="2"><img src="screens/screen-4-find.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div></div></div>
+<div class="lander" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" loading="lazy" decoding="async"></div><div class="screen home" data-i="9"><div class="top"><p class="greet" data-greet>Evening,
+Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M421-80q-14 0-25-9t-13-23l-15-94q-19-7-40-19t-37-25l-86 40q-14 6-28 1.5T155-226L97-330q-8-13-4.5-27t15.5-23l80-59q-2-9-2.5-20.5T185-480q0-9 .5-20.5T188-521l-80-59q-12-9-15.5-23t4.5-27l58-104q8-13 22-17.5t28 1.5l86 40q16-13 37-25t40-18l15-95q2-14 13-23t25-9h118q14 0 25 9t13 23l15 94q19 7 40.5 18.5T669-710l86-40q14-6 27.5-1.5T804-734l59 104q8 13 4.5 27.5T852-580l-80 57q2 10 2.5 21.5t.5 21.5q0 10-.5 21t-2.5 21l80 58q12 8 15.5 22.5T863-330l-58 104q-8 13-22 17.5t-28-1.5l-86-40q-16 13-36.5 25.5T592-206l-15 94q-2 14-13 23t-25 9H421Zm59-270q54 0 92-38t38-92q0-54-38-92t-92-38q-54 0-92 38t-38 92q0 54 38 92t92 38Z"/></svg></span></div><div class="fill"></div><div class="dock"><svg class="mic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM450-150v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></div></div></div></div>
 <footer class="ftr">
   <div class="wrap">
     <div class="ftop">
@@ -127,14 +154,18 @@ Relay</h1>
 (function(){
   var w=document.querySelector(".heyhero .word");
   function fit(){}  /* stacked word: sized in CSS */
-  var fl=document.querySelector(".flyer"), fp=fl.querySelector(".p3"), dock=document.querySelector(".dock"), dp=dock.querySelector(".p3"),
+  var fl=document.querySelector(".flyer"), fp=fl.querySelector(".p3"), dock=document.querySelector(".park"), dp=dock.querySelector(".p3"),
       story=document.querySelector(".story"), site=document.querySelector(".site"), steps=[].slice.call(document.querySelectorAll(".step")),
       mq=matchMedia("(max-width:900px)"), rm=matchMedia("(prefers-reduced-motion: reduce)"), G=null, q=false, cur=-1, root=document.documentElement;
-  var S={rx:22, ry:-34, rz:10, s:1};  /* starts angled, level with the top of the word (B2) */
+  var S={rx:22, ry:-34, rz:10, s:1};
+  var M={rx:22, ry:34, rz:-10};  /* the finale: the mirror of the opening angle */
+  var ld=document.querySelector(".lander"), lp=ld.querySelector(".p3"), fpn=document.querySelector(".fphone"), F=null;
+  var hr=new Date().getHours(), gw=hr<12?"Morning":hr<18?"Afternoon":"Evening";
+  [].forEach.call(document.querySelectorAll("[data-greet]"),function(el){ el.textContent=gw+",\nRaider."; });  /* starts angled, level with the top of the word (B2) */
   function show(i){ if(i===cur) return; cur=i; [fp,dp].forEach(function(ph){ [].forEach.call(ph.querySelectorAll(".screen"),function(sc){ sc.classList.toggle("on", +sc.dataset.i===i); }); }); }
   function measure(){
     fit();
-    if(mq.matches){ G=null; root.classList.remove("parked"); return; }
+    if(mq.matches){ G=null; F=null; root.classList.remove("parked","landing","fx"); return; }
     var sr=site.getBoundingClientRect(), base=sr.top+scrollY, st=story.getBoundingClientRect().top+scrollY;
     /* where the parked phone sits once the story column is stuck under the 88 px header */
     dp.style.transform="none";
@@ -142,6 +173,12 @@ Relay</h1>
     var E=Math.max(1, st-88), yEnd=88+oy, tx=dr.left-sr.left, sy=wr.top-sr.top;
     fl.style.width=dr.width+"px"; fp.style.width=dr.width+"px"; fl.style.left=tx+"px"; fl.style.top=sy+"px";
     G={base:base, sy:sy, E:E, yEnd:yEnd};
+    /* finale: the parked phone stays where it is while the finale scrolls up to it, turning as it goes */
+    root.classList.toggle("fx", !rm.matches);
+    fpn.style.transform="none"; var fr=fpn.getBoundingClientRect(); fpn.style.transform="";
+    var sb=story.getBoundingClientRect().bottom+scrollY, S0=sb-innerHeight, fy=fr.top-sr.top, S1=Math.max(S0+1, base+fy-yEnd);
+    ld.style.width=dr.width+"px"; lp.style.width=dr.width+"px"; ld.style.left=(fr.left-sr.left)+"px"; ld.style.top=fy+"px";
+    F={S0:S0, S1:S1, fy:fy};
     f();
   }
   function f(){ q=false;
@@ -150,7 +187,15 @@ Relay</h1>
     show(best);
     if(!G || rm.matches) return;
     var s=scrollY, u=Math.max(0,Math.min(1,s/G.E)), e=u*u*(3-2*u), k=1-e, sc=S.s+(1-S.s)*e;
-    root.classList.toggle("parked", u>=1);
+    var land = F && s>=F.S0;
+    root.classList.toggle("parked", u>=1 && !land); root.classList.toggle("landing", !!land);
+    if(land){
+      var v=Math.max(0,Math.min(1,(s-F.S0)/(F.S1-F.S0))), m=v*v*(3-2*v);
+      ld.style.transform="translateY("+(s<F.S1 ? (G.yEnd-G.base-F.fy+s) : 0).toFixed(1)+"px)";
+      lp.style.transform="rotateX("+(M.rx*m).toFixed(2)+"deg) rotateY("+(M.ry*m).toFixed(2)+"deg) rotateZ("+(M.rz*m).toFixed(2)+"deg)";
+      [].forEach.call(lp.querySelectorAll(".screen"),function(sc){ sc.classList.toggle("on", (sc.dataset.i==="9")===(v>.5)); });
+      return;
+    }
     var T=((G.base+G.sy)*k + G.yEnd*e) - G.base - G.sy + s;
     fl.style.transform="translateY("+T.toFixed(1)+"px)";
     fp.style.transform=k<0.001 ? "none" : "rotateX("+(S.rx*k).toFixed(2)+"deg) rotateY("+(S.ry*k).toFixed(2)+"deg) rotateZ("+(S.rz*k).toFixed(2)+"deg) scale("+sc.toFixed(3)+")";

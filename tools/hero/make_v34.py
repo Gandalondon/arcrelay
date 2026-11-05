@@ -3,7 +3,7 @@ The hero phone starts angled in the hero and, as you scroll, travels down and tu
 sits exactly in the first row's phone column. Run from site/beta."""
 import re
 
-s = open("v2.html").read()
+s = open("../../tools/hero/parts-v2.html").read()  # the original v2 page, kept as the source of shared parts
 head = s[:s.index("<style>")]
 hdr = s[s.index("<header"):s.index('<div class="site">')]
 foot = s[s.index("<footer"):s.index('<script src="site.js">')]
