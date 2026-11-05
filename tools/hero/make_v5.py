@@ -50,7 +50,7 @@ CSS = """<style>
 .story .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px}
 .steps{display:flex;flex-direction:column}
 .step{min-height:calc(100svh - 88px);display:flex;align-items:center}
-.step h2{font-size:clamp(40px,4.6vw,64px);line-height:1;font-weight:600;letter-spacing:-.01em}
+.step h2{font-size:clamp(40px,4.6vw,64px);line-height:1;font-weight:600;letter-spacing:0}
 .step p{margin-top:24px;max-width:26em;font-size:20px;line-height:31px}
 .step .btn{margin-top:40px}
 .dock{position:sticky;top:88px;height:calc(100svh - 88px);display:flex;align-items:center;justify-content:center;perspective:1400px}
