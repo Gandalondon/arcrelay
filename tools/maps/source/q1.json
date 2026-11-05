@@ -1,0 +1,342 @@
+[
+ {
+  "id": "water-troubles",
+  "name": "Water Troubles",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Locate the Flood Access Tunnel under the Red Lake Balcony",
+    "pin": "Find the Flood Access Tunnel",
+    "go": "Head to Red Lakes Balcony and drop below it. The large tunnel mouth sits underneath.",
+    "show": "Tunnel under Red Lake Balcony."
+   },
+   {
+    "t": "Find the intake to the District's Water Supply",
+    "pin": null,
+    "go": "Walk through the tunnel to the shallow, murky pool at the far end. No need to go further.",
+    "show": "Follow tunnel to the pool."
+   },
+   {
+    "t": "Sample the water",
+    "pin": null,
+    "go": "Interact with the tube lying in the water, then extract.",
+    "show": "Use the tube in the water."
+   }
+  ],
+  "aliases": [
+   "water troubles",
+   "water quest",
+   "flood tunnel"
+  ],
+  "sources": [
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://gametyrant.com/news/arc-raiders-water-troubles-quest-guide",
+   "https://www.pcgamesn.com/arc-raiders/quests"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "untended-garden",
+  "name": "Untended Garden",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Go to the Hydroponic Dome Complex",
+    "pin": "Go to the Hydroponic Dome Complex",
+    "go": "Make for the cluster of domes on Dam Battlegrounds.",
+    "show": "Head to the dome complex."
+   },
+   {
+    "t": "Access the data archive in one of the domes",
+    "pin": "Access the data archive in one of the domes",
+    "go": "Enter any of the marked domes and use the terminal inside. Any dome with the archive works.",
+    "show": "Use a dome's data terminal."
+   },
+   {
+    "t": "Upload the data to the computer terminal in any Field Depot",
+    "pin": "Upload the data to the computer terminal",
+    "go": "Find a Field Depot (trailer with a satellite tower) and use the desk computer inside.",
+    "show": "Upload at a Field Depot."
+   }
+  ],
+  "aliases": [
+   "untended garden",
+   "garden quest",
+   "dome quest"
+  ],
+  "sources": [
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://www.gamemaps.net/game/arc_raiders/quests/untended-garden",
+   "https://gametyrant.com/news/arc-raiders-untended-garden-quest-guide"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "what-we-left-behind",
+  "name": "What We Left Behind",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Search 2 containers in the Raider Camp beneath the Parking Garage",
+    "pin": "Search 2 containers in the Raider Camp",
+    "go": "Buried City map. Rappel down the elevator shaft in the Parking Garage corner and open the two containers at the bottom.",
+    "show": "Two containers under the garage.",
+    "pm": "buried-city"
+   },
+   {
+    "t": "Search for anything significant in the South Swamp Outpost",
+    "pin": "Something Significant",
+    "go": "Go to the big building on the west side of the outpost and interact with the papers on the table.",
+    "show": "Check the papers on the table."
+   },
+   {
+    "t": "Search for anything significant in Bilguun's Hideout, next to the Container Storage",
+    "pin": "Bilguun's Hideout",
+    "go": "Spaceport map. Climb the tall ladder on the high east side of Container Storage to the trailer and use the documents.",
+    "show": "Documents in the ladder trailer.",
+    "pm": "spaceport"
+   }
+  ],
+  "aliases": [
+   "what we left behind",
+   "left behind"
+  ],
+  "sources": [
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://gametyrant.com/news/arc-raiders-what-we-left-behind-quest-guide",
+   "https://www.pcgamesn.com/arc-raiders/quests"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "medical-merchandise",
+  "name": "Medical Merchandise",
+  "who": "Lance",
+  "steps": [
+   {
+    "t": "Search 2 containers in the Departure Building's exam rooms",
+    "pin": "Medical Merchandise Exam Room",
+    "go": "Spaceport map. Work along the Departure Building walls to the labelled exam rooms and open two containers.",
+    "show": "Two containers in exam rooms.",
+    "pm": "spaceport"
+   },
+   {
+    "t": "Search 3 containers in the Hospital",
+    "pin": "Search 3 contrainers in Hospital (Medical Merchandise)",
+    "go": "Buried City map. Any three containers inside the Hospital count.",
+    "show": "Any three Hospital containers.",
+    "pm": "buried-city"
+   },
+   {
+    "t": "Search 2 containers in the Research & Administration building's medical room",
+    "pin": "Medical Merchandise",
+    "go": "Take the zipline up the elevator shaft, turn right down the hallway and look for the medical cross signs.",
+    "show": "Medical room, two containers."
+   }
+  ],
+  "aliases": [
+   "medical merchandise",
+   "medical quest",
+   "med merch"
+  ],
+  "sources": [
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://gametyrant.com/news/arc-raiders-medical-merchandise-quest-guide",
+   "https://www.pcgamesn.com/arc-raiders/quests"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "straight-record",
+  "name": "Straight Record",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Reach Victory Ridge",
+    "pin": "Reach Victory Ridge",
+    "go": "Head for the First Wave battle site near the West Broken Bridge at the north of the map. It is not labelled on the map.",
+    "show": "Head to Victory Ridge."
+   },
+   {
+    "t": "Find the old EMP trap",
+    "pin": "Shut Down the EMP Trap",
+    "go": "Look for the tall pole wrapped in wire in the middle of the ridge and interact at its base.",
+    "show": "Find the wired pole."
+   },
+   {
+    "t": "Disable the first power switch",
+    "pin": "1st Power Switch",
+    "go": "Climb the small cliff near the trap and flip the switch on top.",
+    "show": "Switch one, up the cliff."
+   },
+   {
+    "t": "Disable the second power switch",
+    "pin": "2nd Power Switch",
+    "go": "Go to the crumbled building and climb the boxes to the balcony switch.",
+    "show": "Switch two, on the balcony."
+   },
+   {
+    "t": "Disable the third power switch",
+    "pin": "3rd Switch",
+    "go": "Spot the bright yellow box with a long trailing cable and switch it off.",
+    "show": "Switch three, yellow box."
+   },
+   {
+    "t": "Shut down the EMP trap",
+    "pin": "Shut Down the EMP Trap",
+    "go": "Return to the pole and deactivate the trap.",
+    "show": "Back to the trap."
+   }
+  ],
+  "aliases": [
+   "straight record",
+   "a straight record",
+   "emp trap"
+  ],
+  "sources": [
+   "https://www.gamemaps.net/game/arc_raiders/quests/straight-record",
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://gametyrant.com/news/arc-raiders-straight-record-quest-guide"
+  ],
+  "agree": false,
+  "notes": "giver disputed"
+ },
+ {
+  "id": "greasing-her-palms",
+  "name": "Greasing Her Palms",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "On Dam Battlegrounds, visit the Locked Room in the Water Treatment Control building",
+    "pin": "Greasing Her Palms",
+    "go": "Take the Dam Surveillance key from Celeste first. Find the door with a small red light near the building's south entrance and unlock it.",
+    "show": "Unlock the red-light door."
+   },
+   {
+    "t": "On Spaceport, scope out the rocket thrusters outside the Rocket Assembly",
+    "pin": null,
+    "go": "Spaceport map. In the yard outside Rocket Assembly, walk around and step inside both big thrusters.",
+    "show": "Step inside both thrusters."
+   },
+   {
+    "t": "On Buried City, visit the barricaded area on floor 6 of the Space Travel Building",
+    "pin": "Greasing Her Palms",
+    "go": "Buried City map. Climb the rope to the roof, take the stairwell down one floor, then breach the barricaded door at the hallway end.",
+    "show": "Roof, then down to six.",
+    "pm": "buried-city"
+   }
+  ],
+  "aliases": [
+   "greasing her palms",
+   "greasing palms"
+  ],
+  "sources": [
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://www.gamemaps.net/game/arc_raiders/quests/greasing-her-palms",
+   "https://gametyrant.com/news/arc-raiders-greasing-her-palms-quest-guide"
+  ],
+  "agree": false,
+  "notes": "order differs"
+ },
+ {
+  "id": "broken-monument",
+  "name": "Broken Monument",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Reach the hallowed grounds by the Scrap Yard",
+    "pin": null,
+    "go": "Head to the First Wave site beside the Scrap Yard on Dam Battlegrounds.",
+    "show": "Go to the Scrap Yard."
+   },
+   {
+    "t": "Search for a compass near the broken-down vehicles",
+    "pin": "Compass",
+    "go": "Squeeze into the narrow gap between the wrecked vehicles and search.",
+    "show": "Compass between the wrecks."
+   },
+   {
+    "t": "Search for the video tape near the cylindrical containers",
+    "pin": "Tape",
+    "go": "A little on from the compass, search the small box in front of the two big cylinders.",
+    "show": "Box by the cylinders."
+   },
+   {
+    "t": "Search for the old field rations in the Raider camp",
+    "pin": "Rations",
+    "go": "Follow the path to the abandoned Raider camp and search the box inside the trailer.",
+    "show": "Box in the camp trailer."
+   },
+   {
+    "t": "Deliver First Wave Compass to Tian Wen",
+    "pin": null,
+    "go": "Extract and hand the compass to Tian Wen in Speranza.",
+    "show": "Compass to Tian Wen."
+   },
+   {
+    "t": "Deliver the First Wave Tape to Tian Wen",
+    "pin": null,
+    "go": "Hand the tape to Tian Wen in Speranza.",
+    "show": "Tape to Tian Wen."
+   },
+   {
+    "t": "Deliver First Wave Rations to Tian Wen",
+    "pin": null,
+    "go": "Hand the rations to Tian Wen in Speranza.",
+    "show": "Rations to Tian Wen."
+   }
+  ],
+  "aliases": [
+   "broken monument",
+   "the monument"
+  ],
+  "sources": [
+   "https://arctracker.io/quests/broken-monument",
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://gametyrant.com/news/arc-raiders-broken-monument-quest-guide"
+  ],
+  "agree": false,
+  "notes": "structure differs"
+ },
+ {
+  "id": "echoes-of-victory-ridge",
+  "name": "Echoes of Victory Ridge",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Reach Victory Ridge",
+    "pin": "Reach Victory Ridge",
+    "go": "Head to the First Wave battle site near the West Broken Bridge at the north of Dam Battlegrounds.",
+    "show": "Head to Victory Ridge."
+   },
+   {
+    "t": "Retrieve the battle plans from the hideout under the broken highway",
+    "pin": "Echoes of Victory Ridge - Battle Plans",
+    "go": "Find the broken highway and search the box stashed beneath it, then pick up the plans.",
+    "show": "Box under the broken highway."
+   },
+   {
+    "t": "Deliver Major Aiva's Patch to Celeste",
+    "pin": null,
+    "go": "Extract and hand the patch to Celeste in Speranza.",
+    "show": "Patch to Celeste."
+   }
+  ],
+  "aliases": [
+   "echoes of victory ridge",
+   "echoes",
+   "battle plans"
+  ],
+  "sources": [
+   "https://www.gamemaps.net/game/arc_raiders/quests/echoes-of-victory-ridge",
+   "https://arc-raiders.fandom.com/wiki/Quests",
+   "https://gametyrant.com/news/arc-raiders-echoes-of-victory-ridge-quest-guide"
+  ],
+  "agree": true,
+  "notes": ""
+ }
+]

@@ -1,0 +1,225 @@
+[
+ {
+  "id": "battening-down",
+  "name": "Battening Down",
+  "who": "Apollo",
+  "steps": [
+   {
+    "t": "Photograph the cracks forming in the seawall",
+    "pin": "Seawall Cracks",
+    "go": "Head to the Wavebreaker and find the cracked concrete by a shipping container near its tip. Use the camera prompt on the cracks.",
+    "show": "Snap the cracked seawall."
+   },
+   {
+    "t": "Sample the shoreline near the hotel beach",
+    "pin": "Sample the shoreline near the hotel beach",
+    "go": "Go to Azzurro Beach, just north of Hotel Panorama Azzurro. Interact with one pile of washed-up seaweed at the water's edge.",
+    "show": "Sample seaweed on the beach."
+   },
+   {
+    "t": "Fix the leaking oil pipe in the northeast",
+    "pin": "Fix Oil Pipe",
+    "go": "Follow the big pipeline from the sea to where it meets the seawall, where oil pools on the sand. Interact with the leak to weld it.",
+    "show": "Weld the leaking oil pipe."
+   }
+  ],
+  "aliases": [
+   "battening",
+   "batten down",
+   "oil pipe quest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Battening_Down",
+   "https://www.dexerto.com/wikis/arc-raiders/battening-down-quest-guide/",
+   "https://allthings.how/battening-down-quest-walkthrough-in-arc-raiders-riven-tides/"
+  ],
+  "agree": true,
+  "notes": "Objectives can be done in any order. All Things How says several crack spots may count; the two 'Take a Photo' pins are likely alternative photo spots for step 1. 'Sample Seaweed' and 'Sample the Shoreline' pins are alternatives for step 2. Rewards collected from Apollo, not automatic."
+ },
+ {
+  "id": "shoring-up-defenses",
+  "name": "Shoring Up Defenses",
+  "who": "Apollo",
+  "steps": [
+   {
+    "t": "Destroy 5 Wasps",
+    "pin": null,
+    "go": "Wasps are small white flyers found across the map. Shoot their rotors.",
+    "show": "Down five Wasps."
+   },
+   {
+    "t": "Destroy 3 Fireflies",
+    "pin": null,
+    "go": "Fireflies are the larger grey fire-spitting flyers found all over the map. Destroy three of them.",
+    "show": "Down three Fireflies."
+   },
+   {
+    "t": "Use 1 ARC Alloy to reinforce the Raider structure on top of any Stacking Yard crane",
+    "pin": "Reinforce Raider Structure",
+    "go": "Climb or zipline to the top of any crane in the Stacking Yard. Interact with the posts holding the metal sheet, spending one ARC Alloy.",
+    "show": "Reinforce the crane-top shelter."
+   },
+   {
+    "t": "Cover the hotel's shuttered windows with boards",
+    "pin": "Boarding up windows",
+    "go": "Go to the second floor of Hotel Panorama Azzurro. Board up the shutter in room 213.",
+    "show": "Board up room 213."
+   }
+  ],
+  "aliases": [
+   "shoring up",
+   "shore up",
+   "shore up defences"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Shoring_Up_Defenses",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-shoring-up-defenses-walkthrough/"
+  ],
+  "agree": true,
+  "notes": "Any order, can span several raids. Bring or loot one ARC Alloy. 'Repair Raider structure' pin is an alternative crane for step 3. PC Gamer words step 4 as boarding up a single shuttered window; room 213 confirmed, others such as 207 have similar shutters."
+ },
+ {
+  "id": "safe-harbor",
+  "name": "Safe Harbor",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Find the clue left by the restaurant kitchen staff",
+    "pin": "Kitchen staff clue",
+    "go": "Climb to the top-floor restaurant of Hotel Panorama Azzurro and enter the small kitchen. Photograph the sketch on the wall by the cupboards.",
+    "show": "Photograph the kitchen sketch."
+   },
+   {
+    "t": "Find the area portrayed in the sketch",
+    "pin": "Area portrayed in sketch",
+    "go": "Head to the tennis courts just south-west of the hotel. Look by the bench and billboard against the fence.",
+    "show": "Find the tennis court bench."
+   },
+   {
+    "t": "Dig up the buried part",
+    "pin": "Dig up the buried part",
+    "go": "Interact with the shovel stuck in the ground behind the bench. It hands you the Precision Gimbal.",
+    "show": "Dig up the Precision Gimbal."
+   },
+   {
+    "t": "Deliver the Precision Gimbal to Tian Wen",
+    "pin": null,
+    "go": "Delivery in Speranza. Extract with the gimbal, ideally in a safe pocket, and hand it to Tian Wen.",
+    "show": "Deliver gimbal to Tian Wen."
+   }
+  ],
+  "aliases": [
+   "safe harbour",
+   "gimbal quest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Safe_Harbor",
+   "https://gametyrant.com/news/arc-raiders-safe-harbor-quest-guide",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-safe-harbor-walkthrough/"
+  ],
+  "agree": true,
+  "notes": "Must be done in one round. Guides disagree slightly on which side of the tennis courts the shovel is (PC Gamer north-west fence, GameTyrant east side by middle court); follow the pin."
+ },
+ {
+  "id": "celestes-teenage-rebellion",
+  "name": "Celeste's Teenage Rebellion",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Reach the lookout tower on Mulatierra Hill",
+    "pin": "Reach the lookout tower on Mulatierra Hill",
+    "go": "Go to the lookout tower north of Customs House, beside a Raider Hatch. Enter through the opening at its base.",
+    "show": "Reach the Mulatierra lookout."
+   },
+   {
+    "t": "Transmit the location from the top of the tower",
+    "pin": "Transmit from the top of the tower",
+    "go": "Climb both ladders to the observation deck. Hold the transmit prompt at the upper window.",
+    "show": "Transmit from the tower top."
+   },
+   {
+    "t": "Reach the old Raider Camp",
+    "pin": "Reach the old Raider Camp",
+    "go": "Head to the cliff-top camp between Hotel Panorama Azzurro and Azzurro Beach, near the Wharf.",
+    "show": "Reach the old Raider camp."
+   },
+   {
+    "t": "Search for a radio transmitter at the Raider Camp",
+    "pin": "Find the radio transmitter",
+    "go": "At the camp, find the antenna pole and radio. Hold the inspect prompt.",
+    "show": "Inspect the camp radio."
+   },
+   {
+    "t": "Find the large antenna overlooking the harbour",
+    "pin": "Find the large harbor antenna",
+    "go": "Travel to the small hill at the far north-east edge, past the Wavebreaker. The big antenna stands there with a trailer generator.",
+    "show": "Find the big harbour antenna."
+   },
+   {
+    "t": "Weld the broken generator",
+    "pin": "Weld the broken generator",
+    "go": "Interact with the trailer generator at the antenna base to weld it.",
+    "show": "Weld the antenna generator."
+   },
+   {
+    "t": "Start the transmitter",
+    "pin": "Start the transmitter",
+    "go": "Interact with the repaired generator again to switch the power on.",
+    "show": "Power up the transmitter."
+   }
+  ],
+  "aliases": [
+   "teenage rebellion",
+   "celeste rebellion"
+  ],
+  "sources": [
+   "https://allthings.how/arc-raiders-celeste-s-teenage-rebellion-quest-locations-and-rewards/",
+   "https://www.destructoid.com/how-to-complete-celestes-teenage-rebellion-in-arc-raiders/",
+   "https://gametyrant.com/news/arc-raiders-celestes-teenage-rebellion-quest-guide"
+  ],
+  "agree": true,
+  "notes": "All three guides agree on the three locations and order. Sub-step wording varies: Destructoid says 'search for a radio transmitter' where others say inspect the antenna; for the last step guides say weld then enable power, so 'Start the transmitter' text follows the MetaForge pin. Optional: spot three ARC from the tower (GameTyrant). Giver named only by All Things How."
+ },
+ {
+  "id": "celestes-childhood-drawings",
+  "name": "Celeste's Childhood Drawings",
+  "who": "Lance",
+  "steps": [
+   {
+    "t": "Find young Celeste's room in Hotel Panorama Azzurro",
+    "pin": "Find young Celeste’s room",
+    "go": "Take the hotel stairs to the second floor and go to the south-east wing. Enter room 213.",
+    "show": "Enter room 213."
+   },
+   {
+    "t": "Search for anything significant in Celeste's Room",
+    "pin": "Search Celeste's Room",
+    "go": "Inspect the map lying on the low cabinet between the two windows.",
+    "show": "Inspect the map on cabinet."
+   },
+   {
+    "t": "Find the drawing on the roof of the third Customs House",
+    "pin": "Drawing on the third Customs House",
+    "go": "At Customs House, count three buildings from the south and climb the outside stairs to the roof. Inspect the small painting on the rusty panel by the containers.",
+    "show": "Check third Customs House roof."
+   },
+   {
+    "t": "Find the drawing at the Quay",
+    "pin": "Find the drawing at the Quay",
+    "go": "Go to the Quay on the far east, past the Stacking Yard. Inspect the cable reel by the red cranes, second from the south end.",
+    "show": "Check the Quay cable reel."
+   }
+  ],
+  "aliases": [
+   "childhood drawings",
+   "celeste drawings"
+  ],
+  "sources": [
+   "https://allthings.how/arc-raiders-celeste-s-childhood-drawings-walkthrough-riven-tides/",
+   "https://www.destructoid.com/how-to-complete-celestes-childhood-drawings-in-arc-raiders/",
+   "https://gametyrant.com/news/arc-raiders-celestes-childhood-drawings-quest-guide"
+  ],
+  "agree": true,
+  "notes": "Steps agree across three guides. Destructoid merges the room search into finding the room. Quest giver Lance is named only by All Things How (reward includes Lance's Mixtape charm); verify. No item to extract, so a free loadout works."
+ }
+]

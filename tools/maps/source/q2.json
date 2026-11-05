@@ -1,0 +1,283 @@
+[
+ {
+  "id": "keeping-the-memory",
+  "name": "Keeping the Memory",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Reach the wreckage in the Formicai Hills",
+    "pin": null,
+    "go": "Head to the Formicai Hills in the southern woods of Dam Battlegrounds and look for the huge half-buried spider-like ARC wreck in a clearing.",
+    "show": "Find the giant ARC wreck."
+   },
+   {
+    "t": "Search for the missing helmet",
+    "pin": "Keeping the Memory - Find the Helmet",
+    "go": "Follow the wire trail away from the wreck and check the base of the small bush near its end.",
+    "show": "Helmet hides under a bush."
+   },
+   {
+    "t": "Return the helmet to the memorial",
+    "pin": "Keeping the Memory - Return the Helmet to the Memorial",
+    "go": "The memorial is the metal pole stuck in the ground a few steps away; interact with it to set the helmet on top.",
+    "show": "Place helmet on the pole."
+   }
+  ],
+  "aliases": [
+   "keeping the memory",
+   "the helmet quest",
+   "memorial quest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Keeping_The_Memory",
+   "https://allthings.how/arc-raiders-keeping-the-memory-steps-and-dam-battlegrounds-location/",
+   "https://www.dexerto.com/wikis/arc-raiders/how-to-complete-keeping-the-memory"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "a-symbol-of-unification",
+  "name": "A Symbol Of Unification",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Reach the Formicai Outpost",
+    "pin": null,
+    "go": "Go to the Formicai Hills in the south of Dam Battlegrounds and climb the zig-zag plank trail up to the outpost tower.",
+    "show": "Climb up to Formicai Outpost."
+   },
+   {
+    "t": "Find the Raider Flag",
+    "pin": "A Symbol Of Unification - Locate The Flag",
+    "go": "Enter through the dark ground-floor corridor, turn right and loot the yellow bag lying on the medical bed.",
+    "show": "Flag is on the bed."
+   },
+   {
+    "t": "Hoist the Raider Flag",
+    "pin": "A Symbol Of Unification - Hoist The Flag",
+    "go": "Cross the round central room and step out onto the balcony facing Red Lake; use the flagpole on your left.",
+    "show": "Raise it over Red Lake."
+   }
+  ],
+  "aliases": [
+   "symbol of unification",
+   "the flag quest",
+   "raider flag"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/A_Symbol_of_Unification",
+   "https://allthings.how/arc-raiders-how-to-reach-formicai-outpost-and-raise-the-raider-flag"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "the-majors-footlocker",
+  "name": "The Major's Footlocker",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Search for Major Aiva's mementos in the apartments northwest of the Dam",
+    "pin": "The Major's Footlocker",
+    "go": "Go to Ruby Residence northwest of the Dam, enter the westernmost of the three blocks and climb to the top indoor floor, not the roof. The mementos are on a table by a big square window.",
+    "show": "Top floor, west block."
+   },
+   {
+    "t": "Deliver Major Aiva's Mementos to Tian Wen",
+    "pin": null,
+    "go": "Stash the mementos in your safe pocket, extract, then hand them to Tian Wen in Speranza.",
+    "show": "Hand over to Tian Wen."
+   }
+  ],
+  "aliases": [
+   "the major's footlocker",
+   "majors footlocker",
+   "aiva's mementos"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/The_Major%27s_Footlocker",
+   "https://allthings.how/arc-raiders-majors-footlocker-location-pickup-and-reward/"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "celestes-journals",
+  "name": "Celeste's Journals",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Retrieve Celeste's Journal from the South Swamp Outpost",
+    "pin": null,
+    "go": "Head to the outpost on the southern edge of the swamp on Dam Battlegrounds and search inside for the journal.",
+    "show": "First journal, South Swamp."
+   },
+   {
+    "t": "Retrieve Celeste's Journal from the northern outpost overlooking the Red Lakes",
+    "pin": "Celeste's Journals",
+    "go": "Make for the northern outpost above the Red Lakes and sweep the interior and raised platforms for the second journal.",
+    "show": "Second journal, northern outpost."
+   },
+   {
+    "t": "Deliver the Journals to Celeste",
+    "pin": null,
+    "go": "Extract with both journals, ideally one in your safe pocket, and hand them to Celeste in Speranza.",
+    "show": "Hand both to Celeste."
+   }
+  ],
+  "aliases": [
+   "celeste's journals",
+   "celestes journals",
+   "the journals"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Celeste%27s_Journals",
+   "https://allthings.how/arc-raiders-celestes-journals-quest-guide-and-locations/"
+  ],
+  "agree": false,
+  "notes": "pin assignment inferred"
+ },
+ {
+  "id": "dormant-barons",
+  "name": "Dormant Barons",
+  "who": "Shani",
+  "steps": [
+   {
+    "t": "Loot a Baron Husk",
+    "pin": "Loot a Baron Husk",
+    "go": "Find the giant spider-shaped ARC shell west of Water Treatment Control toward South Swamp Outpost, climb a leg onto it and breach the centre. Back off while it burns, then climb up and loot the core for the ARC Powercell.",
+    "show": "Breach it, then loot."
+   }
+  ],
+  "aliases": [
+   "dormant barons",
+   "dormant baron",
+   "baron husk"
+  ],
+  "sources": [
+   "https://allthings.how/arc-raiders-dormant-barons-quest-walkthrough-and-baron-husk-loot",
+   "https://www.gamemaps.net/game/arc_raiders/quests/dormant-barons"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "eyes-in-the-sky",
+  "name": "Eyes in the Sky",
+  "who": "Shani",
+  "steps": [
+   {
+    "t": "Install a LiDAR Scanner at the top of the Control Tower",
+    "pin": "LiDAR Scanner on the Control Tower",
+    "go": "At the Control Tower south of the Dam's centre, breach the lift shaft past the locked Dam Staff Room, deal with the turrets and zip up. Walk out onto the roof and use the tripod in the east corner.",
+    "show": "Tripod on the tower roof."
+   },
+   {
+    "t": "Install a LiDAR Scanner at the Communications Tower",
+    "pin": "LiDAR Scanner at the Communications Tower",
+    "go": "On Spaceport, climb the ladder at the Communications Tower on the east side and walk round the platform to the tripod.",
+    "show": "Spaceport comms tower tripod.",
+    "pm": "spaceport"
+   },
+   {
+    "t": "Install a LiDAR Scanner on top of the Galleria sign",
+    "pin": "LiDAR Scanner on the Galleria sign",
+    "go": "On Buried City, get onto the Galleria roof, cross the planks on the south-east side and zipline up the sign pillar to the tripod.",
+    "show": "Zipline up the Galleria sign.",
+    "pm": "buried-city"
+   }
+  ],
+  "aliases": [
+   "eyes in the sky",
+   "lidar quest",
+   "lidar scanner"
+  ],
+  "sources": [
+   "https://allthings.how/arc-raiders-eyes-in-the-sky-locations-and-walkthrough",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-eyes-in-the-sky",
+   "https://www.dexerto.com/wikis/arc-raiders/how-to-complete-eyes-in-the-sky"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "a-new-type-of-plant",
+  "name": "A New Type of Plant",
+  "who": "Lance",
+  "steps": [
+   {
+    "t": "Locate the Possibly Toxic Plant at the Baron Husk",
+    "pin": "A New Type of Plant",
+    "go": "Go to Old Battleground on the far west of Dam Battlegrounds and search around the huge Baron Husk for a plant with bright orange blooms; gather it and pick up the drop.",
+    "show": "Orange plant by the husk."
+   },
+   {
+    "t": "Deliver the plant to Lance",
+    "pin": null,
+    "go": "Put the plant in your safe pocket, extract via the nearby lift and hand it to Lance in Speranza.",
+    "show": "Hand it to Lance."
+   }
+  ],
+  "aliases": [
+   "a new type of plant",
+   "new plant",
+   "toxic plant"
+  ],
+  "sources": [
+   "https://allthings.how/arc-raiders-a-new-type-of-plant-quest-guide/",
+   "https://www.destructoid.com/how-to-complete-a-new-type-of-plant-in-arc-raiders/"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "the-league",
+  "name": "The League",
+  "who": "Apollo",
+  "steps": [
+   {
+    "t": "Photograph the goal",
+    "pin": "Photograph the Goal",
+    "go": "At the Water Towers on Dam Battlegrounds, stand by the wooden football goal in front of the football-painted dome until the photo prompt shows.",
+    "show": "Snap the wooden goal."
+   },
+   {
+    "t": "Find a Bicycle Pump",
+    "pin": "Bicycle Pump",
+    "go": "Check the container by the bike leaning on the dome wall near the goal. A guaranteed spawn also sits at the bike outside the Marano Station kiosk on Buried City.",
+    "show": "Pump by the bike."
+   },
+   {
+    "t": "Find a Deflated Football",
+    "pin": "Deflated Football",
+    "go": "Open the small metal box in the grass behind the goal, between it and the nearest water tower.",
+    "show": "Football in the metal box."
+   },
+   {
+    "t": "Photograph the football magazines at a kiosk",
+    "pin": "Photograph the Kiosk",
+    "go": "On Buried City, go to the open newspaper kiosk at the north end of Marano Station, step inside and photograph the magazines.",
+    "show": "Photo the kiosk magazines.",
+    "pm": "buried-city"
+   },
+   {
+    "t": "Deliver a Deflated Football and a Bicycle Pump to Apollo",
+    "pin": null,
+    "go": "Extract with both items and hand them to Apollo in Speranza.",
+    "show": "Hand both to Apollo."
+   }
+  ],
+  "aliases": [
+   "the league",
+   "football quest",
+   "league"
+  ],
+  "sources": [
+   "https://allthings.how/how-to-complete-the-league-quest-in-arc-raiders",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-the-league-kiosk-location"
+  ],
+  "agree": false,
+  "notes": "order differs between guides"
+ }
+]

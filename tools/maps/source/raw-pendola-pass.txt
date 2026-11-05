@@ -1,0 +1,56 @@
+5|l|extraction|Reckless Transceiver|8630|7040
+8|l|locked_room||6918|10371
+9|l|extraction|Glacial Transceiver|10035|9234
+11|l|breach_room||6918|10255
+16|l|extraction|Supermarket Transceiver|8351|8482
+43|l|breach_room||9245|5999
+46|l|extraction|Northern Transceiver|7024|8738
+53|l|locked_room|Pendola Pass Train Station Key|7507|7577
+82|q|exploring-pendola-pass|Search Control Room for power|7124|10225
+83|q|sizing-things-up|Analyze emporer's leg|8076|9082
+84|q|exploring-pendola-pass|Use 1 wire to patch into the antenna on top fo the tallest tower in the railyard|9391|9788
+85|q|clean-hands|Find the Nomad Camp under the Railyard|9564|9213
+86|q|clean-hands|Search for the polluted item in the Nomad camp|9562|9231
+87|l|locked_room|Pendola Pass Old Town Key|9530|6345
+88|l|locked_room|Pendola Pass Old Town Key|9537|6347
+89|q|clean-hands|Bring the Eqauatiorial Sundial to the top of the Church in Old Town|9624|6790
+90|q|sizing-things-up|Photo location|9477|7728
+91|q|sizing-things-up|Search the Buried Harvester Payload|8327|6751
+92|q|sizing-things-up|Crashed probe|7364|6657
+93|q|sizing-things-up|Buried Harvester Payload|8382|6734
+94|q|exploring-pendola-pass|Search 3 containers in the Supermarket|8523|8303
+95|q|belly-of-the-beast|Enter the Emperor|8360|6495
+96|q|ruins-and-reverberations|Weld the wires in the crawlspace|7090|10243
+97|q|belly-of-the-beast|Find the stored Harvester Payloads|8312|6167
+98|q|tracks-of-the-beast|Find the destroyed station|8031|7691
+99|q|ruins-and-reverberations|Spotter Relay on the Observatory antenna|7110|10242
+100|q|tracks-of-the-beast|Head to the Northern Tracks|5651|9637
+101|q|belly-of-the-beast|Follow the Harvester Payloads|8227|5708
+102|q|belly-of-the-beast|Find the Emperor's power source|8287|6025
+103|q|sizing-things-up|Reach the base of the Emperor|8322|6622
+104|q|belly-of-the-beast|Search 5 containers inside the Emperor|8253|6052
+105|q|sizing-things-up|Reach the base of the emperor|8351|6760
+106|l|locked_room|Pandola Pass Railyard Keyroom|9174|9774
+107|l|breach_room||7666|9276
+108|l|locked_room|Observatory Key Room|7078|10081
+109|l|breach_room||9348|9409
+110|q|divided|Nomad Recording at Almatera Station|7540|7556
+111|q|divided|Nomad Recording at Dispatch Tower|6609|8052
+112|q|divided|Nomad Recording at Weather Station|8221|10304
+113|q|divided|Nomad Recording at the Loading Platforms|10245|10098
+114|q|divided|Search for the Nomad recording at Almatera Station|7572|7560
+115|q|divided|Search for the Nomad recording at the weather station|8241|10382
+116|q|divided|Search for the Nomad recording at the Loading Platforms|10254|10261
+117|q|divided|4. Search for the Nomad recording at the Almatera Station|7497|7562
+118|q|divided|3. Search for the Nomad recording at the Dispatch Tower|6635|8166
+A|sentinel|0.8664.9630,12.8378.6548,22.7612.8240,24.6657.8089,32.9340.9574,37.7485.9113,38.8749.7766,41.9199.9733
+A|comet|1.7377.10039,26.9287.9484,29.9323.6913,36.8233.6867,42.10012.10054,48.7681.7852,60.8159.8723
+A|queen|2.6283.8411,7.8476.7168,17.8123.9314
+A|hydra|3.8154.5521,4.8307.5571,14.8127.5701,19.8152.5843,20.8235.5507,21.8313.6185,34.8323.5666,47.8106.5583
+A|skulker|6.11368.9950,10.10190.9438,13.7270.8453,18.9409.8394,23.6236.9726,25.8805.9851,27.6563.8647,28.5420.8814,39.8431.8533,40.10093.9083,44.8580.7064,45.6937.8697,49.11867.9669,51.6488.8093
+A|shredder|15.8755.8118,30.9477.6692,31.8147.5639,33.7264.7685,35.9906.9689,50.7069.10187,52.6229.10391
+A|bastion|54.5963.8289,63.6836.10053,71.9470.8915,75.8962.6616
+A|bison|55.9217.9107,56.5956.8504,62.9130.6894,67.6661.10273,76.8318.8452
+A|bully|57.6888.8146,59.7097.8348,61.8278.6992,70.8666.9308,73.8799.7836,74.6821.8567,77.8430.8654,80.7486.9159
+A|bombardier|58.6401.8405,65.9406.6784,68.6892.10559,72.9619.9157
+A|turbine|64.7191.8027,66.9555.9283,69.8875.8378,78.7041.9178,79.6828.10376,81.10779.9738

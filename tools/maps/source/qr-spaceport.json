@@ -1,0 +1,130 @@
+[
+{"id":"a-lay-of-the-land","name":"A Lay Of The Land","who":"Shani","steps":[
+{"t":"Reach the Jiangsu Warehouse","pin":"Reach the Jiangsu Warehouse","go":"Head for the warehouse in the north-west of the map. The whole quest must be done in one round.","show":"Jiangsu Warehouse, north-west."},
+{"t":"Find the shipping notes in the foreman's office","pin":"Shipping Notes","go":"Go up to the second floor and into the foreman's office. The notes sit on the desk by the windows.","show":"Notes on the office desk."},
+{"t":"Locate the scanners on the upper floor of Control Tower A6","pin":"Scanners","go":"Climb Control Tower A6 to the wrecked office area. The scanners are on the floor behind the office dividers.","show":"Scanners behind office dividers."},
+{"t":"Deliver 1 LiDAR Scanner to Shani","pin":null,"go":"Delivery in Speranza. Extract with the scanner, ideally in a safe pocket, and hand it to Shani.","show":"Hand the scanner to Shani."}],
+"aliases":["lay of the land","lidar quest"],
+"sources":["https://arcraiders.wiki/wiki/A_Lay_Of_The_Land","https://op.gg/arc-raiders/quests","https://www.destructoid.com/how-to-complete-a-lay-of-the-land-in-arc-raiders/"],
+"agree":true,"notes":"Step 3 wording varies: the wiki says 'on the upper floor of Control Tower A6', op.gg says 'in the Flight Control office of Control Tower A6'. Same place."},
+
+{"id":"power-out","name":"Power Out","who":"Celeste","steps":[
+{"t":"Find the Electrical Substation south of the Spaceport","pin":"Find the Electrical Substation","go":"Travel to the substation in the south, near the Security Checkpoint. Do it all in one round.","show":"Substation near the checkpoint."},
+{"t":"Find any sign of the missing engineer","pin":null,"go":"Search around the substation for clues the engineer left behind.","show":"Look for the engineer's traces."},
+{"t":"Install the fuse","pin":null,"go":"Fit the fuse at the substation's fuse point.","show":"Fit the fuse."},
+{"t":"Restore the power","pin":"Power Generator","go":"Go to the generator by the substation and switch the power back on.","show":"Switch the generator on."}],
+"aliases":["power out","missing engineer"],
+"sources":["https://arcraiders.wiki/wiki/Power_Out","https://www.gamemaps.net/game/arc_raiders/quests/power-out","https://op.gg/arc-raiders/quests"],
+"agree":true,"notes":"All sources agree on the four objectives. No guide gives the exact spots for the engineer clue or fuse; pin 'Power Generator' is assumed to be the restore step."},
+
+{"id":"the-clean-dream","name":"The Clean Dream","who":"Apollo","steps":[
+{"t":"On Spaceport, search 4 containers in the underground tunnels","pin":null,"go":"Drop into the tunnels by the Launch Towers. Most containers are on the raised walkway or in its small control rooms.","show":"Search tunnel containers."},
+{"t":"Find and monitor any Filtration System in the tunnels","pin":"Find and Monitor any Filtering System in the Tunnels","go":"Find the green water tank just right of the valve near the tunnel entrance and interact with it, then extract.","show":"Green tank beside the valve."},
+{"t":"On The Blue Gate, visit the Maintenance Bunker","pin":null,"go":"Blue Gate map. Head to the bunker in the centre, south-east of Checkpoint, near the Overlook Airshaft exit.","show":"Maintenance Bunker, central Blue Gate."},
+{"t":"Monitor the Purification System in the bunker","pin":null,"go":"Blue Gate map. Go down to the central room's lower floor and interact with the big cylinders.","show":"Check the big cylinders."},
+{"t":"Find and photograph the blueprints in the bunker","pin":null,"go":"Blue Gate map. Back up on the walkway, turn left then right into the desk room and use the folder stack.","show":"Photograph the folders on the desk."}],
+"aliases":["clean dream","filtration quest"],
+"sources":["https://op.gg/arc-raiders/quests","https://www.pcgamer.com/games/third-person-shooter/arc-raiders-the-clean-dream","https://arcraiders.wiki/wiki/The_Clean_Dream"],
+"agree":false,"notes":"op.gg and PC Gamer agree on the steps above. arcraiders.wiki differs: 'find the underground tunnels', search 2 (not 4) containers, no filtration step, then 'Find the Purification System Blueprint' and 'Deliver it to Apollo' instead of photographing. Probably an older version. A second pin 'Filtration System' sits next to the chosen pin for the same step."},
+
+{"id":"the-stench-of-corruption","name":"The Stench Of Corruption","who":"Shani","steps":[
+{"t":"Reach the southwest lobby of the Departure Building","pin":null,"go":"Go to the Departure Building west of the Launch Towers and enter by its jutting southern side, near the car park.","show":"Departure Building, south-west lobby."},
+{"t":"Find the staff locker room","pin":"Locker Room Entrance","go":"Walk north along the lobby walkway. The door marked Staff Room is on your left.","show":"Staff Room door on the left."},
+{"t":"Search the room for any clues of the saboteur's identity","pin":null,"go":"Check the two hazard suits on the rack to your right to get the Flushing Terminal Key.","show":"Key in the hazard suits."},
+{"t":"Reach the tunnels below the Spaceport","pin":"Reach the tunnels below the Spaceport","go":"In front of the Launch Towers, drop through the hole in the concrete.","show":"Drop through the concrete hole."},
+{"t":"Use the key on any Flushing Terminal to override the bypass protocol","pin":"Use the Key","go":"Find a Flushing Terminal in a control room off the walkway and use the key. Do it all in one round.","show":"Use key on a terminal."}],
+"aliases":["stench of corruption","stench","warden outfit quest"],
+"sources":["https://arcraiders.wiki/wiki/The_Stench_Of_Corruption","https://op.gg/arc-raiders/quests","https://www.pcgamer.com/games/third-person-shooter/arc-raiders-the-stench-of-corruption-walkthrough"],
+"agree":true,"notes":"Must be done in one round; the key is lost on death."},
+
+{"id":"on-the-map","name":"On The Map","who":"Lance","steps":[
+{"t":"Head to where the Fuel Lines snapped, and transmit your location","pin":"Quest Start Point","go":"Go to the middle of the broken long pipes and transmit from there.","show":"Transmit at the broken pipes."},
+{"t":"Head to the antenna near the Fuel Control, and transmit your location","pin":"#2 Antenna Transmit","go":"Find the satellite tower outside Fuel Control's west door, next to Rocket Assembly, and transmit at its south base.","show":"Transmit at the antenna base."},
+{"t":"Head to the cactus patch in the wall breach, and transmit your location","pin":"#3 Cactus Patch","go":"Go to the big wall breach between Rocket Assembly and Container Storage and stand in the middle of the cacti.","show":"Stand among the cacti."},
+{"t":"Transmit your location from the roof of the Container Storage building","pin":"#4 Container Roof","go":"Enter Container Storage on the east ground floor and ride the zipline up. Transmit as you step off.","show":"Zipline up, transmit on roof."},
+{"t":"Find the container covered in tarp, and mark it","pin":"#5 Spray Paint","go":"Drop to the lowest level, find the tarp-covered container in the sand and spray it from the nearby beam.","show":"Spray the tarp container."}],
+"aliases":["on the map","triangulation quest"],
+"sources":["https://arcraiders.wiki/wiki/On_The_Map","https://op.gg/arc-raiders/quests","https://allthings.how/arc-raiders-on-the-map-quest-fuel-lines-location-and-all-triangulation-points","https://www.destructoid.com/how-to-complete-on-the-map-in-arc-raiders/"],
+"agree":true,"notes":"There is no '#1' pin; 'Quest Start Point' is assumed to be the Fuel Lines spot. Guides put the Fuel Lines directly below the Departure Building, so check that pin."},
+
+{"id":"worth-your-salt","name":"Worth Your Salt","who":"Celeste","steps":[
+{"t":"Go to the Rocket Assembly","pin":"Go to the Rocket Assembly","go":"Head to the Rocket Assembly hangar with the red walkways, next to Fuel Control. Finish it all in one round.","show":"Rocket Assembly, red walkways."},
+{"t":"Search for the hidden Battery Prototype in a high place","pin":"Battery Location","go":"Climb the stairs to the walkway and follow it to the corner. The battery is in a box by the red lockers.","show":"Box by the red lockers."},
+{"t":"Bring the Battery Prototype to the Industrial Recharger","pin":null,"go":"Carry the battery to the big recharger in the middle of the hangar, near the exit.","show":"Recharger in the hangar centre."},
+{"t":"Use the machinery to charge the battery","pin":"Charge battery","go":"Pull the handle on the side of the recharger.","show":"Pull the recharger handle."},
+{"t":"Deliver the Charged Battery to the drop-off point in the corner","pin":"Deliver Battery","go":"Drop it in the small open box in the hangar corner by the exit. No need to extract.","show":"Open box by the exit."}],
+"aliases":["worth your salt","battery quest"],
+"sources":["https://arcraiders.wiki/wiki/Worth_Your_Salt","https://op.gg/arc-raiders/quests","https://www.pcgamer.com/games/third-person-shooter/arc-raiders-worth-your-salt/"],
+"agree":true,"notes":"PC Gamer reports a bug: the drop-off can fail if another player in the match has already delivered."},
+
+{"id":"dust-on-the-wires","name":"Dust On The Wires","who":"Shani","steps":[
+{"t":"Visit any Field Depot on the eastern side of the Spaceport","pin":"Field Depot","go":"Go to either Field Depot on the east side of the map.","show":"Any eastern Field Depot."},
+{"t":"Use the Field Radio to transmit the scout group's last log to Shani","pin":null,"go":"Use the Field Radio at the depot to send the log.","show":"Send the log by radio."},
+{"t":"Interact with the terminal in the old Raider Tower north of the Maintenance Hangar","pin":"Terminal in the old Raider Tower","go":"Climb the old Raider Tower north of the Maintenance Hangar and use its terminal.","show":"Raider Tower terminal."},
+{"t":"Find traces of the scout patrol near the Maintenance Hangar","pin":"Traces of the scout patrol","go":"Search around the Maintenance Hangar for signs of the scouts.","show":"Scout traces by the hangar."},
+{"t":"Search the remains left by the scouts","pin":"Remains left by the scouts","go":"Loot the scouts' remains close by to get the Scout Patrol Note.","show":"Loot the scouts' remains."},
+{"t":"Deliver the Scout Patrol Note to Shani","pin":null,"go":"Delivery in Speranza. Extract with the note and give it to Shani.","show":"Hand the note to Shani."}],
+"aliases":["dust on the wires","scout patrol"],
+"sources":["https://arcraiders.wiki/wiki/Dust_On_The_Wires","https://www.gamemaps.net/game/arc_raiders/quests/dust-on-the-wires","https://op.gg/arc-raiders/quests"],
+"agree":true,"notes":"The wiki notes its dialogue places the watchtower south of the Spaceport, while the objective says north of the Maintenance Hangar. Objectives match across sources."},
+
+{"id":"waking-the-grid","name":"Waking The Grid","who":"Shani","steps":[
+{"t":"Activate the security sensors in one of the Guard Towers","pin":"Guard Tower","go":"Go to any guard tower on the perimeter and switch on its sensors. Bring batteries.","show":"Any perimeter guard tower."},
+{"t":"Start the Security Control Center in the Departure Building","pin":"Security Control Center","go":"Head into the Departure Building and power up the security control centre.","show":"Security control, Departure Building."},
+{"t":"Search for any traces of a security breach in the Arrival Building Data Office","pin":"Arrival Building Data Office","go":"Go to the Data Office in the Arrival Building and search for the source of the breach.","show":"Arrival Building Data Office."}],
+"aliases":["waking the grid","security sensors"],
+"sources":["https://arcraiders.wiki/wiki/Waking_the_Grid","https://www.gamemaps.net/game/arc_raiders/quests/waking-the-grid","https://op.gg/arc-raiders/quests"],
+"agree":true,"notes":""},
+
+{"id":"a-wrench-in-the-works","name":"A Wrench In The Works","who":"Celeste","steps":[
+{"t":"Search the buses near the western gate","pin":"Search Busses","go":"Go to the buses by the western gate and search them.","show":"Search the western buses."},
+{"t":"Locate the stash of sabotage supplies hidden at the Water Towers","pin":"Stash of Sabotage Supplies","go":"Head north to the Water Towers and find the hidden stash.","show":"Stash at the Water Towers."}],
+"aliases":["wrench in the works","sabotage supplies"],
+"sources":["https://arcraiders.wiki/wiki/A_Wrench_in_the_Works","https://www.gamemaps.net/game/arc_raiders/quests/a-wrench-in-the-works","https://op.gg/arc-raiders/quests"],
+"agree":true,"notes":""},
+
+{"id":"when-everything-falls","name":"When Everything Falls","who":"Shani","steps":[
+{"t":"Go to the Water Towers","pin":"Go to the Water Towers","go":"Bring a camera and head to the Water Towers in the north-west.","show":"Water Towers, bring a camera."},
+{"t":"Photograph a Security Booth","pin":"Photograph a Security Booth","go":"Follow the road from the Water Towers to the small booth and snap it.","show":"Snap the security booth."},
+{"t":"Photograph a reinforced bus","pin":"Photograph a reinforced bus","go":"Keep along the same road to the armoured buses and photograph one.","show":"Snap a reinforced bus."},
+{"t":"Photograph the breach in the walls","pin":"Photograph the breach in the walls","go":"Turn east to the broken wall near the Departure Building and the Spaceport sign.","show":"Snap the wall breach."},
+{"t":"Photograph the Arrival Building security room","pin":"Photograph the Arrival Building security room","go":"Go round to the Arrival Building's north-west side, breach the sealed door and photograph the room.","show":"Breach in, snap security room."},
+{"t":"Photograph Port A of the Launch Towers","pin":"Photograph Port A of the Launch Towers","go":"From outside, get a clear view of the Launch Towers, standing on something high if needed.","show":"Snap Port A from outside."},
+{"t":"Photograph the Launch Towers control room","pin":"Photograph the Launch Towers control room","go":"Enter by a side door and ride the zipline up to the control room. Expect campers.","show":"Zipline up, snap control room."},
+{"t":"Photograph the launch platform","pin":"Photograph the launch platform","go":"Take the stairs from the control room to the top platform for the last shot.","show":"Top platform, final photo."}],
+"aliases":["when everything falls","photo quest"],
+"sources":["https://allthings.how/arc-raiders-when-everything-falls-quest-guide-spaceport-photos/","https://www.destructoid.com/how-to-complete-when-everything-falls-in-arc-raiders/","https://gametyrant.com/news/arc-raiders-when-everything-falls-quest-guide"],
+"agree":true,"notes":"arcraiders.wiki page could not be read. Duplicate-purpose pins also exist: 'Security Booth', 'Armoured Bus', 'Launch Tunnel A Photograph', 'Take a photo of the Launch Tower Control Room', 'Take a photo of the Launch Tower Pad'. No turn-in extraction needed."},
+
+{"id":"empathetic-prototypes","name":"Empathetic Prototypes","who":"Lance","steps":[
+{"t":"Reach the Trench Towers in the Spaceport Trench","pin":null,"go":"Go to the North Trench Tower and climb to the roof by ladder or grapple. Bring healing.","show":"Climb the North Trench Tower."},
+{"t":"Find the Magnetic Lock on the Crate and manually disable it","pin":"Disable the Magnetic Lock","go":"Head down the stairs, grapple across the windows and drop onto the hanging crate. Use the arm to lower it.","show":"Drop on crate, release the lock."},
+{"t":"Search the Cargo Crate","pin":null,"go":"Once the crate is on the ground, search it for the Project Pathos Empathy Core.","show":"Loot the core from the crate."},
+{"t":"Deliver the Project Pathos Empathy Core to Lance","pin":null,"go":"Delivery in Speranza. Extract with the core and give it to Lance.","show":"Hand the core to Lance."}],
+"aliases":["empathetic prototypes","empathy core","project pathos"],
+"sources":["https://arcraiders.wiki/wiki/Empathetic_Prototypes","https://www.destructoid.com/how-to-complete-empathetic-prototypes-in-arc-raiders/"],
+"agree":true,"notes":"The wiki lists step 2 as a choice: 'Find the Terminal and disable the Magnetic Lock' or disable the lock on the crate manually. Destructoid covers only the manual route. Unlocked after Someone Else's Shoes."},
+
+{"id":"deciphering-the-data","name":"Deciphering The Data","who":"Shani","steps":[
+{"t":"Use the Magnetic Decryptor in the Fuel Control Building","pin":null,"go":"Enter Fuel Control by the south-west door, through 'Authorised Personnel Only', and use the terminal at the far end.","show":"Decrypt at Fuel Control terminal."},
+{"t":"Reach the Arrival Building in Spaceport","pin":"Reach the Arrival Building in Spaceport","go":"Head over to the Arrival Building.","show":"Go to the Arrival Building."},
+{"t":"Use the Magnetic Decryptor on the top floor of the Arrival Building","pin":null,"go":"Climb to the top-floor offices and use the second-to-last terminal on the right of the stack.","show":"Top floor, second-last terminal."}],
+"aliases":["deciphering the data","magnetic decryptor"],
+"sources":["https://arcraiders.wiki/wiki/Deciphering_The_Data","https://op.gg/arc-raiders/quests"],
+"agree":true,"notes":""},
+
+{"id":"prescriptions-of-the-past","name":"Prescriptions Of The Past","who":"Lance","steps":[
+{"t":"Visit the Departure Building in Spaceport","pin":"Visit the Departure Building in Spaceport","go":"Head to the Departure Building, west of the Launch Towers.","show":"Go to the Departure Building."},
+{"t":"Find the Medical Exam Room inside the Departure Building","pin":null,"go":"Search inside the building for the medical exam room.","show":"Find the exam room."},
+{"t":"Search for the records","pin":null,"go":"Search the exam room for the medical records.","show":"Grab the medical records."}],
+"aliases":["prescriptions of the past","prescriptions","medical records"],
+"sources":["https://arcraiders.wiki/wiki/Prescriptions_Of_The_Past","https://www.gamemaps.net/game/arc_raiders/quests/prescriptions-of-the-past","https://op.gg/arc-raiders/quests"],
+"agree":true,"notes":"No source gives the exam room's exact spot inside the building."},
+
+{"id":"switching-the-supply","name":"Switching The Supply","who":"Celeste","steps":[
+{"t":"Find the tunnels under the Spaceport","pin":"Find the tunnels under the Spaceport","go":"Get into the tunnels under the Launch Towers, avoiding ARC on the way. Do it in one round.","show":"Into the tunnels."},
+{"t":"Find and turn the valve in the tunnels under Spaceport","pin":null,"go":"Find the valve near the tunnel entrance, beside the green filtration tank, and turn it.","show":"Turn the valve."}],
+"aliases":["switching the supply","valve quest"],
+"sources":["https://arcraiders.wiki/wiki/Switching_The_Supply","https://www.gamemaps.net/game/arc_raiders/quests/switching-the-supply","https://op.gg/arc-raiders/quests"],
+"agree":true,"notes":"Valve location near the tunnel entrance comes from PC Gamer's Clean Dream guide."}
+]

@@ -1,0 +1,55 @@
+0|l|hatch|Saltswept Hatch|5351|5897
+1|l|extraction|Seaside Elevator|5390|7038
+2|l|hatch|Hiltop hatch|6054|7354
+3|l|hatch|Weighbridge Hatch|6580|9213
+4|l|extraction|Customs Elevator|7442|7439
+12|l|locked_room|Riven Tides Classified Records|4416|7023
+13|l|locked_room|Riven Tides Classified Records|4337|7055
+14|q|battening-down|Fix Oil Pipe|3614|10149
+15|q|battening-down|Sample Seaweed|4491|5298
+17|q|shoring-up-defenses|Reinforce Raider Structure|5107|8983
+18|l|locked_room|Patrol Car|7859|8231
+20|l|locked_room|Riven Tides Crane House Keycard|5635|9164
+21|l|breach_room||7203|7630
+24|q|shoring-up-defenses|Boarding up windows|5985|5336
+25|l|locked_room|Riven Tides Crane House Keycard|5642|9047
+26|l|locked_room|Riven Tides Hotel Keycard No. 404|6200|4613
+27|l|locked_room|Riven Tides Hotel Hotel Keycard NO. 205|6075|5272
+28|l|locked_room|Riven Tides Hotel Keycard No. 102|6231|4603
+31|q|battening-down|Sample the Shoreline|4368|4795
+32|q|safe-harbor|Kitchen staff clue|6128|5188
+33|l|locked_room|Patrol Car|6327|6774
+34|q|safe-harbor|Area portrayed in sketch|7242|4557
+35|q|safe-harbor|Dig up the buried part|7195|4489
+36|q|battening-down|Sample the shoreline near the hotel beach|4078|4884
+43|l|locked_room|Riven Tides Hotel Hotel Keycard NO. 107|6073|5397
+44|q|battening-down|Seawall Cracks|4159|10004
+48|q|battening-down|Take a Photo|4307|8155
+56|q|shoring-up-defenses|Repair Raider structure|5197|8186
+57|l|locked_room|Riven Tides Hotel Hotel Keycard NO. 311|6354|5612
+58|l|locked_room|Riven Tides Hotel Keycard No. 113|6476|5627
+60|l|locked_room|Riven Tides Hotel Hotel Keycard NO. 208|6240|5536
+61|l|locked_room|Riven Tides Secure Storage Key Room (INSIDE OTHER KEYROOM)|4316|7097
+72|q|battening-down|Take a Photo|3770|7352
+77|q|celestes-teenage-rebellion|Transmit from the top of the tower|6035|7399
+78|q|celestes-teenage-rebellion|Weld the broken generator|3561|10748
+79|q|celestes-teenage-rebellion|Reach the lookout tower on Mulatierra Hill|6038|7400
+82|q|celestes-childhood-drawings|Find the drawing at the Quay|4939|10361
+83|q|celestes-teenage-rebellion|Find the large harbor antenna|3525|10804
+84|q|celestes-childhood-drawings|Find young Celeste’s room|6450|5578
+88|q|celestes-teenage-rebellion|Reach the old Raider Camp|5125|5581
+92|q|celestes-teenage-rebellion|Start the transmitter|3569|10739
+95|q|celestes-childhood-drawings|Drawing on the third Customs House|7008|7539
+97|q|celestes-childhood-drawings|Search Celeste's Room|6488|5556
+100|q|to-the-skies|Search for the Gondola Prototype|8042|5892
+103|q|celestes-teenage-rebellion|Find the radio transmitter|5108|5560
+104|q|to-the-skies|4. Install ARC Performance Steel / 5. Install ARC Pop Trigger / 6. Install ARC Synthetic Resin / 7. Install ARC Thermo Lining / 8. Activate the Gondola Prototype / 10. Install ARC Performance Steel / 11. Install ARC Pop Trigger / 12. Install ARC Synthetic Resin / 13. Install ARC Thermo Lining / 14. Activate the Gondola Prototype / 16. Install ARC Performance Steel / 17. Install ARC Pop Trigger / 18. Install ARC Synthetic Resin / 19. Install ARC Thermo Lining / 20. Activate the Gondola Prototype / 22. Install ARC Performance Steel / 23. Install ARC Pop Trigger / 24. Install ARC Synthetic Resin / 25. Install ARC Thermo Lining / 26. Activate the Gondola Prototype|8016|5883
+A|comet|5.4624.8457,22.4341.9599,29.5819.5171,40.5939.9100,73.5631.5155,74.5086.6363,86.7271.7030,87.6267.6180,90.6982.5740,93.7372.7607,99.5982.8176
+A|rocketeer|6.4596.8077,11.6208.6342,67.6619.7315,76.4219.7372,80.7040.7627,81.5190.9578,101.4884.6732,102.4826.7266,106.6071.5785
+A|bison|7.6580.7769,19.4674.7765,42.5807.7139,66.6659.7123,91.5529.7759
+A|vaporizer|8.4565.8037,9.5246.7089,10.6069.5782,49.7668.7650,68.6730.7350,85.4178.7108
+A|shredder|16.5486.9654,53.5853.5567,54.4204.7011,55.6084.5484
+A|bastion|23.4476.9533,30.6571.6177,37.6423.5095,38.6550.5046,75.7407.7394,94.4827.6462
+A|turbine|39.6156.9083,45.6045.8794,46.4783.8910,47.5548.8220,50.4787.5862,51.7440.6227,52.5348.4987,59.6777.5286,89.6019.7362,96.3799.9450,98.6560.8618,105.4671.7971,108.6248.4336
+A|bombardier|41.4544.7145,62.7197.7385,63.6857.6212,107.4947.8509
+A|sentinel|64.4466.6621,65.5735.8470,69.4520.8117,70.7356.7674,71.6034.7397

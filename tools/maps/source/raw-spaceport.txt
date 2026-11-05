@@ -1,0 +1,132 @@
+0|l|hatch|Trench Hatch West|1166|3973
+1|l|extraction|Central Elevator|1684|3800
+2|l|hatch|Trench Hatch East|1810|4679
+3|l|extraction|East Elevator|2532|4707
+4|l|extraction|South Elevator|2569|3719
+5|l|extraction|West Elevator|2087|3072
+6|l|hatch|Departures Hatch|2225|4128
+8|l|locked_room|Warehouse Locked Room|1320|3651
+9|l|locked_room|Trench Tower Locked Room North|1306|4151
+10|l|locked_room|Spaceport Control tower Key Room|2560|3940
+11|l|locked_room|Spaceport Container Storage Key Room|2597|4406
+16|l|hatch|Control Hatch|2403|3993
+21|q|what-we-left-behind|Bilguun's Hideout|2772|4568
+22|q|medical-merchandise|Medical Merchandise Exam Room|2009|3412
+23|q|dormant-barons|Loot a Baron Husk|2823|3799
+24|q|eyes-in-the-sky|Eyes in the Sky|2775|5067
+25|q|a-lay-of-the-land|Shipping Notes|1325|2727
+26|q|a-lay-of-the-land|Scanners|2541|4103
+27|q|power-out|Power Generator|3735|4242
+31|l|raider_camp||1481|2466
+40|l|locked_room|South Trench Tower Locked Room|1413|4106
+43|l|breach_room||1528|3905
+45|l|locked_room|Warehouse Locked Room|1263|3693
+46|l|breach_room|Breach Room|1497|3588
+47|q|the-clean-dream|Filtration System|2168|3682
+48|q|the-stench-of-corruption|Locker Room Entrance|2211|3356
+49|q|the-clean-dream|Find and Monitor any Filtering System in the Tunnels|2203|3724
+52|l|breach_room|Departure Building Staff Locker Room|2122|3338
+53|l|breach_room||1978|4317
+54|l|breach_room||1861|3350
+55|l|breach_room||1613|3345
+56|l|breach_room|Arrivals 3 Breached Doors Entrance Room|1553|3433
+57|q|on-the-map|#2 Antenna Transmit|1810|4345
+58|q|on-the-map|#4 Container Roof|2594|4412
+59|q|on-the-map|#5 Spray Paint|2629|4407
+60|q|on-the-map|#3 Cactus Patch|2418|4534
+61|q|on-the-map|Quest Start Point|2582|3347
+62|l|breach_room|Warehouse Breach Room|2686|4330
+64|l|breach_room|Breach room 2nd floor of Vehicle Maintenance|2836|4052
+67|l|breach_room||2627|4310
+68|l|breach_room||2631|4339
+69|l|locked_room|Container Storage|2571|4421
+70|l|locked_room|Container Storage|2625|4443
+71|l|locked_room|Container Storage|2636|4441
+72|l|locked_room|Trench Tower Key|1345|4218
+78|q|worth-your-salt|Battery Location|1944|4546
+79|q|worth-your-salt|Charge battery|1971|4496
+80|q|worth-your-salt|Deliver Battery|1906|4495
+97|q|dust-on-the-wires|Field Depot|3176|4725
+98|q|dust-on-the-wires|Field Depot|2340|4841
+99|q|dust-on-the-wires|Terminal in the old Raider Tower|3049|3629
+100|q|dust-on-the-wires|Traces of the scout patrol|3353|3719
+101|q|dust-on-the-wires|Remains left by the scouts|3372|3720
+102|q|waking-the-grid|Guard Tower|1470|3484
+103|q|waking-the-grid|Guard Tower|1793|3226
+104|q|waking-the-grid|Guard Tower|2590|3555
+105|q|waking-the-grid|Security Control Center|2199|3393
+106|q|waking-the-grid|Arrival Building Data Office|1618|3330
+107|q|waking-the-grid|Guard Tower|3160|4207
+120|q|a-wrench-in-the-works|Search Busses|1946|3091
+121|q|a-wrench-in-the-works|Stash of Sabotage Supplies|1742|2403
+128|l|breach_room|Breach room 2nd floor of Vehicle Maintenance|2854|3980
+129|q|the-stench-of-corruption|Use the Key|2306|3814
+137|q|the-first-nomads|Find the Server Hall|2311|3118
+138|q|the-first-nomads|Transmit the location of the sphere|2338|3152
+139|q|the-first-nomads|Transmit the location of the sphere|2342|3148
+140|q|the-first-nomads|Find the Monitoring Room|2447|3255
+141|q|when-everything-falls|Go to the Water Towers|1873|2418
+144|q|the-first-nomads|Transmit the location of the sphere|2342|3156
+145|q|empathetic-prototypes|Disable the Magnetic Lock|1349|4166
+147|q|the-first-nomads|Transmit the location of the sphere|2333|3155
+152|q|the-first-nomads|Find the Power Room|2306|3171
+161|q|the-first-nomads|Loot 5 containers in the Hidden Bunker|2396|3169
+165|q|to-the-skies|Search for the Gondola Prototype|2545|4919
+166|q|the-first-nomads|Transmit the location of the sphere|2333|3147
+178|q|empathetic-prototypes|Disable the Magnetic Lock|1386|4136
+185|q|wires-crossed|Surveyor Vault on the Launch Towers|1954|3838
+186|q|the-first-nomads|Find the Flooded Cellar|2416|3165
+200|q|when-everything-falls|Security Booth|2025|2745
+201|q|when-everything-falls|Armoured Bus|1944|3101
+202|q|when-everything-falls|Photograph the breach in the walls|2049|3281
+203|q|when-everything-falls|Photograph the Arrival Building security room|1558|3442
+204|q|when-everything-falls|Launch Tunnel A Photograph|1741|3574
+205|q|when-everything-falls|Take a photo of the Launch Tower Control Room|1970|3874
+206|q|when-everything-falls|Take a photo of the Launch Tower Pad|1951|3860
+207|q|taking-stock|Take a photo of a Baron Husk|2882|3765
+208|q|when-everything-falls|Photograph a Security Booth|3174|4403
+209|q|when-everything-falls|Photograph the Arrival Building security room|1621|3348
+210|q|when-everything-falls|Photograph the breach in the walls|2953|3994
+211|q|when-everything-falls|Photograph the breach in the walls|2649|3634
+212|q|when-everything-falls|Photograph a Security Booth|3375|4366
+213|q|when-everything-falls|Photograph the breach in the walls|3139|4060
+214|q|when-everything-falls|Photograph the breach in the walls|2541|4486
+215|q|when-everything-falls|Photograph the launch platform|2010|3933
+216|q|eyes-in-the-sky|LiDAR Scanner at the Communications Tower|2808|5124
+217|q|when-everything-falls|Photograph Port A of the Launch Towers|1870|3750
+218|q|when-everything-falls|Photograph the breach in the walls|3015|4027
+219|q|when-everything-falls|Photograph the Launch Towers control room|1932|3834
+220|q|when-everything-falls|Photograph a Security Booth|1983|5019
+221|q|when-everything-falls|Photograph a reinforced bus|1241|3057
+222|q|when-everything-falls|Photograph the breach in the walls|2934|4592
+223|q|when-everything-falls|Photograph a Security Booth|3634|4509
+224|q|when-everything-falls|Photograph a reinforced bus|1994|2987
+225|q|deciphering-the-data|Reach the Arrival Building in Spaceport|1619|3423
+226|q|the-stench-of-corruption|Reach the tunnels below the Spaceport|1606|3716
+227|q|taking-stock|Take a photo of a Baron Husk|2825|3794
+228|q|prescriptions-of-the-past|Visit the Departure Building in Spaceport|2110|3419
+229|q|when-everything-falls|Photograph a reinforced bus|1642|3542
+230|q|taking-stock|Take a photo of a Baron Husk|1110|3383
+231|q|when-everything-falls|Photograph a reinforced bus|2048|3000
+232|q|when-everything-falls|Photograph the breach in the walls|2349|4521
+233|q|taking-stock|Take a photo of a Baron Husk|1770|2701
+234|q|switching-the-supply|Find the tunnels under the Spaceport|1606|3716
+235|q|power-out|Find the Electrical Substation|3668|4196
+236|q|worth-your-salt|Go to the Rocket Assembly|2059|4528
+237|q|a-lay-of-the-land|Reach the Jiangsu Warehouse|1337|2864
+238|q|when-everything-falls|Photograph a reinforced bus|3437|4101
+239|q|when-everything-falls|Photograph the breach in the walls|2272|4584
+240|q|when-everything-falls|Photograph a reinforced bus|3458|4158
+241|q|when-everything-falls|Photograph the breach in the walls|3179|4115
+242|q|when-everything-falls|Photograph the Launch Towers control room|2011|3928
+A|bastion|7.2264.3647,13.1450.4301,18.1229.4023,19.2284.4312,20.2693.4200,41.2257.3205,50.2491.3777,159.2681.3185,180.2554.4172,181.1902.3695
+A|rocketeer|12.1846.3754,35.2457.3718,44.2203.4419,73.1439.4208,75.2004.3862,76.1749.3932,77.2662.4150,90.2070.3060,115.1335.3960,154.1978.3986,157.2340.4395,160.2537.3793,168.1884.3475,174.2471.4534,182.2016.3864,184.3207.3975,188.1876.3694,189.2705.3835,190.2573.4208,191.2340.4395,196.1919.4738
+A|sentinel|14.2523.4346,15.2543.4166,17.1358.4209,28.1454.4106,32.2546.3518,51.2348.3386,63.2582.4285,74.2082.3945,88.1927.3760,94.1664.3472,95.1526.3956,96.2511.3920,130.2733.4255,131.1820.4331,132.2297.4422,133.1427.4074,134.2120.3565,135.1975.3264
+A|queen|29.3316.3989
+A|bison|30.2146.4122,37.1858.3672,164.2708.4436,176.2205.4078
+A|bombardier|33.2154.3166,34.1397.3907,36.1968.4765,39.2901.4307,42.2369.3162,65.2626.3999,66.1766.3479,87.2940.3773,169.2590.3758,177.1967.3054
+A|matriarch|38.2273.3934
+A|comet|81.2133.4102,82.2118.4078,83.2894.4330,84.2527.3693,85.2251.4772,86.1520.3841,89.1509.3846,91.2328.3053,92.2504.3400,93.2957.3799,114.3488.4203,126.3199.4642,150.2387.3310,155.2738.4321,156.2077.4239,162.2583.4241,163.1472.4328,167.2732.3116,173.1933.4327,175.2464.4416,192.2116.3680,197.1638.3886
+A|shredder|108.2247.3349,109.1345.3582,110.2126.3348,111.2778.4032,112.2677.4399,113.1355.3743
+A|vaporizer|116.2656.4133,117.2328.4360,118.1865.3649,119.1762.3524,136.1592.3468,142.2238.4037,143.1915.3910,148.1942.4285,149.3296.4127,151.1909.3297,153.2071.3683,170.1919.4349,187.1493.4012,199.1383.3206
+A|turbine|122.2336.4209,123.2780.3371,124.1634.3138,125.1613.4087,127.2211.3660,146.1695.3682,158.2059.4914,171.2348.3205,172.1355.3362,179.1872.3257,183.1393.3935,193.1663.4346,194.2661.3618,195.2574.4754,198.2748.4290

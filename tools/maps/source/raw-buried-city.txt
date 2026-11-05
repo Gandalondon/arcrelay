@@ -1,0 +1,86 @@
+1|l|hatch|Old Town Hatch|5911|6406
+2|q|building-a-library|1st book|4083|6753
+3|l|hatch|Train Station Hatch|4170|6073
+4|l|hatch|Highway Overpass Hatch|5120|7582
+5|q|communication-hideout|Reach The Red Tower|6004|7827
+6|l|locked_room|Buried City Hospital Key Room|3478|7048
+7|l|locked_room|Buried City Town Hall Key Room|5067|7374
+12|l|raider_camp||6221|5854
+13|l|raider_camp||6995|7609
+14|l|locked_room|Buried City Residential Master Key Room|5610|6050
+17|l|locked_room|Buried City Residential Master Key|6031|6774
+21|q|greasing-her-palms|Greasing Her Palms|4293|7582
+22|l|locked_room|Buried City JKV Employee Access Card|4307|7563
+23|q|eyes-on-the-prize|Eyes on the Prize|6396|6733
+24|q|esr-analyzer|A Pharmacy for ESR Analyzer|5397|8320
+25|q|marked-for-death|Marked for Death|2963|6350
+26|q|marked-for-death|Search for Tian Wen's Cache|3040|6279
+27|q|marked-for-death|Follow the Clues|3052|6180
+28|q|industrial-espionage|Industrial Espionage|2995|6891
+29|q|unexpected-initiative|Moisture Meter|5862|5949
+30|q|unexpected-initiative|Rooftop Nutrient Meter|5046|6175
+32|q|eyes-in-the-sky|Eyes in the Sky|3878|7725
+33|q|a-warm-place-to-rest|Graveyard|4982|8534
+34|q|communication-hideout|Find Missing Battery Cell|5935|7873
+35|q|communication-hideout|Install The Battery And Enable The Generator|6004|7837
+36|q|communication-hideout|Boot The Antenna Terminal|5954|7717
+37|q|building-a-library|2nd book|3957|6857
+38|q|building-a-library|3rd book|4039|6897
+39|l|locked_room|Buried City Residential Master Key|5772|7949
+40|l|raider_camp||4217|7300
+43|q|medical-merchandise|Search 3 contrainers in Hospital (Medical Merchandise)|3695|7211
+45|l|hatch|Hatch Extraction|3284|7346
+48|l|breach_room||3822|6054
+49|l|breach_room|Simple Breach Room that doesn't require a Key|5810|6579
+51|l|breach_room||4282|7280
+52|l|breach_room|6th floor|4288|7565
+53|l|breach_room|Pharmacy|5476|8298
+55|l|breach_room|Pharmacy Breach|6203|7365
+56|q|esr-analyzer|A Pharmacy for ESR Analyzer|3789|7274
+57|q|esr-analyzer|ESR Analyzer in Pharmacy|6180|7416
+58|q|combat-recon|Cover Spot Near Buses|4891|6854
+59|q|combat-recon|Cover Spot Parking Garage|4043|7251
+60|q|combat-recon|Cover Spot in Attic|5848|7044
+61|q|the-league|Photograph the Kiosk|4581|7135
+62|q|combat-recon|Attic's cover spot|6222|7036
+63|q|the-league|Kiosk|4185|6090
+64|q|the-league|Bicycle Search|4168|6113
+65|q|the-league|Kiosk|3867|6184
+66|q|the-league|Search for Bicycle pump|3846|6203
+70|q|a-warm-place-to-rest|Signs of Survivors|6030|6177
+71|q|a-rising-tide|Foremans Barricaded Apartment|5072|6314
+72|q|a-rising-tide|Foremans Digital Logbook|5029|6298
+86|q|esr-analyzer|A Parmacy for ESR Analyzer|4087|7891
+104|q|line-in-the-sand|Step 1: Train|4702|5739
+105|q|line-in-the-sand|Step 2: Clues to Robbery|4675|6096
+106|q|line-in-the-sand|Step 3: Thruster Valve|3322|7343
+107|q|line-in-the-sand|Basement|3146|7989
+115|l|extraction|Southern Station|6324|7184
+117|l|extraction|Western Station|4913|6420
+118|l|extraction|Eastern Station|5658|7730
+119|l|extraction|Northern Station|3973|7043
+129|q|taking-stock|Ping a Bastion|4931|7285
+130|q|wires-crossed|Firing Core on the Grandioso antenna|5794|6005
+134|q|what-we-left-behind|Search 2 containers in the Raider Camp|4252|7494
+140|q|industrial-espionage|Find Tian Wen's weapon cache|2830|7158
+141|q|eyes-in-the-sky|LiDAR Scanner on the Galleria sign|4208|7846
+142|q|unexpected-initiative|Reach the Grandioso Apartments in Buried City|5652|6023
+143|q|line-in-the-sand|Investigate the stopped train|4934|5712
+144|q|after-rain-comes|Find the flooded solar panels|5661|6182
+145|q|digging-up-dirt|Locate the Santa Maria Houses in Old Town|5863|7194
+146|q|unexpected-initiative|Reach Piazza Roma in Buried City|4616|6506
+147|q|life-of-a-pharmacist|Find the Arbusto Farmacia|5397|8466
+148|q|a-warm-place-to-rest|Locate the Abandoned Highway Camp|6083|6114
+149|q|paving-the-way|Reach the top floor above the Convinio|5423|6681
+150|q|communication-hideout|Reach the Red Tower in Old Town|6204|7878
+151|q|a-rising-tide|Find the foreman's apartment|5104|6494
+152|q|eyes-on-the-prize|Find the roof terrace with blue tarps|6641|6882
+A|comet|0.5496.6218,44.4557.7171,73.5445.6287,74.4537.6920,75.4666.8594,76.4439.7546,77.4292.6310,78.3289.7148,103.5325.8098,123.5632.7631,135.5829.7440,138.5029.8395
+A|sentinel|8.5039.7356,9.5281.7735,67.5852.6332,79.3718.7139,80.4024.7713,81.4478.7034,82.5092.6850,83.5269.8240,84.5279.6432,85.5665.8030,87.6402.7195,116.5890.7326
+A|rocketeer|10.5909.7314,11.4850.6103,54.3596.7349,69.3964.6788,125.5024.6297,128.5491.7400,137.5073.8001
+A|bastion|15.5748.7547,16.3842.7548,18.4446.7120,19.4896.7245,41.5386.8072,112.5445.6287,114.4783.7501
+A|bison|20.5244.8514,46.4451.6820,47.6480.7694,50.5871.7289,68.5795.6225
+A|bombardier|31.4301.7036,42.4102.7296,126.5913.7102
+A|vaporizer|88.3272.6935,89.4061.6442,90.5779.7762,91.4426.6658,121.5910.5984,124.5157.8153,133.6156.7513,136.6004.7751,139.5218.8113
+A|shredder|92.5444.5933,93.6333.7681,94.5538.7986,95.5556.8197,96.4367.7658,97.4204.7296,98.4562.7469,99.5036.7460,100.3604.7217,101.6308.7345,102.5144.6354
+A|turbine|108.4520.7038,109.3261.6806,110.5009.7930,111.5998.8010,113.4924.5815,120.4079.7827,122.3691.6988,127.6133.8767,131.6189.6107,132.5313.8871

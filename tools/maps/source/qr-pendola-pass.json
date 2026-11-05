@@ -1,0 +1,264 @@
+[
+ {
+  "id": "exploring-pendola-pass",
+  "name": "Exploring Pendola Pass",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Destroy 20 ARC enemies",
+    "pin": null,
+    "go": "Any ARC anywhere on the map counts. Small ones around the Railyard, Old Town and Loading Platforms are easy pickings.",
+    "show": "Destroy twenty ARC."
+   },
+   {
+    "t": "Search the control room at the Cielo Sereno Observatory for power",
+    "pin": "Search Control Room for power",
+    "go": "Go up to the observatory on the north-east mountain. In the control room, use the power console near the left outer edge.",
+    "show": "Use the observatory power console."
+   },
+   {
+    "t": "Use 1 Wire to patch into the antenna on top of the tallest tower in the Railyard",
+    "pin": "Use 1 wire to patch into the antenna on top fo the tallest tower in the railyard",
+    "go": "Bring a Wire. Climb the ladder on the building by the tallest Railyard tower, then zipline or hook up to the roof antenna.",
+    "show": "Wire up the Railyard antenna."
+   },
+   {
+    "t": "Search 3 containers inside the Commissary Supermarket",
+    "pin": "Search 3 containers in the Supermarket",
+    "go": "Head into the supermarket next to the Railyard. Loot any three containers inside, not the ones outside.",
+    "show": "Loot three supermarket containers."
+   }
+  ],
+  "aliases": [
+   "exploring pendola",
+   "explore pendola"
+  ],
+  "sources": [
+   "https://www.destructoid.com/how-to-complete-exploring-pendola-pass-in-arc-raiders/",
+   "https://gametyrant.com/news/arc-raiders-exploring-pendola-pass-quest-guide",
+   "https://allthings.how/?p=248452"
+  ],
+  "agree": true,
+  "notes": "Any order, can span raids. Giver named only by All Things How. Reaching the tower roof needs a Zipline, Snap Hook or Grappling Hook per guides."
+ },
+ {
+  "id": "sizing-things-up",
+  "name": "Sizing Things Up",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Take a photo of the Emperor's leg",
+    "pin": "Photo location",
+    "go": "Stand on the bridge just east of Old Town, facing the Emperor's leg. Photograph its lower part with a camera.",
+    "show": "Photograph the Emperor's leg."
+   },
+   {
+    "t": "Analyse the exposed area on top of the Emperor's leg",
+    "pin": "Analyze emporer's leg",
+    "go": "Go just south of Railroad Junction and climb onto the exposed leg. Hold the analyse prompt at the marked point.",
+    "show": "Analyse the exposed leg."
+   },
+   {
+    "t": "Optional: inspect the crashed probe",
+    "pin": "Crashed probe",
+    "go": "Near Almatera Station there is a crashed probe you can inspect. Skip it if pressed.",
+    "show": "Optional crashed probe."
+   },
+   {
+    "t": "Reach the base of the Emperor",
+    "pin": "Reach the base of the Emperor",
+    "go": "Head to the front of the fallen Emperor's body near Piazza Della Rupe. Walk up to the base until it ticks off.",
+    "show": "Reach the Emperor's base."
+   },
+   {
+    "t": "Search the Buried Harvester Payload",
+    "pin": "Search the Buried Harvester Payload",
+    "go": "At the front centre of the body, search the payload half buried in snow. Pick up the ARC Conductive Coupler and stash it.",
+    "show": "Grab the Conductive Coupler."
+   },
+   {
+    "t": "Deliver the ARC Conductive Coupler to Celeste",
+    "pin": null,
+    "go": "Delivery in Speranza. Extract with the coupler and hand it to Celeste.",
+    "show": "Deliver coupler to Celeste."
+   }
+  ],
+  "aliases": [
+   "sizing up",
+   "sizing things",
+   "emperor quest"
+  ],
+  "sources": [
+   "https://www.keengamer.com/articles/guides/arc-raiders-sizing-things-up-quest-walkthrough/",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-sizing-things-up-walkthrough/",
+   "https://www.destructoid.com/how-to-complete-sizing-things-up-in-arc-raiders/"
+  ],
+  "agree": false,
+  "notes": "PC Gamer calls the analyse step optional; KeenGamer and Destructoid list it as required. Crashed probe is optional and mentioned only by KeenGamer. Destructoid says steps 4 onward must be done in one raid. Pin names 'Reach the base of the emperor' and 'Buried Harvester Payload' are alternative spots for steps 4 and 5."
+ },
+ {
+  "id": "clean-hands",
+  "name": "Clean Hands",
+  "who": "Nomadic Envoy (Ermal)",
+  "steps": [
+   {
+    "t": "Find the Nomad Camp under the Railyard",
+    "pin": "Find the Nomad Camp under the Railyard",
+    "go": "From the south-west side of the Railyard, go through the big drainage pipes underground. Follow the raised walkways to the camp.",
+    "show": "Find the Railyard Nomad camp."
+   },
+   {
+    "t": "Search for the polluted item",
+    "pin": "Search for the polluted item in the Nomad camp",
+    "go": "In the middle of the walkways, search the yellow duffel bag by a green barrel. Put the Equatorial Sundial in your safe pocket.",
+    "show": "Grab the Equatorial Sundial."
+   },
+   {
+    "t": "Bring the Equatorial Sundial to the top of the church in Old Town",
+    "pin": "Bring the Eqauatiorial Sundial to the top of the Church in Old Town",
+    "go": "Enter the Old Town church and climb the spiral stairs, then zipline up to the tower balcony. Interact with the railing to raise the sundial.",
+    "show": "Raise sundial on church tower."
+   },
+   {
+    "t": "Deliver the Equatorial Sundial to the Nomadic Envoy",
+    "pin": null,
+    "go": "Delivery in Speranza. Extract by gondola and hand the sundial to the Nomadic Envoy.",
+    "show": "Deliver sundial to Envoy."
+   }
+  ],
+  "aliases": [
+   "clean hands",
+   "sundial quest"
+  ],
+  "sources": [
+   "https://www.keengamer.com/articles/guides/arc-raiders-clean-hands-quest-walkthrough/",
+   "https://gametyrant.com/news/arc-raiders-clean-hands-quest-guide",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-clean-hands-walkthrough/"
+  ],
+  "agree": true,
+  "notes": "Single raid; bring a safe pocket augment. Guides differ on camp entrance details and on Old Town's compass direction, but steps match. PC Gamer ends at extraction rather than naming the delivery."
+ },
+ {
+  "id": "ruins-and-reverberations",
+  "name": "Ruins and Reverberations",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Get a Spotter Relay",
+    "pin": null,
+    "go": "Buried City map. Destroy a Spotter, the small flyer escorting Bombardiers (also on Spaceport and the Dam), and loot its relay.",
+    "show": "Loot a Spotter Relay."
+   },
+   {
+    "t": "Connect a Spotter Relay to the antenna on the Cielo Sereno Observatory roof",
+    "pin": "Spotter Relay on the Observatory antenna",
+    "go": "Climb the yellow ladder on the observatory's east wall, or hook up. Fit the relay to the antenna on the west side of the roof.",
+    "show": "Fit relay to roof antenna."
+   },
+   {
+    "t": "Weld the wires in the crawlspace",
+    "pin": "Weld the wires in the crawlspace",
+    "go": "Drop through the roof hole into the control room, then through the floor gap. Turn left twice and use the wall panel.",
+    "show": "Weld the crawlspace wiring."
+   },
+   {
+    "t": "Activate the Spotter Relay connected to the antenna",
+    "pin": "Spotter Relay on the Observatory antenna",
+    "go": "Climb back to the roof antenna and use the activate prompt.",
+    "show": "Activate the roof relay."
+   }
+  ],
+  "aliases": [
+   "ruins and reverb",
+   "reverberations"
+  ],
+  "sources": [
+   "https://www.keengamer.com/articles/guides/arc-raiders-ruins-and-reverberations-quest-walkthrough/",
+   "https://www.destructoid.com/how-to-complete-ruins-and-reverberations-in-arc-raiders/"
+  ],
+  "agree": false,
+  "notes": "KeenGamer lists getting the relay as its own objective; Destructoid starts at connecting it. Destructoid words step 3 as repair the wires to redirect power; pin says weld. Antenna side differs (west vs south-west). Must be done in one raid."
+ },
+ {
+  "id": "tracks-of-the-beast",
+  "name": "Tracks of the Beast",
+  "who": "Shani",
+  "steps": [
+   {
+    "t": "Head to the Northern Tracks",
+    "pin": "Head to the Northern Tracks",
+    "go": "Make for the northern railway near Railroad Junction and Frozen River. Arriving ticks it off.",
+    "show": "Reach the Northern Tracks."
+   },
+   {
+    "t": "Find the destroyed station",
+    "pin": "Find the destroyed station",
+    "go": "Head back south-west to the ruined Almatera Station and step inside.",
+    "show": "Enter ruined Almatera Station."
+   },
+   {
+    "t": "Find and ping a Bully",
+    "pin": null,
+    "go": "Scout the roads around Almatera Station for a Bully. Ping it from cover, no need to fight.",
+    "show": "Ping a Bully."
+   },
+   {
+    "t": "Find and ping a Skulker",
+    "pin": null,
+    "go": "Look for a low, crawling Skulker in the snowfields near the station. Ping it.",
+    "show": "Ping a Skulker."
+   }
+  ],
+  "aliases": [
+   "tracks of the beast",
+   "beast tracks"
+  ],
+  "sources": [
+   "https://www.keengamer.com/articles/guides/arc-raiders-tracks-of-the-beast-quest-walkthrough/",
+   "https://www.destructoid.com/how-to-complete-tracks-of-the-beast-in-arc-raiders/"
+  ],
+  "agree": true,
+  "notes": "Unlocks after Exploring Pendola Pass. KeenGamer alone mentions optional objectives: destroy 3 Skulkers and deliver a Skulker Targeter to Shani. Giver named only by KeenGamer."
+ },
+ {
+  "id": "divided",
+  "name": "Divided",
+  "who": "Nomadic Envoy",
+  "steps": [
+   {
+    "t": "Search for the Nomad recording at the Loading Platforms",
+    "pin": "Nomad Recording at the Loading Platforms",
+    "go": "Climb to the upper level of the Loading Platforms. The recording is in the small booth on the raised deck.",
+    "show": "Grab Loading Platforms recording."
+   },
+   {
+    "t": "Search for the Nomad recording at the Weather Station",
+    "pin": "Nomad Recording at Weather Station",
+    "go": "Go below the observatory to the Weather Station and enter its only building. Take the recording inside.",
+    "show": "Grab Weather Station recording."
+   },
+   {
+    "t": "Search for the Nomad recording at the Dispatch Tower",
+    "pin": "Nomad Recording at Dispatch Tower",
+    "go": "North of Almatera Station, break the ice blocking the tower door. Zipline to the top floor and grab the recording.",
+    "show": "Grab Dispatch Tower recording."
+   },
+   {
+    "t": "Search for the Nomad recording at Almatera Station",
+    "pin": "Nomad Recording at Almatera Station",
+    "go": "On the station's ground floor, go to the reception area. The recording sits on the information desk.",
+    "show": "Grab Almatera Station recording."
+   }
+  ],
+  "aliases": [
+   "nomad recordings",
+   "divided quest"
+  ],
+  "sources": [
+   "https://www.keengamer.com/articles/guides/arc-raiders-divided-quest-walkthrough/",
+   "https://gametyrant.com/news/arc-raiders-divided-quest-guide"
+  ],
+  "agree": true,
+  "notes": "Recordings can be collected in any order; no item to extract, free loadout works. Follows Ruins and Reverberations. Other pins with the same targets ('Search for the Nomad recording at ...', numbered '3.' and '4.' pins) are alternative spots for the same steps. Guides differ on booth side at Loading Platforms."
+ }
+]

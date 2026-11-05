@@ -28,5 +28,9 @@ for (const id of ["dam", "buried-city", "spaceport", "stella-montis", "riven-tid
     if (!PM || !PM.rows.some(r => r[0] === "q" && r[1] === q.id && r[2] === st.p)) fails.push(`${id} quest ${q.n}: no marker "${st.p}"` + (st.pm ? " on " + st.pm : "")); }));
   console.log(`${M.name}: ${Q.length} quests, ${pins} pinned steps`);
 }
+/* no two quests share a spoken name */
+{ const all = [...(window.DAM_QUESTS || []), ...[].concat(...Object.values(window.MAP_QUESTS || {}))], by = {};
+  all.forEach(q => q.al.forEach(a => (by[a] = by[a] || new Set()).add(q.n)));
+  Object.entries(by).filter(([, v]) => v.size > 1).forEach(([k, v]) => fails.push(`quest name "${k}" means ${[...v].join(" and ")}`)); }
 console.log(`${checked} maps with markers checked` + (fails.length ? "\n" + fails.map(f => "  ✗ " + f).join("\n") : ", all good"));
 process.exit(fails.length ? 1 : 0);

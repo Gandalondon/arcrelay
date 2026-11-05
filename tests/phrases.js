@@ -168,6 +168,12 @@ module.exports = [
   { set: { map: "spaceport" }, say: "I'm at the launch towers", want: { map: "spaceport", place: "Launch Towers" } },
   { set: NONE, say: "wires crossed step 2", want: { quest: "Wires Crossed", step: 2 } },
   { set: { map: "dam" }, say: "rocketeers", want: { map: "dam", show: "Where are you" } },  /* 25 spawns: ask first */
+  { set: NONE, say: "I'm doing building a library", want: { quest: "Building a Library", step: 1 } },
+  { set: NONE, say: "when everything falls", want: { quest: "When Everything Falls", step: 1 } },
+  { set: NONE, say: "someone else's shoes", want: { quest: "Someone Else's Shoes", step: 1 } },
+  { set: NONE, say: "celeste's teenage rebellion", want: { quest: "Celeste's Teenage Rebellion", step: 1 } },
+  { set: NONE, say: "on sizing things up", want: { quest: "Sizing Things Up", step: 1 } },
+  { set: NONE, say: "starting when everything falls", want: { map: "spaceport" } },
   { set: { map: "dam" }, say: "I'm on blue gate", want: { map: "blue-gate", show: "Blue Gate" } },
   { set: { map: "dam" }, say: "I'm at the farmlands", want: { map: "blue-gate", place: "Farmlands" } },
   { set: { place: "Village" }, say: "damn, nearest exit", want: { map: "blue-gate", exitName: "Cliffside Airshaft" } },

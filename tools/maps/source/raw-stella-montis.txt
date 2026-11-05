@@ -1,0 +1,116 @@
+0|q|on-deaf-ears|On Deaf Ears - Send Data in Medical|3223|2759
+1|l|locked_room|Medical Storage Key "Stella Montis"|2559|2286
+2|l|locked_room|Stella Montis Security Checkpoint Key|1921|4906
+3|q|snap-and-salvage|Take a Photo of any of the Rovers in the Sandbox|2465|3972
+4|q|snap-and-salvage|Search the papers in the Security Checkpoint room by the Lobby|1884|4814
+5|q|cold-storage|Search Any J Kozma Ventures container|1805|4477
+6|l|locked_room|Assembly Admin Key|2010|3400
+7|l|locked_room|Assembly Admin Key|1980|3534
+9|l|locked_room|Stella Montis Archives Key|2384|6057
+10|q|in-my-image|Android|2516|5735
+11|l|hatch|Sandbox Hatch|3648|3939
+12|l|extraction|Seed Vault Airshaft|3721|4728
+13|l|hatch|Assembly Hatch|1486|3462
+14|l|locked_room|Corridor/Lobby Fuel Cell Door|2002|4275
+17|l|hatch|Eastern Tunnel Hatch|3235|5278
+18|q|in-my-image|Android|2536|5479
+19|l|locked_room|Cafeteria Fuel Cell Door|2948|4040
+21|q|in-my-image|Android|2944|2656
+22|l|locked_room|Atrium/Lobby Fuel Cell Door|2624|4359
+23|l|locked_room|East Side|2057|4311
+25|q|in-my-image|Android|3289|2666
+27|q|in-my-image|Android|3928|5293
+28|q|in-my-image|Android|2892|5404
+29|q|in-my-image|Robotics Sandbox|2238|4232
+30|q|snap-and-salvage|Papers in Security Checkpoint room|1836|4732
+31|q|in-my-image|Android|2085|4531
+32|q|in-my-image|Android|1907|4797
+35|q|in-my-image|Android|3101|2350
+36|q|in-my-image|Android|3248|4077
+37|q|in-my-image|Android|2967|4037
+38|q|snap-and-salvage|Possible FLOW CONTROLLER|1436|3232
+39|q|snap-and-salvage|Possible Magnetron Location|1467|3382
+40|q|snap-and-salvage|Possible FLOW CONTROLLER|2972|2520
+41|q|snap-and-salvage|Possible Flow Controller|2432|5100
+42|q|snap-and-salvage|Possible Flow Controller|2651|5035
+43|l|locked_room|Capacitor Door|2386|2671
+45|q|snap-and-salvage|Possible Magnetron spawn|1978|4918
+53|q|snap-and-salvage|FLOW CONTROLLER|1409|2880
+55|l|breach_room|Breach Room|2488|3655
+56|l|breach_room|Breach Room|2488|3655
+58|q|with-a-view|Rotary Encoder|1467|2769
+59|q|on-deaf-ears|On Deaf Ears - Reception computer|2215|5111
+60|q|on-deaf-ears|On Deaf Ears - Lecture Notes|2531|4982
+61|q|on-deaf-ears|On Deaf Ears - Shipping logs|1501|3297
+62|q|with-a-view|Rotary Encoder|1911|2779
+63|q|with-a-view|Rotary Encoder|1310|3270
+64|q|on-deaf-ears|On Deaf Ears - Reception Computers|1739|4751
+65|q|movie-night|Old Movie Tapes|3208|4936
+66|q|on-deaf-ears|Send Data in Medical|2621|2717
+72|q|stable-housing|Go to Security Bridge|1850|4729
+73|q|stable-housing|Third-Floor Safe|2018|4927
+74|q|stable-housing|Access Card Printer|2010|4912
+75|q|stable-housing|Alternate Way into the Safe|1973|4898
+78|l|extraction|Lobby Metro Station|1554|4543
+79|l|locked_room|Seed Vault Fuel Cell Door|3584|5152
+80|l|locked_room||2168|4118
+81|q|fragmented-logs|Repair out-of-service terminal|3039|3855
+82|q|fragmented-logs|Enable power|2784|4355
+83|q|fragmented-logs|Boot the Main frame data Terminal|2959|5993
+84|q|furtive-meetings|Medical Research Area Meeting Spot|3389|2254
+85|q|furtive-meetings|Robotic Sandbox B Meeting Spot|3447|4336
+86|q|furtive-meetings|Cultural Archives and Seed Vault Meeting Spot|3049|4914
+87|q|furtive-meetings|Search Meeting Area|3030|4882
+88|q|last-entry|Seed Vault workstation|3509|5267
+89|q|last-entry|Hidden Key|3376|5358
+90|q|last-entry|Seed Deposit Box|3980|5152
+92|l|breach_room||2669|3723
+93|q|snap-and-salvage|Flow Controller|2840|2685
+95|l|extraction|Loading Bay Metro Station|3173|3136
+96|q|fragmented-logs|Repair the out-of-service terminal with 1 Electrical Component|2301|3880
+97|q|cold-storage|Cold Storage|3498|3141
+98|q|someone-elses-shoes|Scan any Android on Stella Montis|3698|5151
+99|q|someone-elses-shoes|Scan any Android on Stella Montis|2967|4037
+100|q|someone-elses-shoes|Scan any Android on Stella Montis|3099|5402
+101|q|someone-elses-shoes|Scan any Android on Stella Montis|3055|5502
+102|q|someone-elses-shoes|3. Reach the Control Room in the Western Tunnels and search for clues|1876|3567
+103|q|someone-elses-shoes|Scan any Android on Stella Montis|3289|3164
+104|q|someone-elses-shoes|Scan any Android on Stella Montis|3565|4060
+105|q|someone-elses-shoes|Scan any Android on Stella Montis|3207|3893
+106|q|the-first-nomads|Use the frequency converter|2862|4688
+107|q|someone-elses-shoes|Scan any Android on Stella Montis|4090|5445
+108|q|someone-elses-shoes|Scan any Android on Stella Montis|2980|2993
+109|q|the-first-nomads|Head to the Communications wing|2784|4669
+110|q|someone-elses-shoes|Scan any Android on Stella Montis|3747|5335
+111|q|someone-elses-shoes|Find the Android in Research Lab 3|3340|2670
+112|q|someone-elses-shoes|Scan any Android on Stella Montis|2957|4155
+113|q|someone-elses-shoes|Scan any Android on Stella Montis|2467|5202
+114|q|someone-elses-shoes|Scan any Android on Stella Montis|1834|4832
+115|q|someone-elses-shoes|Scan any Android on Stella Montis|2353|3450
+116|q|the-first-nomads|Use the frequency converter|2841|4662
+117|q|the-first-nomads|Search for any repair equipment|2623|4761
+119|q|someone-elses-shoes|Scan any Android on Stella Montis|1739|4592
+120|q|someone-elses-shoes|Scan any Android on Stella Montis|2790|2591
+121|q|someone-elses-shoes|Scan any Android on Stella Montis|2591|2482
+122|q|someone-elses-shoes|Scan any Android on Stella Montis|1784|4832
+123|q|someone-elses-shoes|Scan any Android on Stella Montis|3144|2271
+124|q|someone-elses-shoes|Scan any Android on Stella Montis|2444|4934
+125|q|someone-elses-shoes|Scan any Android on Stella Montis|2972|4083
+126|q|someone-elses-shoes|Scan any Android on Stella Montis|3239|3944
+127|q|someone-elses-shoes|Scan any Android on Stella Montis|2303|4800
+128|q|the-first-nomads|Turn on the power|2722|4564
+129|q|someone-elses-shoes|Scan any Android on Stella Montis|2964|3947
+130|q|someone-elses-shoes|Scan any Android on Stella Montis|2717|4213
+131|q|the-first-nomads|Repair the power transformer|2674|4744
+132|q|someone-elses-shoes|Scan any Android on Stella Montis|2929|5307
+133|q|cold-storage|Search any J Kozma Ventures container|2967|4037
+134|q|stable-housing|Go to the Security Bridge|1910|4344
+135|q|taking-stock|Take a photo of the sculpture in the Atrium|3169|4421
+136|q|the-first-nomads|Find and run the signal through the frequency converter|2784|4591
+137|q|the-first-nomads|Repair the transformer|2728|4686
+138|q|the-first-nomads|Turn on the power|2777|4691
+A|shredder|8.2725.5677,15.2041.4462,16.2122.4601,24.2440.5892,26.2371.2812,33.3195.5308,34.3679.3365,46.2970.2360,47.2534.2404,48.2482.5198,49.1738.4428,50.3414.4054,51.3071.4302,52.3618.4748,54.2555.4093,57.3052.4724,67.3453.4606,68.3078.4223,69.2644.5353,70.3232.2485,71.2324.4104
+A|bastion|20.2991.3182
+A|sentinel|44.3192.4513,94.3053.4377
+A|comet|76.3065.3333,77.3031.3324,91.2803.4207
+A|vaporizer|118.3085.3316

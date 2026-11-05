@@ -1,0 +1,519 @@
+[
+ {
+  "id": "building-a-library",
+  "name": "Building a Library",
+  "who": "Apollo",
+  "steps": [
+   {
+    "t": "Find the library in the City Center",
+    "pin": null,
+    "go": "Head to the library in the middle of Buried City, just north of Marano Park. The books are all in the big room overlooking the park.",
+    "show": "Library, north of Marano Park."
+   },
+   {
+    "t": "Find a romance book",
+    "pin": "1st book",
+    "go": "In the main hall, check the display stand by the window facing the metro entrance, in front of the toppled bookcase.",
+    "show": "Stand by the park window."
+   },
+   {
+    "t": "Find a detective book",
+    "pin": "2nd book",
+    "go": "Take the west stairs up to the balcony and check the display stand at the top.",
+    "show": "Top of the west stairs."
+   },
+   {
+    "t": "Find an adventure book",
+    "pin": "3rd book",
+    "go": "Carry on east along the balcony; the last book is on the stand to your left.",
+    "show": "East along the balcony."
+   },
+   {
+    "t": "Deliver three books to Apollo",
+    "pin": null,
+    "go": "Delivery in Speranza. Extract with the books, the nearby metro station is quickest, then hand them to Apollo.",
+    "show": "Hand the books to Apollo."
+   }
+  ],
+  "aliases": [
+   "book quest",
+   "three books"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Building_a_Library",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-building-a-library/"
+  ],
+  "agree": false,
+  "notes": "Both guides agree on library location, three books and delivery. The wiki names the genres (romance, detective, adventure); PC Gamer says the items are all just 'Library Books' and order does not matter, so the genre to 1st/2nd/3rd pin pairing is not verified."
+ },
+ {
+  "id": "communication-hideout",
+  "name": "Communication Hideout",
+  "who": "Shani",
+  "steps": [
+   {
+    "t": "Reach the Red Tower in Old Town",
+    "pin": "Reach The Red Tower",
+    "go": "Make for the Red Tower in Old Town and drop into its courtyard. Everything must be done in one raid.",
+    "show": "Red Tower courtyard, Old Town."
+   },
+   {
+    "t": "Find missing battery cell",
+    "pin": "Find Missing Battery Cell",
+    "go": "Look on the courtyard floor opposite the generator, by a small bag next to a metal unit.",
+    "show": "Bag opposite the generator."
+   },
+   {
+    "t": "Install battery cell in the Generator",
+    "pin": "Install The Battery And Enable The Generator",
+    "go": "Slot the battery into the open panel on the generator in the same courtyard.",
+    "show": "Open panel on the generator."
+   },
+   {
+    "t": "Enable the power on the Generator",
+    "pin": "Install The Battery And Enable The Generator",
+    "go": "Use the generator's control panel on its front or right side to switch it on.",
+    "show": "Generator control panel."
+   },
+   {
+    "t": "Boot the antenna terminal near the Red Tower",
+    "pin": "Boot The Antenna Terminal",
+    "go": "From the generator, climb through the window to the stairwell, go up, take the ladder to the roof and turn right. The yellow box is round the corner.",
+    "show": "Yellow box on the roof."
+   }
+  ],
+  "aliases": [
+   "comms hideout",
+   "antenna quest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Communication_Hideout",
+   "https://allthings.how/arc-raiders-communication-hideout-complete-the-red-tower-quest/"
+  ],
+  "agree": true,
+  "notes": "Two MetaForge pins cover step 1 ('Reach The Red Tower' and 'Reach the Red Tower in Old Town'); the second is an alternative marker for the same step. No extraction needed once the terminal is booted."
+ },
+ {
+  "id": "eyes-on-the-prize",
+  "name": "Eyes on the Prize",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Find the secluded roof terrace southwest of the Southern Station",
+    "pin": "Find the roof terrace with blue tarps",
+    "go": "Bring three Wires. Rooftop-hop from Plaza Rosa towards the Southern Station and look for the roof covered in blue tarps.",
+    "show": "Look for blue tarps."
+   },
+   {
+    "t": "Rewire the solar panel using 3 Wires",
+    "pin": "Find the roof terrace with blue tarps",
+    "go": "On the tarp roof, find the solar panel beside a generator and some bushes, and interact once.",
+    "show": "Panel next to the generator."
+   }
+  ],
+  "aliases": [
+   "eyes on prize",
+   "rewire the panel"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Eyes_On_The_Prize",
+   "https://www.gamesradar.com/games/third-person-shooter/arc-raiders-eyes-on-the-prize",
+   "https://primagames.com/tips/how-to-finish-the-eyes-on-the-prize-quest-in-arc-raiders"
+  ],
+  "agree": true,
+  "notes": "Wiki and Prima say southwest of Southern Station, GamesRadar says west, wiki dialogue says south; all put it near the station. The generic 'Eyes on the Prize' pin is a quest marker not tied to a specific step by any guide, so it is unused. No extraction needed."
+ },
+ {
+  "id": "esr-analyzer",
+  "name": "A Reveal in Ruins",
+  "who": "Lance",
+  "steps": [
+   {
+    "t": "Search for an ESR Analyzer inside any pharmacy in Buried City",
+    "pin": "A Pharmacy for ESR Analyzer",
+    "go": "Go to any Farmacia, the green cross signs, such as the one on Piazza Arbusto or Piazza Rosa. The analyser sits by the checkout counter.",
+    "show": "Behind the pharmacy counter."
+   },
+   {
+    "t": "Deliver the ESR Analyzer to Lance",
+    "pin": null,
+    "go": "Delivery in Speranza. Extract with the analyser, a safe pocket helps, and give it to Lance.",
+    "show": "Hand it to Lance."
+   }
+  ],
+  "aliases": [
+   "reveal in ruins",
+   "esr analyser",
+   "esr quest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/A_Reveal_in_Ruins",
+   "https://allthings.how/arc-raiders-buried-city-pharmacies-and-esr-analyzer-quest-explained/",
+   "https://metaforge.app/arc-raiders/database/quest/esr-analyzer"
+  ],
+  "agree": true,
+  "notes": "MetaForge id 'esr-analyzer' is the quest A Reveal in Ruins. Pins 'ESR Analyzer in Pharmacy' and 'A Parmacy for ESR Analyzer' (sic) are further alternative pharmacies for the same step. Must be done in one raid."
+ },
+ {
+  "id": "marked-for-death",
+  "name": "Marked for Death",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Reach the Su Durante Warehouses in the Outskirts in Buried City",
+    "pin": "Marked for Death",
+    "go": "Head out to the Su Durante Warehouses on the Outskirts, a cluster of several buildings.",
+    "show": "Su Durante warehouse cluster."
+   },
+   {
+    "t": "Search for Tian Wen's cache near the Warehouses",
+    "pin": "Search for Tian Wen's Cache",
+    "go": "Walk round the outside walls of the warehouses; the cache is set against one of them, marked by a red ribbon.",
+    "show": "Red ribbon by the wall."
+   },
+   {
+    "t": "Follow the clues",
+    "pin": "Follow the Clues",
+    "go": "Track the footprints from the cache through the gap in the fence and into the shrubs on the dune, then interact at the end.",
+    "show": "Follow footprints through the fence."
+   }
+  ],
+  "aliases": [
+   "marked quest",
+   "su durante cache"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Marked_for_Death",
+   "https://allthings.how/arc-raiders-marked-for-death-cache-location-clues-and-extraction"
+  ],
+  "agree": true,
+  "notes": "Steps agree. Minor detail difference: wiki puts the cache on the north side of the building, All Things How says players usually find it on the west-facing side."
+ },
+ {
+  "id": "industrial-espionage",
+  "name": "Industrial Espionage",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Locate Tian Wen's weapon cache by the Gas Station in the Outskirts",
+    "pin": "Find Tian Wen's weapon cache",
+    "go": "Bring the Burletta Tian Wen gives you. Hug the map edge to the Gas Station on the Outskirts; try just south of it if nothing triggers.",
+    "show": "Cache by the Gas Station."
+   },
+   {
+    "t": "Bring a Burletta to the rival weapon cache",
+    "pin": null,
+    "go": "Carry the Burletta to the rival cache and place it there.",
+    "show": "Place Burletta at rival cache."
+   },
+   {
+    "t": "Place a listening device on the rival cache",
+    "pin": null,
+    "go": "Interact with the rival cache again to plant the bug.",
+    "show": "Interact again to plant bug."
+   }
+  ],
+  "aliases": [
+   "espionage",
+   "spy quest",
+   "burletta quest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Industrial_Espionage",
+   "https://primagames.com/tips/how-to-finish-the-industrial-espionage-quest-in-arc-raiders"
+  ],
+  "agree": true,
+  "notes": "rival cache spot not described by any guide, so unpinned"
+ },
+ {
+  "id": "unexpected-initiative",
+  "name": "Unexpected Initiative",
+  "who": "Tian Wen",
+  "steps": [
+   {
+    "t": "Reach the Grandioso Apartments in Buried City",
+    "pin": "Reach the Grandioso Apartments in Buried City",
+    "go": "Go to the Grandioso Apartments. Both meters must be found in one raid.",
+    "show": "Grandioso Apartments."
+   },
+   {
+    "t": "Search the Grandioso Apartments rooftop for a Moisture Meter",
+    "pin": "Moisture Meter",
+    "go": "Zipline to the top floor, take the stairs to the roof and check the gardening corner by two soil pots.",
+    "show": "Gardening corner by soil pots."
+   },
+   {
+    "t": "Reach Piazza Roma in Buried City",
+    "pin": "Reach Piazza Roma in Buried City",
+    "go": "Head north to Piazza Roma.",
+    "show": "North to Piazza Roma."
+   },
+   {
+    "t": "Search the broken rooftop gardens at Piazza Roma for a Nutrient Meter",
+    "pin": "Rooftop Nutrient Meter",
+    "go": "Zipline up to the building with the wrecked garden, climb the stairwell to the roof and look by a tank and a tub of soil.",
+    "show": "By the tank and soil tub."
+   },
+   {
+    "t": "Deliver the Nutrient Meter to Tian Wen",
+    "pin": null,
+    "go": "Delivery in Speranza. Extract and hand the Nutrient Meter to Tian Wen.",
+    "show": "Nutrient Meter to Tian Wen."
+   },
+   {
+    "t": "Deliver the Moisture Meter to Tian Wen",
+    "pin": null,
+    "go": "Delivery in Speranza. Give Tian Wen the Moisture Meter as well.",
+    "show": "Moisture Meter to Tian Wen."
+   }
+  ],
+  "aliases": [
+   "unexpected",
+   "meters quest",
+   "moisture meter"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Unexpected_Initiative",
+   "https://gametyrant.com/news/arc-raiders-unexpected-initiative-quest-guide"
+  ],
+  "agree": true,
+  "notes": "GameTyrant folds the two deliveries into one 'return to Tian Wen'; the wiki lists them separately. GameTyrant mentions a December 2025 completion bug."
+ },
+ {
+  "id": "a-warm-place-to-rest",
+  "name": "A Warm Place to Rest",
+  "who": "Apollo",
+  "steps": [
+   {
+    "t": "Locate the Abandoned Highway Camp",
+    "pin": "Locate the Abandoned Highway Camp",
+    "go": "Get up onto the raised highway, via rooftops if needed, and find the camp on it.",
+    "show": "Camp on the raised highway."
+   },
+   {
+    "t": "Search for any signs of survivors",
+    "pin": "Signs of Survivors",
+    "go": "Check the yellow-marked backpack beside the vehicle entrance at the camp.",
+    "show": "Yellow-marked backpack."
+   },
+   {
+    "t": "Follow the red markers",
+    "pin": null,
+    "go": "Follow the red markers along the highway to where it collapses into Piazza Arbusto, then on towards the Buried Properties.",
+    "show": "Follow the red markers."
+   },
+   {
+    "t": "Inspect the grave",
+    "pin": "Graveyard",
+    "go": "Find the grave near the Buried Properties and interact with it.",
+    "show": "Grave by Buried Properties."
+   }
+  ],
+  "aliases": [
+   "warm place",
+   "warm place to rest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/A_Warm_Place_To_Rest",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-a-warm-place-to-rest"
+  ],
+  "agree": true,
+  "notes": "Trader from the wiki (PC Gamer does not name one). PC Gamer folds the survivor search into the camp step; the wiki lists it separately."
+ },
+ {
+  "id": "combat-recon",
+  "name": "Combat Recon",
+  "who": "Shani",
+  "steps": [
+   {
+    "t": "Find and scope out a cover spot in the Parking Garage staircases",
+    "pin": "Cover Spot Parking Garage",
+    "go": "Zipline to the Parking Garage roof, go to the south-west stairwell and interact at the top by the broken railing.",
+    "show": "Top of south-west stairwell."
+   },
+   {
+    "t": "Find and scope out a cover spot in the buses near Marano Park",
+    "pin": "Cover Spot Near Buses",
+    "go": "Get in the bus nearest the metro entrance at Marano Park and interact at its back door.",
+    "show": "Back door of the bus."
+   },
+   {
+    "t": "Find and scope out a cover spot in the attics around Main Street",
+    "pin": "Cover Spot in Attic",
+    "go": "Go up into the attic of the westernmost house on Plaza Rosa and interact by the roof window over the square.",
+    "show": "Attic window over Plaza Rosa."
+   },
+   {
+    "t": "Destroy 2 Spotters",
+    "pin": null,
+    "go": "Take out two Spotters; they hang around the Parking Garage, Marano Park and Plaza Rosa.",
+    "show": "Destroy two Spotters."
+   },
+   {
+    "t": "Deliver a Spotter Relay to Shani",
+    "pin": null,
+    "go": "Delivery in Speranza. Loot a Spotter Relay from a Spotter, extract and give it to Shani.",
+    "show": "Spotter Relay to Shani."
+   }
+  ],
+  "aliases": [
+   "recon",
+   "cover spots",
+   "spotter quest"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Combat_Recon",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-combat-recon"
+  ],
+  "agree": true,
+  "notes": "Cover spots can be done in any order and across raids. 'Attic's cover spot' is a second MetaForge pin for the attic step (alternative spot)."
+ },
+ {
+  "id": "line-in-the-sand",
+  "name": "Line in the Sand",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Find out why the train never reached Marano Station",
+    "pin": "Step 1: Train",
+    "go": "Go to the derailed blue train cars on the tracks south of Marano Station, between the Warehouse and Piazza Roma. Getting close updates it.",
+    "show": "Derailed blue train cars."
+   },
+   {
+    "t": "Find out who orchestrated the robbery",
+    "pin": "Step 2: Clues to Robbery",
+    "go": "Head east to the small square tower on the hill, climb the railing and grab the detonator in the bush in its south-west corner.",
+    "show": "Detonator in the bush."
+   },
+   {
+    "t": "Find out where the thruster valves were stashed",
+    "pin": "Step 3: Thruster Valve",
+    "go": "Walk into the ruined building at the Market Ruins; no interaction needed.",
+    "show": "Enter the Market Ruins."
+   },
+   {
+    "t": "Search the basement of the merchant's nearby apartment",
+    "pin": "Basement",
+    "go": "Go uphill to Dune's End, enter the building, go through the door ahead and zipline down to the basement. Photograph the stack of boxes.",
+    "show": "Photograph the boxes downstairs."
+   }
+  ],
+  "aliases": [
+   "line in sand",
+   "train robbery",
+   "thruster valves"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Line_in_the_Sand",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-line-in-the-sand-walkthrough/",
+   "https://finalboss.io/arc-raiders-how-to-complete-line-in-the"
+  ],
+  "agree": true,
+  "notes": "Trader from the wiki only (PC Gamer and FinalBoss do not name one). 'Investigate the stopped train' is a second MetaForge pin for step 1. FinalBoss says it describes the Riven Tides version; steps match PC Gamer and the wiki."
+ },
+ {
+  "id": "after-rain-comes",
+  "name": "After Rain Comes",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Locate the flooded solar panels near the Grandioso Apartments",
+    "pin": "Find the flooded solar panels",
+    "go": "Bring 5 Wires and 2 Batteries. Go to the street on the east side of the Grandioso Apartments, near the pond, and find the yellow electrical box under the big panels.",
+    "show": "Yellow box under the panels."
+   },
+   {
+    "t": "Repair the panels using 5 Wires and 2 Batteries",
+    "pin": "Find the flooded solar panels",
+    "go": "Interact with the electrical box and use your Wires and Batteries when prompted.",
+    "show": "Interact with the box."
+   }
+  ],
+  "aliases": [
+   "after rain",
+   "flooded panels"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/After_Rain_Comes",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-after-rain-comes/"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "digging-up-dirt",
+  "name": "Digging Up Dirt",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Locate the Santa Maria Houses in Old Town",
+    "pin": "Locate the Santa Maria Houses in Old Town",
+    "go": "Head to the Santa Maria Houses. Ground doors are sealed, so get on the roof from a neighbouring building.",
+    "show": "Santa Maria Houses rooftops."
+   },
+   {
+    "t": "Locate the Dead Drop inside the courtyard",
+    "pin": "Locate the Santa Maria Houses in Old Town",
+    "go": "Cross the plank or open the roof hatch, drop inside, zipline down and clear the turret. The white dead drop is in the sandy courtyard.",
+    "show": "White box in the courtyard."
+   }
+  ],
+  "aliases": [
+   "digging dirt",
+   "santa maria dead drop"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Digging_Up_Dirt",
+   "https://allthings.how/arc-raiders-digging-up-dirt-find-the-santa-maria-houses-dead-drop-2/"
+  ],
+  "agree": true,
+  "notes": "Small detail difference: wiki says the drop is by a small fountain, reached via a roof hatch; All Things How says the middle of the sand-filled ground floor, via a plank and a hole. No dedicated pin for the dead drop, so the houses pin is reused."
+ },
+ {
+  "id": "life-of-a-pharmacist",
+  "name": "Life of a Pharmacist",
+  "who": "Lance",
+  "steps": [
+   {
+    "t": "Find the Arbusto Farmacia by the collapsed highway",
+    "pin": "Find the Arbusto Farmacia",
+    "go": "Go to the Farmacia on Piazza Arbusto by the collapsed highway, in through the front door and upstairs.",
+    "show": "Upstairs in Arbusto Farmacia."
+   },
+   {
+    "t": "Document the pharmacist's family",
+    "pin": "Find the Arbusto Farmacia",
+    "go": "Photograph the family pictures straight ahead at the top of the stairs.",
+    "show": "Family photos at the top."
+   },
+   {
+    "t": "Document the pharmacist's skills",
+    "pin": "Find the Arbusto Farmacia",
+    "go": "Turn right from the photos and photograph the piano.",
+    "show": "The piano."
+   },
+   {
+    "t": "Document the pharmacist's hobbies",
+    "pin": "Find the Arbusto Farmacia",
+    "go": "In the next room, photograph the plants on the cabinet by the left wall.",
+    "show": "Plants on the cabinet."
+   },
+   {
+    "t": "Document the pharmacist's taste",
+    "pin": "Find the Arbusto Farmacia",
+    "go": "Turn round and photograph the table under the stairs at the back of the room.",
+    "show": "Table under the stairs."
+   }
+  ],
+  "aliases": [
+   "pharmacist",
+   "pharmacist photos"
+  ],
+  "sources": [
+   "https://arcraiders.wiki/wiki/Life_Of_A_Pharmacist",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-life-of-a-pharmacist-quest-walkthrough"
+  ],
+  "agree": true,
+  "notes": "The wiki lists the four documents as hobbies, family, taste, skills; steps above follow PC Gamer's walking route. They can be done in any order. Only one pin exists, so it is reused for every photo."
+ }
+]

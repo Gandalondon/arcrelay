@@ -1,0 +1,277 @@
+[
+ {
+  "id": "paving-the-way",
+  "name": "Paving the Way",
+  "who": "Apollo",
+  "steps": [
+   {
+    "t": "Go to any ENELICA building",
+    "pin": "Enelica Building",
+    "go": "Head to any building with ENELICA on the wall. Water Treatment Control in the middle west is the easy pick, with the Power Generation Complex in the north as an alternative.",
+    "show": "Any ENELICA building counts."
+   },
+   {
+    "t": "Search for a notice board with a note from the researcher",
+    "pin": null,
+    "go": "Inside the ENELICA building, find the notice board and interact with it. At Water Treatment Control it sits just right of the south main entrance in the lobby.",
+    "show": "Read the researcher's note."
+   },
+   {
+    "t": "On Buried City, reach the top floor above the Convinio in Piazza Roma",
+    "pin": "Reach the top floor above the Convinio",
+    "go": "Buried City map. Climb the apartment block on the south side of Piazza Roma by stairs or zipline, watching for a Rocketeer on the roof.",
+    "show": "Buried City: top floor, Piazza Roma.",
+    "pm": "buried-city"
+   },
+   {
+    "t": "Find the researcher's flat and search for any research data",
+    "pin": null,
+    "go": "Buried City map. Drop to the lower roof, cross the scrap bridge, go through the next room and use the marked computer console.",
+    "show": "Search the console for data."
+   }
+  ],
+  "aliases": [
+   "paving the way"
+  ],
+  "sources": [
+   "https://metaforge.app/arc-raiders/paving-the-way-arc-raiders-quest-guide",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-paving-the-way-enelica-building/",
+   "https://www.destructoid.com/how-to-complete-paving-the-way-in-arc-raiders/"
+  ],
+  "agree": true,
+  "notes": "which notice board is which building is unconfirmed, so step 2 has no pin"
+ },
+ {
+  "id": "a-bad-feeling",
+  "name": "A Bad Feeling",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Find and search any ARC Probe or ARC Courier",
+    "pin": null,
+    "go": "On any map, follow a column of black smoke to a downed Probe or Courier and search it. Dam Battlegrounds spawns them most reliably.",
+    "show": "Search a Probe or Courier."
+   }
+  ],
+  "aliases": [
+   "a bad feeling",
+   "bad feeling"
+  ],
+  "sources": [
+   "https://www.dexerto.com/wikis/arc-raiders/how-to-complete-a-bad-feeling/",
+   "https://allthings.how/all-arc-raiders-quests-and-rewards-objectives-traders-and-loot/",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-quests-missions"
+  ],
+  "agree": true,
+  "notes": "MetaForge's light bulb pin matches no step, so it isn't used"
+ },
+ {
+  "id": "a-rising-tide",
+  "name": "A Rising Tide",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "On Buried City, find the foreman's barricaded apartment south of Piazza Roma",
+    "pin": "Find the foreman's apartment",
+    "go": "Buried City map. Ride the zipline between the two Piazza Roma towers and drop onto the platform on your right, or take the stairs in the A2 block.",
+    "show": "Buried City: foreman's barricaded flat.",
+    "pm": "buried-city"
+   },
+   {
+    "t": "Access the foreman's digital logbook",
+    "pin": "Foremans Digital Logbook",
+    "go": "Buried City map. Inside the apartment, use the terminal with the logbook on it, then extract.",
+    "show": "Read the foreman's logbook.",
+    "pm": "buried-city"
+   },
+   {
+    "t": "Reach the Power Generation Complex and find a way into the Controlled Access Zone",
+    "pin": "Step 2: Controlled Access Zone",
+    "go": "Go to the Power Generation Complex in the north, then head south-west to the marked ladder and climb down into the Controlled Access Zone.",
+    "show": "Down the ladder into the zone."
+   },
+   {
+    "t": "Search the Controlled Access Zone for any clues about the foreman's reconstruction project",
+    "pin": "Step 3: Clues about the Reconstruction Project",
+    "go": "Follow the walkway round the hanging ARC into the room with windows over it and interact with the whiteboard. If the door has no power, slot a battery into the walkway socket.",
+    "show": "Photograph the whiteboard."
+   }
+  ],
+  "aliases": [
+   "a rising tide",
+   "rising tide",
+   "foreman"
+  ],
+  "sources": [
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-a-rising-tide-quest",
+   "https://www.destructoid.com/how-to-complete-a-rising-tide-in-arc-raiders/"
+  ],
+  "agree": false,
+  "notes": "the logbook step's wording isn't confirmed"
+ },
+ {
+  "id": "taking-stock",
+  "name": "Taking Stock",
+  "who": "Cassio",
+  "steps": [
+   {
+    "t": "Photograph the sculpture in the Atrium",
+    "pin": "Take a photo of the sculpture in the Atrium",
+    "go": "Stella Montis map. Take a Basic Camera to the upper-level Atrium between the Loading Bay and Cultural Archives and photograph the star-shaped sculpture.",
+    "show": "Stella Montis: photograph sculpture.",
+    "pm": "stella-montis"
+   },
+   {
+    "t": "Photograph a Baron Husk",
+    "pin": "Take a photo of a Baron Husk",
+    "go": "Spaceport map. Find a dormant Baron Husk, often along the wall between the outer and inner areas, and photograph it.",
+    "show": "Spaceport: photograph a Baron Husk.",
+    "pm": "spaceport"
+   },
+   {
+    "t": "Ping a Bombardier (Dam Battlegrounds) or a Bastion (Buried City)",
+    "pin": null,
+    "enemy": "bombardier",
+    "map": "dam",
+    "go": "Spot a Bombardier and ping it. No damage needed. A Bastion on Buried City also counts.",
+    "show": "Ping a Bombardier."
+   },
+   {
+    "t": "Collect and deliver 3 Industrial Batteries",
+    "pin": null,
+    "go": "Loot three Industrial Batteries from Industrial areas, for example the Hydroponic Dome Complex on Dam, then hand them to the Nomadic Envoy in Speranza.",
+    "show": "Deliver three Industrial Batteries."
+   }
+  ],
+  "aliases": [
+   "taking stock",
+   "stock take"
+  ],
+  "sources": [
+   "https://gametyrant.com/news/arc-raiders-taking-stock-quest-guide",
+   "https://allthings.how/?p=248840",
+   "https://www.destructoid.com/how-to-complete-taking-stock-in-arc-raiders/"
+  ],
+  "agree": false,
+  "notes": "step wording paraphrased; no guide quotes it exactly"
+ },
+ {
+  "id": "to-the-skies",
+  "name": "To the Skies",
+  "who": "Apollo",
+  "steps": [
+   {
+    "t": "Scan a crashed ARC Probe",
+    "pin": null,
+    "go": "On any map except Stella Montis, follow black smoke to a downed Probe and hold the prompt to scan it.",
+    "show": "Scan a downed Probe."
+   },
+   {
+    "t": "Scan an ARC Courier",
+    "pin": null,
+    "go": "Find a Courier the same way, by its smoke and map icon, and scan it.",
+    "show": "Scan a Courier."
+   },
+   {
+    "t": "Find the Gondola Prototype",
+    "pin": "Search for the Gondola Prototype",
+    "go": "On Dam, head to Red Lakes and look for the prototype on a flatbed trailer. Farmlands on Blue Gate, East Plains on Spaceport and Dried Riverbed on Riven Tides also have one.",
+    "show": "Red Lakes: Gondola Prototype."
+   },
+   {
+    "t": "Install ARC Pop Trigger, ARC Synthetic Resin, ARC Thermo Lining and ARC Performance Steel",
+    "pin": "Search for the Gondola Prototype",
+    "go": "Use the points round the prototype to fit all four rare ARC parts. Any order, so bring them with you.",
+    "show": "Fit all four ARC parts."
+   },
+   {
+    "t": "Activate the Gondola Prototype",
+    "pin": "Search for the Gondola Prototype",
+    "go": "Hold the activate prompt, then step back: it blows up and completes the quest.",
+    "show": "Activate it, then step back."
+   }
+  ],
+  "aliases": [
+   "to the skies",
+   "gondola",
+   "gondola prototype"
+  ],
+  "sources": [
+   "https://allthings.how/arc-raiders-how-to-complete-the-to-the-skies-quest/",
+   "https://gametyrant.com/news/arc-raiders-to-the-skies-quest-guide",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-to-the-skies-walkthrough/"
+  ],
+  "agree": false,
+  "notes": "install wording approximate"
+ },
+ {
+  "id": "source-of-the-contamination",
+  "name": "Source of the Contamination",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Reach the Water Treatment Building in The Dam",
+    "pin": "Reach the Water Treatment Building in The Dam",
+    "go": "Head to Water Treatment Control in the middle west of the map.",
+    "show": "Go to Water Treatment Control."
+   },
+   {
+    "t": "Search for the Flood Spill Intake near the Swamp",
+    "pin": null,
+    "go": "Go round to the north side of the building, by the swamp, to find the intake.",
+    "show": "Flood Spill Intake, north side."
+   },
+   {
+    "t": "Investigate any suspicious objects",
+    "pin": null,
+    "go": "Interact with the waste barrel at the intake to finish the quest.",
+    "show": "Check the suspicious barrel."
+   }
+  ],
+  "aliases": [
+   "source of the contamination",
+   "contamination"
+  ],
+  "sources": [
+   "https://www.dexerto.com/wikis/arc-raiders/how-to-complete-source-of-the-contamination",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-quests-missions"
+  ],
+  "agree": true,
+  "notes": ""
+ },
+ {
+  "id": "a-balanced-harvest",
+  "name": "A Balanced Harvest",
+  "who": "Celeste",
+  "steps": [
+   {
+    "t": "Go to the Research & Administration building in Dam Battlegrounds",
+    "pin": "Go to the Research & Administration building",
+    "go": "Head to the Research & Administration building and enter by the reception.",
+    "show": "Go to Research and Admin."
+   },
+   {
+    "t": "Locate Lab 1 on the upper floor, above reception",
+    "pin": null,
+    "go": "Take the zip lines up from reception, follow the balcony right to the end, turn left and Lab 1 is the first door on the left.",
+    "show": "Lab 1, upstairs over reception."
+   },
+   {
+    "t": "Search for any traces of the agricultural research project",
+    "pin": null,
+    "go": "Interact with the documents on the Lab 1 table, then extract.",
+    "show": "Search the lab documents."
+   }
+  ],
+  "aliases": [
+   "a balanced harvest",
+   "balanced harvest"
+  ],
+  "sources": [
+   "https://allthings.how/arc-raiders-a-balanced-harvest-quest-walkthrough-at-the-dam",
+   "https://www.pcgamer.com/games/third-person-shooter/arc-raiders-quests-missions"
+  ],
+  "agree": true,
+  "notes": ""
+ }
+]
