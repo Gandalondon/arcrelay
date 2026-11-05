@@ -11,7 +11,7 @@ Everything for the Google Play listing lives here. Off the site (the site is `si
   - `arcrelay-play-listing-text.txt`: short description (79/80) and full description, above and below the `---`.
   - `arcrelay-play-alt-text.txt`: alt text for each image.
   - `source/`: `shot.html` lays the art out, `render.js` renders it, `finish.py` flattens it to the final names. The screens are copies of the site's captures (`site/beta/screens/`).
-  - **Before upload:** the screens were captured on 4 Nov, before the app moved to Inter Tight, so the app text in them is still Barlow. Re-capture on the Pixel (`capture.js`), copy them over the four `screen-*.webp` in `source/`, then `node render.js && python3 finish.py`.
+  - **Fonts:** the screens are re-captured from the current app (Inter Tight) by `recapture.js`; only the map areas come from the 4 Nov Pixel captures in `source/pixel-4nov/`, because the workspace cannot load MetaForge tiles. The same four screens are used on the site (`site/beta/screens/`).
 
 ## Listing details
 
@@ -21,4 +21,4 @@ Everything for the Google Play listing lives here. Off the site (the site is `si
 ## To do
 
 - A screenshot with the map (exits marked, you-dot and route). Best taken on the Pixel, then framed with `shot.html`. The build sandbox can't reach MetaForge's map tiles.
-- Re-capture the four screens in Inter Tight (above). More screenshots as maps and features land.
+- More screenshots as maps and features land. When the app UI changes, re-run `recapture.js` (steps at its top).
