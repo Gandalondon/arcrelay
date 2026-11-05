@@ -3,7 +3,7 @@
 Start a new conversation by reading this file, then the style guide.
 
 ## The project in one paragraph
-Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Android companion for ARC Raiders (Pixel 9). Ask out loud ("Hey Relay" or tap), it answers out loud and shows a map: nearest exit, quest steps, items, "not that one" rerouting. Everything runs on the phone. Blue Gate only so far. Rules: £0 to run (no paid services or keys), UK English, no em dashes, no widows, palette charcoal #1C1E22 / panel #26282D / ink #15171C / cream #EEE8DC / amber #F2B33D, Inter Tight, Material Symbols Rounded only. Push to main only when Tony says push; Claude pushes itself. Run `node tests/run.js` before every commit. The style guide is the rulebook: edit `tools/style-guide/template.html`, then `python3 tools/style-guide/make.py` builds `src/docs/style-guide.html` (never edit the built file).
+Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Android companion for ARC Raiders (Pixel 9). Ask out loud ("Hey Relay" or tap), it answers out loud and shows a map: nearest exit, quest steps, items, "not that one" rerouting. Everything runs on the phone. All seven maps have markers, places and quests; distances and items are Blue Gate only. Rules: £0 to run (no paid services or keys), UK English, no em dashes, no widows, palette charcoal #1C1E22 / panel #26282D / ink #15171C / cream #EEE8DC / amber #F2B33D, Inter Tight, Material Symbols Rounded only. Push to main only when Tony says push; Claude pushes itself. Run `node tests/run.js` before every commit. The style guide is the rulebook: edit `tools/style-guide/template.html`, then `python3 tools/style-guide/make.py` builds `src/docs/style-guide.html` (never edit the built file).
 - Name (5 Nov): the brand is Relay. Domain getarcrelay.app unchanged; repo renamed to relay (5 Nov). Package renamed to app.getarcrelay (5 Nov, matches Play Console; Sniff is app.getsniff); Java in `android/app/src/main/java/app/getarcrelay/`. Builds from 1.0.86 install as a new app: re-add it in Obtainium (APK is now relay.apk), re-download voices and the offline speech pack, then uninstall the old one. Play title "Relay: Raid Voice Guide"; "for ARC Raiders" lives in the short and full descriptions. Tony updates Play Console himself.
 
 ## Site, 5 Nov
@@ -11,6 +11,20 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 - getarcrelay.app/beta is the new homepage: stacked "Hey / Relay", one 3D phone that travels down, parks on the right and cross-fades screens while the four features scroll past (order: Need a quick evac?, Just ask., Find what you need., Show it where you are.), then "Ask. Find. / Get out." with the phone turned the other way showing the time-of-day greeting. Phones: stacked rows, words only in the finale. Built by `tools/hero/make_v5.py` (run from site/beta); the old homepage is kept in `tools/hero/old-homepage-4nov.html`. /beta/v2 and /beta/v5 forward to /beta; v3 and v4 are the earlier landing tests.
 - Every /beta page: solid sticky bar (88 px, 72 on phones), mark only, gutters to the page edge.
 - Mac copy is ~/ArcRelay. Package app.getarcrelay from 1.0.86 (see Name above).
+
+## Done late 5 Nov (all pushed)
+- "Show me the X map", map picker on home in the voice-row pattern (single row on short phones), greeting fits four lines on every size, headline top-aligned.
+- Saying only where you are: "Got it, X. What do you need?" (no longer assumes the nearest exit). Small context and "Heard" text gone; a miss just asks you to repeat.
+- Map buttons always amber, icons never change: map (whole map, tap again for back to the answer), filled locate dot (set location), route.
+- Settings: cream headings 600 18/24, rows 500 18/24, 48 px between sections. About is one line, four rows that open the site (feedback, how it works, privacy, credits and legal) with an arrow_outward icon, one line of credits, then the version.
+
+## Next (pick one)
+1. Tony on the Pixel: map buttons, location-only reply, About links open the browser, "show me the Dam map", Hey Relay with game audio.
+2. Distances for the other six maps (fit METRES per map; directions only now).
+3. Items for the other maps (Blue Gate only).
+4. Understanding: held-out set is 14/25; grow the phrasing coverage.
+5. Settle the flagged quests in game (notes in each quest file).
+6. Before release: remove the test skip (#obskip), then Play Console.
 
 ## Where things are
 - Site copy (5 Nov): Google Doc "Relay" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/1hS12w_3GLEDgG62_lDrAJV3aB_Nl2Je9P-BKeoo7MrU/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
