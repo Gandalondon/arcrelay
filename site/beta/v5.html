@@ -44,10 +44,11 @@ html.parked .flyer,html.landing .flyer{visibility:hidden}
 .ftr{padding-top:96px}
 /* finale: the hero's words mirrored, the phone turned the other way, showing the home greeting */
 .finale .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px;min-height:calc(100svh - 88px);align-items:center}
-.fin{margin:0;font-weight:700;font-size:min(11.5vw,calc((100svh - 380px) / 3.3));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
+.fin{margin:0;font-weight:700;font-size:min(9.5vw,calc((100svh - 420px) / 3.4));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
 .ftxt .btn{margin-top:48px;cursor:default}
 .ftxt .btn:hover{background:var(--amber)}
-.fslot{display:flex;justify-content:center;perspective:1400px}
+.fslot{display:flex;justify-content:center;perspective:1400px;align-self:start;padding-top:24px}
+.fslot .phone{--pw:clamp(180px,min(15vw,calc((100svh - 260px) * 0.462)),260px)}
 .fphone{transform:rotateX(22deg) rotateY(34deg) rotateZ(-10deg)}
 html.fx .fphone{visibility:hidden}
 .lander{position:absolute;z-index:3;left:0;top:0;perspective:1400px;pointer-events:none;will-change:transform;display:none}
@@ -170,15 +171,17 @@ Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" a
     /* where the parked phone sits once the story column is stuck under the 88 px header */
     dp.style.transform="none";
     var dr=dp.getBoundingClientRect(), dk=dock.getBoundingClientRect(), oy=dr.top-dk.top, wr=w.getBoundingClientRect();
-    var E=Math.max(1, st-88), yEnd=88+oy, tx=dr.left-sr.left, sy=wr.top-sr.top;
+    var E=Math.max(1, st-88), yEnd=88+oy, tx=dr.left-sr.left, sy=Math.max(104-base, wr.top-sr.top-56);
     fl.style.width=dr.width+"px"; fp.style.width=dr.width+"px"; fl.style.left=tx+"px"; fl.style.top=sy+"px";
     G={base:base, sy:sy, E:E, yEnd:yEnd};
     /* finale: the parked phone stays where it is while the finale scrolls up to it, turning as it goes */
     root.classList.toggle("fx", !rm.matches);
     fpn.style.transform="none"; var fr=fpn.getBoundingClientRect(); fpn.style.transform="";
     var sb=story.getBoundingClientRect().bottom+scrollY, S0=sb-innerHeight, fy=fr.top-sr.top, S1=Math.max(S0+1, base+fy-yEnd);
-    ld.style.width=dr.width+"px"; lp.style.width=dr.width+"px"; ld.style.left=(fr.left-sr.left)+"px"; ld.style.top=fy+"px";
-    F={S0:S0, S1:S1, fy:fy};
+    var fsc=fr.width/dr.width, ltop=fr.top-sr.top+(fr.height-dr.height)/2, lleft=fr.left-sr.left+(fr.width-dr.width)/2;
+    fy=ltop; S1=Math.max(S0+1, base+fy-yEnd);
+    ld.style.width=dr.width+"px"; lp.style.width=dr.width+"px"; ld.style.left=lleft+"px"; ld.style.top=fy+"px";
+    F={S0:S0, S1:S1, fy:fy, k:fsc};
     f();
   }
   function f(){ q=false;
@@ -192,7 +195,7 @@ Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" a
     if(land){
       var v=Math.max(0,Math.min(1,(s-F.S0)/(F.S1-F.S0))), m=v*v*(3-2*v);
       ld.style.transform="translateY("+(s<F.S1 ? (G.yEnd-G.base-F.fy+s) : 0).toFixed(1)+"px)";
-      lp.style.transform="rotateX("+(M.rx*m).toFixed(2)+"deg) rotateY("+(M.ry*m).toFixed(2)+"deg) rotateZ("+(M.rz*m).toFixed(2)+"deg)";
+      lp.style.transform="rotateX("+(M.rx*m).toFixed(2)+"deg) rotateY("+(M.ry*m).toFixed(2)+"deg) rotateZ("+(M.rz*m).toFixed(2)+"deg) scale("+(1+(F.k-1)*m).toFixed(3)+")";
       [].forEach.call(lp.querySelectorAll(".screen"),function(sc){ sc.classList.toggle("on", (sc.dataset.i==="9")===(v>.5)); });
       return;
     }
