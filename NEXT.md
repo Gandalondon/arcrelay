@@ -16,7 +16,7 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 - /beta homepage replaced by the new version (draft.html gone): features Nearest anything, Under fire?, Just ask., Quest steps. In testing. Placeholder screens on the page colour until real captures; no "Free. No account. No ads." line. Edited by hand now; `tools/hero/make_v5.py` is retired.
 - How it works: app's current icons (locate, route, expand), new sections Find the nearest anything, Quest steps in testing, See the whole map; every phrase in Things to say checked against the app. Credits: distances on all maps from allthings.how.
 - App misses found while checking: "Say that again" / "Repeat that" after an exit answer, and "I can't go south-east" said on its own (works only as a follow-up). Not fixed yet (heldout3 first).
-- Site copy changed here still needs copying into the Google Doc.
+- Copy doc synced 6 Nov (site plus App onboarding section). Onboarding copy now mirrors the homepage: Say Hey Relay, Find what you’re looking for, Need to get out quick?, Pick Relay’s voice. No quests in onboarding while in testing.
 
 ## Done late 5 Nov (all pushed)
 - "Show me the X map", map picker on home in the voice-row pattern (single row on short phones), greeting fits four lines on every size, headline top-aligned.
@@ -40,7 +40,7 @@ Open testing plan (6 Nov, for when Tony says we're ready; not yet):
    - Feedback loop: feedback@ mail goes to Tony; misheard phrases go into the next held-out test set.
    - Before switching: release checklist below done, homepage copy and screens refreshed (see the USP plan), materials and plants in.
 6. Release checklist (6 Nov):
-   - [x] Onboarding test skip (#obskip) removed; onboarding checked, four screens, no errors.
+   - [ ] TEST BUILD (6 Nov, back in for Tony): onboarding shows on every open and on return from the background (`OB_EVERY_OPEN` in `www/index.html`), with the invisible skip top right (`#obskip`). Before release: remove both, and swap the two `.obph` placeholders for real onboarding images.
    - [x] Hidden diagnostics (press and hold the version line) kept on purpose, for bug reports.
    - [x] Version numbers come from the build (BUILD_NUMBER), nothing to bump by hand.
    - [ ] Tony decides: MetaForge credit on the holding page too (it shows no maps; every /beta page already credits them). Copy goes through the Google Doc first.
