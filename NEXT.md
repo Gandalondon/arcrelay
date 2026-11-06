@@ -25,6 +25,13 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 4. Understanding (6 Nov): held-out set 14/25 to 25/25; a second set written before the fixes scored 21/25 cold, 25/25 after. Both are now tuned against, so write a fresh `tests/heldout3.js` before the next round. Fixed by pattern: casual done/arrived wording, way home/bail, wiped/lobby deaths, jumping back in, home safe, quest plus step described by what you're doing, "ta, that's me". `SET=adversarial` guards look-alikes ("go home to roost", "lost all my shield", "I'm out of ammo").
 ARC finder (6 Nov): works on all seven maps, now with distances; misheard and plural names ("rocket ears", "bombardiers"); an ARC that isn't on this map says which maps have it; small ARC (wasps, ticks...) say they aren't tracked.
 5. Done 6 Nov: all 13 flagged quests settled against MetaForge's quest pages (game objectives). Fixed: The Clean Dream (2 containers, blueprint then deliver, not a photo), Ruins and Reverberations (getting the relay is not a step), Sizing Things Up (any 2 of 3 first steps), A Rising Tide (two objectives at the Dam), Celeste's Journals (Raider Outpost East), Taking Stock (Nomadic Envoy), The League (searches optional). Order still worth a check in game for The League and Broken Monument.
+Open testing plan (6 Nov, for when Tony says we're ready; not yet):
+   - Play Console: promote the closed test to an open testing track (anyone can join from the Play listing, no invite list).
+   - Site: "Get the app" becomes "Test the app" (header and every CTA) and links to the Play open-testing listing.
+   - Site: a short, plain disclaimer by the button and on How it works: Relay is in testing, things may be wrong or change, feedback welcome (link to /beta/feedback). Copy through the Google Doc first.
+   - App: About says "Test build" with the version; feedback link in Settings stays.
+   - Feedback loop: feedback@ mail goes to Tony; misheard phrases go into the next held-out test set.
+   - Before switching: release checklist below done, homepage copy and screens refreshed (see the USP plan), materials and plants in.
 6. Release checklist (6 Nov):
    - [x] Onboarding test skip (#obskip) removed; onboarding checked, four screens, no errors.
    - [x] Hidden diagnostics (press and hold the version line) kept on purpose, for bug reports.
