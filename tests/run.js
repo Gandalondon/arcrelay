@@ -2,7 +2,7 @@
    node tests/run.js [path to www/index.html]   (needs Playwright) */
 const path = require("path");
 const { chromium } = require("playwright");
-const CASES = require(process.env.SET === "heldout" ? "./heldout.js" : "./phrases.js");
+const CASES = require(process.env.SET ? "./" + process.env.SET + ".js" : "./phrases.js");
 const page_ = process.argv[2] || path.join(__dirname, "../www/index.html");
 
 (async () => {

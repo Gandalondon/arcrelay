@@ -659,8 +659,9 @@ function stepIntent(t) {
   const sm = t.match(/step\s+(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b/) || t.match(/\b(first|second|third|fourth|fifth|sixth|seventh|eighth|last)\s+(?:step|one)\b/)
     || (S.quest && t.match(/\b(?:on|to|at|number)\s+(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b(?!\s*(?:minute|min))/));  /* "I'm on five now", "the fifth one" */
   if (sm) { const n = NUM[sm[1]] || parseInt(sm[1], 10); return stepAnswer(cur, n - 1); }
-  if (named && named.n !== S.quest) return stepAnswer(named, 0, "Starting at step 1. Tell me if you're further in. ");
   const hit = cur.steps.findIndex(s => (s.al || []).some(a => t.includes(a)));
+  /* a new quest named along with what you're doing ("roost, on the weighing logs"): go straight to that step (6 Nov) */
+  if (named && named.n !== S.quest) return hit >= 0 ? stepAnswer(named, hit, "That's step " + (hit + 1) + ". ") : stepAnswer(named, 0, "Starting at step 1. Tell me if you're further in. ");
   if (hit > (S.step || 0)) return stepAnswer(cur, hit, "That's step " + (hit + 1) + ". ");  /* forward only: going back needs "step N" */
   const advance = prefix => {
     const fin = cur.steps[S.step || 0];
@@ -669,13 +670,15 @@ function stepIntent(t) {
     if (i >= cur.steps.length) { S.step = cur.steps.length - 1; save(); return { show: cur.who ? "All done. Hand it in to " + cur.who + "." : "All done.", say: "That was the last step of " + cur.n + "." + (cur.who ? " Hand it in to " + cur.who + "." : ""), ctx: cur.n }; }
     return stepAnswer(cur, i, prefix);
   };
-  if (has(t, [" done ", " next ", "did that", "found it", "finished", "already done", "what now", "now what", "what's next", "whats next", "completed", "got that"])) return advance();
+  if (has(t, [" done ", " next ", "did that", "found it", "finished", "already done", "what now", "now what", "what's next", "whats next", "completed", "got that",
+    " sorted", "where now", "where to now", "where next", "done that", "did it ", " read it", " read them", "scanned it", "searched it", "sent it", "grabbed it", "got the key", "all good"])) return advance();  /* 6 Nov: casual and by-the-action wording */
   /* arriving: "I'm in the room", "made it", "I'm here". On a getting-there step (head to, reach, enter), that step is done, so give the next one. */
   const here = cur.steps[S.step || 0];
   const travel = here && /^(head|reach|go|get|enter|return|make your way)\b/i.test(here.t);
   const arrived = has(t, ["made it", "got here", "got there", "arrived", "i'm here", "im here", "i'm there", "im there", "i'm in the", "im in the", "i am in the", "i'm in a ", "im in a ", "i'm inside", "im inside", "i'm at the door", "im at the door", "through the door", "i'm through", "im through", " i'm in ", " im in ", "i am in ", "i'm there", "we're here", "arrived"]);
   const whatNow = has(t, ["what do i do", "what should i do", "what do we do", "what now", "then what", "what do i need", "what am i looking for", "what am i doing"]);
-  if (arrived && travel) return advance("Good, you're there. ");
+  const arrivedMove = /\b(i'm|im|i am|we're)\s+(now\s+)?(upstairs|downstairs|up top|at the top|at the bottom|on the platform|up the stairs|down the stairs)\b/.test(t);  /* 6 Nov */
+  if ((arrived || arrivedMove) && travel) return advance("Good, you're there. ");
   if (arrived || whatNow) return stepAnswer(cur, S.step || 0);
   if (has(t, ["previous", "go back a step", "step back"])) return stepAnswer(cur, (S.step || 0) - 1);
   if (named || hit >= 0 || has(t, ["where is it", "where do i go", "this step", "how do i get there", "what step", "where am i up to"])) return stepAnswer(cur, S.step || 0);
@@ -689,14 +692,14 @@ function answer(raw, opts) {
   const t = norm(raw);
   const notYet = (id) => ({ show: (id ? MAP_NAMES[id] + ": not yet." : readyNames() + " only, for now."), say: (id ? "That's on " + MAP_NAMES[id] + ". " : "That's on another map. ") + "I only have " + readyNames() + " so far, the other maps are coming." });
   let switched = false;
-  const said = mapSaid(t);
+  const said = mapSaid(t.replace(/\bback (in|to|at) (the )?lobby\b/g, " "));
   /* "show me the Dam map", "open the map", "pull up Blue Gate": a request to see a map (5 Nov) */
   const showQ = /\b(show|open|pull up|bring up|display|view|load|see|check)\b/.test(t) && (/\bmaps?\b/.test(t) || !!said);
   if (said) {
     if (!ready(said.id)) return notYet(said.id);
     if (said.id !== MAP.id) { switchMap(said.id); switched = true; }
   } else {
-    const om = placeMap(t);
+    const om = placeMap(t.replace(/\bback (in|to|at) (the )?lobby\b/g, " "));  /* "back in the lobby" is the game's menu, not Stella Montis' Lobby (6 Nov) */
     if (om && (!findPlace(t) || (om.len >= 8 && om.words > 1))) {
       const go = om.ids.filter(ready);
       if (go.length === 1) { switchMap(go[0]); switched = true; }
@@ -731,13 +734,13 @@ function answerOn(raw, opts) {
 
   if (has(t, ["change voice", "different voice", "another voice", "next voice", "new voice"])) return nextVoice();
   if (has(t, ["voice test", "test voice", "test the voice", "testing"])) return { show: "Voice test.", say: TEST_LINE, ctx: "Speaking after the microphone...", after: () => setCtx(voiceInfo() + " Straight after the mic."), follow: false };
-  if (has(t, ["that's all", "thats all", "stop listening", "thanks", "thank you", "cheers", "that's it", "thats it"]) && t.trim().split(" ").length <= 4) return { show: "Standing by.", say: "Standing by.", follow: false, keepLast: true };
+  if (has(t, ["that's all", "thats all", "stop listening", "thanks", "thank you", "cheers", "that's it", "thats it", "that's me", "thats me", " ta ", "ta very much", "much obliged"]) && t.trim().split(" ").length <= 4) return { show: "Standing by.", say: "Standing by.", follow: false, keepLast: true };
   if (S.last && S.last.a && has(t, ["more detail", "more details", "tell me more", "say again", "say that again", "repeat", "not sure", "didn't catch", "didnt catch", " what ", "pardon", "explain"]) && t.trim().split(" ").length <= 6) {
     const a = Object.assign({}, S.last.a); a.say = a.full || a.say; return a;
   }
-  if (has(t, [" new raid", "just spawned", " spawned", "dropped in", "dropping in", " new run", "starting a run", "starting a raid", "loading in"])) { S.place = null; S.lastMap = null; S.pending = null; S.minutesLeft = null; S.raidAt = Date.now(); S.avoid = []; S.exitSaid = null; S.helpAt = 0; S.guessTold = false; S.looseTold = false; save(); return { show: "New raid. Good luck.", say: "New raid. Good luck. I'll ask where you are when an answer needs it." }; }
-  if (has(t, [" i died", " died ", " dead ", " killed ", "got me ", " got downed", " i'm down ", " im down "]) && !findItem(t)) {  /* "dead flowers" is an item, not a death */ S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Unlucky. Your quest's still here.", say: "Unlucky. Your quest and step are still here when you drop back in.", ctx: S.quest ? S.quest + ", step " + ((S.step || 0) + 1) : "" }; }
-  if (has(t, ["extracted", " made it out", " got out "])) { S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Nice. Raid cleared.", say: "Nice one. Raid cleared." }; }
+  if (has(t, [" new raid", "just spawned", " spawned", "dropped in", "dropping in", " new run", "starting a run", "starting a raid", "loading in", "loaded in", "loaded into", "jumping in", "jumping back in", "going back in", "heading back in", "new match", "new game", "deploying", "queueing up", "queuing up"])) { S.place = null; S.lastMap = null; S.pending = null; S.minutesLeft = null; S.raidAt = Date.now(); S.avoid = []; S.exitSaid = null; S.helpAt = 0; S.guessTold = false; S.looseTold = false; save(); return { show: "New raid. Good luck.", say: "New raid. Good luck. I'll ask where you are when an answer needs it." }; }
+  if (has(t, [" i died", " died ", " dead ", " killed ", "got me ", " got downed", " i'm down ", " im down ", " wiped", " got wiped", "lost all my stuff", "lost all my gear", "lost all my loot", "lost all my kit", "lost everything", "lost my loadout", "back in the lobby", "back to the lobby", "back in speranza", "back to speranza", " bled out"]) && !findItem(t)) {  /* "dead flowers" is an item, not a death */ S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Unlucky. Your quest's still here.", say: "Unlucky. Your quest and step are still here when you drop back in.", ctx: S.quest ? S.quest + ", step " + ((S.step || 0) + 1) : "" }; }
+  if (has(t, ["extracted", " made it out", " got out ", "home safe", "made it home", "made it back", "got home", "safe and sound", "got away", "i'm out safe", "im out safe"])) { S.place = null; S.minutesLeft = null; S.raidAt = null; save(); return { show: "Nice. Raid cleared.", say: "Nice one. Raid cleared." }; }
   if (has(t, ["where were we", "recap"])) {
     const bits = ["You're on " + MAP.name + "."];
     const cq = QUESTS.find(q => q.n === S.quest);
@@ -785,9 +788,10 @@ function answerOn(raw, opts) {
   if (wantsOther && saidDir && S.place) {
     S.avoid = Array.from(new Set((S.avoid || []).concat(EXITS.filter(e => inWedge(S.place, e, saidDir)).map(e => e.n)))); save();
   }
-  const EXIT_WORDS = ["extract", "exit", "way out", "get out", "get me out", "out of here", "leave", "airshaft", "evac", "escape"];
+  const EXIT_WORDS = ["extract", "exit", "way out", "get out", "get me out", "out of here", "outta here", "leave", "airshaft", "evac", "escape", "way home", "go home", "head home", "get home", "home time", " bail", "bug out", "get away"];  /* 6 Nov: "quickest way home", "need to bail" */
   const help = /^\s*(help|help me|help help|mayday|sos)\s*$/.test(t);  /* a lone "help" mid-raid means get me out */
-  const wantsExit = (help || has(t, EXIT_WORDS) || (wantsOther && S.exitSaid)) && !has(t, [" step "]);
+  const tx = t.replace(/\bhome to r\w+/g, " ");  /* "go home to roost" is the quest, not the way home (6 Nov) */
+  const wantsExit = (help || has(tx, EXIT_WORDS) || (wantsOther && S.exitSaid)) && !has(t, [" step "]);
   const stepRes = wantsExit || dirQ ? null : stepIntent(t);
   if (stepRes) return stepRes;
 
