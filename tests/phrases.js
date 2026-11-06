@@ -140,6 +140,11 @@ module.exports = [
   /* enemies */
   { set: AT_VILLAGE, say: "where's the nearest sentinel", want: { enemy: true } },
   { set: NONE, say: "rocketeer spawns", want: { enemy: true } },
+  /* ARC by name on any map (6 Nov) */
+  { set: { map: "dam", place: "Control Tower" }, say: "where's the nearest rocket ear", want: { near: "metres" } },
+  { set: { map: "stella-montis", place: "Atrium" }, say: "any rocketeers near me", want: { show: "No Rocketeers on Stella Montis" } },
+  { set: AT_VILLAGE, say: "where are the wasps", want: { show: "not tracked" } },
+  { set: AT_VILLAGE, say: "bombadiers near me", want: { enemy: true } },
 
   /* ending the conversation */
   { set: HTR, say: "thanks", want: { stop: true } },

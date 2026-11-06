@@ -592,6 +592,13 @@ function likelyPos() {
   cands.sort((a, b) => b.at - a.at);
   return cands[0] || null;
 }
+/* ARC by name on any map (6 Nov): which maps have each one, misheard names, and the small ARC Relay deliberately doesn't track */
+const ARC_AL = { "rocket ear": "rocketeer", "rocket ears": "rocketeer", "rocketeers": "rocketeer", "bombadier": "bombardier", "bombadiers": "bombardier", "vaporiser": "vaporizer", "vaporisers": "vaporizer", "leapers": "leaper", "skulkers": "skulker", "bullies": "bully", "hydras": "hydra", "matriarchs": "matriarch", "queens": "queen", "comets": "comet", "turbines": "turbine", "bisons": "bison", "shredders": "shredder", "bastions": "bastion", "sentinels": "sentinel" };
+const SMALL_ARC = { wasp: "Wasps", hornet: "Hornets", tick: "Ticks", pop: "Pops", snitch: "Snitches", turret: "Turrets", rollbot: "Rollbots", fireball: "Fireballs", firefly: "Fireflies", fireflies: "Fireflies", snitches: "Snitches" };
+/* misheard and plural ARC names to the singular the map data uses: "rocket ears", "bombardiers" */
+const arcIn = t => { const known = new Set(ALL_ARC()); return t.replace(/\brocket ears?\b/g, "rocketeer").replace(/\b\w+\b/g, w => ARC_AL[w] || (/s$/.test(w) && known.has(w.slice(0, -1)) ? w.slice(0, -1) : w)); };
+const arcMaps = name => Object.keys(MAP_NAMES).filter(id => ready(id) && rowsOf(id).some(r => r.k === "a" && r.c === name));
+const ALL_ARC = () => [...new Set(Object.keys(MAP_NAMES).filter(ready).flatMap(id => rowsOf(id).filter(r => r.k === "a").map(r => r.c)))];
 const NEAREST = ["nearest", "closest", "which way", "quickest", "how do i get", "way out", "get out", "where can i", "where do i", "where should i"];
 const LISTING = [" all ", "list", "how many", "what are the"];
 
@@ -635,7 +642,7 @@ function stepAnswer(q, i, prefix) {
   if (st.enemy) {
     const pts = ENEMIES[st.enemy] || [];
     if (pts.length) {
-      if (you) { const b = near(you, pts); map = { you, stars: [b], others: pts.filter(p => p !== b) }; go = go || "Nearest " + st.enemy + " spawn is " + compass(you, b) + " of you."; }
+      if (you) { const b = near(you, pts); map = { you, stars: [b], others: pts.filter(p => p !== b) }; go = go || "Nearest " + st.enemy + " spawn is " + (you.rough ? "" : far(you, b)) + compass(you, b) + " of you."; }
       else { map = { you: null, stars: pts, others: [] }; go = go || pts.length + " " + st.enemy + " spawn points on " + MAP.name + "."; }
     } else go = go || "I have no " + st.enemy + " spawn points on " + MAP.name + ".";
   }
@@ -673,7 +680,7 @@ function stepIntent(t) {
     return stepAnswer(cur, i, prefix);
   };
   if (has(t, [" done ", " next ", "did that", "found it", "finished", "already done", "what now", "now what", "what's next", "whats next", "completed", "got that",
-    " sorted", "where now", "where to now", "where next", "done that", "did it ", " read it", " read them", "scanned it", "searched it", "sent it", "grabbed it", "got the key", "all good"])) return advance();  /* 6 Nov: casual and by-the-action wording */
+    " sorted", "where now", "where to now", "where next", "done that", "did it ", " read it", " read them", "scanned it", "searched it", "sent it", "grabbed it", "got the key", "all good", "tick that off", "tick it off", "ticked it off", "ticked that off"])) return advance();  /* 6 Nov: casual and by-the-action wording */
   /* arriving: "I'm in the room", "made it", "I'm here". On a getting-there step (head to, reach, enter), that step is done, so give the next one. */
   const here = cur.steps[S.step || 0];
   const travel = here && /^(head|reach|go|get|enter|return|make your way)\b/i.test(here.t);
@@ -858,14 +865,22 @@ function answerOn(raw, opts) {
 
   const item = findItem(t);
   if (item && !wantsExit) return itemAnswer(item);
-  const enemy = ENEMY_WORDS.find(k => t.includes(k));
+  const ta = arcIn(t);
+  const enemy = ENEMY_WORDS.find(k => new RegExp("\\b" + k + "\\b").test(ta));
+  if (!enemy && !item) {
+    const other = ALL_ARC().find(k => new RegExp("\\b" + k + "\\b").test(ta));
+    if (other) { const E = other.charAt(0).toUpperCase() + other.slice(1), on = arcMaps(other).map(id => MAP_NAMES[id]);
+      return { show: "No " + E + "s on " + MAP.name + ".", say: "I have no " + other + " spawns on " + MAP.name + ". They're on " + andList(on) + "." }; }
+    const small = Object.keys(SMALL_ARC).find(k => new RegExp("\\b" + k + (k === "tick" || k === "pop" ? "s" : "s?") + "\\b").test(t.replace(/\bpop triggers?\b/g, " ")));  /* "tick it off", "ARC Pop Trigger": only "ticks" and "pops" mean the ARC */
+    if (small && !has(t, EXIT_WORDS)) return { show: SMALL_ARC[small] + ": not tracked.", say: "I don't track " + SMALL_ARC[small].toLowerCase() + ". They roam the whole map." };
+  }
   if (enemy) {
     const pts = ENEMIES[enemy];
     const wantsNearest = has(t, NEAREST);
     if (wantsNearest && psNow === "stale") return askStill(raw);
     if (wantsNearest && psNow === "none") return askWhere(raw);
     const E = enemy.charAt(0).toUpperCase() + enemy.slice(1);
-    if (psNow === "fresh") { const b = near(S.place, pts); const dir = compass(S.place, b); return { show: "Nearest " + E + ": " + dir + ".", say: "The nearest " + enemy + " spawn is " + dir + " of you.", map: { you: S.place, stars: [b] } }; }
+    if (psNow === "fresh") { const b = near(S.place, pts); const dir = compass(S.place, b); return { show: "Nearest " + E + ": " + dir + ".", say: "The nearest " + enemy + " spawn is " + (S.place.rough ? "" : far(S.place, b)) + dir + " of you.", map: { you: S.place, stars: [b] } }; }
     /* lots of spawns and no location: ask first rather than fill the map with markers (5 Nov) */
     if (pts.length > 8 && psNow !== "fresh" && !has(t, ["show", "location", " all ", " every", "spawns", "where are the", " list", "mark"])) { const q = askWhere(raw); q.show = pts.length + " " + E + " spawns. Where are you?"; q.say = "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". Where are you? I'll find the nearest."; return q; }
     return { show: pts.length + " " + E + " spawns, marked.", say: "There are " + pts.length + " " + enemy + " spawn points on " + MAP.name + ". They're marked on the map. Tell me where you are and I'll find the nearest.", map: { you: null, stars: pts } };
