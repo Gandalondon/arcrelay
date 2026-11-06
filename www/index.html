@@ -263,6 +263,7 @@ body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{displa
 <script src="data-stella-montis.js"></script>
 <script src="data-riven-tides.js"></script>
 <script src="data-pendola-pass.js"></script>
+<script src="data-loot.js"></script>
 <script src="data-zones.js"></script>
 <script>
 const $ = id => document.getElementById(id);
@@ -432,6 +433,17 @@ const ITEMS = [
   { n: "Remote Raider Flare", al: ["remote raider flare", "raider flare", "flares", "flare"], note: "You craft it, if you have the blueprint." }
 ];
 function findItem(t) { let best = null, len = 0; for (const it of ITEMS) for (const a of it.al) if (a.length > len && t.includes(" " + a + " ")) { best = it; len = a.length; } return best; }
+/* "Where's the nearest moss?": one dot, which way and how far. No filters: say it, get it (6 Nov) */
+function lootAnswer(L, raw, psNow) {
+  const pts = lootPts(MAP.id, L.k), N = L.n.charAt(0).toUpperCase() + L.n.slice(1);
+  if (!pts.length) { const on = Object.keys(MAP_NAMES).filter(id => ready(id) && lootPts(id, L.k).length).map(id => MAP_NAMES[id]);
+    const P = L.pl || L.n + "s"; return { show: "No " + P + " on " + MAP.name + ".", say: "I have no " + P + " on " + MAP.name + (on.length ? ". Try " + andList(on) + "." : ".") }; }
+  if (psNow === "stale") return askStill(raw);
+  if (psNow !== "fresh") { const q = askWhere(raw); q.show = N + ": where are you?"; q.say = "I know " + pts.length + " " + (L.pl || L.n) + " spots on " + MAP.name + ". Where are you? I'll find the nearest."; return q; }
+  const open = pts.filter(p => !p.lock), b = near(S.place, open.length ? open : pts), dir = compass(S.place, b);
+  const lockTip = b.lock ? " It's behind a locked door." : "";
+  return { show: "Nearest " + L.n + ": " + dir + ".", say: "The nearest " + L.n + " is " + (S.place.rough ? "" : far(S.place, b)) + dir + " of you." + lockTip, map: { you: S.place, stars: [b] } };
+}
 function itemAnswer(it) {
   if (MAP.id !== "blue-gate" && (it.spots || it.areas)) return { show: it.n + ": Blue Gate spots only.", say: it.n + ". I only have spots for it on Blue Gate so far." + (it.loose ? " It's a search, so try houses and crates." : ""), ctx: "Soul's Offering item" };
   const lp = likelyPos(), here = lp ? lp.p : null;
@@ -589,6 +601,47 @@ const SMALL_ARC = { wasp: "Wasps", hornet: "Hornets", tick: "Ticks", pop: "Pops"
 const arcIn = t => { const known = new Set(ALL_ARC()); return t.replace(/\brocket ears?\b/g, "rocketeer").replace(/\b\w+\b/g, w => ARC_AL[w] || (/s$/.test(w) && known.has(w.slice(0, -1)) ? w.slice(0, -1) : w)); };
 const arcMaps = name => Object.keys(MAP_NAMES).filter(id => ready(id) && rowsOf(id).some(r => r.k === "a" && r.c === name));
 const ALL_ARC = () => [...new Set(Object.keys(MAP_NAMES).filter(ready).flatMap(id => rowsOf(id).filter(r => r.k === "a").map(r => r.c)))];
+/* Loot by name (6 Nov): MetaForge's nature and container markers on every map. Say what you want, Relay finds the nearest.
+   n: how Relay says it; al: what people say (longest first wins, plurals allowed). */
+const LOOT = [
+  { k: "candleberries", n: "candleberry bush", pl: "candleberries", al: ["candleberries", "candleberry", "candle berries", "candle berry"] },
+  { k: "moss", n: "moss", al: ["moss"] },
+  { k: "great-mullein", n: "great mullein", al: ["great mullein", "mullein", "mullin", "mulline"] },
+  { k: "mushroom", n: "mushroom", pl: "mushrooms", al: ["mushroom", "mushrooms", "fungus"] },
+  { k: "agave", n: "agave", al: ["agave", "agaves"] },
+  { k: "prickly-pear", n: "prickly pear", pl: "prickly pears", al: ["prickly pear", "prickly pears", "cactus fruit"] },
+  { k: "apricot", n: "apricot tree", pl: "apricots", al: ["apricot", "apricots", "apricot tree"] },
+  { k: "lemons", n: "lemon tree", pl: "lemons", al: ["lemon", "lemons", "lemon tree"] },
+  { k: "olive", n: "olive tree", pl: "olives", al: ["olive", "olives", "olive tree"] },
+  { k: "roots", n: "patch of roots", pl: "roots", al: ["roots", "root"] },
+  { k: "fertilizer", n: "fertiliser", al: ["fertilizer", "fertiliser", "fertilisers", "fertilizers"] },
+  { k: "raider_cache", n: "raider cache", al: ["raider cache", "raider caches", "raider stash", "cache", "caches"] },
+  { k: "frozen_raider_cache", n: "frozen cache", al: ["frozen cache", "frozen raider cache", "frozen caches"] },
+  { k: "arc_probe", n: "ARC probe", al: ["arc probe", "arc probes", "probe", "probes", "crashed probe"] },
+  { k: "arc_courier", n: "ARC courier", al: ["arc courier", "arc couriers", "courier", "couriers"] },
+  { k: "rocketeer_husk", n: "rocketeer husk", al: ["rocketeer husk", "rocketeer husks"] },
+  { k: "baron_husk", n: "Baron husk", al: ["baron husk", "baron husks"] },
+  { k: "ammo_crate", n: "ammo crate", al: ["ammo crate", "ammo crates", "ammo box", "ammo boxes", "ammo"] },
+  { k: "weapon_case", n: "weapon case", al: ["weapon case", "weapon cases", "weapons case", "weapon crate", "weapons rack", "gun case", "guns"] },
+  { k: "med_crate", n: "med crate", al: ["med crate", "med crates", "medical crate", "med bag", "medical bag", "meds", "medkit", "med kit", "healing"] },
+  { k: "utility_crate", n: "utility crate", al: ["utility crate", "utility crates", "grenade tube", "grenade tubes", "grenades"] },
+  { k: "field_crate", n: "field crate", al: ["field crate", "field crates"] },
+  { k: "combat_supplies", n: "combat supplies", al: ["combat supplies", "combat supply"] },
+  { k: "breachable_container", n: "breachable container", al: ["breachable container", "breachable containers", "breachable", "breachables"] },
+  { k: "security_breach", n: "security breach", al: ["security breach", "security breaches"] },
+  { k: "locker", n: "locker", al: ["locker", "lockers", "filing cabinet", "medical cabinet"] },
+  { k: "suitcase", n: "suitcase", al: ["suitcase", "suitcases", "luggage"] },
+  { k: "bag", n: "backpack", al: ["backpack", "backpacks", "raider backpack"] },
+  { k: "basket", n: "basket", al: ["basket", "baskets", "fruit basket"] },
+  { k: "car", n: "car", al: ["car", "cars", "car boot", "car trunk", "boot of a car"] },
+  { k: "supply_station", n: "supply station", al: ["supply station", "supply stations", "supply call station", "call station", "supply drop"] },
+  { k: "fuel-cell", n: "fuel cell", al: ["fuel cell", "fuel cells"] },
+  { k: "field_depot", n: "field depot", al: ["field depot", "field depots"] }
+];
+const lootFind = t => { let best = null, len = 0; for (const L of LOOT) for (const a of L.al) if (a.length > len && new RegExp("\\b" + a.replace(/ /g, "\\s+") + "\\b").test(t)) { best = L; len = a.length; } return best; };
+/* the words of the loot being asked for, taken out so they can't be read as a place name ("security breach" is not Dam's Security...) */
+const noLoot = t => { const L = lootFind(t); return L ? L.al.reduce((s, a) => s.replace(new RegExp("\\b" + a.replace(/ /g, "\\s+") + "\\b", "g"), " "), t) : t; };
+const lootPts = (id, k) => { const p = ((window.MAP_LOOT || {})[id] || {})[k] || [], o = []; for (let i = 0; i < p.length; i += 3) o.push({ y: p[i], x: p[i + 1], lock: p[i + 2] === 1 }); return o; };
 const NEAREST = ["nearest", "closest", "which way", "quickest", "how do i get", "way out", "get out", "where can i", "where do i", "where should i"];
 const LISTING = [" all ", "list", "how many", "what are the"];
 
@@ -698,7 +751,7 @@ function answer(raw, opts) {
     if (!ready(said.id)) return notYet(said.id);
     if (said.id !== MAP.id) { switchMap(said.id); switched = true; }
   } else {
-    const om = placeMap(t.replace(/\bback (in|to|at) (the )?lobby\b/g, " "));  /* "back in the lobby" is the game's menu, not Stella Montis' Lobby (6 Nov) */
+    const om = placeMap(noLoot(t.replace(/\bback (in|to|at) (the )?lobby\b/g, " ")));  /* "back in the lobby" is the game's menu, not Stella Montis' Lobby (6 Nov) */
     if (om && (!findPlace(t) || (om.len >= 8 && om.words > 1))) {
       const go = om.ids.filter(ready);
       if (go.length === 1) { switchMap(go[0]); switched = true; }
@@ -753,7 +806,9 @@ function answerOn(raw, opts) {
   const mm = t.match(/(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s*(minute|min)/);
   if (mm) { S.minutesLeft = NUM[mm[1]] || parseInt(mm[1], 10); S.minutesAt = Date.now(); S.raidAt = S.raidAt || Date.now(); save(); }
 
-  const placeMention = findPlace(t);
+  const lootSaid = lootFind(PLACES.reduce((s, p) => s.split(" " + p.n.toLowerCase() + " ").join(" "), t));
+  /* "any ammo crate near me": the loot words aren't a place ("crate", "field", "olive", "security" are in Blue Gate place names) (6 Nov) */
+  const placeMention = findPlace(lootSaid ? noLoot(t) : t);
   const iAm = /\b(i'm|i am|im|we're|we are)\b/.test(t);
   const setsLocation = placeMention && (/\b(i'm|i am|im|we're|we are)\s+(at|near|in|by|next to|outside|on|inside|beside|around|close to)\b/.test(t) || (/\b(at|near|by|next to|beside|outside|inside|around|close to|from)\b/.test(t) && !has(t, ["where", "how"])));  /* "nearest exit from the Village" (5 Nov) */
   const dirQ = !!findCompass(t) && (/\b(of me|of here|of my|to my|from me)\b/.test(t) || has(t, ["anything", "what's to", "whats to", "what is to", "is there", "any exit", "exit to", "exits to", "towards", "way out to", "out to the"]));
@@ -762,7 +817,7 @@ function answerOn(raw, opts) {
     const w = setsLocation ? { n: placeMention.n, y: placeMention.y, x: placeMention.x } : dirOnly;
     if (!S.place || S.place.n !== w.n) { S.avoid = []; S.exitSaid = null; S.hatchTold = false; }  /* somewhere new: every exit is back on the table */
     S.place = w; S.placeAt = Date.now(); S.raidAt = S.raidAt || Date.now(); save();
-    if (!has(t, ["extract", "exit", " out ", "leave", "evac", "escape", "step", "where", "hatch", ...ENEMY_WORDS])) {  /* " out " as a word: "south" contains "out" */
+    if (!lootSaid && !has(t, ["extract", "exit", " out ", "leave", "evac", "escape", "step", "where", "hatch", ...ENEMY_WORDS])) {  /* " out " as a word: "south" contains "out" */
       
       return { show: "Got it. " + w.n.charAt(0).toUpperCase() + w.n.slice(1) + ".", say: "Got it, " + w.n + ". " + vary(["What do you need?", "What are you after?", "What's next?"]), map: { you: w.rough ? Object.assign({ guess: true }, w) : w, stars: [] } };  /* a place on its own isn't asking for the way out (5 Nov, Tony's test) */
     }
@@ -853,6 +908,8 @@ function answerOn(raw, opts) {
     return { show: Hc + " hatches, marked. Needs a key.", say: "There are " + H.count + " Raider Hatches: " + H.list + ". They're marked on the map, and you'll need a key.", map: { you: null, stars: HATCHES } };
   }
 
+  const loot = !wantsExit && lootSaid;  /* place names first: "Car Park" is a place, not a car */
+  if (loot) return lootAnswer(loot, raw, psNow);
   const item = findItem(t);
   if (item && !wantsExit) return itemAnswer(item);
   const ta = arcIn(t);

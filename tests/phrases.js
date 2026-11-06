@@ -105,9 +105,9 @@ module.exports = [
   { set: NONE, say: ["I'm in the village", "get me out", "too many enemies, somewhere else"], want: { near: "(Next best is|Try|Then go for)" } },
 
   /* items (Soul's Offering) */
-  { set: NONE, say: "where do I find fertilizer", want: { near: "Village" } },
+  { set: NONE, say: "where do I find fertilizer", want: { show: "Fertiliser: where are you" } },
   { set: NONE, say: ["I'm at the farm", "I need dead flowers"], want: { near: "Try (Ruined Homestead|Ancient Fort)" } },
-  { set: AT_VILLAGE, say: "any fertiliser near me", want: { near: "Nearest fertilizer: near Village" } },
+  { set: AT_VILLAGE, say: "any fertiliser near me", want: { show: "Nearest fertiliser" } },
   { set: NONE, say: "where can I get rock salt", want: { near: "No spots recorded" } },
 
   /* directions and map edges (4 Nov) */
@@ -140,6 +140,13 @@ module.exports = [
   /* enemies */
   { set: AT_VILLAGE, say: "where's the nearest sentinel", want: { enemy: true } },
   { set: NONE, say: "rocketeer spawns", want: { enemy: true } },
+  /* loot by name on any map (6 Nov) */
+  { set: { map: "dam", place: "Control Tower" }, say: "where is the nearest moss", want: { show: "Nearest moss" } },
+  { set: { map: "blue-gate", place: "Village" }, say: "any apricots near me", want: { show: "Nearest apricot tree" } },
+  { set: { map: "stella-montis", place: "Atrium" }, say: "where can I find apricots", want: { show: "No apricots on Stella Montis" } },
+  { set: { map: "spaceport", place: "Launch Towers" }, say: "nearest rocketeer husk", want: { show: "Nearest rocketeer husk" } },
+  { set: { map: "spaceport", place: "Launch Towers" }, say: "nearest rocketeer", want: { enemy: true } },
+  { set: { map: "pendola-pass", place: "Old Town" }, say: "I need a med crate", want: { near: "metres" } },
   /* ARC by name on any map (6 Nov) */
   { set: { map: "dam", place: "Control Tower" }, say: "where's the nearest rocket ear", want: { near: "metres" } },
   { set: { map: "stella-montis", place: "Atrium" }, say: "any rocketeers near me", want: { show: "No Rocketeers on Stella Montis" } },
