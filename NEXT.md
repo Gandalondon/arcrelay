@@ -23,7 +23,7 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 2. Done 6 Nov: distances on all seven maps. Scales fitted from allthings.how place pages (`tools/places/dist/*.json`, `node tools/places/scale.js`), typical error 1 to 10%; `tests/maps.js` checks them. Dam's central complex is the roughest (multi-level, published figures disagree). Fixed MetaForge's "Hiltop hatch" to Hilltop Hatch.
 3. Items for the other maps (Blue Gate only).
 4. Understanding (6 Nov): held-out set 14/25 to 25/25; a second set written before the fixes scored 21/25 cold, 25/25 after. Both are now tuned against, so write a fresh `tests/heldout3.js` before the next round. Fixed by pattern: casual done/arrived wording, way home/bail, wiped/lobby deaths, jumping back in, home safe, quest plus step described by what you're doing, "ta, that's me". `SET=adversarial` guards look-alikes ("go home to roost", "lost all my shield", "I'm out of ammo").
-5. Settle the flagged quests in game (notes in each quest file).
+5. Settle the flagged quests (notes in each quest file): 13 quests. Next step is MetaForge's quest pages through Tony's Mac (Chrome), which list the game's own objectives in order. Most useful: The League and Greasing Her Palms (order), Broken Monument (structure), Sizing Things Up (is the analyse step required), Ruins and Reverberations (is getting the relay its own step), The Clean Dream (wiki version vs op.gg). The rest are delivery wording or giver only, no effect on directions.
 6. Before release: remove the test skip (#obskip), then Play Console.
 
 ## Where things are
