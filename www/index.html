@@ -163,13 +163,11 @@ body.session .sppack,body.listening .sppack{display:none}
 /* settings only on the home screen: hidden while listening, speaking or in a conversation, so it can't interrupt */
 body.session .cog,body.listening .cog,body.speaking .cog,body.follow .cog{display:none}
 @media (prefers-reduced-motion:reduce){body{transition:none} .wave i,.mic svg,.mic{animation:none!important}}
-/* onboarding (5 Nov): four screens on first open. Heading / body / visual, dots centred, full-width button.
-   TEST BUILD ONLY: an invisible tap target top right skips it. Remove #obskip before release. */
+/* onboarding (5 Nov): four screens on first open. Heading / body / visual, dots centred, full-width button. */
 .ob{position:fixed;inset:0;z-index:70;background:var(--navy);color:var(--bone);display:flex;flex-direction:column;padding:calc(var(--pad) + env(safe-area-inset-top,0px)) var(--pad) calc(24px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto}
 .ob[hidden]{display:none}
 .ob{transition:opacity .2s ease-out}
 body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out of the icon, then onboarding fades in (5 Nov) */
-.obskip{all:unset;position:absolute;top:env(safe-area-inset-top,0px);right:0;width:72px;height:72px;cursor:pointer}  /* invisible, test builds only */
 .obs{flex:1;min-height:0;display:flex;flex-direction:column}
 .obs[hidden]{display:none}
 .obs h1{margin:48px 0 0;font:700 56px/56px var(--display);letter-spacing:.01em;text-wrap:balance}
@@ -240,7 +238,6 @@ body.intro .ob{opacity:0;pointer-events:none}  /* first open: the lines fall out
   <ul id="mapitems"></ul>
 </div>
 <div class="ob" id="ob" hidden role="dialog" aria-label="Welcome to Relay">
-  <button class="obskip" id="obskip" type="button" aria-label="Skip (test builds only)"></button>
   <section class="obs" data-i="0"><h1>Say “Hey Relay”.</h1><p>Or tap the button. It answers out loud, then listens for one follow-up.</p><div class="obvis"><div class="obmic" aria-hidden="true"><svg class="obwv" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M285-270v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165 160v-740q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v740q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63Q450-97.25 450-110ZM120-430v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm495 160v-420q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v420q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Zm165-160v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></div></div></section>
   <section class="obs" data-i="1" hidden><h1>Find what you need.</h1><p>Ask for an item, an enemy or a spawn. It shows the nearest one.</p><div class="obvis"><img src="onboard-find.webp" alt="Map: you at the Village, a dashed line to the nearest Rocketeer spawn"><span class="obcredit">Maps by MetaForge</span></div></section>
   <section class="obs" data-i="2" hidden><h1>Find the nearest exit.</h1><p>Ask for the way out. Say where you are, or tap the map, and it shows the nearest.</p><div class="obvis"><img src="onboard-exit.webp" alt="Map: you on open ground, a dashed line to the nearest airshaft"><span class="obcredit">Maps by MetaForge</span></div></section>
@@ -1602,7 +1599,6 @@ const OB_KEY = "relay-onb";
       setBtns(true, btn("Skip", true, done), btn("Download", false, startDl));
     }
   };
-  $("obskip").addEventListener("click", done);  /* TEST BUILD ONLY: remove before release */
   let x0 = null; ob.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
   ob.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (dx < -60 && i < 3) show(i + 1); else if (dx > 60 && i > 0) show(i - 1); });
   show(0); ob.hidden = false;

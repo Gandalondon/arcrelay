@@ -25,7 +25,14 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 4. Understanding (6 Nov): held-out set 14/25 to 25/25; a second set written before the fixes scored 21/25 cold, 25/25 after. Both are now tuned against, so write a fresh `tests/heldout3.js` before the next round. Fixed by pattern: casual done/arrived wording, way home/bail, wiped/lobby deaths, jumping back in, home safe, quest plus step described by what you're doing, "ta, that's me". `SET=adversarial` guards look-alikes ("go home to roost", "lost all my shield", "I'm out of ammo").
 ARC finder (6 Nov): works on all seven maps, now with distances; misheard and plural names ("rocket ears", "bombardiers"); an ARC that isn't on this map says which maps have it; small ARC (wasps, ticks...) say they aren't tracked.
 5. Settle the flagged quests (notes in each quest file): 13 quests. Next step is MetaForge's quest pages through Tony's Mac (Chrome), which list the game's own objectives in order. Most useful: The League and Greasing Her Palms (order), Broken Monument (structure), Sizing Things Up (is the analyse step required), Ruins and Reverberations (is getting the relay its own step), The Clean Dream (wiki version vs op.gg). The rest are delivery wording or giver only, no effect on directions.
-6. Before release: remove the test skip (#obskip), then Play Console.
+6. Release checklist (6 Nov):
+   - [x] Onboarding test skip (#obskip) removed; onboarding checked, four screens, no errors.
+   - [x] Hidden diagnostics (press and hold the version line) kept on purpose, for bug reports.
+   - [x] Version numbers come from the build (BUILD_NUMBER), nothing to bump by hand.
+   - [ ] Tony decides: MetaForge credit on the holding page too (it shows no maps; every /beta page already credits them). Copy goes through the Google Doc first.
+   - [ ] Swap the holding page for the full site (/beta to root) when the app is live.
+   - [ ] Play Console: store listing (Tony), privacy policy URL getarcrelay.app/beta/privacy (or /privacy after the swap), data safety form (no data collected, no account), content rating, closed test track first.
+   - [ ] Fresh held-out set (tests/heldout3.js) from Tony's raid notes, scored cold before any fixes.
 
 ## Where things are
 - Site copy (5 Nov): Google Doc "Relay" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/1hS12w_3GLEDgG62_lDrAJV3aB_Nl2Je9P-BKeoo7MrU/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
