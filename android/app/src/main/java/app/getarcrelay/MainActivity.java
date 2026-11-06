@@ -7,16 +7,16 @@ import androidx.core.splashscreen.SplashScreen;
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
-    /* Android's start icon stays up until Relay has drawn its own copy of the lines (or 2.5 s), so there's no blank flash between them */
-    static volatile boolean introReady = false;
+    /* Android's start icon stays up until Relay has drawn its first frame (or 2.5 s), so there's no blank flash between them */
+    static volatile boolean appReady = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         final long t0 = System.currentTimeMillis();
-        introReady = false;
+        appReady = false;
         SplashScreen sp = SplashScreen.installSplashScreen(this);
-        sp.setKeepOnScreenCondition(() -> !introReady && System.currentTimeMillis() - t0 < 2500);
-        // hand over instantly: Android's default exit fades its icon out first, which showed as a dip to black before Relay's lines (4 Nov)
+        sp.setKeepOnScreenCondition(() -> !appReady && System.currentTimeMillis() - t0 < 2500);
+        // hand over instantly: Android's default exit fades its icon out first, which showed as a dip to black before Relay (4 Nov)
         sp.setOnExitAnimationListener(view -> view.remove());
         registerPlugin(SystemBarsPlugin.class);
         registerPlugin(RelayVoicePlugin.class);

@@ -25,7 +25,7 @@ public class SystemBarsPlugin extends Plugin {
 
     /** the page has drawn the start animation's first frame: let Android's start icon go */
     @PluginMethod
-    public void ready(PluginCall call) { MainActivity.introReady = true; call.resolve(); }
+    public void ready(PluginCall call) { MainActivity.appReady = true; call.resolve(); }
 
     static void apply(Window w, int color, boolean lightBackground) {
         w.setStatusBarColor(color);

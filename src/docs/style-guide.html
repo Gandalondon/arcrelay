@@ -377,7 +377,7 @@ ahead.</div><span class="x"><svg viewBox="0 -960 960 960" fill="currentColor" ar
   <h2 class="g-h2">Motion</h2>
   <p class="intro">Few, quick, purposeful. Everything respects reduced motion.</p>
   <table class="rules">
-    <tr><th>Start</th><td>Android reports exactly where it drew the icon; Relay draws the same lines there, then they drop out of the circle (masked at the top, open below), outer line first, 520 ms each, 70 ms apart, easing in like gravity. Relay fades in once they're gone. Never animate over text.</td></tr>
+    <tr><th>Start</th><td>No start animation (6 Nov): it got tedious opening the app many times a day. Android's splash hands straight to the app as soon as it has drawn.</td></tr>
     <tr><th>Halo</th><td>1.6 s breathe while listening.</td></tr>
     <tr><th>State changes</th><td>Mic colour 0.15 s. Screen fade 0.2 s.</td></tr>
     <tr><th>Site logo</th><td>Lines draw in (440 ms, 70 ms apart), then the wordmark wipes in left to right. Home page only, once per visit; a refresh replays it.</td></tr>
@@ -441,7 +441,7 @@ ahead.</div><span class="x"><svg viewBox="0 -960 960 960" fill="currentColor" ar
     <tr><th>Not colour alone</th><td>Map markers differ in shape as well as colour (solid, dashed ring, hollow ring, amber). Selected rows also change their meta text ("Selected").</td></tr>
     <tr><th>Focus</th><td>Every control shows a visible ring: amber on charcoal, cream on amber.</td></tr>
     <tr><th>Screen readers</th><td>The map has a text label of what it shows. Icon buttons have labels. Voice state is announced in a live region ("Listening", "Speaking").</td></tr>
-    <tr><th>Motion</th><td>Reduced motion skips the start animation and the halo.</td></tr>
+    <tr><th>Motion</th><td>Reduced motion skips the halo.</td></tr>
     <tr><th>Targets</th><td>48 px wherever possible (see Gaps for the map buttons).</td></tr>
   </table>
 </section>
