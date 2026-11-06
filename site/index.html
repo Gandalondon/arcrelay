@@ -15,7 +15,7 @@
 @font-face{font-family:"Inter Tight";font-weight:600;font-display:swap;src:url(/fonts/inter-tight-600.woff2) format("woff2")}
 @font-face{font-family:"Inter Tight";font-weight:700;font-display:swap;src:url(/fonts/inter-tight-700.woff2) format("woff2")}
 /* Relay holding page. Three colours only: charcoal, cream, amber. Same type and logo as the app and the beta site. */
-:root{--bg:#1C1E22;--text:#EEE8DC;--amber:#F2B33D;--font:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;color-scheme:dark}
+:root{--bg:#1C1E22;--text:#EEE8DC;--amber:#F2B33D;--font:"Inter Tight","Helvetica Neue",Arial,system-ui,sans-serif;--tr-display:-.01em;--tr-caps:.04em;--tr-label:.08em;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text)}
 body{font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100svh;display:flex;flex-direction:column}
@@ -24,12 +24,12 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 
 .mark{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 0 48px}
 .mark svg{width:72px;height:72px;display:block;overflow:hidden}
 .mark path{fill:none;stroke:var(--amber);stroke-width:10}
-.word{font:700 32px/1 var(--font);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.word{font:700 32px/1 var(--font);letter-spacing:var(--tr-caps);text-transform:uppercase;white-space:nowrap}
 .word .arc{font-weight:400}
 .word .rl,h1 .rl{color:var(--amber)}
-h1{margin:0;font-weight:700;font-size:clamp(56px,9vw,104px);line-height:.95;letter-spacing:-.01em;text-wrap:balance}
+h1{margin:0;font-weight:700;font-size:clamp(56px,9vw,104px);line-height:.95;letter-spacing:var(--tr-display);text-wrap:balance}
 p{margin:24px auto 0;max-width:520px;font-size:20px;line-height:1.5;text-wrap:pretty}
-.soon{display:inline-block;margin-top:32px;font:500 16px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+.soon{display:inline-block;margin-top:32px;font:500 16px/1 var(--font);letter-spacing:var(--tr-label);text-transform:uppercase;color:var(--amber)}
 footer{padding:24px 40px 32px;font-size:14px;line-height:1.5;text-align:center}
 footer p{margin:0 auto;max-width:640px;font-size:14px}
 footer p+p{margin-top:8px}

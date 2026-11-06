@@ -48,7 +48,7 @@ CSS = """<style>
 @media (max-width:600px){ .hdr .btn.sm{height:36px;padding:0 16px} }
 .heyhero{position:relative;padding-top:calc(128px + env(safe-area-inset-top,0px));padding-bottom:24px}
 .heyhero .wrap{display:block;max-width:none}
-.heyhero .word{margin:0;font-weight:700;font-size:min(15vw,calc((100svh - 300px) / 2.3));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi);position:relative;z-index:1}
+.heyhero .word{margin:0;font-weight:700;font-size:min(15vw,calc((100svh - 300px) / 2.3));line-height:1.02;letter-spacing:var(--tr-display);white-space:pre-line;width:max-content;color:var(--text-hi);position:relative;z-index:1}
 .heyhero .lede{position:relative;z-index:1;margin-top:clamp(40px,5vw,72px);max-width:min(600px,calc(100% - 384px));font-size:var(--lede);line-height:var(--lede-lh)}
 .phone{--pw:clamp(200px,min(19vw,calc((100svh - 200px) * 0.462)),320px)}
 .p3{position:relative;transform-style:preserve-3d;will-change:transform;--d:35px}
@@ -61,7 +61,7 @@ CSS = """<style>
 .story .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px}
 .steps{display:flex;flex-direction:column}
 .step{min-height:calc(100svh - 88px);display:flex;align-items:center}
-.step h2{font-size:var(--h2);line-height:1;font-weight:600;letter-spacing:0}
+.step h2{font-size:var(--h2);line-height:1;font-weight:600;letter-spacing:var(--tr-h2)}
 .step p{margin-top:24px;max-width:26em;font-size:var(--body);line-height:var(--body-lh)}
 .step .btn{margin-top:40px}
 .park{position:sticky;top:88px;height:calc(100svh - 88px);display:flex;align-items:center;justify-content:center;perspective:1400px}
@@ -74,7 +74,7 @@ html.parked .flyer,html.landing .flyer{visibility:hidden}
 .ftr{padding-top:96px}
 /* finale: the hero's words mirrored, the phone turned the other way, showing the home greeting */
 .finale .wrap{max-width:none;display:grid;grid-template-columns:minmax(0,600px) minmax(320px,1fr);gap:64px;min-height:calc(100svh - 88px - var(--fh,150px));align-items:center;padding-block:32px}
-.fin{margin:0;font-weight:700;font-size:min(10vw,calc((100svh - 88px - var(--fh,150px) - 200px) / 2.1));line-height:1.02;letter-spacing:-.01em;white-space:pre-line;width:max-content;color:var(--text-hi)}
+.fin{margin:0;font-weight:700;font-size:min(10vw,calc((100svh - 88px - var(--fh,150px) - 200px) / 2.1));line-height:1.02;letter-spacing:var(--tr-display);white-space:pre-line;width:max-content;color:var(--text-hi)}
 .ftxt .btn{margin-top:48px;cursor:default}
 .ftxt .btn:hover{background:var(--amber)}
 .fslot{display:flex;justify-content:center;perspective:1400px}
