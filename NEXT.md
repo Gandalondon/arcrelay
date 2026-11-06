@@ -12,6 +12,12 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 - Every /beta page: solid sticky bar (88 px, 72 on phones), mark only, gutters to the page edge.
 - Mac copy is ~/ArcRelay. Package app.getarcrelay from 1.0.86 (see Name above).
 
+## Site, 6 Nov (pushed)
+- /beta homepage replaced by the new version (draft.html gone): features Nearest anything, Under fire?, Just ask., Quest steps. In testing. Placeholder screens on the page colour until real captures; no "Free. No account. No ads." line. Edited by hand now; `tools/hero/make_v5.py` is retired.
+- How it works: app's current icons (locate, route, expand), new sections Find the nearest anything, Quest steps in testing, See the whole map; every phrase in Things to say checked against the app. Credits: distances on all maps from allthings.how.
+- App misses found while checking: "Say that again" / "Repeat that" after an exit answer, and "I can't go south-east" said on its own (works only as a follow-up). Not fixed yet (heldout3 first).
+- Site copy changed here still needs copying into the Google Doc.
+
 ## Done late 5 Nov (all pushed)
 - "Show me the X map", map picker on home in the voice-row pattern (single row on short phones), greeting fits four lines on every size, headline top-aligned.
 - Saying only where you are: "Got it, X. What do you need?" (no longer assumes the nearest exit). Small context and "Heard" text gone; a miss just asks you to repeat.
@@ -45,7 +51,7 @@ Open testing plan (6 Nov, for when Tony says we're ready; not yet):
 ## Where things are
 - Site copy (5 Nov): Google Doc "Relay" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/1hS12w_3GLEDgG62_lDrAJV3aB_Nl2Je9P-BKeoo7MrU/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
 - Repo: github.com/Gandalondon/relay (was spottr, then arcrelay; GitHub forwards the old addresses), branch main. Mac copy: `~/ArcRelay` (git clone; pull after each push).
-- App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js` (understanding, 169/169; `SET=heldout`, `SET=heldout2`, `SET=adversarial` for the extra sets) and `node tests/maps.js` (every map's markers well formed and inside its bounds).
+- App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js` (understanding, 175/175; `SET=heldout`, `SET=heldout2`, `SET=adversarial` for the extra sets) and `node tests/maps.js` (every map's markers well formed and inside its bounds).
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
 - Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. getarcrelay.app = holding page; getarcrelay.app/beta = full site (noindex).
 - Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Raid Voice Guide".

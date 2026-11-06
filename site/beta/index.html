@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#1C1E22">
 <title>Relay</title>
-<meta name="description" content="A voice companion for ARC Raiders. Ask where to go, hear the answer, keep playing.">
+<meta name="description" content="A voice guide for ARC Raiders. Say where you are, ask for what you need. Relay tells you which way and how far.">
 <link rel="stylesheet" href="site.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 72 72%27%3E%3Crect width=%2772%27 height=%2772%27 rx=%2716%27 fill=%27%231C1E22%27/%3E%3Cg fill=%27none%27 stroke=%27%23F2B33D%27 stroke-width=%2710%27%3E%3Cpath d=%27M -10 12 H 14 A 46 46 0 0 1 60 58 V 82%27/%3E%3Cpath d=%27M -10 28 H 14 A 30 30 0 0 1 44 58 V 82%27/%3E%3Cpath d=%27M -10 44 H 14 A 14 14 0 0 1 28 58 V 82%27/%3E%3C/g%3E%3C/svg%3E">
 <style>
 /* v5 (5 Nov): one phone. It floats under the word, travels down, then parks while the story scrolls past. */
@@ -78,6 +78,9 @@ html.landing .lander{display:block}
   .p3 .screen{transition:none}
 }
 </style>
+<style>
+.ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:12%;background:var(--bg);color:rgba(238,232,220,.55);font:500 clamp(11px,1.1vw,15px)/1.35 var(--font);letter-spacing:var(--tr-text);text-align:center;text-wrap:balance}
+</style>
 </head>
 <body>
 <header class="hdr"><div class="wrap">
@@ -93,34 +96,33 @@ html.landing .lander{display:block}
     <div class="wrap">
       <h1 class="word">Hey
 Relay</h1>
-      <p class="lede">A voice companion for ARC Raiders. Ask where to go, hear the answer, keep playing.</p>
+      <p class="lede">A voice guide for ARC Raiders. Say where you are, ask for what you need. Relay tells you which way and how far.</p>
     </div>
   </section>
   <div class="story"><div class="wrap">
   <div class="steps">
     <section class="step" data-i="0">
-      <div class="txt"><h2>Need a quick evac?</h2>
-        <p>Ask for the way out, and Relay names the nearest one from where you are and shows the route on the map. Short on time? Tell it how many minutes are left and it gets straight to the point.</p></div>
-      <div class="mphone"><div class="phone"><div class="screen shot"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="Relay's answer from the Village: Cliffside Airshaft, south-east. Below, the map with you, a yellow dot on the airshaft and a dashed line between." loading="lazy" decoding="async"></div></div></div>
+      <div class="txt"><h2>Nearest anything.</h2>
+        <p>Say where you are and what you’re after: an ARC, a raider cache, a patch of moss. Relay names the nearest, says which way and how far, and puts one dot on the map. No filters, no scrolling.</p></div>
+      <div class="mphone"><div class="phone"><div class="screen shot"><div class="ph"><span>Answer: nearest Bastion, about 90 m east. One dot on the map.</span></div></div></div></div>
     </section>
     <section class="step" data-i="1">
-      <div class="txt"><h2>Just ask.</h2>
-        <p>Say “Hey Relay” or tap, and talk like you would to a teammate. Relay answers out loud, then listens for a follow-up, so your eyes stay on the game.</p></div>
-      <div class="mphone"><div class="phone"><div class="screen shot"><img src="screens/screen-2-listening.webp" width="390" height="844" alt="Relay listening: Go ahead, with the yellow microphone glowing at the bottom." loading="lazy" decoding="async"></div></div></div>
+      <div class="txt"><h2>Under fire?</h2>
+        <p>Ask for the nearest exit. One line, one direction, and your eyes never leave the fight.</p></div>
+      <div class="mphone"><div class="phone"><div class="screen shot"><div class="ph"><span>Answer: nearest exit, which way and how far.</span></div></div></div></div>
     </section>
     <section class="step" data-i="2">
-      <div class="txt"><h2>Find what you need.</h2>
-        <p>Ask for an item, an enemy or a spawn. One dot on the map shows the nearest, so you can drop your waypoint in-game without scrolling a guide full of adverts. Hunting for an item? It names the best places to look, and tells you straight when something has no fixed spot.</p></div>
-      <div class="mphone"><div class="phone"><div class="screen shot"><img src="screens/screen-4-find.webp" width="390" height="844" alt="Relay's answer to where is the nearest Rocketeer: Nearest Rocketeer, west. Below, the map with you, a dashed line and a yellow dot on the nearest spawn." loading="lazy" decoding="async"></div></div></div>
+      <div class="txt"><h2>Just ask.</h2>
+        <p>Say “Hey Relay” and talk like you would to a teammate. Relay answers out loud, then listens for a follow-up, so your eyes stay on the game.</p></div>
+      <div class="mphone"><div class="phone"><div class="screen shot"><div class="ph"><span>Listening: Hey Relay, go ahead.</span></div></div></div></div>
     </section>
     <section class="step" data-i="3">
-      <div class="txt"><h2>Show it where you are.</h2>
-        <p>Can't remember the name of the place? Tap your spot on the map and confirm. Relay works out the nearest way out, or your next step, from right where you're standing.</p>
-        <a class="btn" href="how-it-works">How it works</a></div>
-      <div class="mphone"><div class="phone"><div class="screen shot"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="Relay asking Where are you? Below, the map with the nearest ways out in yellow, the spot you tapped as a white ring, and a yellow I'm here button." loading="lazy" decoding="async"></div></div></div>
+      <div class="txt"><h2>Quest steps. In testing.</h2>
+        <p>Tell it the quest. Relay keeps track of your step and points you to the next spot. It’s still in testing, so tell us when it gets one wrong.</p></div>
+      <div class="mphone"><div class="phone"><div class="screen shot"><div class="ph"><span>Answer: quest step, with the spot on the map.</span></div></div></div></div>
     </section>
   </div>
-  <div class="park" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="0"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="" decoding="async" fetchpriority="high"></div><div class="screen shot" data-i="1"><img src="screens/screen-2-listening.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="2"><img src="screens/screen-4-find.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div></div></div>
+  <div class="park" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="0"><div class="ph"><span>Answer: nearest Bastion, about 90 m east. One dot on the map.</span></div></div><div class="screen shot" data-i="1"><div class="ph"><span>Answer: nearest exit, which way and how far.</span></div></div><div class="screen shot" data-i="2"><div class="ph"><span>Listening: Hey Relay, go ahead.</span></div></div><div class="screen shot" data-i="3"><div class="ph"><span>Answer: quest step, with the spot on the map.</span></div></div></div></div>
   </div></div>
   <section class="finale"><div class="wrap">
     <div class="ftxt"><h2 class="fin">Ask. Find.
@@ -129,8 +131,8 @@ Get out.</h2><span class="btn">Get the app</span></div>
 Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M421-80q-14 0-25-9t-13-23l-15-94q-19-7-40-19t-37-25l-86 40q-14 6-28 1.5T155-226L97-330q-8-13-4.5-27t15.5-23l80-59q-2-9-2.5-20.5T185-480q0-9 .5-20.5T188-521l-80-59q-12-9-15.5-23t4.5-27l58-104q8-13 22-17.5t28 1.5l86 40q16-13 37-25t40-18l15-95q2-14 13-23t25-9h118q14 0 25 9t13 23l15 94q19 7 40.5 18.5T669-710l86-40q14-6 27.5-1.5T804-734l59 104q8 13 4.5 27.5T852-580l-80 57q2 10 2.5 21.5t.5 21.5q0 10-.5 21t-2.5 21l80 58q12 8 15.5 22.5T863-330l-58 104q-8 13-22 17.5t-28-1.5l-86-40q-16 13-36.5 25.5T592-206l-15 94q-2 14-13 23t-25 9H421Zm59-270q54 0 92-38t38-92q0-54-38-92t-92-38q-54 0-92 38t-38 92q0 54 38 92t92 38Z"/></svg></span></div><div class="fill"></div><div class="dock"><svg class="mic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM450-150v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></div></div></div></div>
   </div></section>
 </main>
-<div class="flyer" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="0"><img src="screens/screen-3-exit.webp" width="390" height="844" alt="" decoding="async" fetchpriority="high"></div><div class="screen shot" data-i="1"><img src="screens/screen-2-listening.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="2"><img src="screens/screen-4-find.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div><div class="screen shot" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" decoding="async" loading="lazy"></div></div></div>
-<div class="lander" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="3"><img src="screens/screen-5-pin.webp" width="390" height="844" alt="" loading="lazy" decoding="async"></div><div class="screen home" data-i="9"><div class="top"><p class="greet" data-greet>Evening,
+<div class="flyer" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="0"><div class="ph"><span>Answer: nearest Bastion, about 90 m east. One dot on the map.</span></div></div><div class="screen shot" data-i="1"><div class="ph"><span>Answer: nearest exit, which way and how far.</span></div></div><div class="screen shot" data-i="2"><div class="ph"><span>Listening: Hey Relay, go ahead.</span></div></div><div class="screen shot" data-i="3"><div class="ph"><span>Answer: quest step, with the spot on the map.</span></div></div></div></div>
+<div class="lander" aria-hidden="true"><div class="phone p3"><i class="slab" style="--k:12"></i><i class="slab" style="--k:11"></i><i class="slab" style="--k:10"></i><i class="slab" style="--k:9"></i><i class="slab" style="--k:8"></i><i class="slab" style="--k:7"></i><i class="slab" style="--k:6"></i><i class="slab" style="--k:5"></i><i class="slab" style="--k:4"></i><i class="slab" style="--k:3"></i><i class="slab" style="--k:2"></i><i class="slab rim" style="--k:1"></i><div class="screen shot on" data-i="3"><div class="ph"><span>Answer: quest step, with the spot on the map.</span></div></div><div class="screen home" data-i="9"><div class="top"><p class="greet" data-greet>Evening,
 Raider.</p><span class="cog"><svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M421-80q-14 0-25-9t-13-23l-15-94q-19-7-40-19t-37-25l-86 40q-14 6-28 1.5T155-226L97-330q-8-13-4.5-27t15.5-23l80-59q-2-9-2.5-20.5T185-480q0-9 .5-20.5T188-521l-80-59q-12-9-15.5-23t4.5-27l58-104q8-13 22-17.5t28 1.5l86 40q16-13 37-25t40-18l15-95q2-14 13-23t25-9h118q14 0 25 9t13 23l15 94q19 7 40.5 18.5T669-710l86-40q14-6 27.5-1.5T804-734l59 104q8 13 4.5 27.5T852-580l-80 57q2 10 2.5 21.5t.5 21.5q0 10-.5 21t-2.5 21l80 58q12 8 15.5 22.5T863-330l-58 104q-8 13-22 17.5t-28-1.5l-86-40q-16 13-36.5 25.5T592-206l-15 94q-2 14-13 23t-25 9H421Zm59-270q54 0 92-38t38-92q0-54-38-92t-92-38q-54 0-92 38t-38 92q0 54 38 92t92 38Z"/></svg></span></div><div class="fill"></div><div class="dock"><svg class="mic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="M408-453.92q-29-30.91-29-75.08v-251q0-41.67 29.44-70.83Q437.88-880 479.94-880t71.56 29.17Q581-821.67 581-780v251q0 44.17-29 75.08Q523-423 480-423t-72-30.92ZM450-150v-106q-96-11-166.5-77.5T202-498q-2-12.85 6.59-21.93 8.6-9.07 21.5-9.07 12.91 0 21.41 9t10.5 22q12 81 74.71 132.5Q399.42-314 479.65-314q81.35 0 143.85-51.5T698-498q2-13 10.68-22 8.67-9 21.5-9 12.82 0 21.32 9.07 8.5 9.08 6.5 21.93-11 97-81 164t-167 78v106q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37Z"/></svg></div></div></div></div>
 <footer class="ftr">
   <div class="wrap">

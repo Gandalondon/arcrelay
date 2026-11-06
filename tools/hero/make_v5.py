@@ -1,4 +1,5 @@
-"""Builds site/beta/index.html (the homepage, from 5 Nov) (v5 was its test page; retired once it became the homepage): one phone for the whole story (5 Nov).
+"""RETIRED 6 Nov 2026: site/beta/index.html is now edited by hand (new feature order, placeholder screens). Running this would overwrite it with the old homepage.
+Builds site/beta/index.html (the homepage, from 5 Nov) (v5 was its test page; retired once it became the homepage): one phone for the whole story (5 Nov).
 Hero: "Hey / Relay" stacked, the phone angled level with the top of the word (B2, picked 5 Nov). As you scroll it travels down,
 straightens and parks on the right. From then on it stays still while the four features scroll past on
 the left, always left-aligned; the phone's screen cross-fades to match whichever feature is in the middle.
