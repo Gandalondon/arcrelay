@@ -1,0 +1,693 @@
+{
+ "map": "stella-montis",
+ "source_pages": [
+  "https://allthings.how/arc-raiders/map/lobby/",
+  "https://allthings.how/arc-raiders/map/atrium/",
+  "https://allthings.how/arc-raiders/map/seed-vault/",
+  "https://allthings.how/arc-raiders/map/medical-research/",
+  "https://allthings.how/arc-raiders/map/cultural-archives/",
+  "https://allthings.how/arc-raiders/map/assembly-workshops/",
+  "https://allthings.how/arc-raiders/map/loading-bay/",
+  "https://allthings.how/arc-raiders/map/business-center/",
+  "https://allthings.how/arc-raiders/map/cafeteria/",
+  "https://allthings.how/arc-raiders/map/control-room/",
+  "https://allthings.how/arc-raiders/map/western-tunnel/",
+  "https://allthings.how/arc-raiders/map/viewing-deck/",
+  "https://allthings.how/arc-raiders/map/robotic-sandbox-a/",
+  "https://allthings.how/arc-raiders/map/security-bridge/"
+ ],
+ "pairs": [
+  [
+   "Lobby",
+   "Security Bridge",
+   20,
+   "place"
+  ],
+  [
+   "Lobby",
+   "Lobby Metro",
+   30,
+   "place"
+  ],
+  [
+   "Lobby",
+   "Robotic Sandbox A",
+   60,
+   "place"
+  ],
+  [
+   "Lobby",
+   "Business Center",
+   60,
+   "place"
+  ],
+  [
+   "Lobby",
+   "Auditorium",
+   60,
+   "place"
+  ],
+  [
+   "Lobby",
+   "Lobby Metro Station",
+   50,
+   "return"
+  ],
+  [
+   "Lobby",
+   "Assembly Hatch",
+   110,
+   "return"
+  ],
+  [
+   "Lobby",
+   "Eastern Tunnel Hatch",
+   120,
+   "return"
+  ],
+  [
+   "Atrium",
+   "Cafeteria",
+   30,
+   "place"
+  ],
+  [
+   "Atrium",
+   "Communications",
+   40,
+   "place"
+  ],
+  [
+   "Atrium",
+   "Control Room",
+   40,
+   "place"
+  ],
+  [
+   "Atrium",
+   "Robotic Sandbox B",
+   50,
+   "place"
+  ],
+  [
+   "Atrium",
+   "Sandbox",
+   50,
+   "place"
+  ],
+  [
+   "Atrium",
+   "Seed Vault Airshaft",
+   50,
+   "return"
+  ],
+  [
+   "Atrium",
+   "Sandbox Hatch",
+   70,
+   "return"
+  ],
+  [
+   "Atrium",
+   "Eastern Tunnel Hatch",
+   70,
+   "return"
+  ],
+  [
+   "Seed Vault",
+   "Eastern Tunnel",
+   90,
+   "place"
+  ],
+  [
+   "Seed Vault",
+   "Atrium",
+   90,
+   "place"
+  ],
+  [
+   "Seed Vault",
+   "Cultural Archives",
+   90,
+   "place"
+  ],
+  [
+   "Seed Vault",
+   "Robotic Sandbox B",
+   110,
+   "place"
+  ],
+  [
+   "Seed Vault",
+   "Communications",
+   110,
+   "place"
+  ],
+  [
+   "Seed Vault",
+   "Seed Vault Airshaft",
+   40,
+   "return"
+  ],
+  [
+   "Seed Vault",
+   "Eastern Tunnel Hatch",
+   70,
+   "return"
+  ],
+  [
+   "Seed Vault",
+   "Sandbox Hatch",
+   110,
+   "return"
+  ],
+  [
+   "Medical Research",
+   "Viewing Deck",
+   40,
+   "place"
+  ],
+  [
+   "Medical Research",
+   "Logistics Admin",
+   50,
+   "place"
+  ],
+  [
+   "Medical Research",
+   "Cargo Dock A",
+   60,
+   "place"
+  ],
+  [
+   "Medical Research",
+   "Loading Bay",
+   80,
+   "place"
+  ],
+  [
+   "Medical Research",
+   "Cargo Dock B",
+   90,
+   "place"
+  ],
+  [
+   "Medical Research",
+   "Loading Bay Metro Station",
+   60,
+   "return"
+  ],
+  [
+   "Medical Research",
+   "Sandbox Hatch",
+   140,
+   "return"
+  ],
+  [
+   "Medical Research",
+   "Assembly Hatch",
+   150,
+   "return"
+  ],
+  [
+   "Cultural Archives",
+   "Eastern Tunnel",
+   10,
+   "place"
+  ],
+  [
+   "Cultural Archives",
+   "Business Lounge",
+   30,
+   "place"
+  ],
+  [
+   "Cultural Archives",
+   "Auditorium",
+   50,
+   "place"
+  ],
+  [
+   "Cultural Archives",
+   "Business Center",
+   60,
+   "place"
+  ],
+  [
+   "Cultural Archives",
+   "Communications",
+   70,
+   "place"
+  ],
+  [
+   "Cultural Archives",
+   "Eastern Tunnel Hatch",
+   30,
+   "return"
+  ],
+  [
+   "Cultural Archives",
+   "Seed Vault Airshaft",
+   90,
+   "return"
+  ],
+  [
+   "Cultural Archives",
+   "Sandbox Hatch",
+   140,
+   "return"
+  ],
+  [
+   "Assembly Workshops",
+   "Assembly",
+   40,
+   "place"
+  ],
+  [
+   "Assembly Workshops",
+   "Assembly Line",
+   40,
+   "place"
+  ],
+  [
+   "Assembly Workshops",
+   "Collapsed Tunnel",
+   50,
+   "place"
+  ],
+  [
+   "Assembly Workshops",
+   "Western Tunnel",
+   60,
+   "place"
+  ],
+  [
+   "Assembly Workshops",
+   "Central Corridor",
+   70,
+   "place"
+  ],
+  [
+   "Assembly Workshops",
+   "Assembly Hatch",
+   40,
+   "return"
+  ],
+  [
+   "Assembly Workshops",
+   "Lobby Metro Station",
+   130,
+   "return"
+  ],
+  [
+   "Assembly Workshops",
+   "Loading Bay Metro Station",
+   150,
+   "return"
+  ],
+  [
+   "Loading Bay",
+   "Cargo Dock A",
+   20,
+   "place"
+  ],
+  [
+   "Loading Bay",
+   "Cargo Dock B",
+   30,
+   "place"
+  ],
+  [
+   "Loading Bay",
+   "Logistics Admin",
+   40,
+   "place"
+  ],
+  [
+   "Loading Bay",
+   "Central Corridor",
+   50,
+   "place"
+  ],
+  [
+   "Loading Bay",
+   "Sandbox",
+   70,
+   "place"
+  ],
+  [
+   "Loading Bay",
+   "Loading Bay Metro Station",
+   50,
+   "return"
+  ],
+  [
+   "Loading Bay",
+   "Sandbox Hatch",
+   100,
+   "return"
+  ],
+  [
+   "Loading Bay",
+   "Assembly Hatch",
+   110,
+   "return"
+  ],
+  [
+   "Business Center",
+   "Auditorium",
+   20,
+   "place"
+  ],
+  [
+   "Business Center",
+   "Business Lounge",
+   30,
+   "place"
+  ],
+  [
+   "Business Center",
+   "Cultural Archives",
+   60,
+   "place"
+  ],
+  [
+   "Business Center",
+   "Eastern Tunnel",
+   60,
+   "place"
+  ],
+  [
+   "Business Center",
+   "Communications",
+   60,
+   "place"
+  ],
+  [
+   "Business Center",
+   "Eastern Tunnel Hatch",
+   80,
+   "return"
+  ],
+  [
+   "Business Center",
+   "Lobby Metro Station",
+   90,
+   "return"
+  ],
+  [
+   "Business Center",
+   "Seed Vault Airshaft",
+   130,
+   "return"
+  ],
+  [
+   "Cafeteria",
+   "Control Room",
+   20,
+   "place"
+  ],
+  [
+   "Cafeteria",
+   "Sandbox",
+   20,
+   "place"
+  ],
+  [
+   "Cafeteria",
+   "Atrium",
+   30,
+   "place"
+  ],
+  [
+   "Cafeteria",
+   "Robotic Sandbox B",
+   40,
+   "place"
+  ],
+  [
+   "Cafeteria",
+   "Communications",
+   50,
+   "place"
+  ],
+  [
+   "Cafeteria",
+   "Sandbox Hatch",
+   60,
+   "return"
+  ],
+  [
+   "Cafeteria",
+   "Seed Vault Airshaft",
+   80,
+   "return"
+  ],
+  [
+   "Cafeteria",
+   "Loading Bay Metro Station",
+   90,
+   "return"
+  ],
+  [
+   "Control Room",
+   "Cafeteria",
+   20,
+   "place"
+  ],
+  [
+   "Control Room",
+   "Sandbox",
+   20,
+   "place"
+  ],
+  [
+   "Control Room",
+   "Robotic Sandbox B",
+   30,
+   "place"
+  ],
+  [
+   "Control Room",
+   "Cargo Dock B",
+   40,
+   "place"
+  ],
+  [
+   "Control Room",
+   "Atrium",
+   40,
+   "place"
+  ],
+  [
+   "Control Room",
+   "Sandbox Hatch",
+   50,
+   "return"
+  ],
+  [
+   "Control Room",
+   "Loading Bay Metro Station",
+   80,
+   "return"
+  ],
+  [
+   "Control Room",
+   "Seed Vault Airshaft",
+   90,
+   "return"
+  ],
+  [
+   "Western Tunnel",
+   "Collapsed Tunnel",
+   10,
+   "place"
+  ],
+  [
+   "Western Tunnel",
+   "Central Corridor",
+   30,
+   "place"
+  ],
+  [
+   "Western Tunnel",
+   "Assembly",
+   50,
+   "place"
+  ],
+  [
+   "Western Tunnel",
+   "Assembly Workshops",
+   60,
+   "place"
+  ],
+  [
+   "Western Tunnel",
+   "Robotic Sandbox A",
+   70,
+   "place"
+  ],
+  [
+   "Western Tunnel",
+   "Assembly Hatch",
+   40,
+   "return"
+  ],
+  [
+   "Western Tunnel",
+   "Lobby Metro Station",
+   90,
+   "return"
+  ],
+  [
+   "Western Tunnel",
+   "Loading Bay Metro Station",
+   120,
+   "return"
+  ],
+  [
+   "Viewing Deck",
+   "Medical Research",
+   40,
+   "place"
+  ],
+  [
+   "Viewing Deck",
+   "Logistics Admin",
+   90,
+   "place"
+  ],
+  [
+   "Viewing Deck",
+   "Cargo Dock A",
+   100,
+   "place"
+  ],
+  [
+   "Viewing Deck",
+   "Loading Bay",
+   120,
+   "place"
+  ],
+  [
+   "Viewing Deck",
+   "Assembly",
+   130,
+   "place"
+  ],
+  [
+   "Viewing Deck",
+   "Loading Bay Metro Station",
+   90,
+   "return"
+  ],
+  [
+   "Viewing Deck",
+   "Sandbox Hatch",
+   170,
+   "return"
+  ],
+  [
+   "Viewing Deck",
+   "Assembly Hatch",
+   190,
+   "return"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Sandbox",
+   30,
+   "place"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Cafeteria",
+   50,
+   "place"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Control Room",
+   50,
+   "place"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Lobby",
+   60,
+   "place"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Communications",
+   60,
+   "place"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Lobby Metro Station",
+   90,
+   "return"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Assembly Hatch",
+   100,
+   "return"
+  ],
+  [
+   "Robotic Sandbox A",
+   "Loading Bay Metro Station",
+   100,
+   "return"
+  ],
+  [
+   "Security Bridge",
+   "Lobby Metro",
+   10,
+   "place"
+  ],
+  [
+   "Security Bridge",
+   "Lobby",
+   20,
+   "place"
+  ],
+  [
+   "Security Bridge",
+   "Business Center",
+   70,
+   "place"
+  ],
+  [
+   "Security Bridge",
+   "Robotic Sandbox A",
+   70,
+   "place"
+  ],
+  [
+   "Security Bridge",
+   "Auditorium",
+   70,
+   "place"
+  ],
+  [
+   "Security Bridge",
+   "Lobby Metro Station",
+   30,
+   "return"
+  ],
+  [
+   "Security Bridge",
+   "Assembly Hatch",
+   110,
+   "return"
+  ],
+  [
+   "Security Bridge",
+   "Eastern Tunnel Hatch",
+   140,
+   "return"
+  ]
+ ]
+}

@@ -32,5 +32,20 @@ for (const id of ["dam", "buried-city", "spaceport", "stella-montis", "riven-tid
 { const all = [...(window.DAM_QUESTS || []), ...[].concat(...Object.values(window.MAP_QUESTS || {}))], by = {};
   all.forEach(q => q.al.forEach(a => (by[a] = by[a] || new Set()).add(q.n)));
   Object.entries(by).filter(([, v]) => v.size > 1).forEach(([k, v]) => fails.push(`quest name "${k}" means ${[...v].join(" and ")}`)); }
+/* every map but Blue Gate has a fitted scale, and it still matches the published distances it came from (6 Nov) */
+{ const fs = require("fs"), src = fs.readFileSync(path.join(__dirname, "../www/index.html"), "utf8");
+  const U = JSON.parse(src.match(/const UNITS_PER_METRE = (\{[^}]*\})/)[1]);
+  const key = s => s.toLowerCase().replace(/^the /, "").replace(/['’&.]/g, "").replace(/\band\b/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  for (const id of ["dam", "buried-city", "spaceport", "stella-montis", "riven-tides", "pendola-pass"]) {
+    require(path.join(__dirname, "../www/data-" + id + "-places.js"));
+    const M = Object.values(window).find(m => m && m.id === id), PL = window.MAP_PLACES[id], pos = {};
+    if (!U[id]) { fails.push(id + ": no scale, so no distances"); continue; }
+    PL.areas.forEach(a => pos[key(a.n)] = a); M.rows.forEach(r => { if (r[1] === "extraction" || r[1] === "hatch") pos[key(r[2])] = { y: r[3], x: r[4] }; });
+    const errs = JSON.parse(fs.readFileSync(path.join(__dirname, "../tools/places/dist/" + id + ".json"), "utf8")).pairs
+      .filter(([a, b, m]) => pos[key(a)] && pos[key(b)] && m >= 60).map(([a, b, m]) => Math.abs(Math.hypot(pos[key(a)].y - pos[key(b)].y, pos[key(a)].x - pos[key(b)].x) / U[id] - m) / m).sort((a, b) => a - b);
+    const med = errs[errs.length >> 1];
+    if (med > 0.15) fails.push(`${id}: distances off by ${Math.round(med * 100)}% typically`);
+    console.log(`${M.name}: distances within ${Math.round(med * 100)}% typically, ${errs.length} published pairs`);
+  } }
 console.log(`${checked} maps with markers checked` + (fails.length ? "\n" + fails.map(f => "  ✗ " + f).join("\n") : ", all good"));
 process.exit(fails.length ? 1 : 0);

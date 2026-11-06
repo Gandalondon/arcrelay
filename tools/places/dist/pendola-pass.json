@@ -1,0 +1,743 @@
+{
+ "map": "pendola-pass",
+ "source_pages": [
+  "https://allthings.how/arc-raiders/map/old-town-pendola-pass/",
+  "https://allthings.how/arc-raiders/map/railyard-pendola-pass/",
+  "https://allthings.how/arc-raiders/map/almatera-station/",
+  "https://allthings.how/arc-raiders/map/freight-terminal/",
+  "https://allthings.how/arc-raiders/map/almatera-village/",
+  "https://allthings.how/arc-raiders/map/weather-station/",
+  "https://allthings.how/arc-raiders/map/dispatch-tower/",
+  "https://allthings.how/arc-raiders/map/commissary-supermarket/",
+  "https://allthings.how/arc-raiders/map/piazza-della-rupe/",
+  "https://allthings.how/arc-raiders/map/frozen-river/",
+  "https://allthings.how/arc-raiders/map/controlled-receiving-facility/",
+  "https://allthings.how/arc-raiders/map/transit-tunnel/",
+  "https://allthings.how/arc-raiders/map/porta-benvenuti/",
+  "https://allthings.how/arc-raiders/map/fallen-emperor/",
+  "https://allthings.how/arc-raiders/map/cielo-sereno-observatory/"
+ ],
+ "pairs": [
+  [
+   "Old Town",
+   "Piazza della Rupe",
+   180,
+   "place"
+  ],
+  [
+   "Old Town",
+   "Almatera Village",
+   190,
+   "place"
+  ],
+  [
+   "Old Town",
+   "Fallen Emperor",
+   230,
+   "place"
+  ],
+  [
+   "Old Town",
+   "Transit Tunnel",
+   280,
+   "place"
+  ],
+  [
+   "Old Town",
+   "Commissary Supermarket",
+   290,
+   "place"
+  ],
+  [
+   "Old Town",
+   "Reckless Transceiver",
+   150,
+   "return"
+  ],
+  [
+   "Old Town",
+   "Supermarket Transceiver",
+   350,
+   "return"
+  ],
+  [
+   "Old Town",
+   "Glacial Transceiver",
+   430,
+   "return"
+  ],
+  [
+   "Railyard",
+   "Freight Terminal",
+   70,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Controlled Receiving Facility",
+   80,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Loading Platforms",
+   200,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Transit Tunnel",
+   210,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Commissary Supermarket",
+   220,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Glacial Transceiver",
+   130,
+   "return"
+  ],
+  [
+   "Railyard",
+   "Supermarket Transceiver",
+   240,
+   "return"
+  ],
+  [
+   "Railyard",
+   "Northern Transceiver",
+   410,
+   "return"
+  ],
+  [
+   "Almatera Station",
+   "Porta Benvenuti",
+   80,
+   "place"
+  ],
+  [
+   "Almatera Station",
+   "Frozen River",
+   150,
+   "place"
+  ],
+  [
+   "Almatera Station",
+   "Dispatch Tower",
+   170,
+   "place"
+  ],
+  [
+   "Almatera Station",
+   "Piazza della Rupe",
+   180,
+   "place"
+  ],
+  [
+   "Almatera Station",
+   "Almatera Village",
+   210,
+   "place"
+  ],
+  [
+   "Almatera Station",
+   "Supermarket Transceiver",
+   180,
+   "return"
+  ],
+  [
+   "Almatera Station",
+   "Northern Transceiver",
+   200,
+   "return"
+  ],
+  [
+   "Almatera Station",
+   "Reckless Transceiver",
+   210,
+   "return"
+  ],
+  [
+   "Freight Terminal",
+   "Railyard",
+   70,
+   "place"
+  ],
+  [
+   "Freight Terminal",
+   "Controlled Receiving Facility",
+   140,
+   "place"
+  ],
+  [
+   "Freight Terminal",
+   "Transit Tunnel",
+   160,
+   "place"
+  ],
+  [
+   "Freight Terminal",
+   "Loading Platforms",
+   190,
+   "place"
+  ],
+  [
+   "Freight Terminal",
+   "Commissary Supermarket",
+   220,
+   "place"
+  ],
+  [
+   "Freight Terminal",
+   "Glacial Transceiver",
+   60,
+   "return"
+  ],
+  [
+   "Freight Terminal",
+   "Supermarket Transceiver",
+   260,
+   "return"
+  ],
+  [
+   "Freight Terminal",
+   "Reckless Transceiver",
+   410,
+   "return"
+  ],
+  [
+   "Almatera Village",
+   "Piazza della Rupe",
+   50,
+   "place"
+  ],
+  [
+   "Almatera Village",
+   "Fallen Emperor",
+   120,
+   "place"
+  ],
+  [
+   "Almatera Village",
+   "Old Town",
+   190,
+   "place"
+  ],
+  [
+   "Almatera Village",
+   "Porta Benvenuti",
+   200,
+   "place"
+  ],
+  [
+   "Almatera Village",
+   "Almatera Station",
+   210,
+   "place"
+  ],
+  [
+   "Almatera Village",
+   "Reckless Transceiver",
+   70,
+   "return"
+  ],
+  [
+   "Almatera Village",
+   "Supermarket Transceiver",
+   300,
+   "return"
+  ],
+  [
+   "Almatera Village",
+   "Northern Transceiver",
+   410,
+   "return"
+  ],
+  [
+   "Weather Station",
+   "Controlled Receiving Facility",
+   150,
+   "place"
+  ],
+  [
+   "Weather Station",
+   "Cielo Sereno Observatory",
+   200,
+   "place"
+  ],
+  [
+   "Weather Station",
+   "Railroad Junction",
+   220,
+   "place"
+  ],
+  [
+   "Weather Station",
+   "Railyard",
+   230,
+   "place"
+  ],
+  [
+   "Weather Station",
+   "Freight Terminal",
+   290,
+   "place"
+  ],
+  [
+   "Weather Station",
+   "Supermarket Transceiver",
+   310,
+   "return"
+  ],
+  [
+   "Weather Station",
+   "Northern Transceiver",
+   330,
+   "return"
+  ],
+  [
+   "Weather Station",
+   "Glacial Transceiver",
+   350,
+   "return"
+  ],
+  [
+   "Dispatch Tower",
+   "Northern Tracks",
+   80,
+   "place"
+  ],
+  [
+   "Dispatch Tower",
+   "Frozen River",
+   150,
+   "place"
+  ],
+  [
+   "Dispatch Tower",
+   "Almatera Station",
+   170,
+   "place"
+  ],
+  [
+   "Dispatch Tower",
+   "Porta Benvenuti",
+   180,
+   "place"
+  ],
+  [
+   "Dispatch Tower",
+   "Researcher Lodgings",
+   210,
+   "place"
+  ],
+  [
+   "Dispatch Tower",
+   "Northern Transceiver",
+   130,
+   "return"
+  ],
+  [
+   "Dispatch Tower",
+   "Supermarket Transceiver",
+   300,
+   "return"
+  ],
+  [
+   "Dispatch Tower",
+   "Reckless Transceiver",
+   380,
+   "return"
+  ],
+  [
+   "Commissary Supermarket",
+   "Transit Tunnel",
+   150,
+   "place"
+  ],
+  [
+   "Commissary Supermarket",
+   "Freight Terminal",
+   220,
+   "place"
+  ],
+  [
+   "Commissary Supermarket",
+   "Railyard",
+   220,
+   "place"
+  ],
+  [
+   "Commissary Supermarket",
+   "Piazza della Rupe",
+   230,
+   "place"
+  ],
+  [
+   "Commissary Supermarket",
+   "Almatera Station",
+   230,
+   "place"
+  ],
+  [
+   "Commissary Supermarket",
+   "Supermarket Transceiver",
+   80,
+   "return"
+  ],
+  [
+   "Commissary Supermarket",
+   "Reckless Transceiver",
+   210,
+   "return"
+  ],
+  [
+   "Commissary Supermarket",
+   "Glacial Transceiver",
+   260,
+   "return"
+  ],
+  [
+   "Piazza della Rupe",
+   "Almatera Village",
+   50,
+   "place"
+  ],
+  [
+   "Piazza della Rupe",
+   "Fallen Emperor",
+   170,
+   "place"
+  ],
+  [
+   "Piazza della Rupe",
+   "Almatera Station",
+   180,
+   "place"
+  ],
+  [
+   "Piazza della Rupe",
+   "Old Town",
+   180,
+   "place"
+  ],
+  [
+   "Piazza della Rupe",
+   "Porta Benvenuti",
+   190,
+   "place"
+  ],
+  [
+   "Piazza della Rupe",
+   "Reckless Transceiver",
+   40,
+   "return"
+  ],
+  [
+   "Piazza della Rupe",
+   "Supermarket Transceiver",
+   250,
+   "return"
+  ],
+  [
+   "Piazza della Rupe",
+   "Northern Transceiver",
+   370,
+   "return"
+  ],
+  [
+   "Frozen River",
+   "Railroad Junction",
+   110,
+   "place"
+  ],
+  [
+   "Frozen River",
+   "Dispatch Tower",
+   150,
+   "place"
+  ],
+  [
+   "Frozen River",
+   "Almatera Station",
+   150,
+   "place"
+  ],
+  [
+   "Frozen River",
+   "Northern Tracks",
+   150,
+   "place"
+  ],
+  [
+   "Frozen River",
+   "Porta Benvenuti",
+   220,
+   "place"
+  ],
+  [
+   "Frozen River",
+   "Northern Transceiver",
+   60,
+   "return"
+  ],
+  [
+   "Frozen River",
+   "Supermarket Transceiver",
+   170,
+   "return"
+  ],
+  [
+   "Frozen River",
+   "Reckless Transceiver",
+   330,
+   "return"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Railyard",
+   80,
+   "place"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Freight Terminal",
+   140,
+   "place"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Weather Station",
+   150,
+   "place"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Railroad Junction",
+   240,
+   "place"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Commissary Supermarket",
+   240,
+   "place"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Glacial Transceiver",
+   200,
+   "return"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Supermarket Transceiver",
+   230,
+   "return"
+  ],
+  [
+   "Controlled Receiving Facility",
+   "Northern Transceiver",
+   360,
+   "return"
+  ],
+  [
+   "Transit Tunnel",
+   "Commissary Supermarket",
+   150,
+   "place"
+  ],
+  [
+   "Transit Tunnel",
+   "Freight Terminal",
+   160,
+   "place"
+  ],
+  [
+   "Transit Tunnel",
+   "Railyard",
+   210,
+   "place"
+  ],
+  [
+   "Transit Tunnel",
+   "Controlled Receiving Facility",
+   270,
+   "place"
+  ],
+  [
+   "Transit Tunnel",
+   "Old Town",
+   280,
+   "place"
+  ],
+  [
+   "Transit Tunnel",
+   "Glacial Transceiver",
+   160,
+   "return"
+  ],
+  [
+   "Transit Tunnel",
+   "Supermarket Transceiver",
+   230,
+   "return"
+  ],
+  [
+   "Transit Tunnel",
+   "Reckless Transceiver",
+   280,
+   "return"
+  ],
+  [
+   "Porta Benvenuti",
+   "Almatera Station",
+   80,
+   "place"
+  ],
+  [
+   "Porta Benvenuti",
+   "Dispatch Tower",
+   180,
+   "place"
+  ],
+  [
+   "Porta Benvenuti",
+   "Piazza della Rupe",
+   190,
+   "place"
+  ],
+  [
+   "Porta Benvenuti",
+   "Almatera Village",
+   200,
+   "place"
+  ],
+  [
+   "Porta Benvenuti",
+   "Frozen River",
+   220,
+   "place"
+  ],
+  [
+   "Porta Benvenuti",
+   "Reckless Transceiver",
+   220,
+   "return"
+  ],
+  [
+   "Porta Benvenuti",
+   "Northern Transceiver",
+   250,
+   "return"
+  ],
+  [
+   "Porta Benvenuti",
+   "Supermarket Transceiver",
+   270,
+   "return"
+  ],
+  [
+   "Fallen Emperor",
+   "Almatera Village",
+   120,
+   "place"
+  ],
+  [
+   "Fallen Emperor",
+   "Piazza della Rupe",
+   170,
+   "place"
+  ],
+  [
+   "Fallen Emperor",
+   "Old Town",
+   230,
+   "place"
+  ],
+  [
+   "Fallen Emperor",
+   "Porta Benvenuti",
+   270,
+   "place"
+  ],
+  [
+   "Fallen Emperor",
+   "Almatera Station",
+   310,
+   "place"
+  ],
+  [
+   "Fallen Emperor",
+   "Reckless Transceiver",
+   180,
+   "return"
+  ],
+  [
+   "Fallen Emperor",
+   "Supermarket Transceiver",
+   420,
+   "return"
+  ],
+  [
+   "Fallen Emperor",
+   "Northern Transceiver",
+   500,
+   "return"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Deep-Space Telescope",
+   120,
+   "place"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Weather Station",
+   200,
+   "place"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Railroad Junction",
+   230,
+   "place"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Frozen River",
+   300,
+   "place"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Northern Tracks",
+   320,
+   "place"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Northern Transceiver",
+   260,
+   "return"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Supermarket Transceiver",
+   380,
+   "return"
+  ],
+  [
+   "Cielo Sereno Observatory",
+   "Glacial Transceiver",
+   530,
+   "return"
+  ]
+ ],
+ "note": "All distances published as 'about N m'. Every return point on Pendola Pass is a Transceiver (Reckless, Supermarket, Glacial, Northern); tagged 'return'. Old Town and Railyard are the Pendola Pass variants (slugs old-town-pendola-pass, railyard-pendola-pass)."
+}

@@ -1,0 +1,742 @@
+{
+ "map": "spaceport",
+ "source_pages": [
+  "https://allthings.how/arc-raiders/map/the-spaceport/",
+  "https://allthings.how/arc-raiders/map/departure-building/",
+  "https://allthings.how/arc-raiders/map/launch-towers/",
+  "https://allthings.how/arc-raiders/map/rocket-assembly/",
+  "https://allthings.how/arc-raiders/map/container-storage/",
+  "https://allthings.how/arc-raiders/map/fuel-depot/",
+  "https://allthings.how/arc-raiders/map/the-trench/",
+  "https://allthings.how/arc-raiders/map/west-hangar/",
+  "https://allthings.how/arc-raiders/map/fuel-control/",
+  "https://allthings.how/arc-raiders/map/arrival-building/",
+  "https://allthings.how/arc-raiders/map/east-plains-warehouses/",
+  "https://allthings.how/arc-raiders/map/la-chiesa/",
+  "https://allthings.how/arc-raiders/map/security-checkpoint/",
+  "https://allthings.how/arc-raiders/map/control-tower-a6/",
+  "https://allthings.how/arc-raiders/map/communications-tower/"
+ ],
+ "pairs": [
+  [
+   "The Spaceport",
+   "Launch Towers",
+   60,
+   "place"
+  ],
+  [
+   "The Spaceport",
+   "Fuel Control",
+   190,
+   "place"
+  ],
+  [
+   "The Spaceport",
+   "The Trench",
+   210,
+   "place"
+  ],
+  [
+   "The Spaceport",
+   "South Trench Tower",
+   240,
+   "place"
+  ],
+  [
+   "The Spaceport",
+   "Rocket Assembly",
+   250,
+   "place"
+  ],
+  [
+   "The Spaceport",
+   "Departures Hatch",
+   150,
+   "return"
+  ],
+  [
+   "The Spaceport",
+   "Central Elevator",
+   150,
+   "return"
+  ],
+  [
+   "The Spaceport",
+   "Control Hatch",
+   210,
+   "return"
+  ],
+  [
+   "Departure Building",
+   "Fuel Lines",
+   200,
+   "place"
+  ],
+  [
+   "Departure Building",
+   "Launch Towers",
+   230,
+   "place"
+  ],
+  [
+   "Departure Building",
+   "Arrival Building",
+   240,
+   "place"
+  ],
+  [
+   "Departure Building",
+   "The Spaceport",
+   290,
+   "place"
+  ],
+  [
+   "Departure Building",
+   "Car Park",
+   290,
+   "place"
+  ],
+  [
+   "Departure Building",
+   "West Elevator",
+   160,
+   "return"
+  ],
+  [
+   "Departure Building",
+   "South Elevator",
+   250,
+   "return"
+  ],
+  [
+   "Departure Building",
+   "Central Elevator",
+   280,
+   "return"
+  ],
+  [
+   "Launch Towers",
+   "The Spaceport",
+   60,
+   "place"
+  ],
+  [
+   "Launch Towers",
+   "Departure Building",
+   230,
+   "place"
+  ],
+  [
+   "Launch Towers",
+   "Fuel Control",
+   250,
+   "place"
+  ],
+  [
+   "Launch Towers",
+   "The Trench",
+   260,
+   "place"
+  ],
+  [
+   "Launch Towers",
+   "Control Tower A6",
+   270,
+   "place"
+  ],
+  [
+   "Launch Towers",
+   "Central Elevator",
+   140,
+   "return"
+  ],
+  [
+   "Launch Towers",
+   "Departures Hatch",
+   170,
+   "return"
+  ],
+  [
+   "Launch Towers",
+   "Control Hatch",
+   210,
+   "return"
+  ],
+  [
+   "Rocket Assembly",
+   "East Container Yard",
+   110,
+   "place"
+  ],
+  [
+   "Rocket Assembly",
+   "Fuel Control",
+   110,
+   "place"
+  ],
+  [
+   "Rocket Assembly",
+   "Little Hangar",
+   220,
+   "place"
+  ],
+  [
+   "Rocket Assembly",
+   "The Spaceport",
+   250,
+   "place"
+  ],
+  [
+   "Rocket Assembly",
+   "East Plains Warehouses",
+   260,
+   "place"
+  ],
+  [
+   "Rocket Assembly",
+   "Trench Hatch East",
+   140,
+   "return"
+  ],
+  [
+   "Rocket Assembly",
+   "Departures Hatch",
+   200,
+   "return"
+  ],
+  [
+   "Rocket Assembly",
+   "East Elevator",
+   240,
+   "return"
+  ],
+  [
+   "Container Storage",
+   "Control Tower A6",
+   160,
+   "place"
+  ],
+  [
+   "Container Storage",
+   "Vehicle Maintenance",
+   170,
+   "place"
+  ],
+  [
+   "Container Storage",
+   "East Plains",
+   260,
+   "place"
+  ],
+  [
+   "Container Storage",
+   "Rocket Assembly",
+   290,
+   "place"
+  ],
+  [
+   "Container Storage",
+   "Communications Tower",
+   330,
+   "place"
+  ],
+  [
+   "Container Storage",
+   "East Elevator",
+   170,
+   "return"
+  ],
+  [
+   "Container Storage",
+   "Control Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Container Storage",
+   "Departures Hatch",
+   240,
+   "return"
+  ],
+  [
+   "Fuel Depot",
+   "Jiangsu Warehouse",
+   130,
+   "place"
+  ],
+  [
+   "Fuel Depot",
+   "Car Park",
+   230,
+   "place"
+  ],
+  [
+   "Fuel Depot",
+   "Alberi Hills",
+   300,
+   "place"
+  ],
+  [
+   "Fuel Depot",
+   "Arrival Building",
+   300,
+   "place"
+  ],
+  [
+   "Fuel Depot",
+   "Shipping Warehouse",
+   340,
+   "place"
+  ],
+  [
+   "Fuel Depot",
+   "West Elevator",
+   440,
+   "return"
+  ],
+  [
+   "Fuel Depot",
+   "Central Elevator",
+   460,
+   "return"
+  ],
+  [
+   "Fuel Depot",
+   "Trench Hatch West",
+   460,
+   "return"
+  ],
+  [
+   "The Trench",
+   "South Trench Tower",
+   80,
+   "place"
+  ],
+  [
+   "The Trench",
+   "North Trench Tower",
+   100,
+   "place"
+  ],
+  [
+   "The Trench",
+   "East Hangar",
+   160,
+   "place"
+  ],
+  [
+   "The Trench",
+   "Fuel Control",
+   160,
+   "place"
+  ],
+  [
+   "The Trench",
+   "The Spaceport",
+   210,
+   "place"
+  ],
+  [
+   "The Trench",
+   "Central Elevator",
+   210,
+   "return"
+  ],
+  [
+   "The Trench",
+   "Trench Hatch West",
+   220,
+   "return"
+  ],
+  [
+   "The Trench",
+   "Trench Hatch East",
+   240,
+   "return"
+  ],
+  [
+   "West Hangar",
+   "North Trench Tower",
+   130,
+   "place"
+  ],
+  [
+   "West Hangar",
+   "East Hangar",
+   170,
+   "place"
+  ],
+  [
+   "West Hangar",
+   "South Trench Tower",
+   180,
+   "place"
+  ],
+  [
+   "West Hangar",
+   "West Container Yard",
+   180,
+   "place"
+  ],
+  [
+   "West Hangar",
+   "The Trench",
+   230,
+   "place"
+  ],
+  [
+   "West Hangar",
+   "Trench Hatch West",
+   110,
+   "return"
+  ],
+  [
+   "West Hangar",
+   "Central Elevator",
+   340,
+   "return"
+  ],
+  [
+   "West Hangar",
+   "Trench Hatch East",
+   420,
+   "return"
+  ],
+  [
+   "Fuel Control",
+   "Rocket Assembly",
+   110,
+   "place"
+  ],
+  [
+   "Fuel Control",
+   "East Container Yard",
+   160,
+   "place"
+  ],
+  [
+   "Fuel Control",
+   "The Trench",
+   160,
+   "place"
+  ],
+  [
+   "Fuel Control",
+   "The Spaceport",
+   190,
+   "place"
+  ],
+  [
+   "Fuel Control",
+   "Little Hangar",
+   200,
+   "place"
+  ],
+  [
+   "Fuel Control",
+   "Trench Hatch East",
+   140,
+   "return"
+  ],
+  [
+   "Fuel Control",
+   "Departures Hatch",
+   210,
+   "return"
+  ],
+  [
+   "Fuel Control",
+   "Central Elevator",
+   290,
+   "return"
+  ],
+  [
+   "Arrival Building",
+   "Car Park",
+   70,
+   "place"
+  ],
+  [
+   "Arrival Building",
+   "Shipping Warehouse",
+   180,
+   "place"
+  ],
+  [
+   "Arrival Building",
+   "Departure Building",
+   240,
+   "place"
+  ],
+  [
+   "Arrival Building",
+   "West Container Yard",
+   260,
+   "place"
+  ],
+  [
+   "Arrival Building",
+   "Launch Towers",
+   270,
+   "place"
+  ],
+  [
+   "Arrival Building",
+   "Central Elevator",
+   180,
+   "return"
+  ],
+  [
+   "Arrival Building",
+   "West Elevator",
+   270,
+   "return"
+  ],
+  [
+   "Arrival Building",
+   "Trench Hatch West",
+   330,
+   "return"
+  ],
+  [
+   "East Plains Warehouses",
+   "East Container Yard",
+   170,
+   "place"
+  ],
+  [
+   "East Plains Warehouses",
+   "Rocket Assembly",
+   260,
+   "place"
+  ],
+  [
+   "East Plains Warehouses",
+   "Little Hangar",
+   260,
+   "place"
+  ],
+  [
+   "East Plains Warehouses",
+   "East Plains",
+   300,
+   "place"
+  ],
+  [
+   "East Plains Warehouses",
+   "Fuel Control",
+   330,
+   "place"
+  ],
+  [
+   "East Plains Warehouses",
+   "Trench Hatch East",
+   230,
+   "return"
+  ],
+  [
+   "East Plains Warehouses",
+   "East Elevator",
+   260,
+   "return"
+  ],
+  [
+   "East Plains Warehouses",
+   "Departures Hatch",
+   440,
+   "return"
+  ],
+  [
+   "La Chiesa",
+   "Maintenance Hangar",
+   40,
+   "place"
+  ],
+  [
+   "La Chiesa",
+   "Vehicle Maintenance",
+   230,
+   "place"
+  ],
+  [
+   "La Chiesa",
+   "Staff Parking",
+   250,
+   "place"
+  ],
+  [
+   "La Chiesa",
+   "Fuel Storage",
+   290,
+   "place"
+  ],
+  [
+   "La Chiesa",
+   "Control Tower A6",
+   340,
+   "place"
+  ],
+  [
+   "La Chiesa",
+   "South Elevator",
+   290,
+   "return"
+  ],
+  [
+   "La Chiesa",
+   "Control Hatch",
+   380,
+   "return"
+  ],
+  [
+   "La Chiesa",
+   "Departures Hatch",
+   480,
+   "return"
+  ],
+  [
+   "Security Checkpoint",
+   "Electrical Substation",
+   160,
+   "place"
+  ],
+  [
+   "Security Checkpoint",
+   "Staff Parking",
+   170,
+   "place"
+  ],
+  [
+   "Security Checkpoint",
+   "Service Buildings",
+   250,
+   "place"
+  ],
+  [
+   "Security Checkpoint",
+   "Maintenance Hangar",
+   410,
+   "place"
+  ],
+  [
+   "Security Checkpoint",
+   "Communications Tower",
+   410,
+   "place"
+  ],
+  [
+   "Security Checkpoint",
+   "East Elevator",
+   490,
+   "return"
+  ],
+  [
+   "Security Checkpoint",
+   "Control Hatch",
+   620,
+   "return"
+  ],
+  [
+   "Security Checkpoint",
+   "South Elevator",
+   620,
+   "return"
+  ],
+  [
+   "Control Tower A6",
+   "Vehicle Maintenance",
+   120,
+   "place"
+  ],
+  [
+   "Control Tower A6",
+   "Container Storage",
+   160,
+   "place"
+  ],
+  [
+   "Control Tower A6",
+   "Launch Towers",
+   270,
+   "place"
+  ],
+  [
+   "Control Tower A6",
+   "The Spaceport",
+   270,
+   "place"
+  ],
+  [
+   "Control Tower A6",
+   "Rocket Assembly",
+   300,
+   "place"
+  ],
+  [
+   "Control Tower A6",
+   "Control Hatch",
+   60,
+   "return"
+  ],
+  [
+   "Control Tower A6",
+   "Departures Hatch",
+   140,
+   "return"
+  ],
+  [
+   "Control Tower A6",
+   "South Elevator",
+   160,
+   "return"
+  ],
+  [
+   "Communications Tower",
+   "East Plains",
+   80,
+   "place"
+  ],
+  [
+   "Communications Tower",
+   "Service Buildings",
+   240,
+   "place"
+  ],
+  [
+   "Communications Tower",
+   "Container Storage",
+   330,
+   "place"
+  ],
+  [
+   "Communications Tower",
+   "East Plains Warehouses",
+   340,
+   "place"
+  ],
+  [
+   "Communications Tower",
+   "Security Checkpoint",
+   410,
+   "place"
+  ],
+  [
+   "Communications Tower",
+   "East Elevator",
+   220,
+   "return"
+  ],
+  [
+   "Communications Tower",
+   "Trench Hatch East",
+   520,
+   "return"
+  ],
+  [
+   "Communications Tower",
+   "Departures Hatch",
+   530,
+   "return"
+  ]
+ ]
+}

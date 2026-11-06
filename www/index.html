@@ -283,6 +283,8 @@ const ready = id => !!(MAPS[id] && MAPS[id].rows && MAPS[id].rows.length);  /* h
 const rowsOf = id => ((MAPS[id] || {}).rows || []).map(([k, c, n, y, x]) => ({ k, c, n, y, x }));
 const pt = (n, y, x) => ({ n, y, x });
 let MAP, R, EXITS, HATCHES, ENEMIES, AREAS, PLACES, EXT, ENEMY_WORDS, METRES, WAYS;
+/* map units per metre, per map: the median of 60 to 120 published place-to-place distances each, every map within ±9% (6 Nov) */
+const UNITS_PER_METRE = { "buried-city": 5.61, "dam": 2.66, "pendola-pass": 5.99, "riven-tides": 8.33, "spaceport": 2.14, "stella-montis": 11.18 };
 const byName = s => R.find(r => r.n.toLowerCase().includes(s.toLowerCase()));
 const fromRow = (r, label) => r ? Object.assign(pt(label || r.n, r.y, r.x), { map: MAP.id }) : null;  /* a quest pin remembers its map */
 const pinQ = (id, quest, name, label) => { const r = rowsOf(id).find(r => r.k === "q" && r.c === quest && r.n === name); return r ? Object.assign(pt(label || r.n, r.y, r.x), { map: id }) : null; };
@@ -335,7 +337,7 @@ function useMap(id) {
       ...AREAS,
       ...(D.regions || []).map(a => Object.assign(P(a.n, a.y, a.x, a.al), { pos: posOf(a, MAP.bounds) }))  /* regions: said, not drawn */
     ];
-    METRES = null;  /* not fitted yet, so no distances in metres on this map: directions only */
+    METRES = UNITS_PER_METRE[id] || null;  /* fitted 6 Nov from allthings.how place distances (tools/places/scale.js); none: directions only */
   }
   const ys = PLACES.map(p => p.y), xs = PLACES.map(p => p.x); EXT = { y0: Math.min(...ys), y1: Math.max(...ys), x0: Math.min(...xs), x1: Math.max(...xs) };
   ENEMY_WORDS = Object.keys(ENEMIES);

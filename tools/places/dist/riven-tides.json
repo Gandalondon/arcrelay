@@ -1,0 +1,743 @@
+{
+ "map": "riven-tides",
+ "source_pages": [
+  "https://allthings.how/arc-raiders/map/hotel-panorama-azzurro/",
+  "https://allthings.how/arc-raiders/map/port-authority-building/",
+  "https://allthings.how/arc-raiders/map/stacking-yard/",
+  "https://allthings.how/arc-raiders/map/customs-house/",
+  "https://allthings.how/arc-raiders/map/wharf/",
+  "https://allthings.how/arc-raiders/map/azzurro-beach/",
+  "https://allthings.how/arc-raiders/map/quay/",
+  "https://allthings.how/arc-raiders/map/railyard-riven-tides/",
+  "https://allthings.how/arc-raiders/map/transfer-depot/",
+  "https://allthings.how/arc-raiders/map/weighing-checkpoint/",
+  "https://allthings.how/arc-raiders/map/mulatierra-hill/",
+  "https://allthings.how/arc-raiders/map/wavebreaker/",
+  "https://allthings.how/arc-raiders/map/seabed/",
+  "https://allthings.how/arc-raiders/map/dried-riverbed/",
+  "https://allthings.how/arc-raiders/map/beach-bar/"
+ ],
+ "pairs": [
+  [
+   "Hotel Panorama Azzurro",
+   "Hotel Complex",
+   20,
+   "place"
+  ],
+  [
+   "Hotel Panorama Azzurro",
+   "Beach Bar",
+   60,
+   "place"
+  ],
+  [
+   "Hotel Panorama Azzurro",
+   "Poolside",
+   120,
+   "place"
+  ],
+  [
+   "Hotel Panorama Azzurro",
+   "Tennis Court",
+   150,
+   "place"
+  ],
+  [
+   "Hotel Panorama Azzurro",
+   "Wharf",
+   160,
+   "place"
+  ],
+  [
+   "Hotel Panorama Azzurro",
+   "Saltswept Hatch",
+   130,
+   "return"
+  ],
+  [
+   "Hotel Panorama Azzurro",
+   "Seaside Elevator",
+   240,
+   "return"
+  ],
+  [
+   "Hotel Panorama Azzurro",
+   "Hilltop Hatch",
+   260,
+   "return"
+  ],
+  [
+   "Port Authority Building",
+   "Wreckage",
+   100,
+   "place"
+  ],
+  [
+   "Port Authority Building",
+   "Seabed",
+   120,
+   "place"
+  ],
+  [
+   "Port Authority Building",
+   "Wharf",
+   150,
+   "place"
+  ],
+  [
+   "Port Authority Building",
+   "Wavebreaker",
+   230,
+   "place"
+  ],
+  [
+   "Port Authority Building",
+   "Azzurro Beach",
+   240,
+   "place"
+  ],
+  [
+   "Port Authority Building",
+   "Seaside Elevator",
+   130,
+   "return"
+  ],
+  [
+   "Port Authority Building",
+   "Saltswept Hatch",
+   170,
+   "return"
+  ],
+  [
+   "Port Authority Building",
+   "Hilltop Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Stacking Yard",
+   "Harbor",
+   30,
+   "place"
+  ],
+  [
+   "Stacking Yard",
+   "Transfer Depot",
+   150,
+   "place"
+  ],
+  [
+   "Stacking Yard",
+   "Railyard",
+   150,
+   "place"
+  ],
+  [
+   "Stacking Yard",
+   "Quay",
+   160,
+   "place"
+  ],
+  [
+   "Stacking Yard",
+   "Weighing Checkpoint",
+   170,
+   "place"
+  ],
+  [
+   "Stacking Yard",
+   "Weighbridge Hatch",
+   150,
+   "return"
+  ],
+  [
+   "Stacking Yard",
+   "Hilltop Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Stacking Yard",
+   "Seaside Elevator",
+   240,
+   "return"
+  ],
+  [
+   "Customs House",
+   "Special Handling Tunnel",
+   70,
+   "place"
+  ],
+  [
+   "Customs House",
+   "Mulatierra Hill",
+   100,
+   "place"
+  ],
+  [
+   "Customs House",
+   "Railyard",
+   150,
+   "place"
+  ],
+  [
+   "Customs House",
+   "Weighing Checkpoint",
+   160,
+   "place"
+  ],
+  [
+   "Customs House",
+   "Dried Riverbed",
+   160,
+   "place"
+  ],
+  [
+   "Customs House",
+   "Customs Elevator",
+   30,
+   "return"
+  ],
+  [
+   "Customs House",
+   "Hilltop Hatch",
+   140,
+   "return"
+  ],
+  [
+   "Customs House",
+   "Weighbridge Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Wharf",
+   "Azzurro Beach",
+   110,
+   "place"
+  ],
+  [
+   "Wharf",
+   "Seabed",
+   130,
+   "place"
+  ],
+  [
+   "Wharf",
+   "Beach Bar",
+   140,
+   "place"
+  ],
+  [
+   "Wharf",
+   "Port Authority Building",
+   150,
+   "place"
+  ],
+  [
+   "Wharf",
+   "Hotel Complex",
+   160,
+   "place"
+  ],
+  [
+   "Wharf",
+   "Saltswept Hatch",
+   40,
+   "return"
+  ],
+  [
+   "Wharf",
+   "Seaside Elevator",
+   150,
+   "return"
+  ],
+  [
+   "Wharf",
+   "Hilltop Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Azzurro Beach",
+   "Beach Bar",
+   110,
+   "place"
+  ],
+  [
+   "Azzurro Beach",
+   "Wharf",
+   110,
+   "place"
+  ],
+  [
+   "Azzurro Beach",
+   "Hotel Complex",
+   150,
+   "place"
+  ],
+  [
+   "Azzurro Beach",
+   "Seabed",
+   160,
+   "place"
+  ],
+  [
+   "Azzurro Beach",
+   "Hotel Panorama Azzurro",
+   170,
+   "place"
+  ],
+  [
+   "Azzurro Beach",
+   "Saltswept Hatch",
+   130,
+   "return"
+  ],
+  [
+   "Azzurro Beach",
+   "Seaside Elevator",
+   260,
+   "return"
+  ],
+  [
+   "Azzurro Beach",
+   "Hilltop Hatch",
+   320,
+   "return"
+  ],
+  [
+   "Quay",
+   "Harbor",
+   130,
+   "place"
+  ],
+  [
+   "Quay",
+   "Stacking Yard",
+   160,
+   "place"
+  ],
+  [
+   "Quay",
+   "Transfer Depot",
+   170,
+   "place"
+  ],
+  [
+   "Quay",
+   "Wavebreaker",
+   240,
+   "place"
+  ],
+  [
+   "Quay",
+   "Weighing Checkpoint",
+   270,
+   "place"
+  ],
+  [
+   "Quay",
+   "Weighbridge Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Quay",
+   "Hilltop Hatch",
+   370,
+   "return"
+  ],
+  [
+   "Quay",
+   "Seaside Elevator",
+   400,
+   "return"
+  ],
+  [
+   "Railyard",
+   "Weighing Checkpoint",
+   50,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Special Handling Tunnel",
+   90,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Mulatierra Hill",
+   140,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Stacking Yard",
+   150,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Customs House",
+   150,
+   "place"
+  ],
+  [
+   "Railyard",
+   "Weighbridge Hatch",
+   110,
+   "return"
+  ],
+  [
+   "Railyard",
+   "Hilltop Hatch",
+   130,
+   "return"
+  ],
+  [
+   "Railyard",
+   "Customs Elevator",
+   170,
+   "return"
+  ],
+  [
+   "Transfer Depot",
+   "Weighing Checkpoint",
+   130,
+   "place"
+  ],
+  [
+   "Transfer Depot",
+   "Harbor",
+   130,
+   "place"
+  ],
+  [
+   "Transfer Depot",
+   "Stacking Yard",
+   150,
+   "place"
+  ],
+  [
+   "Transfer Depot",
+   "Railyard",
+   160,
+   "place"
+  ],
+  [
+   "Transfer Depot",
+   "Quay",
+   170,
+   "place"
+  ],
+  [
+   "Transfer Depot",
+   "Weighbridge Hatch",
+   60,
+   "return"
+  ],
+  [
+   "Transfer Depot",
+   "Hilltop Hatch",
+   280,
+   "return"
+  ],
+  [
+   "Transfer Depot",
+   "Customs Elevator",
+   300,
+   "return"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Railyard",
+   50,
+   "place"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Special Handling Tunnel",
+   90,
+   "place"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Transfer Depot",
+   130,
+   "place"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Marano Road",
+   140,
+   "place"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Customs House",
+   160,
+   "place"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Weighbridge Hatch",
+   70,
+   "return"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Customs Elevator",
+   180,
+   "return"
+  ],
+  [
+   "Weighing Checkpoint",
+   "Hilltop Hatch",
+   180,
+   "return"
+  ],
+  [
+   "Mulatierra Hill",
+   "Customs House",
+   100,
+   "place"
+  ],
+  [
+   "Mulatierra Hill",
+   "Special Handling Tunnel",
+   130,
+   "place"
+  ],
+  [
+   "Mulatierra Hill",
+   "Railyard",
+   140,
+   "place"
+  ],
+  [
+   "Mulatierra Hill",
+   "Weighing Checkpoint",
+   180,
+   "place"
+  ],
+  [
+   "Mulatierra Hill",
+   "Dried Riverbed",
+   180,
+   "place"
+  ],
+  [
+   "Mulatierra Hill",
+   "Hilltop Hatch",
+   40,
+   "return"
+  ],
+  [
+   "Mulatierra Hill",
+   "Seaside Elevator",
+   130,
+   "return"
+  ],
+  [
+   "Mulatierra Hill",
+   "Customs Elevator",
+   130,
+   "return"
+  ],
+  [
+   "Wavebreaker",
+   "Wreckage",
+   160,
+   "place"
+  ],
+  [
+   "Wavebreaker",
+   "Stacking Yard",
+   190,
+   "place"
+  ],
+  [
+   "Wavebreaker",
+   "Harbor",
+   200,
+   "place"
+  ],
+  [
+   "Wavebreaker",
+   "Port Authority Building",
+   230,
+   "place"
+  ],
+  [
+   "Wavebreaker",
+   "Quay",
+   240,
+   "place"
+  ],
+  [
+   "Wavebreaker",
+   "Seaside Elevator",
+   280,
+   "return"
+  ],
+  [
+   "Wavebreaker",
+   "Hilltop Hatch",
+   320,
+   "return"
+  ],
+  [
+   "Wavebreaker",
+   "Weighbridge Hatch",
+   340,
+   "return"
+  ],
+  [
+   "Seabed",
+   "Port Authority Building",
+   120,
+   "place"
+  ],
+  [
+   "Seabed",
+   "Wharf",
+   130,
+   "place"
+  ],
+  [
+   "Seabed",
+   "Azzurro Beach",
+   160,
+   "place"
+  ],
+  [
+   "Seabed",
+   "Wreckage",
+   220,
+   "place"
+  ],
+  [
+   "Seabed",
+   "Beach Bar",
+   250,
+   "place"
+  ],
+  [
+   "Seabed",
+   "Saltswept Hatch",
+   170,
+   "return"
+  ],
+  [
+   "Seabed",
+   "Seaside Elevator",
+   220,
+   "return"
+  ],
+  [
+   "Seabed",
+   "Hilltop Hatch",
+   310,
+   "return"
+  ],
+  [
+   "Dried Riverbed",
+   "Customs House",
+   160,
+   "place"
+  ],
+  [
+   "Dried Riverbed",
+   "Tennis Court",
+   170,
+   "place"
+  ],
+  [
+   "Dried Riverbed",
+   "Mulatierra Hill",
+   180,
+   "place"
+  ],
+  [
+   "Dried Riverbed",
+   "Hotel Panorama Azzurro",
+   190,
+   "place"
+  ],
+  [
+   "Dried Riverbed",
+   "Hotel Complex",
+   200,
+   "place"
+  ],
+  [
+   "Dried Riverbed",
+   "Customs Elevator",
+   160,
+   "return"
+  ],
+  [
+   "Dried Riverbed",
+   "Hilltop Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Dried Riverbed",
+   "Saltswept Hatch",
+   250,
+   "return"
+  ],
+  [
+   "Beach Bar",
+   "Hotel Complex",
+   50,
+   "place"
+  ],
+  [
+   "Beach Bar",
+   "Hotel Panorama Azzurro",
+   60,
+   "place"
+  ],
+  [
+   "Beach Bar",
+   "Poolside",
+   90,
+   "place"
+  ],
+  [
+   "Beach Bar",
+   "Azzurro Beach",
+   110,
+   "place"
+  ],
+  [
+   "Beach Bar",
+   "Wharf",
+   140,
+   "place"
+  ],
+  [
+   "Beach Bar",
+   "Saltswept Hatch",
+   120,
+   "return"
+  ],
+  [
+   "Beach Bar",
+   "Seaside Elevator",
+   250,
+   "return"
+  ],
+  [
+   "Beach Bar",
+   "Hilltop Hatch",
+   290,
+   "return"
+  ]
+ ],
+ "note": "All distances published as 'about N m'. Return points are Raider Hatches and Elevators. Railyard here is the Riven Tides Railyard (slug railyard-riven-tides). Harbor, Hotel Complex, Poolside, Tennis Court, Wreckage, Special Handling Tunnel, Marano Road appear only as To names."
+}

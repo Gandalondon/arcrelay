@@ -1,0 +1,32 @@
+{
+ "buried-city": {
+  "unitsPerMetre": 5.6118,
+  "pairs": 68,
+  "iqrPct": 5
+ },
+ "dam": {
+  "unitsPerMetre": 2.6629,
+  "pairs": 68,
+  "iqrPct": 18
+ },
+ "pendola-pass": {
+  "unitsPerMetre": 5.9851,
+  "pairs": 117,
+  "iqrPct": 2
+ },
+ "riven-tides": {
+  "unitsPerMetre": 8.3019,
+  "pairs": 86,
+  "iqrPct": 14
+ },
+ "spaceport": {
+  "unitsPerMetre": 2.1444,
+  "pairs": 85,
+  "iqrPct": 3
+ },
+ "stella-montis": {
+  "unitsPerMetre": 11.1811,
+  "pairs": 63,
+  "iqrPct": 6
+ }
+}

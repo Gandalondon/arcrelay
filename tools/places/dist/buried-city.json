@@ -1,0 +1,645 @@
+{
+ "map": "buried-city",
+ "source_pages": [
+  "https://allthings.how/arc-raiders/map/hospital/",
+  "https://allthings.how/arc-raiders/map/town-hall/",
+  "https://allthings.how/arc-raiders/map/plaza-rosa/",
+  "https://allthings.how/arc-raiders/map/marano-station/",
+  "https://allthings.how/arc-raiders/map/red-tower/",
+  "https://allthings.how/arc-raiders/map/church-ruins/",
+  "https://allthings.how/arc-raiders/map/west-village/",
+  "https://allthings.how/arc-raiders/map/outskirts/",
+  "https://allthings.how/arc-raiders/map/space-travel/",
+  "https://allthings.how/arc-raiders/map/gas-station/",
+  "https://allthings.how/arc-raiders/map/dunes-end/",
+  "https://allthings.how/arc-raiders/map/research/",
+  "https://allthings.how/arc-raiders/map/santa-maria-houses/"
+ ],
+ "pairs": [
+  [
+   "Hospital",
+   "Market Ruins",
+   60,
+   "place"
+  ],
+  [
+   "Hospital",
+   "Parking Garage",
+   80,
+   "place"
+  ],
+  [
+   "Hospital",
+   "Library",
+   110,
+   "place"
+  ],
+  [
+   "Hospital",
+   "New District",
+   110,
+   "place"
+  ],
+  [
+   "Hospital",
+   "Galleria",
+   130,
+   "place"
+  ],
+  [
+   "Hospital",
+   "Northern Station",
+   70,
+   "return"
+  ],
+  [
+   "Hospital",
+   "Collapsed Supermarket Hatch",
+   70,
+   "return"
+  ],
+  [
+   "Hospital",
+   "Train Station Hatch",
+   220,
+   "return"
+  ],
+  [
+   "Town Hall",
+   "Corso da Vinci",
+   80,
+   "place"
+  ],
+  [
+   "Town Hall",
+   "Research",
+   110,
+   "place"
+  ],
+  [
+   "Town Hall",
+   "Marano Park",
+   110,
+   "place"
+  ],
+  [
+   "Town Hall",
+   "Santa Maria Houses",
+   120,
+   "place"
+  ],
+  [
+   "Town Hall",
+   "Piazza Arbusto",
+   130,
+   "place"
+  ],
+  [
+   "Town Hall",
+   "Highway Overpass Hatch",
+   40,
+   "return"
+  ],
+  [
+   "Town Hall",
+   "Eastern Station",
+   120,
+   "return"
+  ],
+  [
+   "Town Hall",
+   "Western Station",
+   170,
+   "return"
+  ],
+  [
+   "Plaza Rosa",
+   "Old Town",
+   50,
+   "place"
+  ],
+  [
+   "Plaza Rosa",
+   "Main Street",
+   50,
+   "place"
+  ],
+  [
+   "Plaza Rosa",
+   "Santa Maria Houses",
+   80,
+   "place"
+  ],
+  [
+   "Plaza Rosa",
+   "Red Tower",
+   90,
+   "place"
+  ],
+  [
+   "Plaza Rosa",
+   "Corso da Vinci",
+   140,
+   "place"
+  ],
+  [
+   "Plaza Rosa",
+   "Southern Station",
+   20,
+   "return"
+  ],
+  [
+   "Plaza Rosa",
+   "Eastern Station",
+   130,
+   "return"
+  ],
+  [
+   "Plaza Rosa",
+   "Old Town Hatch",
+   150,
+   "return"
+  ],
+  [
+   "Marano Station",
+   "Outskirts",
+   100,
+   "place"
+  ],
+  [
+   "Marano Station",
+   "Library",
+   120,
+   "place"
+  ],
+  [
+   "Marano Station",
+   "Warehouse",
+   140,
+   "place"
+  ],
+  [
+   "Marano Station",
+   "Piazza Roma",
+   140,
+   "place"
+  ],
+  [
+   "Marano Station",
+   "Su Durante Warehouses",
+   190,
+   "place"
+  ],
+  [
+   "Marano Station",
+   "Train Station Hatch",
+   20,
+   "return"
+  ],
+  [
+   "Marano Station",
+   "Western Station",
+   160,
+   "return"
+  ],
+  [
+   "Marano Station",
+   "Northern Station",
+   180,
+   "return"
+  ],
+  [
+   "Red Tower",
+   "Old Town",
+   50,
+   "place"
+  ],
+  [
+   "Red Tower",
+   "Plaza Rosa",
+   90,
+   "place"
+  ],
+  [
+   "Red Tower",
+   "Santa Maria Houses",
+   110,
+   "place"
+  ],
+  [
+   "Red Tower",
+   "Main Street",
+   120,
+   "place"
+  ],
+  [
+   "Red Tower",
+   "Piazza Arbusto",
+   150,
+   "place"
+  ],
+  [
+   "Red Tower",
+   "Eastern Station",
+   70,
+   "return"
+  ],
+  [
+   "Red Tower",
+   "Southern Station",
+   100,
+   "return"
+  ],
+  [
+   "Red Tower",
+   "Highway Overpass Hatch",
+   170,
+   "return"
+  ],
+  [
+   "Church Ruins",
+   "Red Tower",
+   170,
+   "place"
+  ],
+  [
+   "Church Ruins",
+   "Piazza Arbusto",
+   220,
+   "place"
+  ],
+  [
+   "Church Ruins",
+   "Old Town",
+   220,
+   "place"
+  ],
+  [
+   "Church Ruins",
+   "Plaza Rosa",
+   240,
+   "place"
+  ],
+  [
+   "Church Ruins",
+   "Santa Maria Houses",
+   280,
+   "place"
+  ],
+  [
+   "Church Ruins",
+   "Eastern Station",
+   200,
+   "return"
+  ],
+  [
+   "Church Ruins",
+   "Southern Station",
+   240,
+   "return"
+  ],
+  [
+   "Church Ruins",
+   "Highway Overpass Hatch",
+   290,
+   "return"
+  ],
+  [
+   "West Village",
+   "Piazza Roma",
+   90,
+   "place"
+  ],
+  [
+   "West Village",
+   "Grandioso Apartments",
+   100,
+   "place"
+  ],
+  [
+   "West Village",
+   "Corso da Vinci",
+   140,
+   "place"
+  ],
+  [
+   "West Village",
+   "Abandoned Highway Camp",
+   150,
+   "place"
+  ],
+  [
+   "West Village",
+   "Santa Maria Houses",
+   180,
+   "place"
+  ],
+  [
+   "West Village",
+   "Western Station",
+   60,
+   "return"
+  ],
+  [
+   "West Village",
+   "Old Town Hatch",
+   120,
+   "return"
+  ],
+  [
+   "West Village",
+   "Train Station Hatch",
+   190,
+   "return"
+  ],
+  [
+   "Outskirts",
+   "Marano Station",
+   100,
+   "place"
+  ],
+  [
+   "Outskirts",
+   "Su Durante Warehouses",
+   110,
+   "place"
+  ],
+  [
+   "Outskirts",
+   "Library",
+   160,
+   "place"
+  ],
+  [
+   "Outskirts",
+   "Warehouse",
+   190,
+   "place"
+  ],
+  [
+   "Outskirts",
+   "Gas Station",
+   220,
+   "place"
+  ],
+  [
+   "Outskirts",
+   "Train Station Hatch",
+   120,
+   "return"
+  ],
+  [
+   "Outskirts",
+   "Northern Station",
+   210,
+   "return"
+  ],
+  [
+   "Outskirts",
+   "Collapsed Supermarket Hatch",
+   250,
+   "return"
+  ],
+  [
+   "Space Travel",
+   "New District",
+   30,
+   "place"
+  ],
+  [
+   "Space Travel",
+   "Research",
+   40,
+   "place"
+  ],
+  [
+   "Space Travel",
+   "Parking Garage",
+   60,
+   "place"
+  ],
+  [
+   "Space Travel",
+   "Galleria",
+   70,
+   "place"
+  ],
+  [
+   "Space Travel",
+   "Marano Park",
+   110,
+   "place"
+  ],
+  [
+   "Space Travel",
+   "Northern Station",
+   120,
+   "return"
+  ],
+  [
+   "Space Travel",
+   "Highway Overpass Hatch",
+   140,
+   "return"
+  ],
+  [
+   "Space Travel",
+   "Collapsed Supermarket Hatch",
+   190,
+   "return"
+  ],
+  [
+   "Gas Station",
+   "Su Durante Warehouses",
+   120,
+   "place"
+  ],
+  [
+   "Gas Station",
+   "Market Ruins",
+   140,
+   "place"
+  ],
+  [
+   "Gas Station",
+   "Hospital",
+   140,
+   "place"
+  ],
+  [
+   "Gas Station",
+   "Library",
+   200,
+   "place"
+  ],
+  [
+   "Gas Station",
+   "Dune's End",
+   210,
+   "place"
+  ],
+  [
+   "Gas Station",
+   "Collapsed Supermarket Hatch",
+   90,
+   "return"
+  ],
+  [
+   "Gas Station",
+   "Northern Station",
+   200,
+   "return"
+  ],
+  [
+   "Gas Station",
+   "Train Station Hatch",
+   290,
+   "return"
+  ],
+  [
+   "Dune's End",
+   "Galleria",
+   80,
+   "place"
+  ],
+  [
+   "Dune's End",
+   "Market Ruins",
+   90,
+   "place"
+  ],
+  [
+   "Dune's End",
+   "Hospital",
+   140,
+   "place"
+  ],
+  [
+   "Dune's End",
+   "Parking Garage",
+   140,
+   "place"
+  ],
+  [
+   "Dune's End",
+   "New District",
+   140,
+   "place"
+  ],
+  [
+   "Dune's End",
+   "Collapsed Supermarket Hatch",
+   130,
+   "return"
+  ],
+  [
+   "Dune's End",
+   "Northern Station",
+   180,
+   "return"
+  ],
+  [
+   "Dune's End",
+   "Highway Overpass Hatch",
+   280,
+   "return"
+  ],
+  [
+   "Research",
+   "Space Travel",
+   40,
+   "place"
+  ],
+  [
+   "Research",
+   "New District",
+   50,
+   "place"
+  ],
+  [
+   "Research",
+   "Marano Park",
+   80,
+   "place"
+  ],
+  [
+   "Research",
+   "Parking Garage",
+   80,
+   "place"
+  ],
+  [
+   "Research",
+   "Galleria",
+   100,
+   "place"
+  ],
+  [
+   "Research",
+   "Highway Overpass Hatch",
+   110,
+   "return"
+  ],
+  [
+   "Research",
+   "Northern Station",
+   120,
+   "return"
+  ],
+  [
+   "Research",
+   "Western Station",
+   200,
+   "return"
+  ],
+  [
+   "Santa Maria Houses",
+   "Main Street",
+   50,
+   "place"
+  ],
+  [
+   "Santa Maria Houses",
+   "Corso da Vinci",
+   60,
+   "place"
+  ],
+  [
+   "Santa Maria Houses",
+   "Old Town",
+   60,
+   "place"
+  ],
+  [
+   "Santa Maria Houses",
+   "Plaza Rosa",
+   80,
+   "place"
+  ],
+  [
+   "Santa Maria Houses",
+   "Red Tower",
+   110,
+   "place"
+  ],
+  [
+   "Santa Maria Houses",
+   "Southern Station",
+   110,
+   "return"
+  ],
+  [
+   "Santa Maria Houses",
+   "Eastern Station",
+   110,
+   "return"
+  ],
+  [
+   "Santa Maria Houses",
+   "Old Town Hatch",
+   130,
+   "return"
+  ]
+ ],
+ "note": "Return points include Metro stations (Northern/Eastern/Western/Southern Station) as well as Raider Hatches."
+}

@@ -20,7 +20,7 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 
 ## Next (pick one)
 1. Tony on the Pixel: map buttons, location-only reply, About links open the browser, "show me the Dam map", Hey Relay with game audio.
-2. Distances for the other six maps (fit METRES per map; directions only now).
+2. Done 6 Nov: distances on all seven maps. Scales fitted from allthings.how place pages (`tools/places/dist/*.json`, `node tools/places/scale.js`), typical error 1 to 10%; `tests/maps.js` checks them. Dam's central complex is the roughest (multi-level, published figures disagree). Fixed MetaForge's "Hiltop hatch" to Hilltop Hatch.
 3. Items for the other maps (Blue Gate only).
 4. Understanding (6 Nov): held-out set 14/25 to 25/25; a second set written before the fixes scored 21/25 cold, 25/25 after. Both are now tuned against, so write a fresh `tests/heldout3.js` before the next round. Fixed by pattern: casual done/arrived wording, way home/bail, wiped/lobby deaths, jumping back in, home safe, quest plus step described by what you're doing, "ta, that's me". `SET=adversarial` guards look-alikes ("go home to roost", "lost all my shield", "I'm out of ammo").
 5. Settle the flagged quests in game (notes in each quest file).

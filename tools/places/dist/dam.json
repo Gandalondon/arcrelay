@@ -1,0 +1,693 @@
+{
+ "map": "dam",
+ "source_pages": [
+  "https://allthings.how/arc-raiders/map/the-dam/",
+  "https://allthings.how/arc-raiders/map/swamp/",
+  "https://allthings.how/arc-raiders/map/red-lakes/",
+  "https://allthings.how/arc-raiders/map/formicai-outpost/",
+  "https://allthings.how/arc-raiders/map/pale-apartments/",
+  "https://allthings.how/arc-raiders/map/control-tower/",
+  "https://allthings.how/arc-raiders/map/victory-ridge/",
+  "https://allthings.how/arc-raiders/map/scrap-yard/",
+  "https://allthings.how/arc-raiders/map/research-administration/",
+  "https://allthings.how/arc-raiders/map/pattern-house/",
+  "https://allthings.how/arc-raiders/map/west-broken-bridge/",
+  "https://allthings.how/arc-raiders/map/hydroponic-dome-complex/",
+  "https://allthings.how/arc-raiders/map/small-creek/",
+  "https://allthings.how/arc-raiders/map/electrical-substation-dam-battlegrounds/"
+ ],
+ "pairs": [
+  [
+   "The Dam",
+   "Floodgates",
+   40,
+   "place"
+  ],
+  [
+   "The Dam",
+   "The Breach",
+   100,
+   "place"
+  ],
+  [
+   "The Dam",
+   "Control Tower",
+   190,
+   "place"
+  ],
+  [
+   "The Dam",
+   "Primary Facility",
+   200,
+   "place"
+  ],
+  [
+   "The Dam",
+   "Controlled Access Zone",
+   230,
+   "place"
+  ],
+  [
+   "The Dam",
+   "Red Lakes Hatch",
+   310,
+   "return"
+  ],
+  [
+   "The Dam",
+   "Water Treatment Elevator",
+   330,
+   "return"
+  ],
+  [
+   "The Dam",
+   "North Complex Elevator",
+   380,
+   "return"
+  ],
+  [
+   "Swamp",
+   "South Swamp Outpost",
+   110,
+   "place"
+  ],
+  [
+   "Swamp",
+   "Water Treatment Control",
+   150,
+   "place"
+  ],
+  [
+   "Swamp",
+   "Old Battleground",
+   160,
+   "place"
+  ],
+  [
+   "Swamp",
+   "Electrical Substation",
+   300,
+   "place"
+  ],
+  [
+   "Swamp",
+   "Ben Welder's Sunroof",
+   320,
+   "place"
+  ],
+  [
+   "Swamp",
+   "Central Swamp Lift",
+   150,
+   "return"
+  ],
+  [
+   "Swamp",
+   "Water Treatment Elevator",
+   250,
+   "return"
+  ],
+  [
+   "Swamp",
+   "Good Old Baron's Hatch",
+   260,
+   "return"
+  ],
+  [
+   "Red Lakes",
+   "Pipeline Tower",
+   280,
+   "place"
+  ],
+  [
+   "Red Lakes",
+   "East Broken Bridge",
+   290,
+   "place"
+  ],
+  [
+   "Red Lakes",
+   "Red Lakes Balcony",
+   310,
+   "place"
+  ],
+  [
+   "Red Lakes",
+   "The Breach",
+   340,
+   "place"
+  ],
+  [
+   "Red Lakes",
+   "Electrical Tower",
+   340,
+   "place"
+  ],
+  [
+   "Red Lakes",
+   "Red Lakes Hatch",
+   160,
+   "return"
+  ],
+  [
+   "Red Lakes",
+   "Pump House Hatch",
+   180,
+   "return"
+  ],
+  [
+   "Red Lakes",
+   "Red Lakes Balcony Lift",
+   320,
+   "return"
+  ],
+  [
+   "Formicai Outpost",
+   "Scrap Yard",
+   170,
+   "place"
+  ],
+  [
+   "Formicai Outpost",
+   "Formicai Hills",
+   210,
+   "place"
+  ],
+  [
+   "Formicai Outpost",
+   "Wreckage",
+   210,
+   "place"
+  ],
+  [
+   "Formicai Outpost",
+   "Small Creek",
+   330,
+   "place"
+  ],
+  [
+   "Formicai Outpost",
+   "Testing Annex",
+   410,
+   "place"
+  ],
+  [
+   "Formicai Outpost",
+   "Red Lakes Balcony Lift",
+   470,
+   "return"
+  ],
+  [
+   "Formicai Outpost",
+   "Water Treatment Elevator",
+   530,
+   "return"
+  ],
+  [
+   "Formicai Outpost",
+   "Good Old Baron's Hatch",
+   550,
+   "return"
+  ],
+  [
+   "Pale Apartments",
+   "Ben Welder's Sunroof",
+   140,
+   "place"
+  ],
+  [
+   "Pale Apartments",
+   "Ruby Residence",
+   200,
+   "place"
+  ],
+  [
+   "Pale Apartments",
+   "Old Battleground",
+   250,
+   "place"
+  ],
+  [
+   "Pale Apartments",
+   "Victory Ridge",
+   350,
+   "place"
+  ],
+  [
+   "Pale Apartments",
+   "Swamp",
+   390,
+   "place"
+  ],
+  [
+   "Pale Apartments",
+   "Sunroof Hatch",
+   110,
+   "return"
+  ],
+  [
+   "Pale Apartments",
+   "Central Swamp Lift",
+   300,
+   "return"
+  ],
+  [
+   "Pale Apartments",
+   "Water Treatment Elevator",
+   570,
+   "return"
+  ],
+  [
+   "Control Tower",
+   "Research & Administration",
+   80,
+   "place"
+  ],
+  [
+   "Control Tower",
+   "Primary Facility",
+   120,
+   "place"
+  ],
+  [
+   "Control Tower",
+   "Floodgates",
+   160,
+   "place"
+  ],
+  [
+   "Control Tower",
+   "Red Lakes Balcony",
+   180,
+   "place"
+  ],
+  [
+   "Control Tower",
+   "The Dam",
+   190,
+   "place"
+  ],
+  [
+   "Control Tower",
+   "Red Lakes Hatch",
+   240,
+   "return"
+  ],
+  [
+   "Control Tower",
+   "Water Treatment Elevator",
+   270,
+   "return"
+  ],
+  [
+   "Control Tower",
+   "Red Lakes Balcony Lift",
+   280,
+   "return"
+  ],
+  [
+   "Victory Ridge",
+   "Ruby Residence",
+   150,
+   "place"
+  ],
+  [
+   "Victory Ridge",
+   "West Broken Bridge",
+   200,
+   "place"
+  ],
+  [
+   "Victory Ridge",
+   "Hydroponic Dome Complex",
+   250,
+   "place"
+  ],
+  [
+   "Victory Ridge",
+   "Ben Welder's Sunroof",
+   270,
+   "place"
+  ],
+  [
+   "Victory Ridge",
+   "Pale Apartments",
+   350,
+   "place"
+  ],
+  [
+   "Victory Ridge",
+   "Sunroof Hatch",
+   270,
+   "return"
+  ],
+  [
+   "Victory Ridge",
+   "North Complex Elevator",
+   390,
+   "return"
+  ],
+  [
+   "Victory Ridge",
+   "Central Swamp Lift",
+   420,
+   "return"
+  ],
+  [
+   "Scrap Yard",
+   "Wreckage",
+   130,
+   "place"
+  ],
+  [
+   "Scrap Yard",
+   "Formicai Outpost",
+   170,
+   "place"
+  ],
+  [
+   "Scrap Yard",
+   "Small Creek",
+   170,
+   "place"
+  ],
+  [
+   "Scrap Yard",
+   "Formicai Hills",
+   190,
+   "place"
+  ],
+  [
+   "Scrap Yard",
+   "Electrical Substation",
+   290,
+   "place"
+  ],
+  [
+   "Scrap Yard",
+   "Water Treatment Elevator",
+   370,
+   "return"
+  ],
+  [
+   "Scrap Yard",
+   "Red Lakes Balcony Lift",
+   380,
+   "return"
+  ],
+  [
+   "Scrap Yard",
+   "Good Old Baron's Hatch",
+   450,
+   "return"
+  ],
+  [
+   "Research & Administration",
+   "Control Tower",
+   80,
+   "place"
+  ],
+  [
+   "Research & Administration",
+   "Small Creek",
+   120,
+   "place"
+  ],
+  [
+   "Research & Administration",
+   "Primary Facility",
+   120,
+   "place"
+  ],
+  [
+   "Research & Administration",
+   "Red Lakes Balcony",
+   190,
+   "place"
+  ],
+  [
+   "Research & Administration",
+   "Floodgates",
+   230,
+   "place"
+  ],
+  [
+   "Research & Administration",
+   "Water Treatment Elevator",
+   240,
+   "return"
+  ],
+  [
+   "Research & Administration",
+   "Red Lakes Balcony Lift",
+   280,
+   "return"
+  ],
+  [
+   "Research & Administration",
+   "Red Lakes Hatch",
+   290,
+   "return"
+  ],
+  [
+   "Pattern House",
+   "Generator Hall",
+   140,
+   "place"
+  ],
+  [
+   "Pattern House",
+   "West Broken Bridge",
+   170,
+   "place"
+  ],
+  [
+   "Pattern House",
+   "Power Generation Complex",
+   210,
+   "place"
+  ],
+  [
+   "Pattern House",
+   "Controlled Access Zone",
+   250,
+   "place"
+  ],
+  [
+   "Pattern House",
+   "Raider Outpost East",
+   310,
+   "place"
+  ],
+  [
+   "Pattern House",
+   "North Complex Elevator",
+   110,
+   "return"
+  ],
+  [
+   "Pattern House",
+   "Pump House Hatch",
+   490,
+   "return"
+  ],
+  [
+   "Pattern House",
+   "Sunroof Hatch",
+   600,
+   "return"
+  ],
+  [
+   "West Broken Bridge",
+   "Pattern House",
+   170,
+   "place"
+  ],
+  [
+   "West Broken Bridge",
+   "Victory Ridge",
+   200,
+   "place"
+  ],
+  [
+   "West Broken Bridge",
+   "Generator Hall",
+   260,
+   "place"
+  ],
+  [
+   "West Broken Bridge",
+   "Controlled Access Zone",
+   330,
+   "place"
+  ],
+  [
+   "West Broken Bridge",
+   "Hydroponic Dome Complex",
+   350,
+   "place"
+  ],
+  [
+   "West Broken Bridge",
+   "North Complex Elevator",
+   250,
+   "return"
+  ],
+  [
+   "West Broken Bridge",
+   "Sunroof Hatch",
+   470,
+   "return"
+  ],
+  [
+   "West Broken Bridge",
+   "Central Swamp Lift",
+   580,
+   "return"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "The Breach",
+   240,
+   "place"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "The Dam",
+   250,
+   "place"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "Victory Ridge",
+   250,
+   "place"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "Floodgates",
+   260,
+   "place"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "Controlled Access Zone",
+   270,
+   "place"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "Central Swamp Lift",
+   270,
+   "return"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "Sunroof Hatch",
+   300,
+   "return"
+  ],
+  [
+   "Hydroponic Dome Complex",
+   "North Complex Elevator",
+   360,
+   "return"
+  ],
+  [
+   "Small Creek",
+   "Research & Administration",
+   120,
+   "place"
+  ],
+  [
+   "Small Creek",
+   "Wreckage",
+   170,
+   "place"
+  ],
+  [
+   "Small Creek",
+   "Scrap Yard",
+   170,
+   "place"
+  ],
+  [
+   "Small Creek",
+   "Control Tower",
+   200,
+   "place"
+  ],
+  [
+   "Small Creek",
+   "Primary Facility",
+   210,
+   "place"
+  ],
+  [
+   "Small Creek",
+   "Water Treatment Elevator",
+   260,
+   "return"
+  ],
+  [
+   "Small Creek",
+   "Red Lakes Balcony Lift",
+   290,
+   "return"
+  ],
+  [
+   "Small Creek",
+   "Red Lakes Hatch",
+   370,
+   "return"
+  ],
+  [
+   "Electrical Substation",
+   "Water Towers",
+   150,
+   "place"
+  ],
+  [
+   "Electrical Substation",
+   "Water Treatment Control",
+   220,
+   "place"
+  ],
+  [
+   "Electrical Substation",
+   "Formicai Hills",
+   260,
+   "place"
+  ],
+  [
+   "Electrical Substation",
+   "Small Creek",
+   280,
+   "place"
+  ],
+  [
+   "Electrical Substation",
+   "Scrap Yard",
+   290,
+   "place"
+  ],
+  [
+   "Electrical Substation",
+   "Good Old Baron's Hatch",
+   170,
+   "return"
+  ],
+  [
+   "Electrical Substation",
+   "Water Treatment Elevator",
+   190,
+   "return"
+  ],
+  [
+   "Electrical Substation",
+   "Central Swamp Lift",
+   400,
+   "return"
+  ]
+ ]
+}
