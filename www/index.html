@@ -1033,7 +1033,7 @@ document.addEventListener("visibilitychange", () => { if (!document.hidden) chec
 const WK = CAP && CAP.RelayWake ? CAP.RelayWake : null;
 let wakeOn = false, wakeErr = "";
 function relayIdle() { return !listening && !document.body.classList.contains("speaking") && !document.hidden && Date.now() > convoUntil && $("settings").hidden && $("vlist").hidden && $("maplist").hidden && $("debug").hidden; }
-function wakeStandby() { if (!WK || !CFG.wake || wakeOn || !relayIdle()) return; wakeOn = true; WK.start().catch(e => { wakeOn = false; wakeErr = String(e && e.message || e); }); if (!S.last) setCtx("Say \u201cHey Relay\u201d, or tap."); }
+function wakeStandby() { if (!WK || !CFG.wake || wakeOn || !relayIdle()) return; wakeOn = true; WK.start().catch(e => { wakeOn = false; wakeErr = String(e && e.message || e); }); }
 function wakeStop() { if (!WK || !wakeOn) return Promise.resolve(); wakeOn = false; return WK.stop().catch(() => {}); }
 if (WK) {
   WK.addListener("wake", () => { wakeOn = false; setTimeout(() => { if (!listening && !document.body.classList.contains("speaking")) listen(); }, 250); });  /* a beat for the microphone to be released */
@@ -1192,8 +1192,8 @@ function renderReady() {
   const hr = new Date().getHours();
   const part = hr >= 5 && hr < 12 ? "Morning" : hr >= 12 && hr < 18 ? "Afternoon" : "Evening";
   const w = $("word"); w.hidden = false; w.classList.remove("instr"); w.classList.add("greet"); w.style.height = ""; w.style.overflowWrap = ""; w.dataset.map = "";  /* drop the answer headline's fixed box (5 Nov) */ w.innerHTML = esc(part + ", Raider.") + '<span class="gl">' + esc(LINE) + "</span>";
-  setCtx(WK && CFG.wake ? "Say \u201cHey Relay\u201d, or tap." : "");  /* with the greeting, in the same fade, not a moment later when the listener starts (4 Nov) */
-  $("stage").innerHTML = mapPicker();
+  setCtx("");  /* no "Say Hey Relay, or tap" hint any more (6 Nov): onboarding teaches it, the home screen stays quiet */
+  $("stage").innerHTML = mapPicker(null, true);  /* no "Which map?" heading on the home screen (6 Nov): the list speaks for itself */
   fitGreet(w);
   /* the full list doesn't fit under the greeting at its smallest size: the one-row version instead */
   const pk = $("stage").querySelector(".mpick"), st = $("stage");
