@@ -48,7 +48,7 @@ p{margin:0;text-wrap:pretty}
 /* buttons: pills, sentence case */
 .btn{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 32px;border:0;border-radius:999px;background:var(--amber);color:var(--ink);font:600 18px/1 var(--font);letter-spacing:var(--tr-text);white-space:nowrap;cursor:pointer;transition:background .2s ease}
 .btn:hover{background:var(--amber-hi)}
-.btn.soon,.btn.soon:hover{background:transparent;color:var(--text-hi);box-shadow:inset 0 0 0 2px rgba(238,232,220,.4);cursor:default}  /* not a link until open testing (7 Nov) */
+.btn.soon,.btn.soon:hover{background:var(--amber);cursor:default}  /* amber like every button, but not a link until open testing (7 Nov) */
 .btn.sm{height:44px;padding:0 20px;font-size:16px}
 
 /* header (5 Nov): a solid charcoal bar fixed to the top on every page, mark only (the name stays for screen readers). It never changes colour. */
