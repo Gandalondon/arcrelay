@@ -8,3 +8,5 @@ module.exports = [
   { id: 'whole', map: 'blue-gate', place: 'Village', ask: 'any apricots near me', click: '#full' },  // portfolio: the whole map
 ];
 module.exports.push({ id: 'quest', map: 'blue-gate', place: 'Village', ask: "I'm on A First Foothold, step 2" });  // homepage: Get help on quests
+module.exports.push({ id: 'moss', map: 'blue-gate', place: 'Village', ask: 'find me some moss' });  // portfolio pair: ask for anything
+module.exports.push({ id: 'cache', map: 'blue-gate', place: 'Checkpoint', ask: "where's the nearest raider cache" });
