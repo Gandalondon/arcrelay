@@ -44,9 +44,9 @@ Open testing plan (6 Nov, for when Tony says we're ready; not yet):
    - [x] Hidden diagnostics (press and hold the version line) kept on purpose, for bug reports.
    - [x] Version numbers come from the build (BUILD_NUMBER), nothing to bump by hand.
    - [ ] Tony decides: MetaForge credit on the holding page too (it shows no maps; every /beta page already credits them). Copy goes through the Google Doc first.
-   - [x] Swap prepared 7 Nov (pushed when Tony says): full site at the root, holding page kept in `tools/hero/holding-page-7nov.html`, /beta/* redirects to the same page at the root (so app and Play links keep working), noindex gone, robots allows all, sitemap.xml, canonical and og tags. v3/v4 tests deleted.
+   - [x] Swap prepared 7 Nov, not live: commit c399dd5 does the move (full site to the root, holding page to `tools/hero/`, /beta/* redirects so app and Play links keep working, noindex gone, robots allow, sitemap). It went live by mistake and was undone the same day; to go live, revert the undo commit. Already in /beta: final canonical and og tags, feedback as an email link, privacy fixes. v3/v4 tests deleted.
    - [ ] Before it goes live: the four homepage phone screens are still placeholders (Listening, nearest Bastion, nearest exit, quest step); "Get the app" is an unlinked label until open testing (then "Test the app").
-   - [ ] Play Console: store listing (Tony), privacy policy URL getarcrelay.app/privacy (/beta/privacy redirects), data safety form (no data collected, no account), content rating, closed test track first.
+   - [ ] Play Console: store listing (Tony), privacy policy URL getarcrelay.app/privacy after go-live (/beta/privacy redirects there), data safety form (no data collected, no account), content rating, closed test track first.
    - [ ] Fresh held-out set (tests/heldout3.js) from Tony's raid notes, scored cold before any fixes.
 
 ## Where things are
@@ -54,7 +54,7 @@ Open testing plan (6 Nov, for when Tony says we're ready; not yet):
 - Repo: github.com/Gandalondon/relay (was spottr, then arcrelay; GitHub forwards the old addresses), branch main. Mac copy: `~/ArcRelay` (git clone; pull after each push).
 - App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js` (understanding, 175/175; `SET=heldout`, `SET=heldout2`, `SET=adversarial` for the extra sets) and `node tests/maps.js` (every map's markers well formed and inside its bounds).
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
-- Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. Full site at the root from 7 Nov (was /beta behind a holding page); /beta/* redirects. Feedback is a mailto to feedback@getarcrelay.app (the form never sent: ImprovMX refuses Brevo mail).
+- Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. getarcrelay.app = holding page; getarcrelay.app/beta = full site (noindex); go-live prepared (see release checklist). Feedback is a mailto to feedback@getarcrelay.app (the form never sent: ImprovMX refuses Brevo mail).
 - Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Raid Voice Guide".
 - Email: *@getarcrelay.app forwards to tony@gandalondon.com via ImprovMX (second account, Tony's personal Gmail login). DNS records in Vercel.
 - Map data: MetaForge (metaforge.app). Map images allowed with credit "at the bottom of every page" (Discord ticket #2061, 1 Nov 2026). `www/data-bluegate.js` (markers), `www/data-bluegate-places.js` (28 named areas, fitted with `tools/places/`).

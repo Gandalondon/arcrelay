@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://getarcrelay.app/sitemap.xml
+Disallow: /beta/

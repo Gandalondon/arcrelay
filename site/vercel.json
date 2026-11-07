@@ -3,27 +3,40 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/index",
-      "destination": "/",
+      "source": "/beta/index",
+      "destination": "/beta/",
       "permanent": true
     },
     {
-      "source": "/beta",
-      "destination": "/",
-      "permanent": true
+      "source": "/beta/v2",
+      "destination": "/beta/",
+      "permanent": false
     },
     {
-      "source": "/beta/:path(index|v2|v3|v4|v5)",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/beta/:path*",
-      "destination": "/:path*",
-      "permanent": true
+      "source": "/beta/v5",
+      "destination": "/beta/",
+      "permanent": false
     }
   ],
   "headers": [
+    {
+      "source": "/beta",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/beta/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
     {
       "source": "/fonts/(.*)",
       "headers": [

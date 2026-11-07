@@ -7,7 +7,7 @@ const scale=+process.argv[2]||2;
 (async()=>{const b=await chromium.launch();
 const p=await b.newPage({viewport:{width:1728,height:1117},deviceScaleFactor:scale,reducedMotion:'reduce'});
 const errs=[];p.on('pageerror',e=>errs.push(e.message));
-await p.goto("http://localhost:8766/index.html");await p.waitForTimeout(1200);
+await p.goto("http://localhost:8766/beta/index.html");await p.waitForTimeout(1200);
 const fs=require("fs");const imgs={};for(const f of ["relay-2-listening.png","relay-3-find.png","relay-4-exit.png"])imgs[f]="data:image/png;base64,"+fs.readFileSync(S+f).toString("base64");
 await p.evaluate((imgs)=>{
  const css=`
