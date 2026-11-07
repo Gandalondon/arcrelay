@@ -4,7 +4,7 @@ Writes marketing/portfolio/relay_app.png at 1x (3560 x 1717, transparent backgro
 from PIL import Image, ImageChops
 import os
 D = os.path.join(os.path.dirname(__file__), "../../marketing/portfolio")
-SCREENS = ["relay-1-home.png", "relay-2-listening.png", "relay-3-find.png", "relay-4-exit.png"]
+SCREENS = ["relay-1-listening.png", "relay-2-find.png", "relay-3-exit.png", "relay-4-loot.png"]  # from tools/captures (7 Nov)
 # From the Figma file (1x): phone 837.457 x 1714.983, screen at 44.077, 42.073, size 751.307 x 1626.830; phones at these x.
 PX = [0, 907.514, 1815.029, 2722.543]
 S = 2  # work at 2x, then halve
