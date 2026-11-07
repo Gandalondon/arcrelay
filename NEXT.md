@@ -1,16 +1,16 @@
-# Relay: where we are (Thursday 5 November 2026)
+# Relay: where we are (Saturday 7 November 2026)
 
 Start a new conversation by reading this file, then the style guide.
 
 ## The project in one paragraph
 Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Android companion for ARC Raiders (Pixel 9). Ask out loud ("Hey Relay" or tap), it answers out loud and shows a map: nearest exit, quest steps, items, "not that one" rerouting. Everything runs on the phone. All seven maps have markers, places and quests; distances on every map (6 Nov); items are Blue Gate only. Rules: £0 to run (no paid services or keys), UK English, no em dashes, no widows, palette charcoal #1C1E22 / panel #26282D / ink #15171C / cream #EEE8DC / amber #F2B33D, Inter Tight, Material Symbols Rounded only. Push to main only when Tony says push; Claude pushes itself. Run `node tests/run.js` before every commit. The style guide is the rulebook: edit `tools/style-guide/template.html`, then `python3 tools/style-guide/make.py` builds `src/docs/style-guide.html` (never edit the built file).
-- Name (5 Nov): the brand is Relay. Domain getarcrelay.app unchanged; repo renamed to relay (5 Nov). Package renamed to app.getarcrelay (5 Nov, matches Play Console; Sniff is app.getsniff); Java in `android/app/src/main/java/app/getarcrelay/`. Builds from 1.0.86 install as a new app: re-add it in Obtainium (APK is now relay.apk), re-download voices and the offline speech pack, then uninstall the old one. Play title "Relay: Raid Voice Guide"; "for ARC Raiders" lives in the short and full descriptions. Tony updates Play Console himself.
+- Name (5 Nov): the brand is Relay. Domain getarcrelay.app unchanged; repo renamed to relay (5 Nov). Package renamed to app.getarcrelay (5 Nov, matches Play Console; Sniff is app.getsniff); Java in `android/app/src/main/java/app/getarcrelay/`. Builds from 1.0.86 install as a new app: re-add it in Obtainium (APK is now relay.apk), re-download voices and the offline speech pack, then uninstall the old one. Play title "Relay: Arc Raiders Voice Guide" (7 Nov, was "Relay: Raid Voice Guide"); "for ARC Raiders" lives in the short and full descriptions. Tony updates Play Console himself.
 
 ## Site, 5 Nov
 - Typeface is Inter Tight everywhere (app, site, style guide): -1% tracking on big words, 0 on section headings, +1% on body text. Barlow is gone.
 - getarcrelay.app/beta is the new homepage: stacked "Hey / Relay", one 3D phone that travels down, parks on the right and cross-fades screens while the four features scroll past (order: Need a quick evac?, Just ask., Find what you need., Show it where you are.), then "Ask. Find. / Get out." with the phone turned the other way showing the time-of-day greeting. Phones: stacked rows, words only in the finale. Built by `tools/hero/make_v5.py` (run from site/beta); the old homepage is kept in `tools/hero/old-homepage-4nov.html`. /beta/v2 and /beta/v5 forward to /beta; v3 and v4 are the earlier landing tests.
 - Every /beta page: solid sticky bar (88 px, 72 on phones), mark only, gutters to the page edge.
-- Mac copy is ~/ArcRelay. Package app.getarcrelay from 1.0.86 (see Name above).
+- Mac copy is ~/Relay. Package app.getarcrelay from 1.0.86 (see Name above).
 
 ## 7 Nov: real screens everywhere
 - `tools/captures/`: `capture.js` renders every app screen from `www/index.html` with real MetaForge tiles (kept in `tools/captures/tiles/`, any missing ones listed in `missing.txt`); scenes and their words in `scenes.js`. `publish.py` then fills the /beta homepage phones, the two onboarding pictures, the portfolio screens and `relay_app.png`. Play art: `android-release/play-listing/source` (render.js, finish.py) uses the same captures; screenshot 4 is now Get help on quests.
@@ -55,11 +55,11 @@ Open testing plan (6 Nov, for when Tony says we're ready; not yet):
 
 ## Where things are
 - Site copy (5 Nov): Google Doc "Relay" in Drive Claude/Relay, every page of getarcrelay.app: https://docs.google.com/document/d/1hS12w_3GLEDgG62_lDrAJV3aB_Nl2Je9P-BKeoo7MrU/edit . Tony edits there; copy changes go from the doc to the site, and any wording changed on the site goes back into the doc. Site only, not the app.
-- Repo: github.com/Gandalondon/relay (was spottr, then arcrelay; GitHub forwards the old addresses), branch main. Mac copy: `~/ArcRelay` (git clone; pull after each push).
+- Repo: github.com/Gandalondon/relay (was spottr, then arcrelay; GitHub forwards the old addresses), branch main. Mac copy: `~/Relay` (git clone; pull after each push).
 - App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js` (understanding, 175/175; `SET=heldout`, `SET=heldout2`, `SET=adversarial` for the extra sets) and `node tests/maps.js` (every map's markers well formed and inside its bounds).
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
 - Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. getarcrelay.app = holding page; getarcrelay.app/beta = full site (noindex); go-live prepared (see release checklist). Feedback is a mailto to feedback@getarcrelay.app (the form never sent: ImprovMX refuses Brevo mail).
-- Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Raid Voice Guide".
+- Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Arc Raiders Voice Guide" (7 Nov).
 - Email: *@getarcrelay.app forwards to tony@gandalondon.com via ImprovMX (second account, Tony's personal Gmail login). DNS records in Vercel.
 - Map data: MetaForge (metaforge.app). Map images allowed with credit "at the bottom of every page" (Discord ticket #2061, 1 Nov 2026). `www/data-bluegate.js` (markers), `www/data-bluegate-places.js` (28 named areas, fitted with `tools/places/`).
 
@@ -92,7 +92,7 @@ Per map (Blue Gate is the template; roughly a day each):
 Map switching: DONE 5 Nov. `useMap(id)` rebuilds exits, hatches, ARC, places and wording for the map in use (`S.map`, kept for the raid). A map name or a place only one ready map has switches; several: "Which map?"; no markers yet: "X: not yet." A quest step pinned on another map switches to it. Per map: places in `www/data-<map>-places.js` (Dam: MetaForge labels plus spoken aliases), `METRES` (Blue Gate 5.5; the rest from `UNITS_PER_METRE`, fitted 6 Nov), items are Blue Gate only. Order: the map Tony plays most after Blue Gate first, Pendola Pass last.
 
 ## Onboarding (built 5 Nov)
-- **Before release: remove the invisible test skip** (`#obskip`, top right, in `www/index.html`; marked TEST BUILD ONLY). Shows once per install (`relay-onb` in storage).
+- **Before release: remove both test switches** in `www/index.html`: `OB_EVERY_OPEN` (onboarding on every open and on return from the background) and the invisible skip `#obskip` (top right, marked TEST BUILD ONLY). With them gone, onboarding shows once per install (`relay-onb` in storage).
 - Screens 2 and 3 (`www/onboard-find.webp`, `www/onboard-exit.webp`) and the site screens are regenerated from the live app with the real Blue Gate tiles (5 Nov): tiles are saved in `android-release/play-listing/source/tiles`, run `recapture.js` then `composite.py`. No Pixel screenshots needed.
 - Play Store visuals: on hold; the relay-play-listing-art skill is there for when Tony asks.
 
@@ -106,7 +106,7 @@ Also: Settings voice row says "Offline. Tap to change." (drop "Supertonic"; cred
 
 ## Other to-dos (smaller)
 - Play packaging: a signed AAB with an upload key (like Sniff). App label on the phone is now "Relay" (1.0.68), matching Play and the site. Wake phrase stays "Hey Relay".
-- Site feedback: done 7 Nov, an email link instead of the form.
+- Site feedback: done 7 Nov, an amber text link to feedback@getarcrelay.app (no button, no underline) instead of the form.
 - Style guide Gaps: done 4 Nov (48 px map buttons, "Maps by MetaForge" everywhere, dead `.gkey input` styles gone, names under the map buttons hidden). 75% cream secondary text kept as the one exception.
 - Block taps outside the playable area if MetaForge publishes a boundary.
 - Estimates only: screen-off listening, live exit status. Loot tiers: parked (Tony, 4 Nov). MetaForge only has 8 loot zone points on Blue Gate anyway.

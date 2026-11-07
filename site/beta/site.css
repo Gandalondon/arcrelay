@@ -162,7 +162,9 @@ canvas.topo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-even
 @media (max-width:600px){ .kv{grid-template-columns:minmax(0,1fr);gap:4px} .kv div:nth-child(odd):not(:first-child){margin-top:16px} }
 
 /* feedback (7 Nov): an email link, not a form. The form could not send (ImprovMX refuses Brevo mail). */
-.fb{margin-top:64px;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.fb{margin-top:40px;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.fblink{color:var(--amber);font-size:var(--lede);line-height:var(--lede-lh);font-weight:500;overflow-wrap:anywhere;transition:color .2s ease}  /* feedback: amber text link, no underline, no button (7 Nov) */
+.fblink:hover{color:var(--amber-hi)}
 
 /* fade-ins, from Sniff: each block rises 8px and fades in once, as a unit */
 .rv .reveal{opacity:0;transform:translateY(8px);transition:opacity .6s ease-out,transform .6s ease-out}
