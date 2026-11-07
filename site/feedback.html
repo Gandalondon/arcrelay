@@ -1,12 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-<base href="/beta/">
-<meta name="robots" content="noindex">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Feedback · Relay</title>
 <meta name="description" content="Tell us what Relay got wrong, or what it should do next.">
+<link rel="canonical" href="https://getarcrelay.app/feedback">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Relay">
+<meta property="og:title" content="Feedback · Relay">
+<meta property="og:description" content="Tell us what Relay got wrong, or what it should do next.">
+<meta property="og:url" content="https://getarcrelay.app/feedback">
+<meta name="theme-color" content="#1C1E22">
 <link rel="stylesheet" href="site.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 72 72%27%3E%3Crect width=%2772%27 height=%2772%27 rx=%2716%27 fill=%27%231C1E22%27/%3E%3Cg fill=%27none%27 stroke=%27%23F2B33D%27 stroke-width=%2710%27%3E%3Cpath d=%27M -10 12 H 14 A 46 46 0 0 1 60 58 V 82%27/%3E%3Cpath d=%27M -10 28 H 14 A 30 30 0 0 1 44 58 V 82%27/%3E%3Cpath d=%27M -10 44 H 14 A 14 14 0 0 1 28 58 V 82%27/%3E%3C/g%3E%3C/svg%3E">
 </head>
 <body>
@@ -22,12 +27,8 @@
   <div class="wrap">
     <div class="col reveal"><h1>Feedback</h1>
     <p class="intro">Sent the wrong way? Missing a step? Got an idea? Tell us. Wrong directions are the most useful thing you can report.</p>
-    <form class="fb" id="fb" novalidate>
-      <div class="fbfield"><label for="fb-msg">Your message</label><div class="field"><textarea id="fb-msg" name="message" required></textarea></div></div>
-      <div class="fbfield"><label for="fb-email">Email (optional, if you would like a reply)</label><div class="field"><input id="fb-email" name="email" type="email" autocomplete="email"></div></div>
-      <div><button class="btn" type="submit" id="fb-send">Send feedback</button></div>
-      <p class="status" id="fb-status" aria-live="polite"></p>
-    </form>
+    <div class="fb"><a class="btn" href="mailto:feedback@getarcrelay.app?subject=Relay%20feedback">Email feedback</a>
+    <p class="fbaddr">Opens your email app. Or write to <a href="mailto:feedback@getarcrelay.app">feedback@getarcrelay.app</a>.</p></div>
     </div>
   </div>
 </main>

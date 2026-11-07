@@ -88,25 +88,3 @@ document.querySelectorAll(".ftop nav a").forEach(a => { if (location.pathname.re
 
 reveal(); logoIn(); drawAll();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
-
-/* ============ feedback form (feedback page only) ============ */
-(function () {
-  const form = document.getElementById("fb"); if (!form) return;
-  const status = document.getElementById("fb-status"), send = document.getElementById("fb-send");
-  form.addEventListener("submit", async e => {
-    e.preventDefault();
-    const msg = document.getElementById("fb-msg").value.trim();
-    const email = document.getElementById("fb-email").value.trim();
-    if (msg.length < 2) { status.className = "status err"; status.textContent = "Write a message first."; document.getElementById("fb-msg").focus(); return; }
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { status.className = "status err"; status.textContent = "That email doesn't look right. Leave it empty if you don't need a reply."; return; }
-    send.disabled = true; status.className = "status"; status.textContent = "Sending...";
-    try {
-      const db = window.claude && window.claude.use ? await window.claude.use("db") : null;
-      if (!db) { status.className = "status"; status.textContent = "The feedback form opens with the app. Thanks for trying."; return; }
-      await db.collection("feedback").add({ message: msg.slice(0, 5000), email: email.slice(0, 200), at: new Date().toISOString() });
-      form.reset(); status.className = "status ok"; status.textContent = "Sent. Thanks, Raider.";
-    } catch (err) {
-      status.className = "status err"; status.textContent = "That didn't send. Please try again in a moment.";
-    } finally { send.disabled = false; }
-  });
-})();

@@ -35,7 +35,7 @@ Loot finder (6 Nov): 21,214 spots of 33 types on all seven maps from MetaForge's
 Open testing plan (6 Nov, for when Tony says we're ready; not yet):
    - Play Console: promote the closed test to an open testing track (anyone can join from the Play listing, no invite list).
    - Site: "Get the app" becomes "Test the app" (header and every CTA) and links to the Play open-testing listing.
-   - Site: a short, plain disclaimer by the button and on How it works: Relay is in testing, things may be wrong or change, feedback welcome (link to /beta/feedback). Copy through the Google Doc first.
+   - Site: a short, plain disclaimer by the button and on How it works: Relay is in testing, things may be wrong or change, feedback welcome (link to /feedback). Copy through the Google Doc first.
    - App: About says "Test build" with the version; feedback link in Settings stays.
    - Feedback loop: feedback@ mail goes to Tony; misheard phrases go into the next held-out test set.
    - Before switching: release checklist below done, homepage copy and screens refreshed (see the USP plan), materials and plants in.
@@ -44,8 +44,9 @@ Open testing plan (6 Nov, for when Tony says we're ready; not yet):
    - [x] Hidden diagnostics (press and hold the version line) kept on purpose, for bug reports.
    - [x] Version numbers come from the build (BUILD_NUMBER), nothing to bump by hand.
    - [ ] Tony decides: MetaForge credit on the holding page too (it shows no maps; every /beta page already credits them). Copy goes through the Google Doc first.
-   - [ ] Swap the holding page for the full site (/beta to root) when the app is live.
-   - [ ] Play Console: store listing (Tony), privacy policy URL getarcrelay.app/beta/privacy (or /privacy after the swap), data safety form (no data collected, no account), content rating, closed test track first.
+   - [x] Swap prepared 7 Nov (pushed when Tony says): full site at the root, holding page kept in `tools/hero/holding-page-7nov.html`, /beta/* redirects to the same page at the root (so app and Play links keep working), noindex gone, robots allows all, sitemap.xml, canonical and og tags. v3/v4 tests deleted.
+   - [ ] Before it goes live: the four homepage phone screens are still placeholders (Listening, nearest Bastion, nearest exit, quest step); "Get the app" is an unlinked label until open testing (then "Test the app").
+   - [ ] Play Console: store listing (Tony), privacy policy URL getarcrelay.app/privacy (/beta/privacy redirects), data safety form (no data collected, no account), content rating, closed test track first.
    - [ ] Fresh held-out set (tests/heldout3.js) from Tony's raid notes, scored cold before any fixes.
 
 ## Where things are
@@ -53,7 +54,7 @@ Open testing plan (6 Nov, for when Tony says we're ready; not yet):
 - Repo: github.com/Gandalondon/relay (was spottr, then arcrelay; GitHub forwards the old addresses), branch main. Mac copy: `~/ArcRelay` (git clone; pull after each push).
 - App: `www/index.html` (whole app), native plugins in `android/app/src/main/java/app/getarcrelay/`. Tests: `node tests/run.js` (understanding, 175/175; `SET=heldout`, `SET=heldout2`, `SET=adversarial` for the extra sets) and `node tests/maps.js` (every map's markers well formed and inside its bounds).
 - Builds: GitHub Actions makes APK releases `v1.0.N` on each push that touches the app; Tony installs via Obtainium. Pushes touching only `site/`, `android-release/`, `marketing/`, `src/docs/`, `tools/style-guide/` or `*.md` skip the build.
-- Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. getarcrelay.app = holding page; getarcrelay.app/beta = full site (noindex).
+- Site: `site/` on Vercel project "arcrelay" (Ganda team, Hobby), root directory `site`. Full site at the root from 7 Nov (was /beta behind a holding page); /beta/* redirects. Feedback is a mailto to feedback@getarcrelay.app (the form never sent: ImprovMX refuses Brevo mail).
 - Play listing: `android-release/` (icon, 2 screenshots, feature graphic, listing text, alt text, README). App name on Play: "Relay: Raid Voice Guide".
 - Email: *@getarcrelay.app forwards to tony@gandalondon.com via ImprovMX (second account, Tony's personal Gmail login). DNS records in Vercel.
 - Map data: MetaForge (metaforge.app). Map images allowed with credit "at the bottom of every page" (Discord ticket #2061, 1 Nov 2026). `www/data-bluegate.js` (markers), `www/data-bluegate-places.js` (28 named areas, fitted with `tools/places/`).
@@ -101,7 +102,7 @@ Also: Settings voice row says "Offline. Tap to change." (drop "Supertonic"; cred
 
 ## Other to-dos (smaller)
 - Play packaging: a signed AAB with an upload key (like Sniff). App label on the phone is now "Relay" (1.0.68), matching Play and the site. Wake phrase stays "Hey Relay".
-- Site feedback form doesn't send (ImprovMX refuses Brevo mail). Parked by Tony (4 Nov): using the app first.
+- Site feedback: done 7 Nov, an email link instead of the form.
 - Style guide Gaps: done 4 Nov (48 px map buttons, "Maps by MetaForge" everywhere, dead `.gkey input` styles gone, names under the map buttons hidden). 75% cream secondary text kept as the one exception.
 - Block taps outside the playable area if MetaForge publishes a boundary.
 - Estimates only: screen-off listening, live exit status. Loot tiers: parked (Tony, 4 Nov). MetaForge only has 8 loot zone points on Blue Gate anyway.
