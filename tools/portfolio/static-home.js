@@ -1,14 +1,14 @@
 // Static homepage for the portfolio: flat rows, no animation, real app screens in the phones.
 // Run from the repo root: (cd site && python3 -m http.server 8766 &) ; node tools/portfolio/static-home.js 2
 // Writes marketing/portfolio/relay_home.png (3456 wide at 2x). Screens come from marketing/portfolio/relay-*.png
-const {chromium}=require(require.resolve("playwright",{paths:["/home/claude/relay/tests"]}));
+const {chromium}=require(require.resolve("playwright",{paths:[process.env.PW||"/home/claude/relay/tests"]}));
 const S=require("path").resolve(__dirname,"../../marketing/portfolio")+"/";
 const scale=+process.argv[2]||2;
-(async()=>{const b=await chromium.launch();
+(async()=>{const b=await chromium.launch({executablePath:process.env.CHROME||undefined});
 const p=await b.newPage({viewport:{width:1728,height:1117},deviceScaleFactor:scale,reducedMotion:'reduce'});
 const errs=[];p.on('pageerror',e=>errs.push(e.message));
 await p.goto("http://localhost:8766/beta/index.html");await p.waitForTimeout(1200);
-const fs=require("fs");const imgs={};for(const f of ["relay-2-listening.png","relay-3-find.png","relay-4-exit.png"])imgs[f]="data:image/png;base64,"+fs.readFileSync(S+f).toString("base64");
+const imgs={};  // the homepage has the real screens since 7 Nov
 await p.evaluate((imgs)=>{
  const css=`
  .hdr{position:absolute!important}
@@ -28,8 +28,6 @@ await p.evaluate((imgs)=>{
  .heyhero{padding-bottom:40px}
  `;
  const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
- const map={0:'relay-3-find.png',1:'relay-4-exit.png',2:'relay-2-listening.png'};
- document.querySelectorAll('.steps .step').forEach(s=>{const i=+s.dataset.i;const sc=s.querySelector('.screen.shot');if(map[i]!==undefined){sc.innerHTML='<img src="'+imgs[map[i]]+'">';}});
  document.querySelectorAll('[data-greet]').forEach(g=>g.textContent='Evening,\nRaider.');
 },imgs);
 await p.waitForTimeout(1500);

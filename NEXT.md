@@ -12,6 +12,10 @@ Relay (formerly ArcRelay) is Tony Goff-Yu's free, unofficial, voice-first Androi
 - Every /beta page: solid sticky bar (88 px, 72 on phones), mark only, gutters to the page edge.
 - Mac copy is ~/ArcRelay. Package app.getarcrelay from 1.0.86 (see Name above).
 
+## 7 Nov: real screens everywhere
+- `tools/captures/`: `capture.js` renders every app screen from `www/index.html` with real MetaForge tiles (kept in `tools/captures/tiles/`, any missing ones listed in `missing.txt`); scenes and their words in `scenes.js`. `publish.py` then fills the /beta homepage phones, the two onboarding pictures, the portfolio screens and `relay_app.png`. Play art: `android-release/play-listing/source` (render.js, finish.py) uses the same captures; screenshot 4 is now Get help on quests.
+- /beta: Get the app is a non-tappable Coming soon label until open testing.
+
 ## Site, 6 Nov (pushed)
 - /beta homepage replaced by the new version (draft.html gone): features Nearest anything, Under fire?, Just ask., Quest steps. In testing. Placeholder screens on the page colour until real captures; no "Free. No account. No ads." line. Edited by hand now; `tools/hero/make_v5.py` is retired.
 - How it works: app's current icons (locate, route, expand), new sections Find the nearest anything, Quest steps in testing, See the whole map; every phrase in Things to say checked against the app. Credits: distances on all maps from allthings.how.
